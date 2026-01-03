@@ -1,0 +1,12 @@
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/dto/PermissionDTO.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/dto/RoleDTO.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/dto/UserDTO.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/entity/SysPermission.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/entity/SysRole.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/entity/SysUser.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/mapper/UserMapper.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/repository/SysUserRepository.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/repository/UserRepository.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/service/CaptchaService.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/service/ConstantService.java
+/Users/dengxueping/Documents/minnote/open-source/terra-ems-v3/terra-ems-system/src/main/java/com/terra/ems/system/service/SysUserService.java
