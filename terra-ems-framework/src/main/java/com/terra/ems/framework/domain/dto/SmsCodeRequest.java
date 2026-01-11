@@ -1,7 +1,7 @@
 /*
- * MIT License
+ * Copyright (c) 2024 泰若科技（广州）有限公司. All rights reserved.
  *
- * Copyright (c) 2024 Terra EMS
+ *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,9 +28,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 /**
+ * Name: SmsCodeRequest.java
+ * Email: dengxueping@gmail.com
+ * Date: 2026-01-10
+ * Description:
  * 短信验证码请求DTO
  *
- * @author Terra EMS
+ * @author dengxueping
  */
 public record SmsCodeRequest(
         @NotBlank(message = "手机号不能为空") @Pattern(regexp = "^1[3-9]\\d{9}$", message = "手机号格式不正确") String phoneNumber) {

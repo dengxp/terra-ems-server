@@ -1,0 +1,149 @@
+/*
+ * Copyright (c) 2024 泰若科技（广州）有限公司. All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
+
+package com.terra.ems.ems.controller;
+
+import com.terra.ems.common.domain.Result;
+import com.terra.ems.ems.entity.EnergyType;
+import com.terra.ems.ems.service.EnergyTypeService;
+import com.terra.ems.framework.enums.DataItemStatus;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * 能源类型控制器
+ *
+ * @author dengxueping
+ */
+@Tag(name = "能源类型管理")
+@RestController
+@RequestMapping("/energy-types")
+@RequiredArgsConstructor
+public class EnergyTypeController {
+
+    private final EnergyTypeService energyTypeService;
+
+    @Operation(summary = "分页查询能源类型")
+    @GetMapping
+    public Result<Page<EnergyType>> list(
+            @Parameter(description = "编码") @RequestParam(required = false) String code,
+            @Parameter(description = "名称") @RequestParam(required = false) String name,
+            @Parameter(description = "类别") @RequestParam(required = false) String category,
+            @Parameter(description = "状态值") @RequestParam(required = false) Integer status,
+            @Parameter(description = "页码") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") int size) {
+
+        DataItemStatus statusEnum = status != null ? DataItemStatus.fromValue(status) : null;
+        Pageable pageable = PageRequest.of(page, size, Sort.by("sortOrder").ascending());
+        Page<EnergyType> result = energyTypeService.findPage(code, name, category, statusEnum, pageable);
+        return Result.content(result);
+    }
+
+    @Operation(summary = "查询所有启用的能源类型")
+    @GetMapping("/enabled")
+    public Result<List<EnergyType>> listEnabled() {
+        return Result.content(energyTypeService.findAllEnabled());
+    }
+
+    @Operation(summary = "根据ID查询能源类型")
+    @GetMapping("/{id}")
+    public Result<EnergyType> getById(@PathVariable Long id) {
+        return java.util.Optional.ofNullable(energyTypeService.findById(id))
+                .map(Result::content)
+                .orElse(Result.failure("能源类型不存在"));
+    }
+
+    @Operation(summary = "根据编码查询能源类型")
+    @GetMapping("/code/{code}")
+    public Result<EnergyType> getByCode(@PathVariable String code) {
+        return energyTypeService.findByCode(code)
+                .map(Result::content)
+                .orElse(Result.failure("能源类型不存在"));
+    }
+
+    @Operation(summary = "创建能源类型")
+    @PostMapping
+    public Result<EnergyType> create(@RequestBody EnergyType energyType) {
+        try {
+            EnergyType created = energyTypeService.create(energyType);
+            return Result.content(created);
+        } catch (IllegalArgumentException e) {
+            return Result.failure(e.getMessage());
+        }
+    }
+
+    @Operation(summary = "更新能源类型")
+    @PutMapping("/{id}")
+    public Result<EnergyType> update(@PathVariable Long id, @RequestBody EnergyType energyType) {
+        try {
+            EnergyType updated = energyTypeService.update(id, energyType);
+            return Result.content(updated);
+        } catch (IllegalArgumentException e) {
+            return Result.failure(e.getMessage());
+        }
+    }
+
+    @Operation(summary = "删除能源类型")
+    @DeleteMapping("/{id}")
+    public Result<Void> delete(@PathVariable Long id) {
+        try {
+            energyTypeService.delete(id);
+            return Result.success();
+        } catch (IllegalArgumentException e) {
+            return Result.failure(e.getMessage());
+        }
+    }
+
+    @Operation(summary = "批量删除能源类型")
+    @DeleteMapping("/batch")
+    public Result<Void> deleteBatch(@RequestParam List<Long> ids) {
+        try {
+            energyTypeService.deleteBatch(ids);
+            return Result.success();
+        } catch (IllegalArgumentException e) {
+            return Result.failure(e.getMessage());
+        }
+    }
+
+    @Operation(summary = "修改能源类型状态")
+    @PatchMapping("/{id}/status")
+    public Result<EnergyType> updateStatus(
+            @PathVariable Long id,
+            @RequestParam DataItemStatus status) {
+        try {
+            EnergyType updated = energyTypeService.updateStatus(id, status);
+            return Result.content(updated);
+        } catch (IllegalArgumentException e) {
+            return Result.failure(e.getMessage());
+        }
+    }
+}

@@ -1,7 +1,7 @@
 /*
- * MIT License
+ * Copyright (c) 2024 泰若科技（广州）有限公司. All rights reserved.
  *
- * Copyright (c) 2024 Terra EMS
+ *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,9 +29,13 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
+ * Name: SmsLoginRequest.java
+ * Email: dengxueping@gmail.com
+ * Date: 2026-01-10
+ * Description:
  * 短信登录请求DTO
  *
- * @author Terra EMS
+ * @author dengxueping
  */
 public record SmsLoginRequest(
         @NotBlank(message = "手机号不能为空") @Pattern(regexp = "^1[3-9]\\d{9}$", message = "手机号格式不正确") String phone,

@@ -34,36 +34,19 @@ import java.io.Serializable;
  * Name: BaseController
  * Email: dengxueping@gmail.com
  * Date: 2024-12-14
- * Description: Spring Data JPA 基础 controller 定义，支持 DTO 模式
+ * Description: Spring Data JPA 基础 controller 定义
  *
  * @param <E>  Entity 实体类型
- * @param <D>  DTO 数据传输对象类型
  * @param <ID> 主键类型
  * @author dengxueping
  */
-public abstract class BaseController<E extends Entity, D, ID extends Serializable>
+public abstract class BaseController<E extends Entity, ID extends Serializable>
         extends WritableController<E, ID> {
 
     /**
      * 获取Service实例（子类必须实现）
      */
     protected abstract BaseService<E, ID> getService();
-
-    /**
-     * Entity 转 DTO（子类必须实现）
-     * 
-     * @param entity 实体对象
-     * @return DTO 对象
-     */
-    protected abstract D toDTO(E entity);
-
-    /**
-     * DTO 转 Entity（子类必须实现）
-     * 
-     * @param dto DTO 对象
-     * @return 实体对象
-     */
-    protected abstract E toEntity(D dto);
 
     @Override
     protected WritableService<E, ID> getWritableService() {

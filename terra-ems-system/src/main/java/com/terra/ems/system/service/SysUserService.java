@@ -1,7 +1,7 @@
 /*
- * MIT License
+ * Copyright (c) 2024 泰若科技（广州）有限公司. All rights reserved.
  *
- * Copyright (c) 2024 Terra EMS
+ *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,21 +47,28 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
+ * Name: SysUserService.java
+ * Email: dengxueping@gmail.com
+ * Date: 2026-01-10
+ * Description:
  * 用户服务实现
  * <p>
  * 集成 UserDetailsService 用于 Spring Security 认证
  *
- * @author Terra EMS
+ * @author dengxueping
  */
 @Service
 public class SysUserService extends BaseService<SysUser, Long> implements UserDetailsService {
 
     private final SysUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SysDeptService deptService;
 
-    public SysUserService(SysUserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public SysUserService(SysUserRepository userRepository, PasswordEncoder passwordEncoder,
+            SysDeptService deptService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.deptService = deptService;
     }
 
     @Override
@@ -81,6 +88,54 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
      */
     public SysUser findByPhone(String phone) {
         return userRepository.findByPhone(phone).orElse(null);
+    }
+
+    /**
+     * 分页查询用户
+     *
+     * @param pager 分页参数
+     * @param param 查询参数
+     * @return 用户列表
+     */
+    public org.springframework.data.domain.Page<SysUser> findPage(com.terra.ems.framework.definition.dto.Pager pager,
+            com.terra.ems.system.param.UserQueryParam param) {
+        return userRepository.findAll((root, query, cb) -> {
+            java.util.List<jakarta.persistence.criteria.Predicate> list = new java.util.ArrayList<>();
+
+            // 关键字模糊查询
+            if (org.springframework.util.StringUtils.hasText(param.getKeyword())) {
+                String keyword = "%" + param.getKeyword() + "%";
+                list.add(cb.or(
+                        cb.like(root.get("username"), keyword),
+                        cb.like(root.get("nickname"), keyword),
+                        cb.like(root.get("phone"), keyword)));
+            }
+
+            // 精确查询
+            if (org.springframework.util.StringUtils.hasText(param.getUsername())) {
+                list.add(cb.like(root.get("username"), param.getUsername() + "%"));
+            }
+            if (org.springframework.util.StringUtils.hasText(param.getPhone())) {
+                list.add(cb.like(root.get("phone"), param.getPhone() + "%"));
+            }
+            if (param.getDeptId() != null) {
+                list.add(cb.equal(root.get("dept").get("id"), param.getDeptId()));
+            }
+            if (param.getStatus() != null) {
+                list.add(cb.equal(root.get("status"),
+                        com.terra.ems.framework.enums.DataItemStatus.fromValue(param.getStatus())));
+            }
+
+            // 时间范围
+            if (param.getBeginTime() != null) {
+                list.add(cb.greaterThanOrEqualTo(root.get("createTime"), param.getBeginTime()));
+            }
+            if (param.getEndTime() != null) {
+                list.add(cb.lessThanOrEqualTo(root.get("createTime"), param.getEndTime()));
+            }
+
+            return cb.and(list.toArray(new jakarta.persistence.criteria.Predicate[0]));
+        }, pager.getPageable());
     }
 
     /**
@@ -113,6 +168,13 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
                 ? sysUser.getRoles().stream().map(SysRole::getCode).collect(Collectors.toSet())
                 : new HashSet<>();
 
+        // 获取部门信息
+        Long deptId = sysUser.getDept() != null ? sysUser.getDept().getId() : null;
+        String deptName = sysUser.getDept() != null ? sysUser.getDept().getName() : null;
+
+        // 获取可访问部门ID集合
+        Set<Long> accessibleDeptIds = deptService.getAccessibleDeptIds(sysUser);
+
         // 返回 CurrentUser
         CurrentUser currentUser = new CurrentUser(
                 String.valueOf(sysUser.getId()),
@@ -121,6 +183,9 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
                 sysUser.getNickname(),
                 sysUser.getAvatar(),
                 roleCodes,
+                deptId,
+                deptName,
+                accessibleDeptIds,
                 sysUser.isEnabled(),
                 authorities);
         currentUser.setEmail(sysUser.getEmail());

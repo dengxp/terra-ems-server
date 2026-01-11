@@ -46,6 +46,8 @@ public interface UserMapper {
      */
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "roleIds", expression = "java(entity.getRoles() != null ? entity.getRoles().stream().map(r -> r.getId()).collect(java.util.stream.Collectors.toList()) : null)")
+    @Mapping(target = "departmentId", source = "dept.id")
+    @Mapping(target = "departmentName", source = "dept.name")
     UserDTO toDTO(SysUser entity);
 
     /**

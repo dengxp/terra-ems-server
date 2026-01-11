@@ -42,6 +42,7 @@ import java.util.Map;
  *
  * @author dengxueping
  */
+
 @Tag(name = "验证码管理", description = "验证码生成和验证接口")
 @RestController
 @RequestMapping("/captcha")

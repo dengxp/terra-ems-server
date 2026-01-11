@@ -37,6 +37,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.Serializable;
@@ -60,6 +61,7 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
                         @Parameter(name = "domain", required = true, description = "可转换为实体的json数据")
         })
         @PostMapping
+        @PutMapping
         public Result<E> saveOrUpdate(@RequestBody @Validated E domain) {
                 E savedEntity = getWritableService().saveOrUpdate(domain);
                 return Result.success("保存成功", savedEntity);

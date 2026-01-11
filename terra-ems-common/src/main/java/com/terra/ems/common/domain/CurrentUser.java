@@ -66,6 +66,15 @@ public class CurrentUser implements UserDetails, CredentialsContainer, Serializa
     @Schema(title = "头像")
     private String avatar;
 
+    @Schema(title = "所属部门ID")
+    private Long deptId;
+
+    @Schema(title = "所属部门名称")
+    private String deptName;
+
+    @Schema(title = "可访问部门ID集合")
+    private Set<Long> accessibleDeptIds;
+
     @Schema(title = "角色集合")
     private Set<String> roles;
 
@@ -95,13 +104,17 @@ public class CurrentUser implements UserDetails, CredentialsContainer, Serializa
     }
 
     public CurrentUser(String userId, String username, String password, String nickname, String avatar,
-            Set<String> roles, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
+            Set<String> roles, Long deptId, String deptName, Set<Long> accessibleDeptIds, boolean enabled,
+            Collection<? extends GrantedAuthority> authorities) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.avatar = avatar;
         this.roles = roles;
+        this.deptId = deptId;
+        this.deptName = deptName;
+        this.accessibleDeptIds = accessibleDeptIds;
         this.enabled = enabled;
         this.authorities = authorities;
     }
@@ -124,6 +137,21 @@ public class CurrentUser implements UserDetails, CredentialsContainer, Serializa
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
     @Override

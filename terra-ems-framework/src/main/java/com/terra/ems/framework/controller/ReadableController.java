@@ -36,10 +36,13 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,9 +53,28 @@ import java.util.Map;
  *
  * @author dengxueping
  */
-public abstract class ReadableController<E extends Entity, ID extends Serializable> {
+public abstract class ReadableController<E extends Entity, ID extends Serializable> extends Controller {
 
     protected abstract ReadableService<E, ID> getReadableService();
+
+    /**
+     * 构建查询条件
+     * 子类可以重写此方法来处理特定实体的筛选逻辑
+     *
+     * @param params 请求参数
+     * @return Specification 查询条件，返回 null 表示不添加条件
+     */
+    protected Specification<E> buildSpecification(Map<String, Object> params) {
+        return null;
+    }
+
+    @AccessLimited
+    @Operation(summary = "获取树形数据", description = "获取树形结构数据")
+    @GetMapping("/tree")
+    public Result<List<E>> findTree() {
+        List<E> list = getReadableService().findAll();
+        return Result.success("查询成功", list);
+    }
 
     @AccessLimited
     @Operation(summary = "获取单条数据", description = "通过ID获取单条数据", responses = {
@@ -74,14 +96,24 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
     }
 
     @AccessLimited
-    @Operation(summary = "分页查询数据", description = "通过pageNumber和pageSize获取分页数据", responses = {
-            @ApiResponse(description = "数据列表", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Map.class))),
-            @ApiResponse(responseCode = "204", description = "查询成功，未查到数据"),
-            @ApiResponse(responseCode = "500", description = "查询失败")
-    })
+    @Operation(summary = "查询所有数据", description = "获取该实体的所有数据列表")
+    @GetMapping("/all")
+    public Result<List<E>> findAll() {
+        List<E> list = getReadableService().findAll();
+        return Result.success("查询成功", list);
+    }
+
+    @AccessLimited
+    @Operation(summary = "分页查询数据", description = "通过分页参数和可选条件获取数据列表。若无查询条件则为简单分页。")
     @GetMapping
-    public Result<Page<E>> findByPage(Pager pager) {
-        Page<E> page = getReadableService().findByPage(pager.getPageable());
+    public Result<Page<E>> findByPage(Pager pager, @RequestParam(required = false) Map<String, Object> params) {
+        Specification<E> spec = (params != null && !params.isEmpty()) ? buildSpecification(params) : null;
+        Page<E> page;
+        if (spec != null) {
+            page = getReadableService().findByPage(spec, pager.getPageable());
+        } else {
+            page = getReadableService().findByPage(pager.getPageable());
+        }
         return Result.success("查询成功", page);
     }
 }

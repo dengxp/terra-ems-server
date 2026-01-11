@@ -1,5 +1,0 @@
-com/terra/ems/admin/TerraEmsApplication.class
-com/terra/ems/admin/controller/system/ConstantController.class
-com/terra/ems/admin/controller/system/SysUserController.class
-com/terra/ems/admin/controller/SmsController.class
-com/terra/ems/admin/controller/CaptchaController.class

@@ -1,7 +1,7 @@
 /*
- * MIT License
+ * Copyright (c) 2024 泰若科技（广州）有限公司. All rights reserved.
  *
- * Copyright (c) 2024 Terra EMS
+ *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,9 +31,13 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
+ * Name: SysUserRepository.java
+ * Email: dengxueping@gmail.com
+ * Date: 2026-01-10
+ * Description:
  * 用户Repository
  *
- * @author Terra EMS
+ * @author dengxueping
  */
 @Repository
 public interface SysUserRepository extends BaseRepository<SysUser, Long> {

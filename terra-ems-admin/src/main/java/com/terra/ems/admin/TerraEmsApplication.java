@@ -37,8 +37,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @author dengxueping
  */
 @SpringBootApplication(scanBasePackages = "com.terra.ems")
-@EntityScan(basePackages = "com.terra.ems.system.entity")
-@EnableJpaRepositories(basePackages = "com.terra.ems.system.repository")
+@EntityScan(basePackages = { "com.terra.ems.system.entity", "com.terra.ems.ems.entity" })
+@EnableJpaRepositories(basePackages = { "com.terra.ems.system.repository", "com.terra.ems.ems.repository" })
 public class TerraEmsApplication {
 
     public static void main(String[] args) {

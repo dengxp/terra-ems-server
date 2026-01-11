@@ -1,7 +1,7 @@
 /*
- * MIT License
+ * Copyright (c) 2024 泰若科技（广州）有限公司. All rights reserved.
  *
- * Copyright (c) 2024 Terra EMS
+ *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,9 +25,13 @@
 package com.terra.ems.framework.service;
 
 /**
+ * Name: SmsService.java
+ * Email: dengxueping@gmail.com
+ * Date: 2026-01-10
+ * Description:
  * 短信服务接口
  *
- * @author Terra EMS
+ * @author dengxueping
  */
 public interface SmsService {
 

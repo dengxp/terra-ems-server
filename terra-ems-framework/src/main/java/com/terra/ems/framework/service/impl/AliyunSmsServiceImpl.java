@@ -1,7 +1,7 @@
 /*
- * MIT License
+ * Copyright (c) 2024 泰若科技（广州）有限公司. All rights reserved.
  *
- * Copyright (c) 2024 Terra EMS
+ *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,12 +45,16 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Name: AliyunSmsServiceImpl.java
+ * Email: dengxueping@gmail.com
+ * Date: 2026-01-10
+ * Description:
  * 阿里云短信服务实现
  * <p>
  * 使用阿里云短信服务发送验证码
  * 配置项参考 application.yml 中的 terra.sms.aliyun 配置
  *
- * @author Terra EMS
+ * @author dengxueping
  */
 @Service
 @ConditionalOnProperty(prefix = "terra.sms", name = "provider", havingValue = "aliyun")

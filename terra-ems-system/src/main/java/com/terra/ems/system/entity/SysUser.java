@@ -80,6 +80,11 @@ public class SysUser extends BaseEntity {
     @Column(name = "phone", length = 20)
     private String phone;
 
+    @Schema(title = "所属部门")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dept_id")
+    private SysDept dept;
+
     @Schema(title = "用户状态")
     @Column(name = "status", nullable = false)
     private DataItemStatus status = DataItemStatus.ENABLE;

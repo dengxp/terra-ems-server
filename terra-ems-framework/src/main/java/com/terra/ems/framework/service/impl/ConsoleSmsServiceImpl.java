@@ -1,7 +1,7 @@
 /*
- * MIT License
+ * Copyright (c) 2024 泰若科技（广州）有限公司. All rights reserved.
  *
- * Copyright (c) 2024 Terra EMS
+ *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,11 +35,15 @@ import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Name: ConsoleSmsServiceImpl.java
+ * Email: dengxueping@gmail.com
+ * Date: 2026-01-10
+ * Description:
  * 控制台短信服务实现
  * <p>
  * 将验证码输出到控制台，不实际发送短信，用于开发和测试环境
  *
- * @author Terra EMS
+ * @author dengxueping
  */
 @Service
 @ConditionalOnProperty(prefix = "terra.sms", name = "provider", havingValue = "console", matchIfMissing = true)

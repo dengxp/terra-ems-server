@@ -25,6 +25,7 @@ package com.terra.ems.framework.service;
 
 import com.terra.ems.framework.jpa.entity.Entity;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
+import com.terra.ems.framework.jpa.util.DataPermissionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -63,17 +64,19 @@ public abstract class BaseService<E extends Entity, ID extends Serializable> imp
 
     @Override
     public List<E> findAll(Specification<E> specification) {
-        return getRepository().findAll(specification);
+        Specification<E> dpSpec = DataPermissionUtils.buildSpecification("dept", "createBy");
+        return getRepository().findAll(specification == null ? dpSpec : specification.and(dpSpec));
     }
 
     @Override
     public List<E> findAll(Specification<E> specification, Sort sort) {
-        return getRepository().findAll(specification, sort);
+        Specification<E> dpSpec = DataPermissionUtils.buildSpecification("dept", "createBy");
+        return getRepository().findAll(specification == null ? dpSpec : specification.and(dpSpec), sort);
     }
 
     @Override
     public List<E> findAll() {
-        return getRepository().findAll();
+        return findAll((Specification<E>) null);
     }
 
     @Override
@@ -88,12 +91,13 @@ public abstract class BaseService<E extends Entity, ID extends Serializable> imp
 
     @Override
     public Page<E> findByPage(Pageable pageable) {
-        return getRepository().findAll(pageable);
+        return findByPage(null, pageable);
     }
 
     @Override
     public Page<E> findByPage(Specification<E> specification, Pageable pageable) {
-        return getRepository().findAll(specification, pageable);
+        Specification<E> dpSpec = DataPermissionUtils.buildSpecification("dept", "createBy");
+        return getRepository().findAll(specification == null ? dpSpec : specification.and(dpSpec), pageable);
     }
 
     @Override
