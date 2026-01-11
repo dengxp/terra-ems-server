@@ -28,13 +28,12 @@ import com.terra.ems.system.entity.SysNotice;
 import org.springframework.stereotype.Repository;
 
 /**
- * Name: SysNoticeRepository
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统通知公告仓库
+ * 系统通知公告仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface SysNoticeRepository extends BaseRepository<SysNotice, Long> {
 }

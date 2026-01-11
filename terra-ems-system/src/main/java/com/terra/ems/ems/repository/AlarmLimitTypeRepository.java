@@ -28,14 +28,12 @@ import com.terra.ems.framework.jpa.repository.BaseRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Name: AlarmLimitTypeRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 报警限值类型仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface AlarmLimitTypeRepository extends BaseRepository<AlarmLimitType, Long> {
 }

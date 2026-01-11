@@ -35,13 +35,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 /**
- * Name: Pager
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 分页参数BO对象
+ * 分页参数BO对象
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Getter
 @Setter
 @Schema(title = "分页参数BO对象")

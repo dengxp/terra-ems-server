@@ -46,13 +46,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Name: ReadableController
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 只读Controller基类
+ * 只读Controller基类
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public abstract class ReadableController<E extends Entity, ID extends Serializable> extends Controller {
 
     protected abstract ReadableService<E, ID> getReadableService();
@@ -68,6 +67,11 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
         return null;
     }
 
+    /**
+     * 获取树形数据
+     *
+     * @return 树形结构数据列表
+     */
     @AccessLimited
     @Operation(summary = "获取树形数据", description = "获取树形结构数据")
     @GetMapping("/tree")
@@ -76,6 +80,12 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
         return Result.success("查询成功", list);
     }
 
+    /**
+     * 根据ID获取单条数据
+     *
+     * @param id 实体ID
+     * @return 实体数据
+     */
     @AccessLimited
     @Operation(summary = "获取单条数据", description = "通过ID获取单条数据", responses = {
             @ApiResponse(description = "实体数据", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Map.class))),
@@ -95,6 +105,11 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
         }
     }
 
+    /**
+     * 查询所有数据
+     *
+     * @return 实体数据列表
+     */
     @AccessLimited
     @Operation(summary = "查询所有数据", description = "获取该实体的所有数据列表")
     @GetMapping("/all")
@@ -103,8 +118,15 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
         return Result.success("查询成功", list);
     }
 
+    /**
+     * 分页查询数据
+     *
+     * @param pager  分页参数
+     * @param params 查询参数
+     * @return 分页结果
+     */
     @AccessLimited
-    @Operation(summary = "分页查询数据", description = "通过分页参数和可选条件获取数据列表。若无查询条件则为简单分页。")
+    @Operation(summary = "分页查询数据", description = "通过分页参数 and 可选条件获取数据列表。若无查询条件则为简单分页。")
     @GetMapping
     public Result<Page<E>> findByPage(Pager pager, @RequestParam(required = false) Map<String, Object> params) {
         Specification<E> spec = (params != null && !params.isEmpty()) ? buildSpecification(params) : null;

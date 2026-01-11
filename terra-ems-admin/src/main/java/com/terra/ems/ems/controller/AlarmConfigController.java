@@ -40,6 +40,7 @@ import java.util.List;
  * 预报警配置控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @RestController
 @RequestMapping("/alarm/configs")
@@ -49,16 +50,32 @@ public class AlarmConfigController extends WritableController<AlarmConfig, Long>
 
     private final AlarmConfigService alarmConfigService;
 
+    /**
+     * 获取可写服务
+     *
+     * @return 报警配置服务
+     */
     @Override
     protected WritableService<AlarmConfig, Long> getWritableService() {
         return alarmConfigService;
     }
 
+    /**
+     * 获取可读服务
+     *
+     * @return 报警配置服务
+     */
     @Override
     protected ReadableService<AlarmConfig, Long> getReadableService() {
         return alarmConfigService;
     }
 
+    /**
+     * 根据采集点位查询配置
+     *
+     * @param meterPointId 采集点位ID
+     * @return 预报警配置列表
+     */
     @Operation(summary = "根据采集点位查询配置")
     @GetMapping("/meter-point/{meterPointId}")
     public Result<List<AlarmConfig>> getByMeterPoint(@PathVariable Long meterPointId) {

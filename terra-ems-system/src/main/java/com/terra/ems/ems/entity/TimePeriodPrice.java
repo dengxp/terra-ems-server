@@ -33,14 +33,12 @@ import java.math.BigDecimal;
 import java.time.LocalTime;
 
 /**
- * Name: TimePeriodPrice.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 分时电价配置实体
+ * 分时电价配置
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Entity
 @Table(name = "ems_time_period_price")

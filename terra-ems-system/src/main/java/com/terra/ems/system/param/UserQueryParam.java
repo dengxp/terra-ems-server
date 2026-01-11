@@ -30,11 +30,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
 /**
- * Name: UserQueryParam
- * Description: 用户查询参数
+ * 用户查询参数
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Schema(title = "用户查询参数")
 public class UserQueryParam {

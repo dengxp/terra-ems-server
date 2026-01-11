@@ -27,14 +27,12 @@ import lombok.Data;
 import lombok.Getter;
 
 /**
- * Name: Error
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 错误详情
+ * 错误详情
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
-@Getter
+
 @Data
 public class Error {
     /**
@@ -61,24 +59,4 @@ public class Error {
      * 堆栈追踪
      */
     private StackTraceElement[] stackTrace;
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setField(String field) {
-        this.field = field;
-    }
-
-    public void setStackTrace(StackTraceElement[] stackTrace) {
-        this.stackTrace = stackTrace;
-    }
 }

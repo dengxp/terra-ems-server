@@ -38,13 +38,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Name: DataPermissionUtils
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 数据权限工具类
+ * 数据权限工具类
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public class DataPermissionUtils {
 
     /**

@@ -39,13 +39,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Name: Result
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 统一响应实体
+ * 统一响应实体
  *
+ * @param <T> 响应数据类型
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Getter
 @Schema(title = "统一响应返回实体", description = "所有Rest接口统一返回的实体定义")
 public class Result<T> implements Serializable {

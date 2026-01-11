@@ -34,13 +34,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Name: Sorter
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 排序参数BO对象
+ * 排序参数BO对象
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Getter
 @Setter
 @Schema(title = "排序参数BO对象")
@@ -80,22 +79,6 @@ public class Sorter extends AbstractDto {
         public SortOrder(String property, String direction) {
             this.property = property;
             this.direction = direction;
-        }
-
-        public String getDirection() {
-            return direction;
-        }
-
-        public void setDirection(String direction) {
-            this.direction = direction;
-        }
-
-        public String getProperty() {
-            return property;
-        }
-
-        public void setProperty(String property) {
-            this.property = property;
         }
     }
 }

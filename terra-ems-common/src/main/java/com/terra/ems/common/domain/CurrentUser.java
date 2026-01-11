@@ -36,20 +36,18 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * Name: CurrentUser
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 当前登录用户信息，实现了UserDetails接口
+ * 当前登录用户信息，实现了UserDetails接口
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Schema(title = "当前登录用户信息")
 public class CurrentUser implements UserDetails, CredentialsContainer, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Getter
     @Schema(title = "用户ID")
     private String userId;
 
@@ -84,21 +82,11 @@ public class CurrentUser implements UserDetails, CredentialsContainer, Serializa
     @Schema(title = "权限集合")
     private Collection<? extends GrantedAuthority> authorities;
 
-    @Getter
     @Schema(title = "邮箱")
     private String email;
 
-    @Getter
     @Schema(title = "手机号")
     private String phone;
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public CurrentUser() {
     }
@@ -157,49 +145,5 @@ public class CurrentUser implements UserDetails, CredentialsContainer, Serializa
     @Override
     public void eraseCredentials() {
         this.password = null;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
-
-    public Set<String> getRoles() {
-        return roles;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
     }
 }

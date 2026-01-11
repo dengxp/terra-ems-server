@@ -24,13 +24,12 @@
 package com.terra.ems.common.constant;
 
 /**
- * Name: ErrorCodes
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 错误码枚举
+ * 错误码枚举
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public enum ErrorCodes {
 
     /**

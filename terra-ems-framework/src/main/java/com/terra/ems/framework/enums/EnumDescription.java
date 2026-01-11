@@ -24,12 +24,10 @@
 package com.terra.ems.framework.enums;
 
 /**
- * Name: EnumDescription
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 枚举文字描述
+ * 枚举文字描述
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 
 public interface EnumDescription {

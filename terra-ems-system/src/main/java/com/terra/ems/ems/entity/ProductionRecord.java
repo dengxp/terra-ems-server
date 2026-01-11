@@ -34,16 +34,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * Name: ProductionRecord.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 产品产量记录实体
- * 
+ * 产品产量记录
  * 用于记录各用能单元的产品产量数据，支持单耗分析计算
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

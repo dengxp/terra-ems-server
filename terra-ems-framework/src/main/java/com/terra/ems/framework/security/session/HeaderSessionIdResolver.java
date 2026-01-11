@@ -34,12 +34,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Name: HeaderSessionIdResolver
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 从HTTP Header中解析Session ID
+ * 从HTTP Header中解析Session ID
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 public class HeaderSessionIdResolver implements HttpSessionIdResolver {
 

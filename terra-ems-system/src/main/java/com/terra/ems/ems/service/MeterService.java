@@ -42,14 +42,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: MeterService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 计量器具档案服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class MeterService extends BaseService<Meter, Long> {

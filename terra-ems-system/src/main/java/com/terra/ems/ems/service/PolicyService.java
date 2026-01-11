@@ -38,14 +38,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Name: PolicyService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 政策法规服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class PolicyService extends BaseService<Policy, Long> {

@@ -26,13 +26,12 @@ package com.terra.ems.framework.rest.annotation;
 import java.lang.annotation.*;
 
 /**
- * Name: Idempotent
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 幂等性注解
+ * 幂等性注解
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD })
 @Documented

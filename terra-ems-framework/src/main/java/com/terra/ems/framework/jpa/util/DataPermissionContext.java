@@ -26,13 +26,12 @@ package com.terra.ems.framework.jpa.util;
 import java.util.Set;
 
 /**
- * Name: DataPermissionContext
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 数据权限上下文，用于存储当前线程的数据权限过滤参数
+ * 数据权限上下文，用于存储当前线程的数据权限过滤参数
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public class DataPermissionContext {
 
     private static final ThreadLocal<Set<Long>> DEPT_IDS = new ThreadLocal<>();

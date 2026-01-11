@@ -26,13 +26,12 @@ package com.terra.ems.framework.enums;
 import lombok.Getter;
 
 /**
- * Name: DataScope
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 数据权限范围枚举
+ * 数据权限范围枚举
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Getter
 public enum DataScope {
 

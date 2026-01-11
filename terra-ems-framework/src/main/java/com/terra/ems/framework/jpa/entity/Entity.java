@@ -26,12 +26,10 @@ package com.terra.ems.framework.jpa.entity;
 import java.io.Serializable;
 
 /**
- * Name: Entity
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 实体基础接口
+ * 实体基础接口
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 public interface Entity extends Serializable {
 

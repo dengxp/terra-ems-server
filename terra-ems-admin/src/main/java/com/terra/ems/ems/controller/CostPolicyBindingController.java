@@ -43,6 +43,7 @@ import java.util.List;
  * 成本策略绑定控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @RestController
 @RequestMapping("/ems/cost-policy-bindings")
@@ -52,6 +53,16 @@ public class CostPolicyBindingController {
 
     private final CostPolicyBindingService service;
 
+    /**
+     * 分页条件查询策略绑定记录
+     *
+     * @param energyUnitId  用能单元ID
+     * @param pricePolicyId 电价策略ID
+     * @param status        状态
+     * @param page          页码
+     * @param size          每页大小
+     * @return 分页结果
+     */
     @GetMapping
     @Operation(summary = "分页条件查询")
     public Result<Page<CostPolicyBinding>> search(
@@ -64,6 +75,12 @@ public class CostPolicyBindingController {
                 .content(service.findByConditions(energyUnitId, pricePolicyId, status, PageRequest.of(page, size)));
     }
 
+    /**
+     * 根据ID查询绑定详情
+     *
+     * @param id 绑定ID
+     * @return 绑定记录详情
+     */
     @GetMapping("/{id}")
     @Operation(summary = "根据ID查询")
     public Result<CostPolicyBinding> findById(@PathVariable Long id) {
@@ -72,6 +89,12 @@ public class CostPolicyBindingController {
                 .orElse(Result.failure("绑定记录不存在"));
     }
 
+    /**
+     * 按用能单元查询绑定列表
+     *
+     * @param energyUnitId 用能单元ID
+     * @return 绑定列表
+     */
     @GetMapping("/energy-unit/{energyUnitId}")
     @Operation(summary = "按用能单元查询")
     public Result<List<CostPolicyBinding>> findByEnergyUnit(
@@ -79,6 +102,12 @@ public class CostPolicyBindingController {
         return Result.content(service.findByEnergyUnit(energyUnitId));
     }
 
+    /**
+     * 按电价策略查询绑定列表
+     *
+     * @param pricePolicyId 电价策略ID
+     * @return 绑定列表
+     */
     @GetMapping("/price-policy/{pricePolicyId}")
     @Operation(summary = "按电价策略查询")
     public Result<List<CostPolicyBinding>> findByPricePolicy(
@@ -86,6 +115,13 @@ public class CostPolicyBindingController {
         return Result.content(service.findByPricePolicy(pricePolicyId));
     }
 
+    /**
+     * 查询指定用能单元在特定日期的有效绑定
+     *
+     * @param energyUnitId 用能单元ID
+     * @param date         查询日期
+     * @return 有效绑定记录
+     */
     @GetMapping("/effective")
     @Operation(summary = "查询有效绑定")
     public Result<CostPolicyBinding> findEffectiveBinding(
@@ -97,6 +133,16 @@ public class CostPolicyBindingController {
                 .orElse(Result.failure("未找到有效绑定"));
     }
 
+    /**
+     * 创建新的费用策略绑定
+     *
+     * @param energyUnitId  用能单元ID
+     * @param pricePolicyId 电价策略ID
+     * @param startDate     生效开始日期
+     * @param endDate       生效结束日期
+     * @param remark        备注
+     * @return 创建后的实体
+     */
     @PostMapping
     @Operation(summary = "创建绑定")
     public Result<CostPolicyBinding> create(
@@ -112,6 +158,16 @@ public class CostPolicyBindingController {
         }
     }
 
+    /**
+     * 更新现有的费用策略绑定
+     *
+     * @param id            绑定ID
+     * @param pricePolicyId 电价策略ID
+     * @param startDate     生效开始日期
+     * @param endDate       生效结束日期
+     * @param remark        备注
+     * @return 更新后的实体
+     */
     @PutMapping("/{id}")
     @Operation(summary = "更新绑定")
     public Result<CostPolicyBinding> update(
@@ -127,6 +183,12 @@ public class CostPolicyBindingController {
         }
     }
 
+    /**
+     * 删除绑定记录
+     *
+     * @param id 绑定ID
+     * @return 操作结果
+     */
     @DeleteMapping("/{id}")
     @Operation(summary = "删除绑定")
     public Result<Void> delete(@PathVariable Long id) {
@@ -138,6 +200,13 @@ public class CostPolicyBindingController {
         }
     }
 
+    /**
+     * 更新绑定记录状态
+     *
+     * @param id     绑定ID
+     * @param status 新状态
+     * @return 更新后的实体
+     */
     @PutMapping("/{id}/status")
     @Operation(summary = "更新状态")
     public Result<CostPolicyBinding> updateStatus(

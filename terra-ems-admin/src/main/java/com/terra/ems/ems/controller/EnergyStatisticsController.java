@@ -45,6 +45,7 @@ import java.util.List;
  * 能耗统计分析控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @RestController
 @RequestMapping("/statistics")
@@ -54,6 +55,14 @@ public class EnergyStatisticsController {
 
     private final EnergyStatisticsService energyStatisticsService;
 
+    /**
+     * 获取统计汇总
+     *
+     * @param energyUnitId 用能单元ID
+     * @param timeType     时间类型：DAY/MONTH/YEAR
+     * @param dataTime     数据时间
+     * @return 统计汇总数据
+     */
     @Operation(summary = "获取统计汇总")
     @GetMapping("/summary")
     public Result<EnergyStatisticsSummaryDTO> getSummary(
@@ -63,6 +72,14 @@ public class EnergyStatisticsController {
         return Result.content(energyStatisticsService.getSummary(energyUnitId, timeType, dataTime));
     }
 
+    /**
+     * 获取同比分析
+     *
+     * @param parentUnitId 父用能单元ID
+     * @param timeType     时间类型
+     * @param dataTime     数据时间
+     * @return 同比分析数据列表
+     */
     @Operation(summary = "获取同比分析")
     @GetMapping("/yoy")
     public Result<List<ComparisonAnalysisDTO>> getYoYAnalysis(
@@ -72,6 +89,14 @@ public class EnergyStatisticsController {
         return Result.content(energyStatisticsService.getYoYAnalysis(parentUnitId, timeType, dataTime));
     }
 
+    /**
+     * 获取环比分析
+     *
+     * @param parentUnitId 父用能单元ID
+     * @param timeType     时间类型
+     * @param dataTime     数据时间
+     * @return 环比分析数据列表
+     */
     @Operation(summary = "获取环比分析")
     @GetMapping("/mom")
     public Result<List<ComparisonAnalysisDTO>> getMoMAnalysis(
@@ -81,6 +106,14 @@ public class EnergyStatisticsController {
         return Result.content(energyStatisticsService.getMoMAnalysis(parentUnitId, timeType, dataTime));
     }
 
+    /**
+     * 获取综合能耗汇总
+     *
+     * @param energyUnitId 用能单元ID
+     * @param timeType     时间类型
+     * @param dataTime     数据时间
+     * @return 综合能耗数据
+     */
     @Operation(summary = "获取综合能耗汇总")
     @GetMapping("/comprehensive/summary")
     public Result<EnergyStatisticsSummaryDTO> getComprehensiveSummary(
@@ -90,6 +123,14 @@ public class EnergyStatisticsController {
         return Result.content(energyStatisticsService.getComprehensiveSummary(energyUnitId, timeType, dataTime));
     }
 
+    /**
+     * 获取单元能耗排名
+     *
+     * @param parentUnitId 父用能单元ID
+     * @param timeType     时间类型
+     * @param dataTime     数据时间
+     * @return 排名分析数据列表
+     */
     @Operation(summary = "获取单元能耗排名")
     @GetMapping("/ranking")
     public Result<List<ComparisonAnalysisDTO>> getRankingAnalysis(
@@ -99,6 +140,15 @@ public class EnergyStatisticsController {
         return Result.content(energyStatisticsService.getRankingAnalysis(parentUnitId, timeType, dataTime));
     }
 
+    /**
+     * 获取工序能耗分析
+     *
+     * @param parentUnitId 父用能单元ID
+     * @param timeType     时间类型
+     * @param dataTime     数据时间
+     * @param energyTypeId 能源类型ID
+     * @return 工序能耗分析列表
+     */
     @Operation(summary = "获取工序能耗分析")
     @GetMapping("/process-energy")
     public Result<List<ProcessEnergyAnalysisDTO>> getProcessEnergyAnalysis(
@@ -110,6 +160,16 @@ public class EnergyStatisticsController {
                 energyStatisticsService.getProcessEnergyAnalysis(parentUnitId, timeType, dataTime, energyTypeId));
     }
 
+    /**
+     * 获取单耗分析
+     *
+     * @param energyUnitId 用能单元ID
+     * @param timeType     时间类型
+     * @param dataTime     数据时间
+     * @param energyTypeId 能源类型ID
+     * @param productName  产品名称
+     * @return 单耗分析数据
+     */
     @Operation(summary = "获取单耗分析")
     @GetMapping("/unit-consumption")
     public Result<UnitConsumptionDTO> getUnitConsumptionAnalysis(
@@ -124,6 +184,15 @@ public class EnergyStatisticsController {
 
     // ==================== 支路分析 ====================
 
+    /**
+     * 获取支路能耗分析
+     *
+     * @param parentUnitId 父用能单元ID
+     * @param timeType     时间类型
+     * @param dataTime     数据时间
+     * @param energyTypeId 能源类型ID
+     * @return 支路分析列表
+     */
     @Operation(summary = "获取支路能耗分析")
     @GetMapping("/branch")
     public Result<List<BranchAnalysisDTO>> getBranchAnalysis(
@@ -137,6 +206,15 @@ public class EnergyStatisticsController {
 
     // ==================== 对标分析 ====================
 
+    /**
+     * 获取对标分析
+     *
+     * @param parentUnitId  父用能单元ID
+     * @param timeType      时间类型
+     * @param dataTime      数据时间
+     * @param benchmarkType 标杆类型
+     * @return 对标分析列表
+     */
     @Operation(summary = "获取对标分析")
     @GetMapping("/benchmark")
     public Result<List<BenchmarkAnalysisDTO>> getBenchmarkAnalysis(

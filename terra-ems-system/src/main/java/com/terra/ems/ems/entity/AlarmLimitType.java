@@ -30,14 +30,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * Name: AlarmLimitType.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 报警限值类型维护对象
+ * 报警限值类型
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

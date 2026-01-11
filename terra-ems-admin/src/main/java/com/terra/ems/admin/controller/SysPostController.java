@@ -37,13 +37,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Name: SysPostController
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 岗位管理控制器
- * 
+ * 岗位管理控制器
+ *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Tag(name = "岗位管理")
 @RestController
 @RequestMapping("/system/post")
@@ -55,12 +54,24 @@ public class SysPostController extends BaseController<SysPost, Long> {
         this.postService = postService;
     }
 
+    /**
+     * 获取业务服务
+     *
+     * @return 岗位管理服务
+     */
     @Override
     protected BaseService<SysPost, Long> getService() {
         return postService;
     }
 
+    /**
+     * 保存或更新岗位信息
+     *
+     * @param post 岗位实体
+     * @return 操作结果及实体
+     */
     @Operation(summary = "保存或更新岗位")
+    @Override
     @PreAuthorize("hasAnyAuthority('system:post:add', 'system:post:edit')")
     public Result<SysPost> saveOrUpdate(@Validated @RequestBody SysPost post) {
         if (!postService.checkCodeUnique(post.getCode(), post.getId())) {

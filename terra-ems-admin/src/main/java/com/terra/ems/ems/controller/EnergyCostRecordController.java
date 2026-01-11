@@ -49,6 +49,7 @@ import com.terra.ems.ems.dto.CostTrendDTO;
  * 能源成本记录控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @RestController
 @RequestMapping("/ems/energy-cost-records")
@@ -58,6 +59,18 @@ public class EnergyCostRecordController {
 
     private final EnergyCostRecordService service;
 
+    /**
+     * 分页条件查询成本记录
+     *
+     * @param energyUnitId 用能单元ID
+     * @param energyTypeId 能源类型ID
+     * @param periodType   周期类型
+     * @param startDate    开始日期
+     * @param endDate      结束日期
+     * @param page         页码
+     * @param size         每页大小
+     * @return 分页结果
+     */
     @GetMapping
     @Operation(summary = "分页条件查询")
     public Result<Page<EnergyCostRecord>> search(
@@ -72,6 +85,12 @@ public class EnergyCostRecordController {
                 PageRequest.of(page, size)));
     }
 
+    /**
+     * 根据ID查询成本记录详情
+     *
+     * @param id 记录ID
+     * @return 成本记录详情
+     */
     @GetMapping("/{id}")
     @Operation(summary = "根据ID查询")
     public Result<EnergyCostRecord> findById(@PathVariable Long id) {
@@ -80,6 +99,14 @@ public class EnergyCostRecordController {
                 .orElse(Result.failure("成本记录不存在"));
     }
 
+    /**
+     * 按用能单元和日期范围查询成本记录列表
+     *
+     * @param energyUnitId 用能单元ID
+     * @param startDate    开始日期
+     * @param endDate      结束日期
+     * @return 成本记录列表
+     */
     @GetMapping("/energy-unit/{energyUnitId}")
     @Operation(summary = "按用能单元和日期范围查询")
     public Result<List<EnergyCostRecord>> findByEnergyUnitAndDateRange(
@@ -89,6 +116,14 @@ public class EnergyCostRecordController {
         return Result.content(service.findByEnergyUnitAndDateRange(energyUnitId, startDate, endDate));
     }
 
+    /**
+     * 统计指定范围内的费用和用量
+     *
+     * @param energyUnitId 用能单元ID
+     * @param startDate    开始日期
+     * @param endDate      结束日期
+     * @return 统计数据映射 (totalCost, totalConsumption)
+     */
     @GetMapping("/statistics")
     @Operation(summary = "统计成本和用量")
     public Result<Map<String, BigDecimal>> getStatistics(
@@ -101,6 +136,12 @@ public class EnergyCostRecordController {
         return Result.content(stats);
     }
 
+    /**
+     * 手动创建成本记录
+     *
+     * @param record 成本记录实体
+     * @return 创建后的实体
+     */
     @PostMapping
     @Operation(summary = "创建成本记录")
     public Result<EnergyCostRecord> create(@RequestBody EnergyCostRecord record) {
@@ -111,6 +152,13 @@ public class EnergyCostRecordController {
         }
     }
 
+    /**
+     * 更新成本记录详情
+     *
+     * @param id     记录ID
+     * @param record 成本记录实体
+     * @return 更新后的实体
+     */
     @PutMapping("/{id}")
     @Operation(summary = "更新成本记录")
     public Result<EnergyCostRecord> update(@PathVariable Long id, @RequestBody EnergyCostRecord record) {
@@ -121,6 +169,12 @@ public class EnergyCostRecordController {
         }
     }
 
+    /**
+     * 删除指定的成本记录
+     *
+     * @param id 记录ID
+     * @return 操作结果
+     */
     @DeleteMapping("/{id}")
     @Operation(summary = "删除成本记录")
     public Result<Void> delete(@PathVariable Long id) {
@@ -132,6 +186,14 @@ public class EnergyCostRecordController {
         }
     }
 
+    /**
+     * 获取成本偏差分析数据
+     *
+     * @param energyUnitId 用能单元ID
+     * @param timeType     时间类型 (MONTH/YEAR)
+     * @param dataTime     查询日期
+     * @return 偏差分析结果
+     */
     @GetMapping("/deviation")
     @Operation(summary = "偏差分析")
     public Result<CostDeviationDTO> getDeviationAnalysis(
@@ -141,6 +203,14 @@ public class EnergyCostRecordController {
         return Result.content(service.getDeviationAnalysis(energyUnitId, timeType, dataTime));
     }
 
+    /**
+     * 获取成本趋势分析数据
+     *
+     * @param energyUnitId 用能单元ID
+     * @param timeType     时间类型 (DAY/MONTH/YEAR)
+     * @param dataTime     查询日期
+     * @return 趋势分析结果
+     */
     @GetMapping("/trend")
     @Operation(summary = "成本趋势分析")
     public Result<CostTrendDTO> getCostTrendAnalysis(

@@ -31,19 +31,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * Name: SysNoticeService
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 通知公告服务
+ * 通知公告服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class SysNoticeService extends BaseService<SysNotice, Long> {
 
     private final SysNoticeRepository noticeRepository;
 
+    /**
+     * 获取数据访问仓库
+     *
+     * @return 通知公告仓库
+     */
     @Override
     protected BaseRepository<SysNotice, Long> getRepository() {
         return noticeRepository;

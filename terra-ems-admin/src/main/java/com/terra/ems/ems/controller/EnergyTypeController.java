@@ -43,6 +43,7 @@ import java.util.List;
  * 能源类型控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Tag(name = "能源类型管理")
 @RestController
@@ -52,6 +53,17 @@ public class EnergyTypeController {
 
     private final EnergyTypeService energyTypeService;
 
+    /**
+     * 分页查询能源类型
+     *
+     * @param code     编码
+     * @param name     名称
+     * @param category 类别
+     * @param status   状态值
+     * @param page     页码
+     * @param size     每页大小
+     * @return 分页结果
+     */
     @Operation(summary = "分页查询能源类型")
     @GetMapping
     public Result<Page<EnergyType>> list(
@@ -68,12 +80,23 @@ public class EnergyTypeController {
         return Result.content(result);
     }
 
+    /**
+     * 查询所有启用的能源类型
+     *
+     * @return 启用的能源类型列表
+     */
     @Operation(summary = "查询所有启用的能源类型")
     @GetMapping("/enabled")
     public Result<List<EnergyType>> listEnabled() {
         return Result.content(energyTypeService.findAllEnabled());
     }
 
+    /**
+     * 根据ID查询能源类型
+     *
+     * @param id 能源类型ID
+     * @return 能源类型详情
+     */
     @Operation(summary = "根据ID查询能源类型")
     @GetMapping("/{id}")
     public Result<EnergyType> getById(@PathVariable Long id) {
@@ -82,6 +105,12 @@ public class EnergyTypeController {
                 .orElse(Result.failure("能源类型不存在"));
     }
 
+    /**
+     * 根据编码查询能源类型
+     *
+     * @param code 能源类型编码
+     * @return 能源类型详情
+     */
     @Operation(summary = "根据编码查询能源类型")
     @GetMapping("/code/{code}")
     public Result<EnergyType> getByCode(@PathVariable String code) {
@@ -90,6 +119,12 @@ public class EnergyTypeController {
                 .orElse(Result.failure("能源类型不存在"));
     }
 
+    /**
+     * 创建能源类型
+     *
+     * @param energyType 能源类型实体
+     * @return 创建后的能源类型
+     */
     @Operation(summary = "创建能源类型")
     @PostMapping
     public Result<EnergyType> create(@RequestBody EnergyType energyType) {
@@ -101,6 +136,13 @@ public class EnergyTypeController {
         }
     }
 
+    /**
+     * 更新能源类型
+     *
+     * @param id         能源类型ID
+     * @param energyType 能源类型实体
+     * @return 更新后的能源类型
+     */
     @Operation(summary = "更新能源类型")
     @PutMapping("/{id}")
     public Result<EnergyType> update(@PathVariable Long id, @RequestBody EnergyType energyType) {
@@ -112,6 +154,12 @@ public class EnergyTypeController {
         }
     }
 
+    /**
+     * 删除能源类型
+     *
+     * @param id 能源类型ID
+     * @return 操作结果
+     */
     @Operation(summary = "删除能源类型")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {
@@ -123,6 +171,12 @@ public class EnergyTypeController {
         }
     }
 
+    /**
+     * 批量删除能源类型
+     *
+     * @param ids 能源类型ID列表
+     * @return 操作结果
+     */
     @Operation(summary = "批量删除能源类型")
     @DeleteMapping("/batch")
     public Result<Void> deleteBatch(@RequestParam List<Long> ids) {
@@ -134,6 +188,13 @@ public class EnergyTypeController {
         }
     }
 
+    /**
+     * 修改能源类型状态
+     *
+     * @param id     能源类型ID
+     * @param status 状态值
+     * @return 更新后的能源类型
+     */
     @Operation(summary = "修改能源类型状态")
     @PatchMapping("/{id}/status")
     public Result<EnergyType> updateStatus(

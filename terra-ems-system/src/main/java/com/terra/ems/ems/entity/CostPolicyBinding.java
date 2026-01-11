@@ -34,15 +34,13 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDate;
 
 /**
- * Name: CostPolicyBinding.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 成本策略绑定实体
+ * 成本策略绑定
  * 将电价策略绑定到用能单元
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

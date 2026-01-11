@@ -43,17 +43,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.io.Serializable;
 
 /**
- * Name: WritableController
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 可写Controller基类
+ * 可写Controller基类
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public abstract class WritableController<E extends Entity, ID extends Serializable> extends ReadableController<E, ID> {
 
         protected abstract WritableService<E, ID> getWritableService();
 
+        /**
+         * 保存或更新数据
+         *
+         * @param domain 实体数据
+         * @return 保存后的实体数据
+         */
         @Idempotent
         @Operation(summary = "保存或更新数据", description = "接收JSON数据，转换为实体，进行保存或更新", requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")), responses = {
                         @ApiResponse(description = "已保存数据", content = @Content(mediaType = "application/json")) })
@@ -67,6 +72,12 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
                 return Result.success("保存成功", savedEntity);
         }
 
+        /**
+         * 根据ID删除数据
+         *
+         * @param id 实体ID
+         * @return 操作消息
+         */
         @Idempotent
         @Operation(summary = "删除数据", description = "根据实体ID删除数据，以及相关联的关联数据", responses = {
                         @ApiResponse(description = "操作消息", content = @Content(mediaType = "application/json")) })

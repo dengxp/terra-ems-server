@@ -38,12 +38,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Name: SysNoticeController
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 通知公告控制器
+ * 通知公告控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 
 @Tag(name = "通知公告")
@@ -58,11 +56,22 @@ public class SysNoticeController extends BaseController<SysNotice, Long> {
         this.noticeService = noticeService;
     }
 
+    /**
+     * 获取业务服务
+     *
+     * @return 通知公告服务
+     */
     @Override
     protected BaseService<SysNotice, Long> getService() {
         return noticeService;
     }
 
+    /**
+     * 保存或更新通知公告
+     *
+     * @param notice 通知公告实体
+     * @return 操作结果及实体
+     */
     @Operation(summary = "保存或更新通知公告")
     @Override
     @PreAuthorize("hasAnyAuthority('system:notice:add', 'system:notice:edit')")

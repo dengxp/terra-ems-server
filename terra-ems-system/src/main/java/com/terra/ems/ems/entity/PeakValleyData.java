@@ -31,14 +31,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Name: PeakValleyData.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 分时用电数据实体
+ * 分时用电数据
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Entity
 @Table(name = "ems_peak_valley_data", indexes = {

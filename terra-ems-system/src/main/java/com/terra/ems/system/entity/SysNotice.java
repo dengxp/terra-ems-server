@@ -31,13 +31,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * Name: SysNotice
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统通知公告实体
+ * 系统通知公告实体
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

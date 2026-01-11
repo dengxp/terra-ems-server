@@ -34,14 +34,12 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDate;
 
 /**
- * Name: Policy.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 政策法规实体
+ * 政策法规
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

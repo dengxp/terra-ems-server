@@ -49,14 +49,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Name: EnergyCostRecordService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 能源成本记录服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class EnergyCostRecordService extends BaseService<EnergyCostRecord, Long> {

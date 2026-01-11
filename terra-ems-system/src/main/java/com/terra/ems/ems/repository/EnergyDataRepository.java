@@ -34,14 +34,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Name: EnergyDataRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 能耗数据仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
 

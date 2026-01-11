@@ -26,14 +26,12 @@ package com.terra.ems.ems.enums;
 import lombok.Getter;
 
 /**
- * Name: RecordPeriodType.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 记录周期类型枚举
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Getter
 public enum RecordPeriodType {
 

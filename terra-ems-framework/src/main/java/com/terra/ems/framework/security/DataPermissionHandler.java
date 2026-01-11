@@ -36,12 +36,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Name: DataPermissionHandler
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 数据权限处理器
+ * 数据权限处理器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Slf4j
 @Component

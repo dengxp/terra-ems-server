@@ -26,14 +26,12 @@ package com.terra.ems.ems.enums;
 import lombok.Getter;
 
 /**
- * Name: PolicyType.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 政策法规类型枚举
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Getter
 public enum PolicyType {
 

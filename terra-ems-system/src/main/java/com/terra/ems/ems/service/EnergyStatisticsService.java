@@ -47,14 +47,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Name: EnergyStatisticsService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 能耗统计分析服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class EnergyStatisticsService {

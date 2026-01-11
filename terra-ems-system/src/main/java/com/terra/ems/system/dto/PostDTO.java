@@ -33,13 +33,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * Name: PostDTO
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 岗位数据传输对象
+ * 岗位数据传输对象
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Builder
 @NoArgsConstructor

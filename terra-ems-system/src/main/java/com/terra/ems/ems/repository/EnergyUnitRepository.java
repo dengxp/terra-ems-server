@@ -33,14 +33,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: EnergyUnitRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 用能单元数据访问层
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface EnergyUnitRepository extends BaseRepository<EnergyUnit, Long> {
 

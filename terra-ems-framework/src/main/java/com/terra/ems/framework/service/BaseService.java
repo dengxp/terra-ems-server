@@ -38,17 +38,26 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Name: BaseService
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 基础服务实现类
+ * 基础服务实现类
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 public abstract class BaseService<E extends Entity, ID extends Serializable> implements WritableService<E, ID> {
 
+    /**
+     * 获取 Repository
+     *
+     * @return 基础 Repository
+     */
     protected abstract BaseRepository<E, ID> getRepository();
 
+    /**
+     * 构建模糊查询字符串
+     *
+     * @param property 属性值
+     * @return 模糊查询字符串
+     */
     protected String like(String property) {
         if (StringUtils.isNotEmpty(property)) {
             return "%" + property + "%";

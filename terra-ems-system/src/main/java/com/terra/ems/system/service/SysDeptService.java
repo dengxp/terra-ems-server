@@ -42,26 +42,33 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Name: SysDeptService
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统部门服务
+ * 系统部门服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class SysDeptService extends BaseService<SysDept, Long> {
 
     private final SysDeptRepository deptRepository;
 
+    /**
+     * 获取数据访问仓库
+     *
+     * @return 部门仓库
+     */
     @Override
     protected BaseRepository<SysDept, Long> getRepository() {
         return deptRepository;
     }
 
     /**
-     * 查询部门及其子部门树
+     * 查询指定部门及其所有子部门构成的树形结构
+     *
+     * @param parentId 父部门ID，为 null 时从顶级部门开始查询
+     * @return 部门树列表
      */
     public List<SysDept> findDeptTree(Long parentId) {
         if (parentId == null) {
@@ -75,6 +82,10 @@ public class SysDeptService extends BaseService<SysDept, Long> {
 
     /**
      * 校验部门编码是否唯一
+     *
+     * @param code 部门编码
+     * @param id   部门ID（用于排除自身）
+     * @return true 表示唯一，false 表示已重复
      */
     public boolean checkCodeUnique(String code, Long id) {
         // 简单实现，后期可扩展
@@ -99,14 +110,20 @@ public class SysDeptService extends BaseService<SysDept, Long> {
     }
 
     /**
-     * 获取所有启用的部门
+     * 获取所有状态为启用的部门列表
+     *
+     * @return 启用的部门列表
      */
     public List<SysDept> findAllEnabled() {
         return deptRepository.findAllEnabled();
     }
 
     /**
-     * 根据用户及其角色获取可访问的部门ID集合
+     * 根据用户及其绑定的角色权限，计算可访问的部门ID集合
+     * 用于数据权限过滤
+     *
+     * @param user 当前用户实体
+     * @return 可访问部门ID集合，返回 null 时表示拥有全部权限
      */
     public Set<Long> getAccessibleDeptIds(SysUser user) {
         Set<Long> deptIds = new HashSet<>();

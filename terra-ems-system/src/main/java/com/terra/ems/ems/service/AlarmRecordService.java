@@ -34,14 +34,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 /**
- * Name: AlarmRecordService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 报警历史记录服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class AlarmRecordService extends BaseService<AlarmRecord, Long> {

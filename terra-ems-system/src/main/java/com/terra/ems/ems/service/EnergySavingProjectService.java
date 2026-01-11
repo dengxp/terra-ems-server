@@ -38,14 +38,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Name: EnergySavingProjectService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 节能项目服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class EnergySavingProjectService extends BaseService<EnergySavingProject, Long> {

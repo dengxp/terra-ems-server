@@ -43,6 +43,7 @@ import java.util.List;
  * 知识库文章控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Tag(name = "知识库管理", description = "知识库文章的增删改查及搜索")
 @RestController
@@ -52,6 +53,12 @@ public class KnowledgeArticleController {
 
     private final KnowledgeArticleService knowledgeArticleService;
 
+    /**
+     * 创建文章
+     *
+     * @param article 文章实体
+     * @return 创建后的实体
+     */
     @Operation(summary = "创建文章")
     @PostMapping
     public Result<KnowledgeArticle> create(@RequestBody KnowledgeArticle article) {
@@ -59,6 +66,13 @@ public class KnowledgeArticleController {
         return Result.content(created);
     }
 
+    /**
+     * 更新文章
+     *
+     * @param id      文章ID
+     * @param article 文章实体
+     * @return 更新后的实体
+     */
     @Operation(summary = "更新文章")
     @PutMapping("/{id}")
     public Result<KnowledgeArticle> update(
@@ -68,6 +82,12 @@ public class KnowledgeArticleController {
         return Result.content(updated);
     }
 
+    /**
+     * 删除文章
+     *
+     * @param id 文章ID
+     * @return 操作结果
+     */
     @Operation(summary = "删除文章")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@Parameter(description = "文章ID") @PathVariable Long id) {
@@ -75,6 +95,12 @@ public class KnowledgeArticleController {
         return Result.success();
     }
 
+    /**
+     * 批量删除文章
+     *
+     * @param ids 文章ID列表
+     * @return 操作结果
+     */
     @Operation(summary = "批量删除文章")
     @DeleteMapping("/batch")
     public Result<Void> deleteBatch(@RequestBody List<Long> ids) {
@@ -82,6 +108,12 @@ public class KnowledgeArticleController {
         return Result.success();
     }
 
+    /**
+     * 获取文章详情（会增加阅读次数）
+     *
+     * @param id 文章ID
+     * @return 文章详情
+     */
     @Operation(summary = "获取文章详情（会增加阅读次数）")
     @GetMapping("/{id}")
     public Result<KnowledgeArticle> getById(@Parameter(description = "文章ID") @PathVariable Long id) {
@@ -90,6 +122,14 @@ public class KnowledgeArticleController {
                 .orElse(Result.failure("文章不存在"));
     }
 
+    /**
+     * 分页查询文章
+     *
+     * @param energyTypeId 能源类型ID
+     * @param page         页码
+     * @param size         每页大小
+     * @return 分页结果
+     */
     @Operation(summary = "分页查询文章")
     @GetMapping
     public Result<Page<KnowledgeArticle>> list(
@@ -108,6 +148,14 @@ public class KnowledgeArticleController {
         return Result.content(articles);
     }
 
+    /**
+     * 搜索文章
+     *
+     * @param keyword 搜索关键词
+     * @param page    页码
+     * @param size    每页大小
+     * @return 搜索结果
+     */
     @Operation(summary = "搜索文章")
     @GetMapping("/search")
     public Result<Page<KnowledgeArticle>> search(
@@ -120,6 +168,11 @@ public class KnowledgeArticleController {
         return Result.content(articles);
     }
 
+    /**
+     * 获取所有分类
+     *
+     * @return 分类列表
+     */
     @Operation(summary = "获取所有分类")
     @GetMapping("/categories")
     public Result<List<String>> getCategories() {
@@ -127,6 +180,11 @@ public class KnowledgeArticleController {
         return Result.content(categories);
     }
 
+    /**
+     * 获取热门文章
+     *
+     * @return 热门文章列表
+     */
     @Operation(summary = "获取热门文章")
     @GetMapping("/hot")
     public Result<List<KnowledgeArticle>> getHotArticles() {
@@ -134,6 +192,13 @@ public class KnowledgeArticleController {
         return Result.content(hotArticles);
     }
 
+    /**
+     * 更新文章状态
+     *
+     * @param id     文章ID
+     * @param status 新状态
+     * @return 操作结果
+     */
     @Operation(summary = "更新文章状态")
     @PatchMapping("/{id}/status")
     public Result<Void> updateStatus(

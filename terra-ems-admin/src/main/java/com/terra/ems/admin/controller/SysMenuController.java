@@ -41,12 +41,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Name: SysMenuController
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 菜单管理控制器
+ * 菜单管理控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 
 @Tag(name = "菜单管理")
@@ -61,16 +59,31 @@ public class SysMenuController extends WritableController<SysMenu, Long> {
         this.menuService = menuService;
     }
 
+    /**
+     * 获取可写业务服务
+     *
+     * @return 菜单管理服务
+     */
     @Override
     protected WritableService<SysMenu, Long> getWritableService() {
         return menuService;
     }
 
+    /**
+     * 获取只读业务服务
+     *
+     * @return 菜单管理服务
+     */
     @Override
     protected com.terra.ems.framework.service.ReadableService<SysMenu, Long> getReadableService() {
         return menuService;
     }
 
+    /**
+     * 查询菜单树形结构
+     *
+     * @return 菜单树列表结果
+     */
     @Operation(summary = "查询菜单树")
     @GetMapping("/tree")
     @Override
@@ -78,6 +91,12 @@ public class SysMenuController extends WritableController<SysMenu, Long> {
         return Result.content(menuService.findMenuTree(null));
     }
 
+    /**
+     * 保存或更新菜单信息
+     *
+     * @param menu 菜单实体
+     * @return 操作结果及实体
+     */
     @Operation(summary = "保存或更新菜单")
     @Override
     @PreAuthorize("hasAnyAuthority('system:menu:add', 'system:menu:edit')")

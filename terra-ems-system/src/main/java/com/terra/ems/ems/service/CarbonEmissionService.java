@@ -39,14 +39,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Name: CarbonEmissionService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 碳排放管理服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class CarbonEmissionService {

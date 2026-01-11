@@ -29,14 +29,12 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 /**
- * Name: BenchmarkAnalysisDTO.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 对标分析DTO
+ * 对标分析 DTO
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Schema(description = "对标分析")
 public class BenchmarkAnalysisDTO {

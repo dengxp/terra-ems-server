@@ -46,12 +46,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 
 /**
- * Name: SysUserController
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 系统用户控制器，使用 DTO 模式
+ * 系统用户控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 
 @Tag(name = "系统用户管理", description = "系统用户的CRUD及特定业务接口")
@@ -70,11 +68,23 @@ public class SysUserController extends BaseController<SysUser, Long> {
         this.userMapper = userMapper;
     }
 
+    /**
+     * 获取业务服务
+     *
+     * @return 系统用户服务
+     */
     @Override
     protected BaseService<SysUser, Long> getService() {
         return userService;
     }
 
+    /**
+     * 高级搜索用户列表
+     *
+     * @param pager 分页参数
+     * @param param 用户查询参数
+     * @return 分页结果
+     */
     @Operation(summary = "高级搜索用户列表", description = "使用强类型参数进行高级搜索")
     @GetMapping("/search")
     public Result<org.springframework.data.domain.Page<SysUser>> search(
@@ -82,6 +92,12 @@ public class SysUserController extends BaseController<SysUser, Long> {
         return Result.success("查询成功", userService.findPage(pager, param));
     }
 
+    /**
+     * 保存或更新用户信息
+     *
+     * @param user 用户实体
+     * @return 操作结果及实体
+     */
     @Operation(summary = "保存或更新用户（标准实体模式）")
     @Override
     public Result<SysUser> saveOrUpdate(@RequestBody @Validated SysUser user) {
@@ -94,6 +110,9 @@ public class SysUserController extends BaseController<SysUser, Long> {
 
     /**
      * 获取当前登录用户信息
+     *
+     * @param principal 当前认证主体
+     * @return 用户 DTO 信息
      */
     @Operation(summary = "获取当前登录用户信息")
     @GetMapping("/current-user")

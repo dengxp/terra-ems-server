@@ -31,46 +31,45 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * Name: SysPost
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统岗位实体
+ * 系统岗位实体
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "sys_post", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "code" })
+                @UniqueConstraint(columnNames = { "code" })
 }, indexes = {
-        @Index(name = "idx_sys_post_code", columnList = "code")
+                @Index(name = "idx_sys_post_code", columnList = "code")
 })
 @Schema(title = "系统岗位")
 public class SysPost extends BaseEntity {
 
-    @Schema(title = "岗位ID")
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+        @Schema(title = "岗位ID")
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
-    @Schema(title = "岗位编码")
-    @Column(name = "code", length = 64, unique = true, nullable = false)
-    private String code;
+        @Schema(title = "岗位编码")
+        @Column(name = "code", length = 64, unique = true, nullable = false)
+        private String code;
 
-    @Schema(title = "岗位名称")
-    @Column(name = "name", length = 64, nullable = false)
-    private String name;
+        @Schema(title = "岗位名称")
+        @Column(name = "name", length = 64, nullable = false)
+        private String name;
 
-    @Schema(title = "显示顺序")
-    @Column(name = "sort_order")
-    private Integer sortOrder = 0;
+        @Schema(title = "显示顺序")
+        @Column(name = "sort_order")
+        private Integer sortOrder = 0;
 
-    @Schema(title = "状态")
-    @Column(name = "status", nullable = false)
-    private DataItemStatus status = DataItemStatus.ENABLE;
+        @Schema(title = "状态")
+        @Column(name = "status", nullable = false)
+        private DataItemStatus status = DataItemStatus.ENABLE;
 
-    @Schema(title = "备注")
-    @Column(name = "remark", length = 500)
-    private String remark;
+        @Schema(title = "备注")
+        @Column(name = "remark", length = 500)
+        private String remark;
 }

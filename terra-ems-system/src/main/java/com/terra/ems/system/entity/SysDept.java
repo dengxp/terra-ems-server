@@ -35,13 +35,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Name: SysDept
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统部门实体（组织架构）
+ * 系统部门实体（组织架构）
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true, exclude = { "parent", "children" })
 @Entity
@@ -103,6 +102,8 @@ public class SysDept extends BaseEntity {
 
     /**
      * 获取父部门ID
+     *
+     * @return 父部门ID
      */
     @Transient
     public Long getParentId() {

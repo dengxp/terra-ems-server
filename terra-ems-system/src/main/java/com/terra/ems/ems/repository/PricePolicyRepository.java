@@ -32,14 +32,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: PricePolicyRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 能源价格策略数据访问层
+ * 能源价格策略仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface PricePolicyRepository extends BaseRepository<PricePolicy, Long> {
 

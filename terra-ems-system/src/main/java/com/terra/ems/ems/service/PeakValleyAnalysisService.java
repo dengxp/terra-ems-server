@@ -39,14 +39,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Name: PeakValleyAnalysisService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 尖峰平谷分析服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class PeakValleyAnalysisService {

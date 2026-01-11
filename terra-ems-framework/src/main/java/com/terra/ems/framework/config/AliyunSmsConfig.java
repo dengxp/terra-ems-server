@@ -30,16 +30,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Name: AliyunSmsConfig.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 阿里云短信服务配置
  * <p>
  * 只有在启用阿里云短信时才会加载此配置
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Configuration
 @ConditionalOnProperty(prefix = "terra.sms", name = "provider", havingValue = "aliyun")
 public class AliyunSmsConfig {

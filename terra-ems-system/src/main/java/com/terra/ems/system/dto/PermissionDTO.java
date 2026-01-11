@@ -32,13 +32,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * Name: PermissionDTO
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 权限数据传输对象
+ * 权限数据传输对象
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Builder
 @NoArgsConstructor

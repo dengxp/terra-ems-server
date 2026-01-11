@@ -49,12 +49,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Name: SmsController.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-11
- * Description: 短信相关接口控制器
+ * 短信相关接口控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @RestController
 @RequestMapping("/sms")
@@ -72,13 +70,16 @@ public class SmsController {
 
     /**
      * 发送短信验证码
+     *
+     * @param request 短信验证码请求对象
+     * @return 操作结果
      */
     @PostMapping("/send")
-    public Result<Map<String, String>> sendCode(@Valid @RequestBody SmsCodeRequest request) {
+    public Result<Map<String, Object>> sendCode(@Valid @RequestBody SmsCodeRequest request) {
         try {
             boolean success = smsService.sendCode(request.phoneNumber());
 
-            Map<String, String> data = new HashMap<>();
+            Map<String, Object> data = new HashMap<>();
             data.put("message", "验证码已发送");
 
             return success ? Result.content(data) : Result.failure("发送验证码失败");
@@ -90,6 +91,10 @@ public class SmsController {
 
     /**
      * 手机号登录
+     *
+     * @param request     短信登录请求对象
+     * @param httpRequest HTTP 请求对象
+     * @return 包含 Token 和用户信息的结果
      */
     @PostMapping("/login")
     public Result<Map<String, Object>> loginBySms(@Valid @RequestBody SmsLoginRequest request,

@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 报警限值类型控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @RestController
 @RequestMapping("/alarm/limit-types")
@@ -46,11 +47,21 @@ public class AlarmLimitTypeController extends WritableController<AlarmLimitType,
 
     private final AlarmLimitTypeService alarmLimitTypeService;
 
+    /**
+     * 获取可写服务
+     *
+     * @return 报警阈值类型服务
+     */
     @Override
     protected WritableService<AlarmLimitType, Long> getWritableService() {
         return alarmLimitTypeService;
     }
 
+    /**
+     * 获取可读服务
+     *
+     * @return 报警阈值类型服务
+     */
     @Override
     protected ReadableService<AlarmLimitType, Long> getReadableService() {
         return alarmLimitTypeService;

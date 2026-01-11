@@ -34,14 +34,12 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDate;
 
 /**
- * Name: Meter.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 计量器具档案实体
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

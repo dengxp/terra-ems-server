@@ -31,13 +31,12 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Arrays;
 
 /**
- * Name: EnumeratedValueValidator
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 枚举值校验器
+ * 枚举值校验器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public class EnumeratedValueValidator implements ConstraintValidator<EnumeratedValue, Object> {
 
     private String[] names;

@@ -31,16 +31,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * Name: KnowledgeArticle.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 知识库文章实体
- * 
+ * 知识库文章
  * 用于存储能源管理相关的知识、经验和技术文档
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

@@ -43,12 +43,10 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import com.terra.ems.common.constant.CacheConstants;
 
 /**
- * Name: JsonAuthenticationFilter
- * Email: dengxueping@gmail.com
- * Date: 2025-12-18
- * Description: 支持JSON格式的登录过滤器
+ * 支持JSON格式的登录过滤器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 public class JsonAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 

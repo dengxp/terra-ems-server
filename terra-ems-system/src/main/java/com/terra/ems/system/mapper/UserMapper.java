@@ -30,13 +30,12 @@ import org.mapstruct.*;
 import java.util.List;
 
 /**
- * Name: UserMapper
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 用户实体与DTO转换器
+ * 用户实体与DTO转换器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 

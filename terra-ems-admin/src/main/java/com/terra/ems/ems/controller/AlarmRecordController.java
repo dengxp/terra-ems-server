@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.*;
  * 报警历史记录控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @RestController
 @RequestMapping("/alarm/records")
@@ -46,11 +47,24 @@ public class AlarmRecordController extends ReadableController<AlarmRecord, Long>
 
     private final AlarmRecordService alarmRecordService;
 
+    /**
+     * 获取可读服务
+     *
+     * @return 报警历史记录服务
+     */
     @Override
     protected ReadableService<AlarmRecord, Long> getReadableService() {
         return alarmRecordService;
     }
 
+    /**
+     * 处理报警记录
+     *
+     * @param id     报警记录ID
+     * @param remark 处理备注
+     * @param status 处理后的状态
+     * @return 处理后的报警记录
+     */
     @Operation(summary = "处理报警记录")
     @PostMapping("/{id}/handle")
     public Result<AlarmRecord> handleAlarm(

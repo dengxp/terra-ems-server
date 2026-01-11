@@ -45,16 +45,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Name: SysUserService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 用户服务实现
- * <p>
- * 集成 UserDetailsService 用于 Spring Security 认证
+ * 用户服务实现，集成 UserDetailsService 用于 Spring Security 认证
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 public class SysUserService extends BaseService<SysUser, Long> implements UserDetailsService {
 
@@ -69,6 +65,11 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
         this.deptService = deptService;
     }
 
+    /**
+     * 获取数据访问仓库
+     *
+     * @return 用户仓库
+     */
     @Override
     protected BaseRepository<SysUser, Long> getRepository() {
         return userRepository;
@@ -137,7 +138,11 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
     }
 
     /**
-     * 添加用户（示例方法，用于处理密码加密）
+     * 添加或更新用户
+     * 处理密码加密逻辑
+     *
+     * @param user 用户实体
+     * @return 保存后的用户实体
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -148,6 +153,13 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
         return super.saveOrUpdate(user);
     }
 
+    /**
+     * 加载用户信息（Spring Security 专用）
+     *
+     * @param username 用户名
+     * @return 用户详细信息 {@link UserDetails}
+     * @throws UsernameNotFoundException 如果用户未找到
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -23,13 +23,10 @@
 package com.terra.ems.framework.service;
 
 /**
- * Name: SmsService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 短信服务接口
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 public interface SmsService {
 

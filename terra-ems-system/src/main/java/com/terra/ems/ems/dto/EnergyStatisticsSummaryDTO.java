@@ -31,14 +31,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Name: EnergyStatisticsSummaryDTO.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 能耗统计汇总 DTO
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Schema(description = "能耗统计汇总")
 public class EnergyStatisticsSummaryDTO {

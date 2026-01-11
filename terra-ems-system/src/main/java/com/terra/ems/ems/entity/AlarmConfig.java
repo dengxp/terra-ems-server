@@ -33,14 +33,12 @@ import lombok.EqualsAndHashCode;
 import java.math.BigDecimal;
 
 /**
- * Name: AlarmConfig.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 预报警配置对象
+ * 预报警配置
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

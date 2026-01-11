@@ -41,12 +41,10 @@ import java.time.YearMonth;
 import java.util.List;
 
 /**
- * Name: PeakValleyController.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-11
- * Description: 尖峰平谷分析控制器
+ * 尖峰平谷分析控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Tag(name = "尖峰平谷分析")
 @RestController
@@ -56,6 +54,13 @@ public class PeakValleyController {
 
     private final PeakValleyAnalysisService peakValleyAnalysisService;
 
+    /**
+     * 按日分析尖峰平谷数据
+     *
+     * @param energyUnitId 用能单元ID
+     * @param date         查询日期
+     * @return 日分析结果
+     */
     @Operation(summary = "按日分析")
     @GetMapping("/daily")
     public Result<PeakValleyAnalysisResult> getDailyAnalysis(
@@ -65,6 +70,13 @@ public class PeakValleyController {
         return Result.content(result);
     }
 
+    /**
+     * 按月分析尖峰平谷数据
+     *
+     * @param energyUnitId 用能单元ID
+     * @param yearMonth    年月字符串 (yyyy-MM)
+     * @return 月分析结果
+     */
     @Operation(summary = "按月分析")
     @GetMapping("/monthly")
     public Result<PeakValleyAnalysisResult> getMonthlyAnalysis(
@@ -75,6 +87,13 @@ public class PeakValleyController {
         return Result.content(result);
     }
 
+    /**
+     * 按年分析尖峰平谷数据
+     *
+     * @param energyUnitId 用能单元ID
+     * @param year         年份
+     * @return 年分析结果
+     */
     @Operation(summary = "按年分析")
     @GetMapping("/yearly")
     public Result<PeakValleyAnalysisResult> getYearlyAnalysis(
@@ -84,6 +103,14 @@ public class PeakValleyController {
         return Result.content(result);
     }
 
+    /**
+     * 自定义时段汇总尖峰平谷分析
+     *
+     * @param energyUnitId 用能单元ID
+     * @param startDate    开始日期
+     * @param endDate      结束日期
+     * @return 时段汇总结果
+     */
     @Operation(summary = "时段汇总")
     @GetMapping("/summary")
     public Result<PeakValleyAnalysisResult> getPeriodSummary(
@@ -94,6 +121,14 @@ public class PeakValleyController {
         return Result.content(result);
     }
 
+    /**
+     * 获取指定范围内的每日详细尖峰平谷数据
+     *
+     * @param energyUnitId 用能单元ID
+     * @param startDate    开始日期
+     * @param endDate      结束日期
+     * @return 每日详细数据列表
+     */
     @Operation(summary = "获取每日详细数据")
     @GetMapping("/daily-details")
     public Result<List<DailyPeakValleyData>> getDailyDetailedData(
@@ -105,6 +140,11 @@ public class PeakValleyController {
         return Result.content(result);
     }
 
+    /**
+     * 获取当前的电价配置列表
+     *
+     * @return 电价配置列表
+     */
     @Operation(summary = "获取电价配置列表")
     @GetMapping("/price-configs")
     public Result<List<TimePeriodPrice>> getPriceConfigs() {

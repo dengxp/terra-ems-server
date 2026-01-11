@@ -24,13 +24,12 @@
 package com.terra.ems.common.constant;
 
 /**
- * Name: DefaultConstants
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 默认常量
+ * 默认常量
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public interface DefaultConstants {
 
     /**

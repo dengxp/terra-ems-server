@@ -31,14 +31,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * Name: AlarmLimitTypeService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 报警限值类型服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class AlarmLimitTypeService extends BaseService<AlarmLimitType, Long> {

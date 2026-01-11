@@ -34,14 +34,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * Name: EnergySavingProject.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 节能项目实体
+ * 节能项目
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

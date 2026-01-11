@@ -32,14 +32,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Name: EnergyData.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 能耗数据实体
+ * 能耗数据
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Entity
 @Table(name = "ems_energy_data", indexes = {

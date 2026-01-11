@@ -41,13 +41,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Name: TimePeriodPriceController.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 分时电价配置控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Tag(name = "分时电价配置管理")
 @RestController
@@ -57,24 +54,47 @@ public class TimePeriodPriceController extends Controller {
 
     private final TimePeriodPriceService timePeriodPriceService;
 
+    /**
+     * 查询所有分时电价配置列表
+     *
+     * @return 分时电价配置列表
+     */
     @Operation(summary = "查询所有分时电价配置")
     @GetMapping
     public Result<List<TimePeriodPrice>> list() {
         return Result.content(timePeriodPriceService.findAll());
     }
 
+    /**
+     * 根据电价政策ID查询关联的分时电价配置
+     *
+     * @param pricePolicyId 电价政策ID
+     * @return 分时电价配置列表
+     */
     @Operation(summary = "根据电价政策ID查询")
     @GetMapping("/policy/{pricePolicyId}")
     public Result<List<TimePeriodPrice>> getByPricePolicyId(@PathVariable Long pricePolicyId) {
         return Result.content(timePeriodPriceService.findByPricePolicyId(pricePolicyId));
     }
 
+    /**
+     * 根据时段类型查询分时电价配置
+     *
+     * @param periodType 时段类型 (PEAK/VALLEY 等)
+     * @return 分时电价配置列表
+     */
     @Operation(summary = "根据时段类型查询")
     @GetMapping("/period-type/{periodType}")
     public Result<List<TimePeriodPrice>> getByPeriodType(@PathVariable TimePeriodType periodType) {
         return Result.content(timePeriodPriceService.findByPeriodType(periodType));
     }
 
+    /**
+     * 根据特定时间点查询所属的时段配置
+     *
+     * @param time 时间点 (HH:mm:ss)，为空则使用当前系统时间
+     * @return 匹配的时间段配置
+     */
     @Operation(summary = "根据时间点查询当前时段")
     @GetMapping("/current")
     public Result<TimePeriodPrice> getCurrentPeriod(
@@ -85,6 +105,12 @@ public class TimePeriodPriceController extends Controller {
                 .orElse(Result.failure("未找到对应的时段配置"));
     }
 
+    /**
+     * 根据ID查询分时电价配置详情
+     *
+     * @param id 配置ID
+     * @return 配置详情
+     */
     @Operation(summary = "根据ID查询")
     @GetMapping("/{id}")
     public Result<TimePeriodPrice> getById(@PathVariable Long id) {
@@ -92,6 +118,12 @@ public class TimePeriodPriceController extends Controller {
         return price != null ? Result.content(price) : Result.failure("分时电价配置不存在");
     }
 
+    /**
+     * 创建新的分时电价配置
+     *
+     * @param payload 配置内容负载
+     * @return 创建后的实体
+     */
     @Operation(summary = "创建分时电价配置")
     @PostMapping
     public Result<TimePeriodPrice> create(@RequestBody Map<String, Object> payload) {
@@ -104,6 +136,13 @@ public class TimePeriodPriceController extends Controller {
         }
     }
 
+    /**
+     * 更新现有的分时电价配置
+     *
+     * @param id      配置ID
+     * @param payload 更新内容负载
+     * @return 更新后的实体
+     */
     @Operation(summary = "更新分时电价配置")
     @PutMapping("/{id}")
     public Result<TimePeriodPrice> update(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
@@ -116,6 +155,12 @@ public class TimePeriodPriceController extends Controller {
         }
     }
 
+    /**
+     * 删除指定的分时电价配置
+     *
+     * @param id 配置ID
+     * @return 操作结果
+     */
     @Operation(summary = "删除分时电价配置")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {
@@ -127,6 +172,13 @@ public class TimePeriodPriceController extends Controller {
         }
     }
 
+    /**
+     * 快捷更新分时电价配置的状态
+     *
+     * @param id     配置ID
+     * @param status 新状态
+     * @return 更新后的实体
+     */
     @Operation(summary = "修改状态")
     @PatchMapping("/{id}/status")
     public Result<TimePeriodPrice> updateStatus(

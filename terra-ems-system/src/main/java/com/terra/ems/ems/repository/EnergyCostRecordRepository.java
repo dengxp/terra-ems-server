@@ -37,14 +37,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Name: EnergyCostRecordRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 能源成本记录仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface EnergyCostRecordRepository extends BaseRepository<EnergyCostRecord, Long> {
 

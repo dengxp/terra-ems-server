@@ -34,13 +34,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Name: BaseEntity
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: JPA基础实体，包含审计字段
+ * JPA基础实体，包含审计字段
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)

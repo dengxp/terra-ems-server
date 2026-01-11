@@ -26,15 +26,13 @@ package com.terra.ems.ems.enums;
 import lombok.Getter;
 
 /**
- * Name: TimeGranularity.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 时间粒度枚举
  * 用于标识数据记录的时间维度
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Getter
 public enum TimeGranularity {
 

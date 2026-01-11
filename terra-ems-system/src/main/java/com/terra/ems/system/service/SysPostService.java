@@ -31,19 +31,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * Name: SysPostService
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统岗位服务
+ * 系统岗位服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class SysPostService extends BaseService<SysPost, Long> {
 
     private final SysPostRepository postRepository;
 
+    /**
+     * 获取数据访问仓库
+     *
+     * @return 岗位仓库
+     */
     @Override
     protected BaseRepository<SysPost, Long> getRepository() {
         return postRepository;
@@ -51,6 +55,10 @@ public class SysPostService extends BaseService<SysPost, Long> {
 
     /**
      * 校验岗位编码是否唯一
+     *
+     * @param code 岗位编码
+     * @param id   岗位ID（排除自身）
+     * @return true 表示唯一，false 表示已存在
      */
     public boolean checkCodeUnique(String code, Long id) {
         return postRepository.findByCode(code)

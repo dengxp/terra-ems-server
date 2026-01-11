@@ -35,13 +35,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Name: UserDTO
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 用户数据传输对象
+ * 用户数据传输对象
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Builder
 @NoArgsConstructor

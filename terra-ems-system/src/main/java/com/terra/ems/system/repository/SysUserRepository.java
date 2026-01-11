@@ -29,14 +29,12 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * Name: SysUserRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 用户Repository
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface SysUserRepository extends BaseRepository<SysUser, Long> {
 

@@ -30,14 +30,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Name: ProcessEnergyAnalysisDTO.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 工序能耗分析DTO
+ * 工序能耗分析 DTO
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Schema(title = "工序能耗分析")
 public class ProcessEnergyAnalysisDTO {

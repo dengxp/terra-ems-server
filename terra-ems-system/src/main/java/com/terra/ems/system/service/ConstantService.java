@@ -31,16 +31,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Name: ConstantService
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 常量服务
+ * 常量服务，提供性别、状态等通用字典选项的查询
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 public class ConstantService {
 
+    /**
+     * 获取所有选项的预处理 JSON 结构
+     * 适用于前端下拉选择器
+     *
+     * @return 包含所有选项的 Map
+     */
     public Map<String, Object> getAllOptions() {
         Map<String, Object> map = new HashMap<>();
         map.put("gender", Gender.getPreprocessedJsonStructure());
@@ -48,6 +53,11 @@ public class ConstantService {
         return map;
     }
 
+    /**
+     * 获取所有选项的 ID-Value 映射
+     *
+     * @return 包含所有选项映射的 Map
+     */
     public Map<String, Object> getAllMaps() {
         Map<String, Object> map = new HashMap<>();
         map.put("gender", getEnumMap(Gender.values()));

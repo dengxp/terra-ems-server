@@ -30,13 +30,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Name: SysMenuRepository
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统菜单仓库
+ * 系统菜单仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface SysMenuRepository extends BaseRepository<SysMenu, Long> {
 

@@ -42,6 +42,7 @@ import java.util.List;
  * 对标值控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @RestController
 @RequestMapping("/ems/benchmarks")
@@ -51,6 +52,16 @@ public class BenchmarkController {
 
     private final BenchmarkService service;
 
+    /**
+     * 分页条件查询
+     *
+     * @param name   名称
+     * @param type   类型
+     * @param status 状态
+     * @param page   页码
+     * @param size   每页大小
+     * @return 分页结果
+     */
     @GetMapping
     @Operation(summary = "分页条件查询")
     public Result<Page<Benchmark>> search(
@@ -62,18 +73,34 @@ public class BenchmarkController {
         return Result.content(service.findByConditions(name, type, status, PageRequest.of(page, size)));
     }
 
+    /**
+     * 查询所有对标值
+     *
+     * @return 对标值列表
+     */
     @GetMapping("/all")
     @Operation(summary = "查询所有对标值")
     public Result<List<Benchmark>> findAll() {
         return Result.content(service.findAll());
     }
 
+    /**
+     * 查询所有启用的对标值
+     *
+     * @return 启用的对标值列表
+     */
     @GetMapping("/enabled")
     @Operation(summary = "查询所有启用的对标值")
     public Result<List<Benchmark>> findAllEnabled() {
         return Result.content(service.findAllEnabled());
     }
 
+    /**
+     * 根据ID查询对标值
+     *
+     * @param id 对标值ID
+     * @return 对标值详情
+     */
     @GetMapping("/{id}")
     @Operation(summary = "根据ID查询")
     public Result<Benchmark> findById(@PathVariable Long id) {
@@ -82,6 +109,12 @@ public class BenchmarkController {
                 .orElse(Result.failure("对标值不存在"));
     }
 
+    /**
+     * 根据编码查询对标值
+     *
+     * @param code 对标值编码
+     * @return 对标值详情
+     */
     @GetMapping("/code/{code}")
     @Operation(summary = "根据编码查询")
     public Result<Benchmark> findByCode(@PathVariable String code) {
@@ -90,6 +123,12 @@ public class BenchmarkController {
                 .orElse(Result.failure("对标值不存在"));
     }
 
+    /**
+     * 按类型查询对标值
+     *
+     * @param type 对标值类型
+     * @return 对标值列表
+     */
     @GetMapping("/type/{type}")
     @Operation(summary = "按类型查询")
     public Result<List<Benchmark>> findByType(
@@ -97,6 +136,12 @@ public class BenchmarkController {
         return Result.content(service.findByType(type));
     }
 
+    /**
+     * 按能源类型查询对标值
+     *
+     * @param energyTypeId 能源类型ID
+     * @return 对标值列表
+     */
     @GetMapping("/energy-type/{energyTypeId}")
     @Operation(summary = "按能源类型查询")
     public Result<List<Benchmark>> findByEnergyType(
@@ -104,6 +149,12 @@ public class BenchmarkController {
         return Result.content(service.findByEnergyType(energyTypeId));
     }
 
+    /**
+     * 创建对标值
+     *
+     * @param benchmark 对标值实体
+     * @return 创建后的实体
+     */
     @PostMapping
     @Operation(summary = "创建对标值")
     public Result<Benchmark> create(@RequestBody Benchmark benchmark) {
@@ -114,6 +165,13 @@ public class BenchmarkController {
         }
     }
 
+    /**
+     * 更新对标值
+     *
+     * @param id        对标值ID
+     * @param benchmark 对标值实体
+     * @return 更新后的实体
+     */
     @PutMapping("/{id}")
     @Operation(summary = "更新对标值")
     public Result<Benchmark> update(@PathVariable Long id, @RequestBody Benchmark benchmark) {
@@ -124,6 +182,12 @@ public class BenchmarkController {
         }
     }
 
+    /**
+     * 删除对标值
+     *
+     * @param id 对标值ID
+     * @return 操作结果
+     */
     @DeleteMapping("/{id}")
     @Operation(summary = "删除对标值")
     public Result<Void> delete(@PathVariable Long id) {
@@ -135,6 +199,13 @@ public class BenchmarkController {
         }
     }
 
+    /**
+     * 更新对标值状态
+     *
+     * @param id     对标值ID
+     * @param status 新状态
+     * @return 更新后的实体
+     */
     @PutMapping("/{id}/status")
     @Operation(summary = "更新状态")
     public Result<Benchmark> updateStatus(
@@ -147,6 +218,12 @@ public class BenchmarkController {
         }
     }
 
+    /**
+     * 按类型统计数量
+     *
+     * @param type 对标值类型
+     * @return 数量
+     */
     @GetMapping("/statistics/count/{type}")
     @Operation(summary = "按类型统计数量")
     public Result<Long> countByType(

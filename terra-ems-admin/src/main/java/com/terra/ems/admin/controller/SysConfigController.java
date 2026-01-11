@@ -38,12 +38,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Name: SysConfigController
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 参数配置控制器
+ * 参数配置控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 
 @Tag(name = "参数配置")
@@ -58,17 +56,34 @@ public class SysConfigController extends BaseController<SysConfig, Long> {
         this.configService = configService;
     }
 
+    /**
+     * 获取业务服务
+     *
+     * @return 系统配置服务
+     */
     @Override
     protected BaseService<SysConfig, Long> getService() {
         return configService;
     }
 
+    /**
+     * 通过键名查询参数值
+     *
+     * @param configKey 参数键名
+     * @return 参数值结果
+     */
     @Operation(summary = "通过键名查询参数值")
     @GetMapping("/configKey/{configKey}")
     public Result<String> getConfigValue(@PathVariable String configKey) {
         return Result.content(configService.getConfigValue(configKey));
     }
 
+    /**
+     * 保存或更新参数配置
+     *
+     * @param config 参数配置实体
+     * @return 操作结果及实体
+     */
     @Operation(summary = "保存或更新配置")
     @Override
     @PreAuthorize("hasAnyAuthority('system:config:add', 'system:config:edit')")

@@ -32,13 +32,12 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 
 /**
- * Name: SysLog
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统日志实体（操作日志+登录日志）
+ * 系统日志实体（操作日志+登录日志）
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

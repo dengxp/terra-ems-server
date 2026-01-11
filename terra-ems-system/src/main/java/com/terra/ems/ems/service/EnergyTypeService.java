@@ -42,14 +42,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: EnergyTypeService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 能源类型服务
+ * 能源类型服务实现类
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class EnergyTypeService extends BaseService<EnergyType, Long> {

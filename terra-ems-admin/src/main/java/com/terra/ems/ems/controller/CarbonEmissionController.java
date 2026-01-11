@@ -42,13 +42,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Name: CarbonEmissionController.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 碳排放管理控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @RestController
 @RequestMapping("/carbon")
@@ -58,6 +55,14 @@ public class CarbonEmissionController extends Controller {
 
     private final CarbonEmissionService carbonEmissionService;
 
+    /**
+     * 获取碳排放汇总
+     *
+     * @param energyUnitId 用能单元ID
+     * @param timeType     时间类型：DAY/MONTH/YEAR
+     * @param dataTime     数据时间
+     * @return 碳排放汇总数据
+     */
     @Operation(summary = "获取碳排放汇总")
     @GetMapping("/summary")
     public Result<EnergyStatisticsSummaryDTO> getSummary(
@@ -67,6 +72,14 @@ public class CarbonEmissionController extends Controller {
         return Result.content(carbonEmissionService.getSummary(energyUnitId, timeType, dataTime));
     }
 
+    /**
+     * 获取单元碳排放排名
+     *
+     * @param parentUnitId 父用能单元ID
+     * @param timeType     时间类型
+     * @param dataTime     数据时间
+     * @return 碳排放排名分析列表
+     */
     @Operation(summary = "获取单元碳排放排名")
     @GetMapping("/ranking")
     public Result<List<ComparisonAnalysisDTO>> getRanking(

@@ -26,14 +26,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 /**
- * Name: SmsCodeRequest.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 短信验证码请求DTO
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public record SmsCodeRequest(
-        @NotBlank(message = "手机号不能为空") @Pattern(regexp = "^1[3-9]\\d{9}$", message = "手机号格式不正确") String phoneNumber) {
+                @NotBlank(message = "手机号不能为空") @Pattern(regexp = "^1[3-9]\\d{9}$", message = "手机号格式不正确") String phoneNumber) {
 }

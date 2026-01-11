@@ -32,13 +32,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * Name: LogDTO
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统日志传输对象
+ * 系统日志传输对象
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Builder
 @NoArgsConstructor

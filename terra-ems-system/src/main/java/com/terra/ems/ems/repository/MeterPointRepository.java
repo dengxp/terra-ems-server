@@ -37,14 +37,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: MeterPointRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 采集点位数据访问层
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface MeterPointRepository extends BaseRepository<MeterPoint, Long> {
 

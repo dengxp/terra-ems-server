@@ -43,13 +43,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Name: PricePolicyController.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 电价策略控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Tag(name = "电价策略管理")
 @RestController
@@ -59,6 +56,15 @@ public class PricePolicyController extends Controller {
 
     private final PricePolicyService pricePolicyService;
 
+    /**
+     * 分页查询电价策略
+     *
+     * @param current   当前页码
+     * @param pageSize  每页数量
+     * @param sortField 排序字段
+     * @param sortOrder 排序方向
+     * @return 分页结果
+     */
     @Operation(summary = "分页查询电价策略")
     @GetMapping
     public Result<Page<PricePolicy>> list(
@@ -74,18 +80,34 @@ public class PricePolicyController extends Controller {
         return Result.content(pricePolicyService.findAll(pageable));
     }
 
+    /**
+     * 查询所有电价策略列表
+     *
+     * @return 电价策略列表
+     */
     @Operation(summary = "查询所有电价策略")
     @GetMapping("/all")
     public Result<List<PricePolicy>> listAll() {
         return Result.content(pricePolicyService.findAll());
     }
 
+    /**
+     * 查询所有已启用的电价策略
+     *
+     * @return 启用的电价策略列表
+     */
     @Operation(summary = "查询启用的电价策略")
     @GetMapping("/enabled")
     public Result<List<PricePolicy>> listEnabled() {
         return Result.content(pricePolicyService.findEnabled());
     }
 
+    /**
+     * 根据ID查询电价策略详情
+     *
+     * @param id 电价策略ID
+     * @return 电价策略详情
+     */
     @Operation(summary = "根据ID查询电价策略")
     @GetMapping("/{id}")
     public Result<PricePolicy> getById(@PathVariable Long id) {
@@ -94,6 +116,12 @@ public class PricePolicyController extends Controller {
                 .orElse(Result.failure("电价策略不存在"));
     }
 
+    /**
+     * 根据策略编码查询电价策略
+     *
+     * @param code 策略编码
+     * @return 电价策略详情
+     */
     @Operation(summary = "根据编码查询电价策略")
     @GetMapping("/code/{code}")
     public Result<PricePolicy> getByCode(@PathVariable String code) {
@@ -102,12 +130,24 @@ public class PricePolicyController extends Controller {
                 .orElse(Result.failure("电价策略不存在"));
     }
 
+    /**
+     * 根据能源类型ID查询关联的电价策略
+     *
+     * @param energyTypeId 能源类型ID
+     * @return 电价策略列表
+     */
     @Operation(summary = "根据能源类型ID查询电价策略")
     @GetMapping("/energy-type/{energyTypeId}")
     public Result<List<PricePolicy>> getByEnergyTypeId(@PathVariable Long energyTypeId) {
         return Result.content(pricePolicyService.findByEnergyTypeId(energyTypeId));
     }
 
+    /**
+     * 创建电价策略及明细
+     *
+     * @param payload 包含策略基本信息和明细列表的负载
+     * @return 创建后的电价策略实体
+     */
     @Operation(summary = "创建电价策略")
     @PostMapping
     public Result<PricePolicy> create(@RequestBody Map<String, Object> payload) {
@@ -124,6 +164,13 @@ public class PricePolicyController extends Controller {
         }
     }
 
+    /**
+     * 更新电价策略及其明细
+     *
+     * @param id      策略ID
+     * @param payload 包含更新信息的负载
+     * @return 更新后的电价策略实体
+     */
     @Operation(summary = "更新电价策略")
     @PutMapping("/{id}")
     public Result<PricePolicy> update(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
@@ -140,6 +187,12 @@ public class PricePolicyController extends Controller {
         }
     }
 
+    /**
+     * 删除指定的电价策略
+     *
+     * @param id 策略ID
+     * @return 操作结果
+     */
     @Operation(summary = "删除电价策略")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {
@@ -151,6 +204,13 @@ public class PricePolicyController extends Controller {
         }
     }
 
+    /**
+     * 快捷更新电价策略状态
+     *
+     * @param id     策略ID
+     * @param status 新状态
+     * @return 更新后的实体
+     */
     @Operation(summary = "修改电价策略状态")
     @PatchMapping("/{id}/status")
     public Result<PricePolicy> updateStatus(

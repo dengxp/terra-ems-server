@@ -33,12 +33,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Name: ReadableService
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 只读服务接口
+ * 只读服务接口
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 public interface ReadableService<E extends Entity, ID extends Serializable> {
 

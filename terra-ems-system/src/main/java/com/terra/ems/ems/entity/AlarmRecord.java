@@ -34,14 +34,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Name: AlarmRecord.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 报警历史记录对象
+ * 报警历史记录
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

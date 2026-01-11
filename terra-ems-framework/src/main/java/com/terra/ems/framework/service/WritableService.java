@@ -28,12 +28,10 @@ import com.terra.ems.framework.jpa.entity.Entity;
 import java.io.Serializable;
 
 /**
- * Name: WritableService
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 可写服务接口
+ * 可写服务接口
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 public interface WritableService<E extends Entity, ID extends Serializable> extends ReadableService<E, ID> {
 

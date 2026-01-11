@@ -33,26 +33,33 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Name: SysMenuService
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统菜单服务
+ * 系统菜单服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class SysMenuService extends BaseService<SysMenu, Long> {
 
     private final SysMenuRepository menuRepository;
 
+    /**
+     * 获取数据访问仓库
+     *
+     * @return 菜单仓库
+     */
     @Override
     protected BaseRepository<SysMenu, Long> getRepository() {
         return menuRepository;
     }
 
     /**
-     * 查询菜单及其子菜单树
+     * 查询指定父菜单下的子菜单树
+     *
+     * @param parentId 父菜单ID
+     * @return 菜单列表
      */
     public List<SysMenu> findMenuTree(Long parentId) {
         return menuRepository.findByParent_IdOrderBySortOrderAsc(parentId);

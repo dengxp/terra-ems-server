@@ -27,13 +27,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
- * Name: JpaConfig
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: JPA配置，启用审计功能
+ * JPA配置，启用审计功能
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Configuration
 @EnableJpaAuditing
 public class JpaConfig {

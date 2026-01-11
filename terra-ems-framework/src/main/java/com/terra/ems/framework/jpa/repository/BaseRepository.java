@@ -41,13 +41,14 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: BaseRepository
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 基础Repository，提供标准CRUD操作及缓存支持
+ * 基础Repository，提供标准CRUD操作及缓存支持
  *
+ * @param <E>  实体类型
+ * @param <ID> 主键类型
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @NoRepositoryBean
 public interface BaseRepository<E extends Entity, ID extends Serializable>
         extends JpaRepository<E, ID>, JpaSpecificationExecutor<E> {

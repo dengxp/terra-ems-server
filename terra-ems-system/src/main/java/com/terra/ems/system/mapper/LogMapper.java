@@ -30,13 +30,12 @@ import org.mapstruct.*;
 import java.util.List;
 
 /**
- * Name: LogMapper
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统日志实体与DTO转换器
+ * 系统日志实体与DTO转换器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LogMapper {
 

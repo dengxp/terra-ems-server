@@ -36,13 +36,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Name: SysUser
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 系统用户实体
+ * 系统用户实体
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -179,101 +178,5 @@ public class SysUser extends BaseEntity {
      */
     public boolean isCredentialsNonExpired() {
         return isNonExpired(credentialsExpireAt);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public DataItemStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(DataItemStatus status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getAccountExpireAt() {
-        return accountExpireAt;
-    }
-
-    public void setAccountExpireAt(LocalDateTime accountExpireAt) {
-        this.accountExpireAt = accountExpireAt;
-    }
-
-    public LocalDateTime getCredentialsExpireAt() {
-        return credentialsExpireAt;
-    }
-
-    public void setCredentialsExpireAt(LocalDateTime credentialsExpireAt) {
-        this.credentialsExpireAt = credentialsExpireAt;
-    }
-
-    public int getFailLoginCount() {
-        return failLoginCount;
-    }
-
-    public void setFailLoginCount(int failLoginCount) {
-        this.failLoginCount = failLoginCount;
-    }
-
-    public LocalDateTime getLastLoginAt() {
-        return lastLoginAt;
-    }
-
-    public void setLastLoginAt(LocalDateTime lastLoginAt) {
-        this.lastLoginAt = lastLoginAt;
     }
 }

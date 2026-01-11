@@ -37,56 +37,55 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: CostPolicyBindingRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 成本策略绑定仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface CostPolicyBindingRepository extends BaseRepository<CostPolicyBinding, Long> {
 
-    /**
-     * 按用能单元查询
-     */
-    List<CostPolicyBinding> findByEnergyUnitIdAndStatusOrderByEffectiveStartDateDesc(Long energyUnitId,
-            DataItemStatus status);
+        /**
+         * 按用能单元查询
+         */
+        List<CostPolicyBinding> findByEnergyUnitIdAndStatusOrderByEffectiveStartDateDesc(Long energyUnitId,
+                        DataItemStatus status);
 
-    /**
-     * 按电价策略查询
-     */
-    List<CostPolicyBinding> findByPricePolicyIdAndStatusOrderByCreatedAtDesc(Long pricePolicyId, DataItemStatus status);
+        /**
+         * 按电价策略查询
+         */
+        List<CostPolicyBinding> findByPricePolicyIdAndStatusOrderByCreatedAtDesc(Long pricePolicyId,
+                        DataItemStatus status);
 
-    /**
-     * 查询用能单元在指定日期有效的绑定
-     */
-    @Query("SELECT b FROM CostPolicyBinding b WHERE b.energyUnit.id = :energyUnitId " +
-            "AND b.status = :status " +
-            "AND b.effectiveStartDate <= :date " +
-            "AND (b.effectiveEndDate IS NULL OR b.effectiveEndDate >= :date)")
-    Optional<CostPolicyBinding> findEffectiveBinding(
-            @Param("energyUnitId") Long energyUnitId,
-            @Param("date") LocalDate date,
-            @Param("status") DataItemStatus status);
+        /**
+         * 查询用能单元在指定日期有效的绑定
+         */
+        @Query("SELECT b FROM CostPolicyBinding b WHERE b.energyUnit.id = :energyUnitId " +
+                        "AND b.status = :status " +
+                        "AND b.effectiveStartDate <= :date " +
+                        "AND (b.effectiveEndDate IS NULL OR b.effectiveEndDate >= :date)")
+        Optional<CostPolicyBinding> findEffectiveBinding(
+                        @Param("energyUnitId") Long energyUnitId,
+                        @Param("date") LocalDate date,
+                        @Param("status") DataItemStatus status);
 
-    /**
-     * 分页条件查询
-     */
-    @Query("SELECT b FROM CostPolicyBinding b WHERE " +
-            "(:energyUnitId IS NULL OR b.energyUnit.id = :energyUnitId) AND " +
-            "(:pricePolicyId IS NULL OR b.pricePolicy.id = :pricePolicyId) AND " +
-            "(:status IS NULL OR b.status = :status) " +
-            "ORDER BY b.createdAt DESC")
-    Page<CostPolicyBinding> findByConditions(
-            @Param("energyUnitId") Long energyUnitId,
-            @Param("pricePolicyId") Long pricePolicyId,
-            @Param("status") DataItemStatus status,
-            Pageable pageable);
+        /**
+         * 分页条件查询
+         */
+        @Query("SELECT b FROM CostPolicyBinding b WHERE " +
+                        "(:energyUnitId IS NULL OR b.energyUnit.id = :energyUnitId) AND " +
+                        "(:pricePolicyId IS NULL OR b.pricePolicy.id = :pricePolicyId) AND " +
+                        "(:status IS NULL OR b.status = :status) " +
+                        "ORDER BY b.createdAt DESC")
+        Page<CostPolicyBinding> findByConditions(
+                        @Param("energyUnitId") Long energyUnitId,
+                        @Param("pricePolicyId") Long pricePolicyId,
+                        @Param("status") DataItemStatus status,
+                        Pageable pageable);
 
-    /**
-     * 按用能单元统计绑定数量
-     */
-    long countByEnergyUnitIdAndStatus(Long energyUnitId, DataItemStatus status);
+        /**
+         * 按用能单元统计绑定数量
+         */
+        long countByEnergyUnitIdAndStatus(Long energyUnitId, DataItemStatus status);
 }

@@ -36,13 +36,12 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Name: CaptchaService
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 验证码服务实现
+ * 验证码服务实现
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 public class CaptchaService {
 

@@ -34,14 +34,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Name: AlarmConfigService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 预报警配置服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class AlarmConfigService extends BaseService<AlarmConfig, Long> {

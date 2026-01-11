@@ -35,14 +35,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Name: PricePolicy.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 电价策略实体
+ * 电价策略
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

@@ -35,14 +35,12 @@ import lombok.EqualsAndHashCode;
 import java.math.BigDecimal;
 
 /**
- * Name: Benchmark.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 对标值实体
+ * 对标值管理
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

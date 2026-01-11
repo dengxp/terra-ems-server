@@ -44,6 +44,7 @@ import java.util.Set;
  * 采集点位控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Tag(name = "采集点位管理")
 @RestController
@@ -53,6 +54,15 @@ public class MeterPointController {
 
     private final MeterPointService meterPointService;
 
+    /**
+     * 分页查询采集点位
+     *
+     * @param current   页码
+     * @param pageSize  每页数量
+     * @param sortField 排序字段
+     * @param sortOrder 排序方向
+     * @return 分页结果
+     */
     @Operation(summary = "分页查询采集点位")
     @GetMapping
     public Result<Page<MeterPoint>> list(
@@ -67,6 +77,12 @@ public class MeterPointController {
         return Result.content(meterPointService.findAll(pageable));
     }
 
+    /**
+     * 根据ID查询采集点位
+     *
+     * @param id 采集点位ID
+     * @return 采集点位详情
+     */
     @Operation(summary = "根据ID查询采集点位")
     @GetMapping("/{id}")
     public Result<MeterPoint> getById(@PathVariable Long id) {
@@ -75,6 +91,12 @@ public class MeterPointController {
                 .orElse(Result.failure("采集点位不存在"));
     }
 
+    /**
+     * 根据编码查询采集点位
+     *
+     * @param code 采集点位编码
+     * @return 采集点位详情
+     */
     @Operation(summary = "根据编码查询采集点位")
     @GetMapping("/code/{code}")
     public Result<MeterPoint> getByCode(@PathVariable String code) {
@@ -83,24 +105,50 @@ public class MeterPointController {
                 .orElse(Result.failure("采集点位不存在"));
     }
 
+    /**
+     * 根据计量器具ID查询采集点位
+     *
+     * @param meterId 计量器具ID
+     * @return 采集点位列表
+     */
     @Operation(summary = "根据计量器具ID查询采集点位")
     @GetMapping("/meter/{meterId}")
     public Result<List<MeterPoint>> getByMeterId(@PathVariable Long meterId) {
         return Result.content(meterPointService.findByMeterId(meterId));
     }
 
+    /**
+     * 根据能源类型ID查询采集点位
+     *
+     * @param energyTypeId 能源类型ID
+     * @return 采集点位列表
+     */
     @Operation(summary = "根据能源类型ID查询采集点位")
     @GetMapping("/energy-type/{energyTypeId}")
     public Result<List<MeterPoint>> getByEnergyTypeId(@PathVariable Long energyTypeId) {
         return Result.content(meterPointService.findByEnergyTypeId(energyTypeId));
     }
 
+    /**
+     * 根据用能单元ID查询关联的采集点位
+     *
+     * @param energyUnitId 用能单元ID
+     * @return 采集点位列表
+     */
     @Operation(summary = "根据用能单元ID查询关联的采集点位")
     @GetMapping("/energy-unit/{energyUnitId}")
     public Result<List<MeterPoint>> getByEnergyUnitId(@PathVariable Long energyUnitId) {
         return Result.content(meterPointService.findByEnergyUnitId(energyUnitId));
     }
 
+    /**
+     * 创建采集点位
+     *
+     * @param meterPoint   采集点位实体
+     * @param meterId      计量器具ID
+     * @param energyTypeId 能源类型ID
+     * @return 创建后的实体
+     */
     @Operation(summary = "创建采集点位")
     @PostMapping
     public Result<MeterPoint> create(
@@ -115,6 +163,15 @@ public class MeterPointController {
         }
     }
 
+    /**
+     * 更新采集点位
+     *
+     * @param id           采集点位ID
+     * @param meterPoint   采集点位实体
+     * @param meterId      计量器具ID
+     * @param energyTypeId 能源类型ID
+     * @return 更新后的实体
+     */
     @Operation(summary = "更新采集点位")
     @PutMapping("/{id}")
     public Result<MeterPoint> update(
@@ -130,6 +187,12 @@ public class MeterPointController {
         }
     }
 
+    /**
+     * 删除采集点位
+     *
+     * @param id 采集点位ID
+     * @return 操作结果
+     */
     @Operation(summary = "删除采集点位")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {
@@ -141,6 +204,13 @@ public class MeterPointController {
         }
     }
 
+    /**
+     * 修改采集点位状态
+     *
+     * @param id     采集点位ID
+     * @param status 新状态
+     * @return 更新后的实体
+     */
     @Operation(summary = "修改采集点位状态")
     @PatchMapping("/{id}/status")
     public Result<MeterPoint> updateStatus(
@@ -154,6 +224,13 @@ public class MeterPointController {
         }
     }
 
+    /**
+     * 关联用能单元
+     *
+     * @param id            采集点位ID
+     * @param energyUnitIds 用能单元ID集合
+     * @return 更新后的实体
+     */
     @Operation(summary = "关联用能单元")
     @PostMapping("/{id}/energy-units")
     public Result<MeterPoint> assignEnergyUnits(

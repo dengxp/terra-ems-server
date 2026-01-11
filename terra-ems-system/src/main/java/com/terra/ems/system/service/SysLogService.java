@@ -31,26 +31,32 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * Name: SysLogService
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统日志服务
+ * 系统日志服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class SysLogService extends BaseService<SysLog, Long> {
 
     private final SysLogRepository logRepository;
 
+    /**
+     * 获取数据访问仓库
+     *
+     * @return 日志仓库
+     */
     @Override
     protected BaseRepository<SysLog, Long> getRepository() {
         return logRepository;
     }
 
     /**
-     * 异步保存日志（后期可扩展异步处理）
+     * 保存日志信息
+     *
+     * @param log 日志实体
      */
     public void saveLog(SysLog log) {
         logRepository.save(log);

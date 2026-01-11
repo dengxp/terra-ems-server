@@ -30,14 +30,12 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * Name: MeterRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 计量器具档案 Repository
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface MeterRepository extends BaseRepository<Meter, Long> {
 

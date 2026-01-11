@@ -32,13 +32,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: SysPostRepository
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统岗位仓库
+ * 系统岗位仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface SysPostRepository extends BaseRepository<SysPost, Long> {
 

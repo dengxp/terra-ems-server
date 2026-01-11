@@ -36,13 +36,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Name: Gender
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 性别枚举
+ * 性别枚举
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Schema(title = "性别")
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Gender implements BaseUiEnum<Integer> {

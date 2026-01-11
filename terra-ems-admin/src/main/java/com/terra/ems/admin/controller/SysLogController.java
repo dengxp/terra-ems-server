@@ -33,12 +33,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Name: SysLogController
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统日志控制器
+ * 系统日志控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 
 @Tag(name = "系统日志")
@@ -53,6 +51,11 @@ public class SysLogController extends BaseController<SysLog, Long> {
         this.logService = logService;
     }
 
+    /**
+     * 获取业务服务
+     *
+     * @return 系统日志服务
+     */
     @Override
     protected BaseService<SysLog, Long> getService() {
         return logService;

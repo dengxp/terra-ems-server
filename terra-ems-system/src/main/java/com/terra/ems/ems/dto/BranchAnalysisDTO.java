@@ -30,14 +30,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Name: BranchAnalysisDTO.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 支路能耗分析DTO
+ * 支路能耗分析 DTO
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Schema(description = "支路能耗分析")
 public class BranchAnalysisDTO {

@@ -32,13 +32,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Name: SysPermission
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 系统权限实体
+ * 系统权限实体
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -74,6 +73,11 @@ public class SysPermission extends BaseEntity {
     @Column(name = "super_permission")
     private Boolean superPermission = false;
 
+    /**
+     * 辅助构造函数
+     *
+     * @param id 权限ID
+     */
     public SysPermission(Long id) {
         this.id = id;
     }

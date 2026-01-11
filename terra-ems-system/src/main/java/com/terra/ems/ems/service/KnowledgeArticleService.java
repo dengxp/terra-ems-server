@@ -39,14 +39,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: KnowledgeArticleService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 知识库文章服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Slf4j
 @Service
 @RequiredArgsConstructor

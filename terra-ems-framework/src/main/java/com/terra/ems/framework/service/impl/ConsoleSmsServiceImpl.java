@@ -33,16 +33,14 @@ import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Name: ConsoleSmsServiceImpl.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 控制台短信服务实现
  * <p>
  * 将验证码输出到控制台，不实际发送短信，用于开发和测试环境
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @ConditionalOnProperty(prefix = "terra.sms", name = "provider", havingValue = "console", matchIfMissing = true)
 public class ConsoleSmsServiceImpl implements SmsService {

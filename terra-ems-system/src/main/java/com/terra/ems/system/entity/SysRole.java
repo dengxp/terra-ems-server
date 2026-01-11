@@ -37,13 +37,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Name: SysRole
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 系统角色实体
+ * 系统角色实体
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

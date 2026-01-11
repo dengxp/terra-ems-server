@@ -36,11 +36,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Name: Controller
- * Description: Controller基础定义，提供了统一的响应实体转换方法
+ * Controller基础定义，提供了统一的响应实体转换方法
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public abstract class Controller {
 
     /**
@@ -168,6 +169,12 @@ public abstract class Controller {
      *
      * @param message 信息
      * @return {@link Result} String
+     */
+    /**
+     * 返回成功结果
+     *
+     * @param message 成功消息
+     * @return 成功结果
      */
     protected Result<String> success(String message) {
         return Result.success(message);

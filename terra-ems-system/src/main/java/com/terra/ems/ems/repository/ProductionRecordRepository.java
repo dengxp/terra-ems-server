@@ -38,14 +38,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: ProductionRecordRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 产品产量记录仓储接口
+ * 产品产量记录仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface ProductionRecordRepository extends JpaRepository<ProductionRecord, Long> {
 

@@ -34,13 +34,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * Name: ConstantController
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 系统常量控制器
+ * 系统常量控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @RestController
 @RequestMapping("/system/constant")
 public class ConstantController {
@@ -51,6 +50,11 @@ public class ConstantController {
         this.constantService = constantService;
     }
 
+    /**
+     * 获取系统所有常量选项列表
+     *
+     * @return 包含所有枚举/常量选项信息的 Map
+     */
     @Operation(summary = "获取系统常量")
     @GetMapping("/options")
     public Result<Map<String, Object>> getAllOptions() {
@@ -62,6 +66,11 @@ public class ConstantController {
         }
     }
 
+    /**
+     * 获取系统所有常量映射集
+     *
+     * @return 包含所有常量映射信息的 Map
+     */
     @Operation(summary = "获取系统映射集")
     @GetMapping("/maps")
     public Result<Map<String, Object>> findAllMaps() {

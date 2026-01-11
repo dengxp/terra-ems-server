@@ -28,13 +28,12 @@ import com.terra.ems.system.entity.SysLog;
 import org.springframework.stereotype.Repository;
 
 /**
- * Name: SysLogRepository
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统日志仓库
+ * 系统日志仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface SysLogRepository extends BaseRepository<SysLog, Long> {
 }

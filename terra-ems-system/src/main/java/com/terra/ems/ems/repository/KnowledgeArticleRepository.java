@@ -36,61 +36,59 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Name: KnowledgeArticleRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 知识库文章仓储接口
+ * 知识库文章仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface KnowledgeArticleRepository extends JpaRepository<KnowledgeArticle, Long> {
 
-    /**
-     * 按能源类型查询文章
-     */
-    List<KnowledgeArticle> findByEnergyTypeIdAndStatus(Long energyTypeId, DataItemStatus status);
+        /**
+         * 按能源类型查询文章
+         */
+        List<KnowledgeArticle> findByEnergyTypeIdAndStatus(Long energyTypeId, DataItemStatus status);
 
-    /**
-     * 按分类查询文章
-     */
-    List<KnowledgeArticle> findByCategoryAndStatus(String category, DataItemStatus status);
+        /**
+         * 按分类查询文章
+         */
+        List<KnowledgeArticle> findByCategoryAndStatus(String category, DataItemStatus status);
 
-    /**
-     * 分页查询启用的文章
-     */
-    Page<KnowledgeArticle> findByStatus(DataItemStatus status, Pageable pageable);
+        /**
+         * 分页查询启用的文章
+         */
+        Page<KnowledgeArticle> findByStatus(DataItemStatus status, Pageable pageable);
 
-    /**
-     * 按能源类型分页查询
-     */
-    Page<KnowledgeArticle> findByEnergyTypeIdAndStatus(Long energyTypeId, DataItemStatus status, Pageable pageable);
+        /**
+         * 按能源类型分页查询
+         */
+        Page<KnowledgeArticle> findByEnergyTypeIdAndStatus(Long energyTypeId, DataItemStatus status, Pageable pageable);
 
-    /**
-     * 关键词搜索（标题和内容）
-     */
-    @Query("SELECT k FROM KnowledgeArticle k WHERE k.status = :status " +
-            "AND (k.title LIKE %:keyword% OR k.content LIKE %:keyword%)")
-    Page<KnowledgeArticle> searchByKeyword(@Param("keyword") String keyword,
-            @Param("status") DataItemStatus status,
-            Pageable pageable);
+        /**
+         * 关键词搜索（标题和内容）
+         */
+        @Query("SELECT k FROM KnowledgeArticle k WHERE k.status = :status " +
+                        "AND (k.title LIKE %:keyword% OR k.content LIKE %:keyword%)")
+        Page<KnowledgeArticle> searchByKeyword(@Param("keyword") String keyword,
+                        @Param("status") DataItemStatus status,
+                        Pageable pageable);
 
-    /**
-     * 获取所有分类
-     */
-    @Query("SELECT DISTINCT k.category FROM KnowledgeArticle k WHERE k.category IS NOT NULL AND k.status = :status")
-    List<String> findDistinctCategories(@Param("status") DataItemStatus status);
+        /**
+         * 获取所有分类
+         */
+        @Query("SELECT DISTINCT k.category FROM KnowledgeArticle k WHERE k.category IS NOT NULL AND k.status = :status")
+        List<String> findDistinctCategories(@Param("status") DataItemStatus status);
 
-    /**
-     * 增加阅读次数
-     */
-    @Modifying
-    @Query("UPDATE KnowledgeArticle k SET k.viewCount = k.viewCount + 1 WHERE k.id = :id")
-    void incrementViewCount(@Param("id") Long id);
+        /**
+         * 增加阅读次数
+         */
+        @Modifying
+        @Query("UPDATE KnowledgeArticle k SET k.viewCount = k.viewCount + 1 WHERE k.id = :id")
+        void incrementViewCount(@Param("id") Long id);
 
-    /**
-     * 获取热门文章
-     */
-    List<KnowledgeArticle> findTop10ByStatusOrderByViewCountDesc(DataItemStatus status);
+        /**
+         * 获取热门文章
+         */
+        List<KnowledgeArticle> findTop10ByStatusOrderByViewCountDesc(DataItemStatus status);
 }

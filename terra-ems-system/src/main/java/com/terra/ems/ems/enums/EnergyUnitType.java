@@ -26,14 +26,12 @@ package com.terra.ems.ems.enums;
 import lombok.Getter;
 
 /**
- * Name: EnergyUnitType.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 用能单元类型
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Getter
 public enum EnergyUnitType {
 

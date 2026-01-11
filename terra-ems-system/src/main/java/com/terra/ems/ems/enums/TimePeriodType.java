@@ -25,14 +25,12 @@ package com.terra.ems.ems.enums;
 import lombok.Getter;
 
 /**
- * Name: TimePeriodType.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 分时电价时段类型枚举
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Getter
 public enum TimePeriodType {
 

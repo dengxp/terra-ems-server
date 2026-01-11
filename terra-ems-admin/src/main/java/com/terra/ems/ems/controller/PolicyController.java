@@ -45,6 +45,7 @@ import java.util.List;
  * 政策法规控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @RestController
 @RequestMapping("/ems/policies")
@@ -54,22 +55,43 @@ public class PolicyController extends WritableController<Policy, Long> {
 
     private final PolicyService service;
 
+    /**
+     * 获取可写服务
+     *
+     * @return 政策法规服务
+     */
     @Override
     protected WritableService<Policy, Long> getWritableService() {
         return service;
     }
 
+    /**
+     * 获取可读服务
+     *
+     * @return 政策法规服务
+     */
     @Override
     protected ReadableService<Policy, Long> getReadableService() {
         return service;
     }
 
+    /**
+     * 查询所有启用的政策
+     *
+     * @return 启用的政策列表
+     */
     @GetMapping("/enabled")
     @Operation(summary = "查询所有启用的政策")
     public Result<List<Policy>> findAllEnabled() {
         return Result.content(service.findAllEnabled());
     }
 
+    /**
+     * 按类型查询政策列表
+     *
+     * @param type 政策类型
+     * @return 政策列表
+     */
     @GetMapping("/type/{type}")
     @Operation(summary = "按类型查询政策列表")
     public Result<List<Policy>> findByType(
@@ -77,6 +99,16 @@ public class PolicyController extends WritableController<Policy, Long> {
         return Result.content(service.findByType(type));
     }
 
+    /**
+     * 分页条件查询政策法规
+     *
+     * @param title  政策标题
+     * @param type   政策类型
+     * @param status 状态
+     * @param page   页码
+     * @param size   每页数量
+     * @return 分页结果
+     */
     @GetMapping("/search")
     @Operation(summary = "分页条件查询")
     public Result<Page<Policy>> search(
@@ -88,6 +120,12 @@ public class PolicyController extends WritableController<Policy, Long> {
         return Result.content(service.findByConditions(title, type, status, PageRequest.of(page, size)));
     }
 
+    /**
+     * 按类型统计政策数量
+     *
+     * @param type 政策类型
+     * @return 政策数量
+     */
     @GetMapping("/statistics/count/{type}")
     @Operation(summary = "按类型统计政策数量")
     public Result<Long> countByType(
@@ -95,6 +133,13 @@ public class PolicyController extends WritableController<Policy, Long> {
         return Result.content(service.countByType(type));
     }
 
+    /**
+     * 更新政策状态
+     *
+     * @param id     政策ID
+     * @param status 新状态
+     * @return 更新后的实体
+     */
     @PutMapping("/{id}/status")
     @Operation(summary = "更新政策状态")
     public Result<Policy> updateStatus(

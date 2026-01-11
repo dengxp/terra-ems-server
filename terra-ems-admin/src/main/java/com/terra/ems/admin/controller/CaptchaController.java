@@ -35,12 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * Name: CaptchaController
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 验证码控制器
+ * 验证码控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 
 @Tag(name = "验证码管理", description = "验证码生成和验证接口")
@@ -54,6 +52,13 @@ public class CaptchaController {
         this.captchaService = captchaService;
     }
 
+    /**
+     * 生成验证码
+     *
+     * @param identity 身份标识（如手机号、邮箱、IP等）
+     * @param category 验证码类别
+     * @return 包含验证码标识和图片的 Map
+     */
     @Operation(summary = "生成验证码", description = "通过传递身份信息和类型信息生成验证码")
     @GetMapping("/create")
     public Result<Map<String, Object>> create(
@@ -63,6 +68,13 @@ public class CaptchaController {
         return Result.success("验证码生成成功", captcha);
     }
 
+    /**
+     * 校验验证码
+     *
+     * @param identity 身份标识
+     * @param code     验证码
+     * @return 是否校验通过
+     */
     @Operation(summary = "验证验证码")
     @GetMapping("/check")
     public Result<Boolean> check(

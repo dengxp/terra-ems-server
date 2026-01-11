@@ -23,13 +23,12 @@
 package com.terra.ems.common.constant;
 
 /**
- * Name: CacheConstants
- * Email: dengxueping@gmail.com
- * Date: 2024-12-20
- * Description: 缓存常量
+ * 缓存常量
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public interface CacheConstants {
 
     /**

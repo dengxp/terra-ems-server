@@ -35,13 +35,12 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Name: EnumeratedValue
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 校验枚举值有效性
+ * 校验枚举值有效性
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented

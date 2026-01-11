@@ -44,13 +44,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Name: ProductionRecordController.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 产品产量记录控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Tag(name = "产品产量管理", description = "产品产量记录的增删改查及统计分析")
 @RestController
@@ -60,6 +57,12 @@ public class ProductionRecordController extends Controller {
 
     private final ProductionRecordService productionRecordService;
 
+    /**
+     * 创建产量记录
+     *
+     * @param record 产量记录实体
+     * @return 创建后的实体
+     */
     @Operation(summary = "创建产量记录")
     @PostMapping
     public Result<ProductionRecord> create(@RequestBody ProductionRecord record) {
@@ -67,6 +70,13 @@ public class ProductionRecordController extends Controller {
         return Result.content(created);
     }
 
+    /**
+     * 更新产量记录详情
+     *
+     * @param id     记录ID
+     * @param record 产量记录实体
+     * @return 更新后的实体
+     */
     @Operation(summary = "更新产量记录")
     @PutMapping("/{id}")
     public Result<ProductionRecord> update(
@@ -76,6 +86,12 @@ public class ProductionRecordController extends Controller {
         return Result.content(updated);
     }
 
+    /**
+     * 删除指定的产量记录
+     *
+     * @param id 记录ID
+     * @return 操作结果
+     */
     @Operation(summary = "删除产量记录")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@Parameter(description = "记录ID") @PathVariable Long id) {
@@ -83,6 +99,12 @@ public class ProductionRecordController extends Controller {
         return Result.success();
     }
 
+    /**
+     * 批量删除产量记录
+     *
+     * @param ids 记录ID列表
+     * @return 操作结果
+     */
     @Operation(summary = "批量删除产量记录")
     @DeleteMapping("/batch")
     public Result<Void> deleteBatch(@RequestBody List<Long> ids) {
@@ -90,6 +112,12 @@ public class ProductionRecordController extends Controller {
         return Result.success();
     }
 
+    /**
+     * 获取指定产量记录的详细信息
+     *
+     * @param id 记录ID
+     * @return 产量记录详情
+     */
     @Operation(summary = "获取产量记录详情")
     @GetMapping("/{id}")
     public Result<ProductionRecord> getById(@Parameter(description = "记录ID") @PathVariable Long id) {
@@ -98,6 +126,17 @@ public class ProductionRecordController extends Controller {
                 .orElse(Result.failure("产量记录不存在"));
     }
 
+    /**
+     * 分页查询指定单元和日期范围内的产量记录
+     *
+     * @param energyUnitId 用能单元ID
+     * @param dataType     数据类型
+     * @param startDate    开始日期
+     * @param endDate      结束日期
+     * @param page         页码
+     * @param size         每页大小
+     * @return 分页结果
+     */
     @Operation(summary = "分页查询产量记录")
     @GetMapping
     public Result<Page<ProductionRecord>> list(
@@ -114,6 +153,15 @@ public class ProductionRecordController extends Controller {
         return Result.content(records);
     }
 
+    /**
+     * 汇总指定范围内的总产量
+     *
+     * @param energyUnitId 用能单元ID
+     * @param dataType     数据类型
+     * @param startDate    开始日期
+     * @param endDate      结束日期
+     * @return 总产量
+     */
     @Operation(summary = "汇总产量")
     @GetMapping("/summary")
     public Result<BigDecimal> sumQuantity(
@@ -126,6 +174,15 @@ public class ProductionRecordController extends Controller {
         return Result.content(total);
     }
 
+    /**
+     * 按产品名称分组统计指定范围内的产量
+     *
+     * @param energyUnitId 用能单元ID
+     * @param dataType     数据类型
+     * @param startDate    开始日期
+     * @param endDate      结束日期
+     * @return 产品产量分布映射
+     */
     @Operation(summary = "按产品分组统计产量")
     @GetMapping("/summary/by-product")
     public Result<Map<String, BigDecimal>> sumByProduct(
@@ -139,6 +196,13 @@ public class ProductionRecordController extends Controller {
         return Result.content(productQuantities);
     }
 
+    /**
+     * 获取指定用能单元下已有的产品名称列表
+     *
+     * @param energyUnitId 用能单元ID
+     * @param dataType     数据类型
+     * @return 产品名称列表
+     */
     @Operation(summary = "获取产品名称列表")
     @GetMapping("/products")
     public Result<List<String>> getProductNames(

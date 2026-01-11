@@ -24,12 +24,10 @@
 package com.terra.ems.framework.enums;
 
 /**
- * Name: EnumValue
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 枚举值定义
+ * 枚举值定义
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 
 public interface EnumValue<T> {

@@ -26,13 +26,12 @@ package com.terra.ems.framework.rest.annotation;
 import java.lang.annotation.*;
 
 /**
- * Name: AccessLimited
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 访问限制注解
+ * 访问限制注解
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD })
 @Documented

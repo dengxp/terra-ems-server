@@ -59,12 +59,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Name: SecurityConfig
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: Security配置
+ * Security配置
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Configuration
 @EnableWebSecurity

@@ -26,13 +26,12 @@ package com.terra.ems.framework.jpa.annotation;
 import java.lang.annotation.*;
 
 /**
- * Name: DataPermission
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 数据权限过滤注解
+ * 数据权限过滤注解
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

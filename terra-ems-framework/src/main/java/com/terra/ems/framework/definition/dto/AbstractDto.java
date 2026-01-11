@@ -26,12 +26,11 @@ package com.terra.ems.framework.definition.dto;
 import java.io.Serializable;
 
 /**
- * Name: AbstractDto
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: DTO基类
+ * DTO基类
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public abstract class AbstractDto implements Serializable {
 }

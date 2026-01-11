@@ -31,19 +31,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * Name: SysConfigService
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统参数配置服务
+ * 系统参数配置服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class SysConfigService extends BaseService<SysConfig, Long> {
 
     private final SysConfigRepository configRepository;
 
+    /**
+     * 获取数据访问仓库
+     *
+     * @return 系统参数配置仓库
+     */
     @Override
     protected BaseRepository<SysConfig, Long> getRepository() {
         return configRepository;

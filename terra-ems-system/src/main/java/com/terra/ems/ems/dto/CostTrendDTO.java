@@ -30,14 +30,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Name: CostTrendDTO.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 成本趋势分析 DTO
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @Schema(description = "成本趋势分析结果")
 public class CostTrendDTO {

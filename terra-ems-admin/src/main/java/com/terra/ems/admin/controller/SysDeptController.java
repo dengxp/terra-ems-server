@@ -38,13 +38,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Name: SysDeptController
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 部门管理控制器
+ * 部门管理控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Tag(name = "部门管理")
 @RestController
 @RequestMapping("/system/dept")
@@ -57,11 +56,21 @@ public class SysDeptController extends BaseController<SysDept, Long> {
         this.deptService = deptService;
     }
 
+    /**
+     * 获取业务服务
+     *
+     * @return 部门管理服务
+     */
     @Override
     protected BaseService<SysDept, Long> getService() {
         return deptService;
     }
 
+    /**
+     * 查询部门树形结构
+     *
+     * @return 部门树列表结果
+     */
     @Operation(summary = "查询部门树")
     @GetMapping("/tree")
     @Override
@@ -69,6 +78,12 @@ public class SysDeptController extends BaseController<SysDept, Long> {
         return Result.content(deptService.findDeptTree(null));
     }
 
+    /**
+     * 保存或更新部门信息
+     *
+     * @param dept 部门实体
+     * @return 操作结果及实体
+     */
     @Operation(summary = "保存或更新部门")
     @Override
     @PreAuthorize("hasAnyAuthority('system:dept:add', 'system:dept:edit')")

@@ -29,12 +29,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
- * Name: TerraEmsApplication
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: Terra EMS 应用启动类
+ * Terra EMS 应用启动类
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @SpringBootApplication(scanBasePackages = "com.terra.ems")
 @EntityScan(basePackages = { "com.terra.ems.system.entity", "com.terra.ems.ems.entity" })

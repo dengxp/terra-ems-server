@@ -24,12 +24,10 @@
 package com.terra.ems.framework.enums;
 
 /**
- * Name: BaseUiEnum
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 基础枚举定义
+ * 基础枚举定义
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 
 public interface BaseUiEnum<T> extends EnumValue<T>, EnumDescription {

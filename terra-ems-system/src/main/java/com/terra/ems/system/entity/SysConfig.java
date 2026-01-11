@@ -30,13 +30,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * Name: SysConfig
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统参数配置实体
+ * 系统参数配置实体
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

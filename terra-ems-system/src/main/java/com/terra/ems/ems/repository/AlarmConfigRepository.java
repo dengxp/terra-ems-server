@@ -30,14 +30,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Name: AlarmConfigRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 预报警配置仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface AlarmConfigRepository extends BaseRepository<AlarmConfig, Long> {
 

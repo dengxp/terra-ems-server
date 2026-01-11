@@ -39,6 +39,7 @@ import java.util.List;
  * 用能单元控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Tag(name = "用能单元管理")
 @RestController
@@ -48,30 +49,57 @@ public class EnergyUnitController {
 
     private final EnergyUnitService energyUnitService;
 
+    /**
+     * 获取完整树形结构
+     *
+     * @return 完整树形数据
+     */
     @Operation(summary = "获取完整树形结构")
     @GetMapping("/tree")
     public Result<List<EnergyUnit>> getTree() {
         return Result.content(energyUnitService.getTree());
     }
 
+    /**
+     * 获取启用状态的树形结构
+     *
+     * @return 启用的树形数据
+     */
     @Operation(summary = "获取启用状态的树形结构")
     @GetMapping("/tree/enabled")
     public Result<List<EnergyUnit>> getEnabledTree() {
         return Result.content(energyUnitService.getEnabledTree());
     }
 
+    /**
+     * 获取启用的用能单元列表
+     *
+     * @return 启用的用能单元列表
+     */
     @Operation(summary = "获取启用的用能单元列表")
     @GetMapping("/enabled")
     public Result<List<EnergyUnit>> getEnabledList() {
         return Result.content(energyUnitService.findEnabled());
     }
 
+    /**
+     * 获取子节点（懒加载）
+     *
+     * @param parentId 父节点ID
+     * @return 子节点列表
+     */
     @Operation(summary = "获取子节点（懒加载）")
     @GetMapping("/{parentId}/children")
     public Result<List<EnergyUnit>> getChildren(@PathVariable Long parentId) {
         return Result.content(energyUnitService.getChildren(parentId));
     }
 
+    /**
+     * 根据ID查询用能单元
+     *
+     * @param id 用能单元ID
+     * @return 用能单元详情
+     */
     @Operation(summary = "根据ID查询用能单元")
     @GetMapping("/{id}")
     public Result<EnergyUnit> getById(@PathVariable Long id) {
@@ -80,6 +108,12 @@ public class EnergyUnitController {
                 .orElse(Result.failure("用能单元不存在"));
     }
 
+    /**
+     * 根据编码查询用能单元
+     *
+     * @param code 用能单元编码
+     * @return 用能单元详情
+     */
     @Operation(summary = "根据编码查询用能单元")
     @GetMapping("/code/{code}")
     public Result<EnergyUnit> getByCode(@PathVariable String code) {
@@ -88,6 +122,13 @@ public class EnergyUnitController {
                 .orElse(Result.failure("用能单元不存在"));
     }
 
+    /**
+     * 创建用能单元
+     *
+     * @param energyUnit 用能单元实体
+     * @param parentId   父节点ID
+     * @return 创建后的实体
+     */
     @Operation(summary = "创建用能单元")
     @PostMapping
     public Result<EnergyUnit> create(
@@ -101,6 +142,13 @@ public class EnergyUnitController {
         }
     }
 
+    /**
+     * 更新用能单元
+     *
+     * @param id         用能单元ID
+     * @param energyUnit 用能单元实体
+     * @return 更新后的实体
+     */
     @Operation(summary = "更新用能单元")
     @PutMapping("/{id}")
     public Result<EnergyUnit> update(@PathVariable Long id, @RequestBody EnergyUnit energyUnit) {
@@ -112,6 +160,13 @@ public class EnergyUnitController {
         }
     }
 
+    /**
+     * 移动节点（更改父节点）
+     *
+     * @param id          节点ID
+     * @param newParentId 新父节点ID
+     * @return 更新后的实体
+     */
     @Operation(summary = "移动节点（更改父节点）")
     @PatchMapping("/{id}/move")
     public Result<EnergyUnit> move(
@@ -125,6 +180,12 @@ public class EnergyUnitController {
         }
     }
 
+    /**
+     * 删除用能单元
+     *
+     * @param id 用能单元ID
+     * @return 操作结果
+     */
     @Operation(summary = "删除用能单元")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {
@@ -136,6 +197,13 @@ public class EnergyUnitController {
         }
     }
 
+    /**
+     * 修改用能单元状态
+     *
+     * @param id     用能单元ID
+     * @param status 新状态
+     * @return 更新后的实体
+     */
     @Operation(summary = "修改用能单元状态")
     @PatchMapping("/{id}/status")
     public Result<EnergyUnit> updateStatus(

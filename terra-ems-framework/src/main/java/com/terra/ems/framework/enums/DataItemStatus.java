@@ -34,12 +34,10 @@ import jakarta.persistence.Converter;
 import java.util.*;
 
 /**
- * Name: DataItemStatus
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: 数据状态
+ * 数据状态
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 
 @Schema(title = "数据状态")

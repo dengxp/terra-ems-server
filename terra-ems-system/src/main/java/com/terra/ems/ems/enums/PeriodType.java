@@ -26,15 +26,13 @@ package com.terra.ems.ems.enums;
 import lombok.Getter;
 
 /**
- * Name: PeriodType.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 电价时段类型枚举
  * 用于分时电价（尖峰平谷）的时段分类
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Getter
 public enum PeriodType {
 

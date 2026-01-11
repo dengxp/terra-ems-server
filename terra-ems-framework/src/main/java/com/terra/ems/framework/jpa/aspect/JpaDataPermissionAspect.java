@@ -36,12 +36,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 /**
- * Name: JpaDataPermissionAspect
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: JPA数据权限切面实现
+ * JPA数据权限切面实现
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Aspect
 @Component

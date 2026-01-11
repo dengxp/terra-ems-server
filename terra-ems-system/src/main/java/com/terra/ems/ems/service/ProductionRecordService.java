@@ -41,14 +41,12 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Name: ProductionRecordService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 产品产量记录服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Slf4j
 @Service
 @RequiredArgsConstructor

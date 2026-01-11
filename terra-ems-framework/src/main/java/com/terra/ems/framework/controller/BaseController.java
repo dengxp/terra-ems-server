@@ -31,15 +31,14 @@ import com.terra.ems.framework.service.WritableService;
 import java.io.Serializable;
 
 /**
- * Name: BaseController
- * Email: dengxueping@gmail.com
- * Date: 2024-12-14
- * Description: Spring Data JPA 基础 controller 定义
+ * Spring Data JPA 基础 controller 定义
  *
  * @param <E>  Entity 实体类型
  * @param <ID> 主键类型
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 public abstract class BaseController<E extends Entity, ID extends Serializable>
         extends WritableController<E, ID> {
 
@@ -48,11 +47,21 @@ public abstract class BaseController<E extends Entity, ID extends Serializable>
      */
     protected abstract BaseService<E, ID> getService();
 
+    /**
+     * 获取可写业务服务
+     *
+     * @return 业务服务
+     */
     @Override
     protected WritableService<E, ID> getWritableService() {
         return getService();
     }
 
+    /**
+     * 获取只读业务服务
+     *
+     * @return 业务服务
+     */
     @Override
     protected ReadableService<E, ID> getReadableService() {
         return getService();

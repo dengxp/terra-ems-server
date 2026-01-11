@@ -43,6 +43,7 @@ import java.util.List;
  * 计量器具档案控制器
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
 @Tag(name = "计量器具管理")
 @RestController
@@ -52,6 +53,17 @@ public class MeterController {
 
     private final MeterService meterService;
 
+    /**
+     * 分页查询计量器具
+     *
+     * @param code   编码
+     * @param name   名称
+     * @param type   种类
+     * @param status 状态值
+     * @param page   页码
+     * @param size   每页大小
+     * @return 分页结果
+     */
     @Operation(summary = "分页查询计量器具")
     @GetMapping
     public Result<Page<Meter>> list(
@@ -68,6 +80,12 @@ public class MeterController {
         return Result.content(result);
     }
 
+    /**
+     * 根据ID查询计量器具
+     *
+     * @param id 计量器具ID
+     * @return 计量器具详情
+     */
     @Operation(summary = "根据ID查询计量器具")
     @GetMapping("/{id}")
     public Result<Meter> getById(@PathVariable Long id) {
@@ -76,6 +94,12 @@ public class MeterController {
                 .orElse(Result.failure("计量器具不存在"));
     }
 
+    /**
+     * 创建计量器具
+     *
+     * @param meter 计量器具实体
+     * @return 创建后的实体
+     */
     @Operation(summary = "创建计量器具")
     @PostMapping
     public Result<Meter> create(@RequestBody Meter meter) {
@@ -87,6 +111,13 @@ public class MeterController {
         }
     }
 
+    /**
+     * 更新计量器具
+     *
+     * @param id    计量器具ID
+     * @param meter 计量器具实体
+     * @return 更新后的实体
+     */
     @Operation(summary = "更新计量器具")
     @PutMapping("/{id}")
     public Result<Meter> update(@PathVariable Long id, @RequestBody Meter meter) {
@@ -98,6 +129,12 @@ public class MeterController {
         }
     }
 
+    /**
+     * 删除计量器具
+     *
+     * @param id 计量器具ID
+     * @return 操作结果
+     */
     @Operation(summary = "删除计量器具")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {
@@ -109,6 +146,12 @@ public class MeterController {
         }
     }
 
+    /**
+     * 批量删除计量器具
+     *
+     * @param ids ID列表
+     * @return 操作结果
+     */
     @Operation(summary = "批量删除计量器具")
     @DeleteMapping("/batch")
     public Result<Void> deleteBatch(@RequestParam List<Long> ids) {

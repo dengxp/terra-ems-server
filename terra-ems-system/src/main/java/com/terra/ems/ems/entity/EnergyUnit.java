@@ -37,17 +37,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Name: EnergyUnit.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 用能单元实体
  * 
  * 用于构建企业能源消耗的层级结构（总厂 → 车间 → 产线 → 设备）
  * 支持电力支路、工序等多种类型
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true, exclude = { "parent", "children" })
 @Entity

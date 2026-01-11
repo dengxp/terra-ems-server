@@ -46,14 +46,12 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Name: MeterPointService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 采集点位服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class MeterPointService extends BaseService<MeterPoint, Long> {

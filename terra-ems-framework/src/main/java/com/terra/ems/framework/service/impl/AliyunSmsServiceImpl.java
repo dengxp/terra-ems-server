@@ -43,17 +43,15 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Name: AliyunSmsServiceImpl.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 阿里云短信服务实现
  * <p>
  * 使用阿里云短信服务发送验证码
  * 配置项参考 application.yml 中的 terra.sms.aliyun 配置
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @ConditionalOnProperty(prefix = "terra.sms", name = "provider", havingValue = "aliyun")
 public class AliyunSmsServiceImpl implements SmsService {

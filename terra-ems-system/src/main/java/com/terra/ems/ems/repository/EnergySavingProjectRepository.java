@@ -36,47 +36,45 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Name: EnergySavingProjectRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 节能项目仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface EnergySavingProjectRepository extends BaseRepository<EnergySavingProject, Long> {
 
-    /**
-     * 按状态查询项目列表
-     */
-    List<EnergySavingProject> findByStatusOrderByCreatedAtDesc(ProjectStatus status);
+        /**
+         * 按状态查询项目列表
+         */
+        List<EnergySavingProject> findByStatusOrderByCreatedAtDesc(ProjectStatus status);
 
-    /**
-     * 按负责人查询项目列表
-     */
-    List<EnergySavingProject> findByLiablePersonContainingOrderByCreatedAtDesc(String liablePerson);
+        /**
+         * 按负责人查询项目列表
+         */
+        List<EnergySavingProject> findByLiablePersonContainingOrderByCreatedAtDesc(String liablePerson);
 
-    /**
-     * 分页查询（支持名称模糊搜索）
-     */
-    @Query("SELECT p FROM EnergySavingProject p WHERE " +
-            "(:name IS NULL OR p.name LIKE %:name%) AND " +
-            "(:status IS NULL OR p.status = :status) " +
-            "ORDER BY p.createdAt DESC")
-    Page<EnergySavingProject> findByConditions(
-            @Param("name") String name,
-            @Param("status") ProjectStatus status,
-            Pageable pageable);
+        /**
+         * 分页查询（支持名称模糊搜索）
+         */
+        @Query("SELECT p FROM EnergySavingProject p WHERE " +
+                        "(:name IS NULL OR p.name LIKE %:name%) AND " +
+                        "(:status IS NULL OR p.status = :status) " +
+                        "ORDER BY p.createdAt DESC")
+        Page<EnergySavingProject> findByConditions(
+                        @Param("name") String name,
+                        @Param("status") ProjectStatus status,
+                        Pageable pageable);
 
-    /**
-     * 统计节约量总和
-     */
-    @Query("SELECT COALESCE(SUM(p.savingAmount), 0) FROM EnergySavingProject p WHERE p.status = :status")
-    BigDecimal sumSavingAmountByStatus(@Param("status") ProjectStatus status);
+        /**
+         * 统计节约量总和
+         */
+        @Query("SELECT COALESCE(SUM(p.savingAmount), 0) FROM EnergySavingProject p WHERE p.status = :status")
+        BigDecimal sumSavingAmountByStatus(@Param("status") ProjectStatus status);
 
-    /**
-     * 按状态统计项目数量
-     */
-    long countByStatus(ProjectStatus status);
+        /**
+         * 按状态统计项目数量
+         */
+        long countByStatus(ProjectStatus status);
 }

@@ -35,14 +35,12 @@ import lombok.EqualsAndHashCode;
 import java.math.BigDecimal;
 
 /**
- * Name: PricePolicyItem.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 电价策略明细（时段价格）
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

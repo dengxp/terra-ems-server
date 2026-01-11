@@ -35,13 +35,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Name: SysMenu
- * Email: dengxueping@gmail.com
- * Date: 2024-01-09
- * Description: 系统菜单/权限实体
+ * 系统菜单/权限实体
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true, exclude = { "parent", "children" })
 @Entity
@@ -104,6 +103,11 @@ public class SysMenu extends BaseEntity {
     @JsonIgnoreProperties({ "parent" })
     private List<SysMenu> children = new ArrayList<>();
 
+    /**
+     * 获取父菜单ID
+     *
+     * @return 父菜单ID
+     */
     @Transient
     public Long getParentId() {
         return parent != null ? parent.getId() : null;

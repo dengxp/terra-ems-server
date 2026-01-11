@@ -37,58 +37,56 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: BenchmarkRepository.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 对标值仓库
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Repository
 public interface BenchmarkRepository extends BaseRepository<Benchmark, Long> {
 
-    /**
-     * 根据编码查询
-     */
-    Optional<Benchmark> findByCode(String code);
+        /**
+         * 根据编码查询
+         */
+        Optional<Benchmark> findByCode(String code);
 
-    /**
-     * 检查编码是否存在
-     */
-    boolean existsByCode(String code);
+        /**
+         * 检查编码是否存在
+         */
+        boolean existsByCode(String code);
 
-    /**
-     * 按类型查询启用的对标值
-     */
-    List<Benchmark> findByTypeAndStatusOrderByCodeAsc(BenchmarkType type, DataItemStatus status);
+        /**
+         * 按类型查询启用的对标值
+         */
+        List<Benchmark> findByTypeAndStatusOrderByCodeAsc(BenchmarkType type, DataItemStatus status);
 
-    /**
-     * 查询所有启用的对标值
-     */
-    List<Benchmark> findByStatusOrderByTypeAscCodeAsc(DataItemStatus status);
+        /**
+         * 查询所有启用的对标值
+         */
+        List<Benchmark> findByStatusOrderByTypeAscCodeAsc(DataItemStatus status);
 
-    /**
-     * 按能源类型查询
-     */
-    List<Benchmark> findByEnergyTypeIdAndStatusOrderByCodeAsc(Long energyTypeId, DataItemStatus status);
+        /**
+         * 按能源类型查询
+         */
+        List<Benchmark> findByEnergyTypeIdAndStatusOrderByCodeAsc(Long energyTypeId, DataItemStatus status);
 
-    /**
-     * 分页条件查询
-     */
-    @Query("SELECT b FROM Benchmark b WHERE " +
-            "(:name IS NULL OR b.name LIKE %:name%) AND " +
-            "(:type IS NULL OR b.type = :type) AND " +
-            "(:status IS NULL OR b.status = :status) " +
-            "ORDER BY b.type ASC, b.code ASC")
-    Page<Benchmark> findByConditions(
-            @Param("name") String name,
-            @Param("type") BenchmarkType type,
-            @Param("status") DataItemStatus status,
-            Pageable pageable);
+        /**
+         * 分页条件查询
+         */
+        @Query("SELECT b FROM Benchmark b WHERE " +
+                        "(:name IS NULL OR b.name LIKE %:name%) AND " +
+                        "(:type IS NULL OR b.type = :type) AND " +
+                        "(:status IS NULL OR b.status = :status) " +
+                        "ORDER BY b.type ASC, b.code ASC")
+        Page<Benchmark> findByConditions(
+                        @Param("name") String name,
+                        @Param("type") BenchmarkType type,
+                        @Param("status") DataItemStatus status,
+                        Pageable pageable);
 
-    /**
-     * 按类型统计数量
-     */
-    long countByTypeAndStatus(BenchmarkType type, DataItemStatus status);
+        /**
+         * 按类型统计数量
+         */
+        long countByTypeAndStatus(BenchmarkType type, DataItemStatus status);
 }

@@ -35,14 +35,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * Name: EnergyCostRecord.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
- * 能源成本记录实体
+ * 能源成本记录
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

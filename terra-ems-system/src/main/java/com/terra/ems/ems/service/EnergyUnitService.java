@@ -36,14 +36,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Name: EnergyUnitService.java
- * Email: dengxueping@gmail.com
- * Date: 2026-01-10
- * Description:
  * 用能单元服务
  *
  * @author dengxueping
+ * @since 2026-01-11
  */
+
 @Service
 @RequiredArgsConstructor
 public class EnergyUnitService extends BaseService<EnergyUnit, Long> {
