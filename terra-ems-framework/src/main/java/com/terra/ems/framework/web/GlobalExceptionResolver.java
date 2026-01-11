@@ -1,0 +1,102 @@
+/*
+ * Copyright (c) 2024 泰若科技（广州）有限公司. All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
+
+package com.terra.ems.framework.web;
+
+import com.terra.ems.common.constant.ErrorCodes;
+import com.terra.ems.common.domain.Result;
+import com.terra.ems.common.exception.TerraException;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 全局异常解析器
+ *
+ * @author dengxueping
+ * @since 2026-01-11
+ */
+@Slf4j
+public class GlobalExceptionResolver {
+
+    private static final Map<String, ErrorCodes> EXCEPTION_DICTIONARY = new HashMap<>();
+
+    static {
+        // 安全相关
+        EXCEPTION_DICTIONARY.put("AccessDeniedException", ErrorCodes.ACCESS_DENIED);
+        EXCEPTION_DICTIONARY.put("InsufficientAuthenticationException", ErrorCodes.UNAUTHORIZED);
+        
+        // 数据库相关
+        EXCEPTION_DICTIONARY.put("DataIntegrityViolationException", ErrorCodes.INTERNAL_SERVER_ERROR);
+        EXCEPTION_DICTIONARY.put("BadSqlGrammarException", ErrorCodes.INTERNAL_SERVER_ERROR);
+        
+        // 参数与请求相关
+        EXCEPTION_DICTIONARY.put("MethodArgumentNotValidException", ErrorCodes.INTERNAL_SERVER_ERROR); // 通常在 Handler 中特殊处理
+        EXCEPTION_DICTIONARY.put("BindException", ErrorCodes.INTERNAL_SERVER_ERROR);
+        EXCEPTION_DICTIONARY.put("HttpRequestMethodNotSupportedException", ErrorCodes.INTERNAL_SERVER_ERROR);
+        EXCEPTION_DICTIONARY.put("HttpMediaTypeNotSupportedException", ErrorCodes.INTERNAL_SERVER_ERROR);
+        EXCEPTION_DICTIONARY.put("HttpMessageNotReadableException", ErrorCodes.INTERNAL_SERVER_ERROR);
+        EXCEPTION_DICTIONARY.put("MissingServletRequestParameterException", ErrorCodes.INTERNAL_SERVER_ERROR);
+        
+        // 业务/逻辑相关
+        EXCEPTION_DICTIONARY.put("IllegalArgumentException", ErrorCodes.INTERNAL_SERVER_ERROR);
+        EXCEPTION_DICTIONARY.put("NullPointerException", ErrorCodes.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * 解析异常并返回统一响应对象
+     *
+     * @param ex   异常
+     * @param path 请求路径
+     * @return Result
+     */
+    public static Result<String> resolveException(Exception ex, String path) {
+        log.trace("[Terra] |- 全局解析器捕获异常, 路径: [{}], 异常信息: ", path, ex);
+
+        if (ex instanceof TerraException terraException) {
+            Result<String> result = terraException.getResult();
+            result.path(path);
+            log.error("[Terra] |- 业务异常: {}", result.getMessage());
+            return result;
+        } else {
+            Result<String> result = Result.failure();
+            String exceptionName = ex.getClass().getSimpleName();
+            
+            if (StringUtils.isNotEmpty(exceptionName) && EXCEPTION_DICTIONARY.containsKey(exceptionName)) {
+                ErrorCodes errorCode = EXCEPTION_DICTIONARY.get(exceptionName);
+                result = Result.failure(errorCode);
+            } else {
+                log.warn("[Terra] |- 字典中未找到异常名 [{}], 使用默认错误响应", exceptionName);
+            }
+
+            result.path(path);
+            result.stackTrace(ex.getStackTrace());
+            result.detail(ex.getMessage());
+
+            log.error("[Terra] |- 系统异常 [{}]: {}", exceptionName, ex.getMessage());
+            return result;
+        }
+    }
+}

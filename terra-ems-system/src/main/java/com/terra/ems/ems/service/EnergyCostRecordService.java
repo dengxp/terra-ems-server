@@ -84,14 +84,6 @@ public class EnergyCostRecordService extends BaseService<EnergyCostRecord, Long>
     }
 
     /**
-     * 分页条件查询
-     */
-    public Page<EnergyCostRecord> findByConditions(Long energyUnitId, Long energyTypeId, RecordPeriodType periodType,
-            LocalDate startDate, LocalDate endDate, Pageable pageable) {
-        return repository.findByConditions(energyUnitId, energyTypeId, periodType, startDate, endDate, pageable);
-    }
-
-    /**
      * 统计日期范围内的总成本
      */
     public BigDecimal sumCostByDateRange(Long energyUnitId, LocalDate startDate, LocalDate endDate) {

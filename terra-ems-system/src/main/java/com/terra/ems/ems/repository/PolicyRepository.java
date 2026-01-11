@@ -56,20 +56,6 @@ public interface PolicyRepository extends BaseRepository<Policy, Long> {
         List<Policy> findByStatusOrderByIssuingDateDesc(DataItemStatus status);
 
         /**
-         * 分页查询（支持标题模糊搜索）
-         */
-        @Query("SELECT p FROM Policy p WHERE " +
-                        "(:title IS NULL OR p.title LIKE %:title%) AND " +
-                        "(:type IS NULL OR p.type = :type) AND " +
-                        "(:status IS NULL OR p.status = :status) " +
-                        "ORDER BY p.issuingDate DESC")
-        Page<Policy> findByConditions(
-                        @Param("title") String title,
-                        @Param("type") PolicyType type,
-                        @Param("status") DataItemStatus status,
-                        Pageable pageable);
-
-        /**
          * 按类型统计政策数量
          */
         long countByTypeAndStatus(PolicyType type, DataItemStatus status);

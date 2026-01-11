@@ -26,7 +26,8 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.ProductionRecord;
 import com.terra.ems.ems.service.ProductionRecordService;
-import com.terra.ems.framework.controller.Controller;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -52,22 +53,17 @@ import java.util.Map;
 @Tag(name = "产品产量管理", description = "产品产量记录的增删改查及统计分析")
 @RestController
 @RequestMapping("/ems/production-records")
-@RequiredArgsConstructor
-public class ProductionRecordController extends Controller {
+public class ProductionRecordController extends BaseController<ProductionRecord, Long> {
 
     private final ProductionRecordService productionRecordService;
 
-    /**
-     * 创建产量记录
-     *
-     * @param record 产量记录实体
-     * @return 创建后的实体
-     */
-    @Operation(summary = "创建产量记录")
-    @PostMapping
-    public Result<ProductionRecord> create(@RequestBody ProductionRecord record) {
-        ProductionRecord created = productionRecordService.create(record);
-        return Result.content(created);
+    public ProductionRecordController(ProductionRecordService productionRecordService) {
+        this.productionRecordService = productionRecordService;
+    }
+
+    @Override
+    protected BaseService<ProductionRecord, Long> getService() {
+        return productionRecordService;
     }
 
     /**
@@ -82,8 +78,8 @@ public class ProductionRecordController extends Controller {
     public Result<ProductionRecord> update(
             @Parameter(description = "记录ID") @PathVariable Long id,
             @RequestBody ProductionRecord record) {
-        ProductionRecord updated = productionRecordService.update(id, record);
-        return Result.content(updated);
+        record.setId(id);
+        return Result.content(productionRecordService.saveOrUpdate(record));
     }
 
     /**
@@ -94,9 +90,9 @@ public class ProductionRecordController extends Controller {
      */
     @Operation(summary = "删除产量记录")
     @DeleteMapping("/{id}")
-    public Result<Void> delete(@Parameter(description = "记录ID") @PathVariable Long id) {
-        productionRecordService.delete(id);
-        return Result.success();
+    public Result<String> delete(@Parameter(description = "记录ID") @PathVariable Long id) {
+        productionRecordService.deleteById(id);
+        return Result.success("删除成功");
     }
 
     /**
@@ -120,10 +116,14 @@ public class ProductionRecordController extends Controller {
      */
     @Operation(summary = "获取产量记录详情")
     @GetMapping("/{id}")
-    public Result<ProductionRecord> getById(@Parameter(description = "记录ID") @PathVariable Long id) {
-        return productionRecordService.findById(id)
-                .map(Result::content)
-                .orElse(Result.failure("产量记录不存在"));
+    @Override
+    public Result<ProductionRecord> findById(@Parameter(description = "记录ID") @PathVariable Long id) {
+        ProductionRecord record = productionRecordService.findById(id);
+        if (record != null) {
+            return Result.content(record);
+        } else {
+            return Result.failure("产量记录不存在");
+        }
     }
 
     /**
@@ -137,9 +137,9 @@ public class ProductionRecordController extends Controller {
      * @param size         每页大小
      * @return 分页结果
      */
-    @Operation(summary = "分页查询产量记录")
-    @GetMapping
-    public Result<Page<ProductionRecord>> list(
+    @Operation(summary = "分页查询")
+    @GetMapping("/search")
+    public Result<Page<ProductionRecord>> search(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "数据类型") @RequestParam(required = false, defaultValue = "1") String dataType,
             @Parameter(description = "开始日期") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -205,7 +205,7 @@ public class ProductionRecordController extends Controller {
      */
     @Operation(summary = "获取产品名称列表")
     @GetMapping("/products")
-    public Result<List<String>> getProductNames(
+    public Result<List<String>> findProductNames(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "数据类型") @RequestParam(required = false, defaultValue = "1") String dataType) {
 

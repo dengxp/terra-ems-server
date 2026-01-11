@@ -90,49 +90,67 @@ public class TimePeriodPriceService extends BaseService<TimePeriodPrice, Long> {
     }
 
     /**
-     * 创建分时电价配置
+     * 创建或更新分时电价配置
+     * 统一处理默认值设置和字段更新
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
-    public TimePeriodPrice create(TimePeriodPrice timePeriodPrice) {
-        // 设置默认值
-        if (timePeriodPrice.getPeriodName() == null && timePeriodPrice.getPeriodType() != null) {
-            timePeriodPrice.setPeriodName(timePeriodPrice.getPeriodType().getLabel());
+    public TimePeriodPrice saveOrUpdate(TimePeriodPrice timePeriodPrice) {
+        if (timePeriodPrice.getId() == null) {
+            // 新建：设置默认值
+            if (timePeriodPrice.getPeriodName() == null && timePeriodPrice.getPeriodType() != null) {
+                timePeriodPrice.setPeriodName(timePeriodPrice.getPeriodType().getLabel());
+            }
+            if (timePeriodPrice.getStatus() == null) {
+                timePeriodPrice.setStatus(DataItemStatus.ENABLE);
+            }
+            if (timePeriodPrice.getSortOrder() == null) {
+                timePeriodPrice.setSortOrder(0);
+            }
+            return timePeriodPriceRepository.save(timePeriodPrice);
+        } else {
+            // 更新：检查存在性并复制字段
+            TimePeriodPrice existing = timePeriodPriceRepository.findById(timePeriodPrice.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("分时电价配置不存在: " + timePeriodPrice.getId()));
+
+            existing.setPricePolicyId(timePeriodPrice.getPricePolicyId());
+            existing.setPeriodType(timePeriodPrice.getPeriodType());
+            existing.setPeriodName(timePeriodPrice.getPeriodName());
+            existing.setStartTime(timePeriodPrice.getStartTime());
+            existing.setEndTime(timePeriodPrice.getEndTime());
+            existing.setPrice(timePeriodPrice.getPrice());
+            existing.setSortOrder(timePeriodPrice.getSortOrder());
+            existing.setStatus(timePeriodPrice.getStatus());
+            existing.setRemark(timePeriodPrice.getRemark());
+
+            return timePeriodPriceRepository.save(existing);
         }
-        if (timePeriodPrice.getStatus() == null) {
-            timePeriodPrice.setStatus(DataItemStatus.ENABLE);
-        }
-        if (timePeriodPrice.getSortOrder() == null) {
-            timePeriodPrice.setSortOrder(0);
-        }
-        return timePeriodPriceRepository.save(timePeriodPrice);
     }
 
     /**
-     * 更新分时电价配置
+     * 创建分时电价配置 (保留向后兼容)
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public TimePeriodPrice create(TimePeriodPrice timePeriodPrice) {
+        timePeriodPrice.setId(null);
+        return saveOrUpdate(timePeriodPrice);
+    }
+
+    /**
+     * 更新分时电价配置 (保留向后兼容)
      */
     @Transactional(rollbackFor = Exception.class)
     public TimePeriodPrice update(Long id, TimePeriodPrice timePeriodPrice) {
-        TimePeriodPrice existing = timePeriodPriceRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("分时电价配置不存在: " + id));
-
-        existing.setPricePolicyId(timePeriodPrice.getPricePolicyId());
-        existing.setPeriodType(timePeriodPrice.getPeriodType());
-        existing.setPeriodName(timePeriodPrice.getPeriodName());
-        existing.setStartTime(timePeriodPrice.getStartTime());
-        existing.setEndTime(timePeriodPrice.getEndTime());
-        existing.setPrice(timePeriodPrice.getPrice());
-        existing.setSortOrder(timePeriodPrice.getSortOrder());
-        existing.setStatus(timePeriodPrice.getStatus());
-        existing.setRemark(timePeriodPrice.getRemark());
-
-        return timePeriodPriceRepository.save(existing);
+        timePeriodPrice.setId(id);
+        return saveOrUpdate(timePeriodPrice);
     }
 
     /**
      * 删除分时电价配置
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         if (!timePeriodPriceRepository.existsById(id)) {
             throw new IllegalArgumentException("分时电价配置不存在: " + id);
         }

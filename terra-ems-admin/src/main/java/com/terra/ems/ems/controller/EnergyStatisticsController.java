@@ -31,6 +31,7 @@ import com.terra.ems.ems.dto.EnergyStatisticsSummaryDTO;
 import com.terra.ems.ems.dto.ProcessEnergyAnalysisDTO;
 import com.terra.ems.ems.dto.UnitConsumptionDTO;
 import com.terra.ems.ems.service.EnergyStatisticsService;
+import com.terra.ems.framework.controller.Controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -51,7 +52,7 @@ import java.util.List;
 @RequestMapping("/statistics")
 @Tag(name = "能耗统计分析")
 @RequiredArgsConstructor
-public class EnergyStatisticsController {
+public class EnergyStatisticsController extends Controller {
 
     private final EnergyStatisticsService energyStatisticsService;
 
@@ -65,7 +66,7 @@ public class EnergyStatisticsController {
      */
     @Operation(summary = "获取统计汇总")
     @GetMapping("/summary")
-    public Result<EnergyStatisticsSummaryDTO> getSummary(
+    public Result<EnergyStatisticsSummaryDTO> findSummary(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "DAY") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
@@ -82,7 +83,7 @@ public class EnergyStatisticsController {
      */
     @Operation(summary = "获取同比分析")
     @GetMapping("/yoy")
-    public Result<List<ComparisonAnalysisDTO>> getYoYAnalysis(
+    public Result<List<ComparisonAnalysisDTO>> findYoYAnalysis(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
@@ -99,7 +100,7 @@ public class EnergyStatisticsController {
      */
     @Operation(summary = "获取环比分析")
     @GetMapping("/mom")
-    public Result<List<ComparisonAnalysisDTO>> getMoMAnalysis(
+    public Result<List<ComparisonAnalysisDTO>> findMoMAnalysis(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
@@ -116,7 +117,7 @@ public class EnergyStatisticsController {
      */
     @Operation(summary = "获取综合能耗汇总")
     @GetMapping("/comprehensive/summary")
-    public Result<EnergyStatisticsSummaryDTO> getComprehensiveSummary(
+    public Result<EnergyStatisticsSummaryDTO> findComprehensiveSummary(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
@@ -133,7 +134,7 @@ public class EnergyStatisticsController {
      */
     @Operation(summary = "获取单元能耗排名")
     @GetMapping("/ranking")
-    public Result<List<ComparisonAnalysisDTO>> getRankingAnalysis(
+    public Result<List<ComparisonAnalysisDTO>> findRankingAnalysis(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
@@ -151,7 +152,7 @@ public class EnergyStatisticsController {
      */
     @Operation(summary = "获取工序能耗分析")
     @GetMapping("/process-energy")
-    public Result<List<ProcessEnergyAnalysisDTO>> getProcessEnergyAnalysis(
+    public Result<List<ProcessEnergyAnalysisDTO>> findProcessEnergyAnalysis(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "DAY") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime,
@@ -172,7 +173,7 @@ public class EnergyStatisticsController {
      */
     @Operation(summary = "获取单耗分析")
     @GetMapping("/unit-consumption")
-    public Result<UnitConsumptionDTO> getUnitConsumptionAnalysis(
+    public Result<UnitConsumptionDTO> findUnitConsumptionAnalysis(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime,
@@ -195,7 +196,7 @@ public class EnergyStatisticsController {
      */
     @Operation(summary = "获取支路能耗分析")
     @GetMapping("/branch")
-    public Result<List<BranchAnalysisDTO>> getBranchAnalysis(
+    public Result<List<BranchAnalysisDTO>> findBranchAnalysis(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "DAY") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime,
@@ -217,7 +218,7 @@ public class EnergyStatisticsController {
      */
     @Operation(summary = "获取对标分析")
     @GetMapping("/benchmark")
-    public Result<List<BenchmarkAnalysisDTO>> getBenchmarkAnalysis(
+    public Result<List<BenchmarkAnalysisDTO>> findBenchmarkAnalysis(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime,

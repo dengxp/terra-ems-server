@@ -71,20 +71,6 @@ public interface CostPolicyBindingRepository extends BaseRepository<CostPolicyBi
                         @Param("status") DataItemStatus status);
 
         /**
-         * 分页条件查询
-         */
-        @Query("SELECT b FROM CostPolicyBinding b WHERE " +
-                        "(:energyUnitId IS NULL OR b.energyUnit.id = :energyUnitId) AND " +
-                        "(:pricePolicyId IS NULL OR b.pricePolicy.id = :pricePolicyId) AND " +
-                        "(:status IS NULL OR b.status = :status) " +
-                        "ORDER BY b.createdAt DESC")
-        Page<CostPolicyBinding> findByConditions(
-                        @Param("energyUnitId") Long energyUnitId,
-                        @Param("pricePolicyId") Long pricePolicyId,
-                        @Param("status") DataItemStatus status,
-                        Pageable pageable);
-
-        /**
          * 按用能单元统计绑定数量
          */
         long countByEnergyUnitIdAndStatus(Long energyUnitId, DataItemStatus status);

@@ -24,6 +24,7 @@
 package com.terra.ems.admin.controller;
 
 import com.terra.ems.common.domain.Result;
+import com.terra.ems.framework.controller.Controller;
 import com.terra.ems.system.service.CaptchaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,7 +45,7 @@ import java.util.Map;
 @Tag(name = "验证码管理", description = "验证码生成和验证接口")
 @RestController
 @RequestMapping("/captcha")
-public class CaptchaController {
+public class CaptchaController extends Controller {
 
     private final CaptchaService captchaService;
 

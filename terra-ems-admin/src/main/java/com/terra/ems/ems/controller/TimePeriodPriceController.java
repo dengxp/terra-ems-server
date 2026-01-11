@@ -27,12 +27,12 @@ import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.TimePeriodPrice;
 import com.terra.ems.ems.enums.TimePeriodType;
 import com.terra.ems.ems.service.TimePeriodPriceService;
-import com.terra.ems.framework.controller.Controller;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.enums.DataItemStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -49,20 +49,17 @@ import java.util.Map;
 @Tag(name = "分时电价配置管理")
 @RestController
 @RequestMapping("/time-period-prices")
-@RequiredArgsConstructor
-public class TimePeriodPriceController extends Controller {
+public class TimePeriodPriceController extends BaseController<TimePeriodPrice, Long> {
 
     private final TimePeriodPriceService timePeriodPriceService;
 
-    /**
-     * 查询所有分时电价配置列表
-     *
-     * @return 分时电价配置列表
-     */
-    @Operation(summary = "查询所有分时电价配置")
-    @GetMapping
-    public Result<List<TimePeriodPrice>> list() {
-        return Result.content(timePeriodPriceService.findAll());
+    public TimePeriodPriceController(TimePeriodPriceService timePeriodPriceService) {
+        this.timePeriodPriceService = timePeriodPriceService;
+    }
+
+    @Override
+    protected BaseService<TimePeriodPrice, Long> getService() {
+        return timePeriodPriceService;
     }
 
     /**
@@ -73,7 +70,7 @@ public class TimePeriodPriceController extends Controller {
      */
     @Operation(summary = "根据电价政策ID查询")
     @GetMapping("/policy/{pricePolicyId}")
-    public Result<List<TimePeriodPrice>> getByPricePolicyId(@PathVariable Long pricePolicyId) {
+    public Result<List<TimePeriodPrice>> findByPricePolicyId(@PathVariable Long pricePolicyId) {
         return Result.content(timePeriodPriceService.findByPricePolicyId(pricePolicyId));
     }
 
@@ -85,7 +82,7 @@ public class TimePeriodPriceController extends Controller {
      */
     @Operation(summary = "根据时段类型查询")
     @GetMapping("/period-type/{periodType}")
-    public Result<List<TimePeriodPrice>> getByPeriodType(@PathVariable TimePeriodType periodType) {
+    public Result<List<TimePeriodPrice>> findByPeriodType(@PathVariable TimePeriodType periodType) {
         return Result.content(timePeriodPriceService.findByPeriodType(periodType));
     }
 
@@ -97,7 +94,7 @@ public class TimePeriodPriceController extends Controller {
      */
     @Operation(summary = "根据时间点查询当前时段")
     @GetMapping("/current")
-    public Result<TimePeriodPrice> getCurrentPeriod(
+    public Result<TimePeriodPrice> findCurrentPeriod(
             @Parameter(description = "时间点，格式 HH:mm:ss") @RequestParam(required = false) String time) {
         LocalTime queryTime = time != null ? LocalTime.parse(time) : LocalTime.now();
         return timePeriodPriceService.findByTimePoint(queryTime)
@@ -106,34 +103,16 @@ public class TimePeriodPriceController extends Controller {
     }
 
     /**
-     * 根据ID查询分时电价配置详情
-     *
-     * @param id 配置ID
-     * @return 配置详情
-     */
-    @Operation(summary = "根据ID查询")
-    @GetMapping("/{id}")
-    public Result<TimePeriodPrice> getById(@PathVariable Long id) {
-        TimePeriodPrice price = timePeriodPriceService.findById(id);
-        return price != null ? Result.content(price) : Result.failure("分时电价配置不存在");
-    }
-
-    /**
-     * 创建新的分时电价配置
+     * 创建或更新分时电价配置
      *
      * @param payload 配置内容负载
-     * @return 创建后的实体
+     * @return 保存后的实体
      */
-    @Operation(summary = "创建分时电价配置")
-    @PostMapping
+    @Operation(summary = "创建或更新分时电价配置")
+    @PostMapping("/create")
     public Result<TimePeriodPrice> create(@RequestBody Map<String, Object> payload) {
-        try {
-            TimePeriodPrice timePeriodPrice = extractTimePeriodPrice(payload);
-            TimePeriodPrice created = timePeriodPriceService.create(timePeriodPrice);
-            return Result.content(created);
-        } catch (Exception e) {
-            return Result.failure(e.getMessage());
-        }
+        TimePeriodPrice timePeriodPrice = extractTimePeriodPrice(payload);
+        return Result.content(timePeriodPriceService.saveOrUpdate(timePeriodPrice));
     }
 
     /**
@@ -146,13 +125,9 @@ public class TimePeriodPriceController extends Controller {
     @Operation(summary = "更新分时电价配置")
     @PutMapping("/{id}")
     public Result<TimePeriodPrice> update(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
-        try {
-            TimePeriodPrice timePeriodPrice = extractTimePeriodPrice(payload);
-            TimePeriodPrice updated = timePeriodPriceService.update(id, timePeriodPrice);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        TimePeriodPrice timePeriodPrice = extractTimePeriodPrice(payload);
+        timePeriodPrice.setId(id);
+        return Result.content(timePeriodPriceService.saveOrUpdate(timePeriodPrice));
     }
 
     /**
@@ -163,13 +138,9 @@ public class TimePeriodPriceController extends Controller {
      */
     @Operation(summary = "删除分时电价配置")
     @DeleteMapping("/{id}")
-    public Result<Void> delete(@PathVariable Long id) {
-        try {
-            timePeriodPriceService.delete(id);
-            return Result.success();
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+    public Result<String> delete(@PathVariable Long id) {
+        timePeriodPriceService.deleteById(id);
+        return Result.success("删除成功");
     }
 
     /**
@@ -184,12 +155,8 @@ public class TimePeriodPriceController extends Controller {
     public Result<TimePeriodPrice> updateStatus(
             @PathVariable Long id,
             @RequestParam DataItemStatus status) {
-        try {
-            TimePeriodPrice updated = timePeriodPriceService.updateStatus(id, status);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        TimePeriodPrice updated = timePeriodPriceService.updateStatus(id, status);
+        return Result.content(updated);
     }
 
     /**

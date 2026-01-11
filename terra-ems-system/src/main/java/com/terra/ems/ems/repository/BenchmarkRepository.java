@@ -72,20 +72,6 @@ public interface BenchmarkRepository extends BaseRepository<Benchmark, Long> {
         List<Benchmark> findByEnergyTypeIdAndStatusOrderByCodeAsc(Long energyTypeId, DataItemStatus status);
 
         /**
-         * 分页条件查询
-         */
-        @Query("SELECT b FROM Benchmark b WHERE " +
-                        "(:name IS NULL OR b.name LIKE %:name%) AND " +
-                        "(:type IS NULL OR b.type = :type) AND " +
-                        "(:status IS NULL OR b.status = :status) " +
-                        "ORDER BY b.type ASC, b.code ASC")
-        Page<Benchmark> findByConditions(
-                        @Param("name") String name,
-                        @Param("type") BenchmarkType type,
-                        @Param("status") DataItemStatus status,
-                        Pageable pageable);
-
-        /**
          * 按类型统计数量
          */
         long countByTypeAndStatus(BenchmarkType type, DataItemStatus status);

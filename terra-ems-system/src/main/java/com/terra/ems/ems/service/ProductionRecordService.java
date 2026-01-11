@@ -23,6 +23,8 @@
 
 package com.terra.ems.ems.service;
 
+import com.terra.ems.framework.service.BaseService;
+import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.ems.entity.ProductionRecord;
 import com.terra.ems.ems.enums.TimeGranularity;
 import com.terra.ems.ems.repository.ProductionRecordRepository;
@@ -50,62 +52,85 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ProductionRecordService {
+public class ProductionRecordService extends BaseService<ProductionRecord, Long> {
 
     private final ProductionRecordRepository productionRecordRepository;
 
-    /**
-     * 创建产量记录
-     */
-    @Transactional
-    public ProductionRecord create(ProductionRecord record) {
-        // 检查是否已存在相同记录
-        Optional<ProductionRecord> existing = productionRecordRepository
-                .findByEnergyUnitIdAndDataTypeAndProductNameAndRecordDateAndGranularity(
-                        record.getEnergyUnitId(),
-                        record.getDataType(),
-                        record.getProductName(),
-                        record.getRecordDate(),
-                        record.getGranularity());
-
-        if (existing.isPresent()) {
-            throw new IllegalArgumentException("该用能单元在此日期已存在相同类型及其产品的产量记录");
-        }
-
-        log.info("创建产量记录: 用能单元={}, 产品={}, 日期={}, 产量={}",
-                record.getEnergyUnitId(), record.getProductName(),
-                record.getRecordDate(), record.getQuantity());
-
-        return productionRecordRepository.save(record);
+    @Override
+    protected BaseRepository<ProductionRecord, Long> getRepository() {
+        return productionRecordRepository;
     }
 
     /**
-     * 更新产量记录
+     * 创建或更新产量记录
+     * 统一处理重复检查和字段更新
+     */
+    @Override
+    @Transactional
+    public ProductionRecord saveOrUpdate(ProductionRecord record) {
+        if (record.getId() == null) {
+            // 新建：检查是否已存在相同记录
+            Optional<ProductionRecord> existing = productionRecordRepository
+                    .findByEnergyUnitIdAndDataTypeAndProductNameAndRecordDateAndGranularity(
+                            record.getEnergyUnitId(),
+                            record.getDataType(),
+                            record.getProductName(),
+                            record.getRecordDate(),
+                            record.getGranularity());
+
+            if (existing.isPresent()) {
+                throw new IllegalArgumentException("该用能单元在此日期已存在相同类型及其产品的产量记录");
+            }
+
+            log.info("创建产量记录: 用能单元={}, 产品={}, 日期={}, 产量={}",
+                    record.getEnergyUnitId(), record.getProductName(),
+                    record.getRecordDate(), record.getQuantity());
+
+            return productionRecordRepository.save(record);
+        } else {
+            // 更新：检查存在性并复制字段
+            ProductionRecord existing = productionRecordRepository.findById(record.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("产量记录不存在: " + record.getId()));
+
+            existing.setEnergyUnitId(record.getEnergyUnitId());
+            existing.setRecordDate(record.getRecordDate());
+            existing.setProductName(record.getProductName());
+            existing.setQuantity(record.getQuantity());
+            existing.setUnit(record.getUnit());
+            existing.setGranularity(record.getGranularity());
+            existing.setDataType(record.getDataType());
+            existing.setProductType(record.getProductType());
+            existing.setRemark(record.getRemark());
+
+            log.info("更新产量记录: ID={}", record.getId());
+            return productionRecordRepository.save(existing);
+        }
+    }
+
+    /**
+     * 创建产量记录 (保留向后兼容)
+     */
+    @Transactional
+    public ProductionRecord create(ProductionRecord record) {
+        record.setId(null);
+        return saveOrUpdate(record);
+    }
+
+    /**
+     * 更新产量记录 (保留向后兼容)
      */
     @Transactional
     public ProductionRecord update(Long id, ProductionRecord record) {
-        ProductionRecord existing = productionRecordRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("产量记录不存在: " + id));
-
-        existing.setEnergyUnitId(record.getEnergyUnitId());
-        existing.setRecordDate(record.getRecordDate());
-        existing.setProductName(record.getProductName());
-        existing.setQuantity(record.getQuantity());
-        existing.setUnit(record.getUnit());
-        existing.setGranularity(record.getGranularity());
-        existing.setDataType(record.getDataType());
-        existing.setProductType(record.getProductType());
-        existing.setRemark(record.getRemark());
-
-        log.info("更新产量记录: ID={}", id);
-        return productionRecordRepository.save(existing);
+        record.setId(id);
+        return saveOrUpdate(record);
     }
 
     /**
      * 删除产量记录
      */
     @Transactional
-    public void delete(Long id) {
+    @Override
+    public void deleteById(Long id) {
         if (!productionRecordRepository.existsById(id)) {
             throw new IllegalArgumentException("产量记录不存在: " + id);
         }
@@ -120,13 +145,6 @@ public class ProductionRecordService {
     public void deleteByIds(List<Long> ids) {
         productionRecordRepository.deleteAllById(ids);
         log.info("批量删除产量记录: count={}", ids.size());
-    }
-
-    /**
-     * 根据ID查询
-     */
-    public Optional<ProductionRecord> findById(Long id) {
-        return productionRecordRepository.findById(id);
     }
 
     /**

@@ -23,6 +23,8 @@
 
 package com.terra.ems.ems.service;
 
+import com.terra.ems.framework.service.BaseService;
+import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.ems.entity.KnowledgeArticle;
 import com.terra.ems.ems.repository.KnowledgeArticleRepository;
 import com.terra.ems.framework.enums.DataItemStatus;
@@ -48,9 +50,14 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KnowledgeArticleService {
+public class KnowledgeArticleService extends BaseService<KnowledgeArticle, Long> {
 
     private final KnowledgeArticleRepository knowledgeArticleRepository;
+
+    @Override
+    protected BaseRepository<KnowledgeArticle, Long> getRepository() {
+        return knowledgeArticleRepository;
+    }
 
     /**
      * 创建文章
@@ -87,7 +94,8 @@ public class KnowledgeArticleService {
      * 删除文章（软删除）
      */
     @Transactional
-    public void delete(Long id) {
+    @Override
+    public void deleteById(Long id) {
         KnowledgeArticle article = knowledgeArticleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("文章不存在: " + id));
 
@@ -120,13 +128,6 @@ public class KnowledgeArticleService {
             knowledgeArticleRepository.incrementViewCount(id);
         }
         return article;
-    }
-
-    /**
-     * 根据ID查询（不增加阅读次数）
-     */
-    public Optional<KnowledgeArticle> findById(Long id) {
-        return knowledgeArticleRepository.findById(id);
     }
 
     /**

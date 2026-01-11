@@ -64,24 +64,6 @@ public interface EnergyCostRecordRepository extends BaseRepository<EnergyCostRec
                         Long energyUnitId, RecordPeriodType periodType, LocalDate startDate, LocalDate endDate);
 
         /**
-         * 分页条件查询
-         */
-        @Query("SELECT r FROM EnergyCostRecord r WHERE " +
-                        "(:energyUnitId IS NULL OR r.energyUnit.id = :energyUnitId) AND " +
-                        "(:energyTypeId IS NULL OR r.energyType.id = :energyTypeId) AND " +
-                        "(:periodType IS NULL OR r.periodType = :periodType) AND " +
-                        "(:startDate IS NULL OR r.recordDate >= :startDate) AND " +
-                        "(:endDate IS NULL OR r.recordDate <= :endDate) " +
-                        "ORDER BY r.recordDate DESC")
-        Page<EnergyCostRecord> findByConditions(
-                        @Param("energyUnitId") Long energyUnitId,
-                        @Param("energyTypeId") Long energyTypeId,
-                        @Param("periodType") RecordPeriodType periodType,
-                        @Param("startDate") LocalDate startDate,
-                        @Param("endDate") LocalDate endDate,
-                        Pageable pageable);
-
-        /**
          * 统计日期范围内的总成本
          */
         @Query("SELECT COALESCE(SUM(r.cost), 0) FROM EnergyCostRecord r WHERE " +

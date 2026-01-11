@@ -26,9 +26,8 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.AlarmConfig;
 import com.terra.ems.ems.service.AlarmConfigService;
-import com.terra.ems.framework.controller.WritableController;
-import com.terra.ems.framework.service.ReadableService;
-import com.terra.ems.framework.service.WritableService;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -46,27 +45,17 @@ import java.util.List;
 @RequestMapping("/alarm/configs")
 @Tag(name = "预报警配置")
 @RequiredArgsConstructor
-public class AlarmConfigController extends WritableController<AlarmConfig, Long> {
+public class AlarmConfigController extends BaseController<AlarmConfig, Long> {
 
     private final AlarmConfigService alarmConfigService;
 
     /**
-     * 获取可写服务
+     * 获取业务服务
      *
-     * @return 报警配置服务
+     * @return 业务服务
      */
     @Override
-    protected WritableService<AlarmConfig, Long> getWritableService() {
-        return alarmConfigService;
-    }
-
-    /**
-     * 获取可读服务
-     *
-     * @return 报警配置服务
-     */
-    @Override
-    protected ReadableService<AlarmConfig, Long> getReadableService() {
+    protected BaseService<AlarmConfig, Long> getService() {
         return alarmConfigService;
     }
 
@@ -78,7 +67,7 @@ public class AlarmConfigController extends WritableController<AlarmConfig, Long>
      */
     @Operation(summary = "根据采集点位查询配置")
     @GetMapping("/meter-point/{meterPointId}")
-    public Result<List<AlarmConfig>> getByMeterPoint(@PathVariable Long meterPointId) {
+    public Result<List<AlarmConfig>> findByMeterPoint(@PathVariable Long meterPointId) {
         return Result.content(alarmConfigService.findByMeterPoint(meterPointId));
     }
 }

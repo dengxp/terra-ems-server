@@ -26,20 +26,21 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.ems.entity.EnergySavingProject;
 import com.terra.ems.ems.enums.ProjectStatus;
 import com.terra.ems.ems.service.EnergySavingProjectService;
-import com.terra.ems.framework.controller.WritableController;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.common.domain.Result;
-import com.terra.ems.framework.service.ReadableService;
-import com.terra.ems.framework.service.WritableService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 节能项目控制器
@@ -50,29 +51,37 @@ import java.util.List;
 @RestController
 @RequestMapping("/ems/saving-projects")
 @Tag(name = "节能项目管理")
-@RequiredArgsConstructor
-public class EnergySavingProjectController extends WritableController<EnergySavingProject, Long> {
+public class EnergySavingProjectController extends BaseController<EnergySavingProject, Long> {
 
-    private final EnergySavingProjectService service;
+    private final EnergySavingProjectService energySavingProjectService;
 
-    /**
-     * 获取可写服务
-     *
-     * @return 节能项目服务
-     */
-    @Override
-    protected WritableService<EnergySavingProject, Long> getWritableService() {
-        return service;
+    public EnergySavingProjectController(EnergySavingProjectService energySavingProjectService) {
+        this.energySavingProjectService = energySavingProjectService;
     }
 
-    /**
-     * 获取可读服务
-     *
-     * @return 节能项目服务
-     */
     @Override
-    protected ReadableService<EnergySavingProject, Long> getReadableService() {
-        return service;
+    protected BaseService<EnergySavingProject, Long> getService() {
+        return energySavingProjectService;
+    }
+
+    @Override
+    protected Specification<EnergySavingProject> buildSpecification(Map<String, Object> params) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (params.containsKey("keyword") && StringUtils.hasText((String) params.get("keyword"))) {
+                String keyword = "%" + params.get("keyword") + "%";
+                predicates.add(cb.or(
+                        cb.like(root.get("name"), keyword),
+                        cb.like(root.get("liablePerson"), keyword),
+                        cb.like(root.get("remark"), keyword)));
+            }
+            if (params.containsKey("status") && params.get("status") != null) {
+                predicates.add(cb.equal(root.get("status"), params.get("status")));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**
@@ -85,26 +94,7 @@ public class EnergySavingProjectController extends WritableController<EnergySavi
     @Operation(summary = "按状态查询项目列表")
     public Result<List<EnergySavingProject>> findByStatus(
             @PathVariable @Parameter(description = "项目状态") ProjectStatus status) {
-        return Result.content(service.findByStatus(status));
-    }
-
-    /**
-     * 分页条件查询节能项目
-     *
-     * @param name   项目名称
-     * @param status 项目状态
-     * @param page   页码
-     * @param size   每页数量
-     * @return 分页结果
-     */
-    @GetMapping("/search")
-    @Operation(summary = "分页条件查询")
-    public Result<Page<EnergySavingProject>> search(
-            @RequestParam(required = false) @Parameter(description = "项目名称") String name,
-            @RequestParam(required = false) @Parameter(description = "项目状态") ProjectStatus status,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return Result.content(service.findByConditions(name, status, PageRequest.of(page, size)));
+        return Result.content(energySavingProjectService.findByStatus(status));
     }
 
     /**
@@ -114,8 +104,8 @@ public class EnergySavingProjectController extends WritableController<EnergySavi
      */
     @GetMapping("/statistics/saving-amount")
     @Operation(summary = "获取已完成项目的节约量总和")
-    public Result<BigDecimal> getCompletedSavingAmount() {
-        return Result.content(service.getCompletedSavingAmount());
+    public Result<BigDecimal> findCompletedSavingAmount() {
+        return Result.content(energySavingProjectService.getCompletedSavingAmount());
     }
 
     /**
@@ -128,7 +118,7 @@ public class EnergySavingProjectController extends WritableController<EnergySavi
     @Operation(summary = "按状态统计项目数量")
     public Result<Long> countByStatus(
             @PathVariable @Parameter(description = "项目状态") ProjectStatus status) {
-        return Result.content(service.countByStatus(status));
+        return Result.content(energySavingProjectService.countByStatus(status));
     }
 
     /**
@@ -143,6 +133,7 @@ public class EnergySavingProjectController extends WritableController<EnergySavi
     public Result<EnergySavingProject> updateStatus(
             @PathVariable Long id,
             @RequestParam @Parameter(description = "新状态") ProjectStatus status) {
-        return Result.content(service.updateStatus(id, status));
+        return Result.content(energySavingProjectService.updateStatus(id, status));
     }
+
 }

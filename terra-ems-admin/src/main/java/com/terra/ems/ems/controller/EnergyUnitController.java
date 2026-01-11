@@ -26,11 +26,13 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.EnergyUnit;
 import com.terra.ems.ems.service.EnergyUnitService;
+import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.enums.DataItemStatus;
+import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,79 +46,69 @@ import java.util.List;
 @Tag(name = "用能单元管理")
 @RestController
 @RequestMapping("/energy-units")
-@RequiredArgsConstructor
-public class EnergyUnitController {
+public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
 
     private final EnergyUnitService energyUnitService;
 
+    public EnergyUnitController(EnergyUnitService energyUnitService) {
+        this.energyUnitService = energyUnitService;
+    }
+
+    @Override
+    protected BaseService<EnergyUnit, Long> getService() {
+        return energyUnitService;
+    }
+
+    /**
+     * 隐藏基类的 saveOrUpdate 方法，使用 create 替代（因需 parentId 参数）
+     */
+    @Override
+    public Result<EnergyUnit> saveOrUpdate(EnergyUnit entity) {
+        throw new UnsupportedOperationException("请使用 POST /energy-units?parentId= 的 create 方法");
+    }
+
     /**
      * 获取完整树形结构
-     *
-     * @return 完整树形数据
      */
     @Operation(summary = "获取完整树形结构")
     @GetMapping("/tree")
-    public Result<List<EnergyUnit>> getTree() {
+    public Result<List<EnergyUnit>> findTree() {
         return Result.content(energyUnitService.getTree());
     }
 
     /**
      * 获取启用状态的树形结构
-     *
-     * @return 启用的树形数据
      */
     @Operation(summary = "获取启用状态的树形结构")
     @GetMapping("/tree/enabled")
-    public Result<List<EnergyUnit>> getEnabledTree() {
+    public Result<List<EnergyUnit>> findEnabledTree() {
         return Result.content(energyUnitService.getEnabledTree());
     }
 
     /**
      * 获取启用的用能单元列表
-     *
-     * @return 启用的用能单元列表
      */
     @Operation(summary = "获取启用的用能单元列表")
     @GetMapping("/enabled")
-    public Result<List<EnergyUnit>> getEnabledList() {
+    public Result<List<EnergyUnit>> findEnabledList() {
         return Result.content(energyUnitService.findEnabled());
     }
 
     /**
      * 获取子节点（懒加载）
-     *
-     * @param parentId 父节点ID
-     * @return 子节点列表
      */
     @Operation(summary = "获取子节点（懒加载）")
     @GetMapping("/{parentId}/children")
-    public Result<List<EnergyUnit>> getChildren(@PathVariable Long parentId) {
+    public Result<List<EnergyUnit>> findChildren(@PathVariable Long parentId) {
         return Result.content(energyUnitService.getChildren(parentId));
     }
 
     /**
-     * 根据ID查询用能单元
-     *
-     * @param id 用能单元ID
-     * @return 用能单元详情
-     */
-    @Operation(summary = "根据ID查询用能单元")
-    @GetMapping("/{id}")
-    public Result<EnergyUnit> getById(@PathVariable Long id) {
-        return java.util.Optional.ofNullable(energyUnitService.findById(id))
-                .map(Result::content)
-                .orElse(Result.failure("用能单元不存在"));
-    }
-
-    /**
      * 根据编码查询用能单元
-     *
-     * @param code 用能单元编码
-     * @return 用能单元详情
      */
     @Operation(summary = "根据编码查询用能单元")
     @GetMapping("/code/{code}")
-    public Result<EnergyUnit> getByCode(@PathVariable String code) {
+    public Result<EnergyUnit> findByCode(@PathVariable String code) {
         return energyUnitService.findByCode(code)
                 .map(Result::content)
                 .orElse(Result.failure("用能单元不存在"));
@@ -124,96 +116,36 @@ public class EnergyUnitController {
 
     /**
      * 创建用能单元
-     *
-     * @param energyUnit 用能单元实体
-     * @param parentId   父节点ID
-     * @return 创建后的实体
      */
     @Operation(summary = "创建用能单元")
-    @PostMapping
+    @PostMapping("/create")
     public Result<EnergyUnit> create(
             @RequestBody EnergyUnit energyUnit,
             @Parameter(description = "父节点ID，不传表示创建根节点") @RequestParam(required = false) Long parentId) {
-        try {
-            EnergyUnit created = energyUnitService.create(energyUnit, parentId);
-            return Result.content(created);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
-    }
-
-    /**
-     * 更新用能单元
-     *
-     * @param id         用能单元ID
-     * @param energyUnit 用能单元实体
-     * @return 更新后的实体
-     */
-    @Operation(summary = "更新用能单元")
-    @PutMapping("/{id}")
-    public Result<EnergyUnit> update(@PathVariable Long id, @RequestBody EnergyUnit energyUnit) {
-        try {
-            EnergyUnit updated = energyUnitService.update(id, energyUnit);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(energyUnitService.create(energyUnit, parentId));
     }
 
     /**
      * 移动节点（更改父节点）
-     *
-     * @param id          节点ID
-     * @param newParentId 新父节点ID
-     * @return 更新后的实体
      */
     @Operation(summary = "移动节点（更改父节点）")
     @PatchMapping("/{id}/move")
     public Result<EnergyUnit> move(
             @PathVariable Long id,
             @Parameter(description = "新父节点ID，不传表示移动到根级别") @RequestParam(required = false) Long newParentId) {
-        try {
-            EnergyUnit moved = energyUnitService.move(id, newParentId);
-            return Result.content(moved);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
-    }
-
-    /**
-     * 删除用能单元
-     *
-     * @param id 用能单元ID
-     * @return 操作结果
-     */
-    @Operation(summary = "删除用能单元")
-    @DeleteMapping("/{id}")
-    public Result<Void> delete(@PathVariable Long id) {
-        try {
-            energyUnitService.delete(id);
-            return Result.success();
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(energyUnitService.move(id, newParentId));
     }
 
     /**
      * 修改用能单元状态
-     *
-     * @param id     用能单元ID
-     * @param status 新状态
-     * @return 更新后的实体
      */
     @Operation(summary = "修改用能单元状态")
     @PatchMapping("/{id}/status")
     public Result<EnergyUnit> updateStatus(
             @PathVariable Long id,
             @RequestParam DataItemStatus status) {
-        try {
-            EnergyUnit updated = energyUnitService.updateStatus(id, status);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(energyUnitService.updateStatus(id, status));
     }
+
+    // BaseController 已提供标准 update(via saveOrUpdate), getById, delete
 }

@@ -27,16 +27,19 @@ import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.Benchmark;
 import com.terra.ems.ems.enums.BenchmarkType;
 import com.terra.ems.ems.service.BenchmarkService;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.enums.DataItemStatus;
+import java.util.Optional;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
 
 /**
  * 对标值控制器
@@ -47,30 +50,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/ems/benchmarks")
 @Tag(name = "对标值管理")
-@RequiredArgsConstructor
-public class BenchmarkController {
+public class BenchmarkController extends BaseController<Benchmark, Long> {
 
-    private final BenchmarkService service;
+    private final BenchmarkService benchmarkService;
 
-    /**
-     * 分页条件查询
-     *
-     * @param name   名称
-     * @param type   类型
-     * @param status 状态
-     * @param page   页码
-     * @param size   每页大小
-     * @return 分页结果
-     */
-    @GetMapping
-    @Operation(summary = "分页条件查询")
-    public Result<Page<Benchmark>> search(
-            @RequestParam(required = false) @Parameter(description = "名称") String name,
-            @RequestParam(required = false) @Parameter(description = "类型") BenchmarkType type,
-            @RequestParam(required = false) @Parameter(description = "状态") DataItemStatus status,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return Result.content(service.findByConditions(name, type, status, PageRequest.of(page, size)));
+    public BenchmarkController(BenchmarkService benchmarkService) {
+        this.benchmarkService = benchmarkService;
+    }
+
+    @Override
+    protected BaseService<Benchmark, Long> getService() {
+        return benchmarkService;
+    }
+
+    @Override
+    protected Specification<Benchmark> buildSpecification(Map<String, Object> params) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            // keyword: 仅检索文本字段（name, remark）
+            if (params.containsKey("keyword") && params.get("keyword") != null) {
+                String keyword = "%" + params.get("keyword") + "%";
+                predicates.add(cb.or(
+                        cb.like(root.get("name"), keyword),
+                        cb.like(root.get("remark"), keyword)));
+            }
+            if (params.containsKey("name") && params.get("name") != null) {
+                predicates.add(cb.like(root.get("name"), "%" + params.get("name") + "%"));
+            }
+            // type: Enum 类型，直接比较
+            if (params.containsKey("type") && params.get("type") != null) {
+                predicates.add(cb.equal(root.get("type"), params.get("type")));
+            }
+            // status: Enum 类型，直接比较
+            if (params.containsKey("status") && params.get("status") != null) {
+                predicates.add(cb.equal(root.get("status"), params.get("status")));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**
@@ -81,7 +99,7 @@ public class BenchmarkController {
     @GetMapping("/all")
     @Operation(summary = "查询所有对标值")
     public Result<List<Benchmark>> findAll() {
-        return Result.content(service.findAll());
+        return Result.content(benchmarkService.findAll());
     }
 
     /**
@@ -92,7 +110,7 @@ public class BenchmarkController {
     @GetMapping("/enabled")
     @Operation(summary = "查询所有启用的对标值")
     public Result<List<Benchmark>> findAllEnabled() {
-        return Result.content(service.findAllEnabled());
+        return Result.content(benchmarkService.findAllEnabled());
     }
 
     /**
@@ -104,7 +122,7 @@ public class BenchmarkController {
     @GetMapping("/{id}")
     @Operation(summary = "根据ID查询")
     public Result<Benchmark> findById(@PathVariable Long id) {
-        return java.util.Optional.ofNullable(service.findById(id))
+        return Optional.ofNullable(benchmarkService.findById(id))
                 .map(Result::content)
                 .orElse(Result.failure("对标值不存在"));
     }
@@ -118,7 +136,7 @@ public class BenchmarkController {
     @GetMapping("/code/{code}")
     @Operation(summary = "根据编码查询")
     public Result<Benchmark> findByCode(@PathVariable String code) {
-        return service.findByCode(code)
+        return benchmarkService.findByCode(code)
                 .map(Result::content)
                 .orElse(Result.failure("对标值不存在"));
     }
@@ -133,7 +151,7 @@ public class BenchmarkController {
     @Operation(summary = "按类型查询")
     public Result<List<Benchmark>> findByType(
             @PathVariable @Parameter(description = "类型") BenchmarkType type) {
-        return Result.content(service.findByType(type));
+        return Result.content(benchmarkService.findByType(type));
     }
 
     /**
@@ -146,23 +164,7 @@ public class BenchmarkController {
     @Operation(summary = "按能源类型查询")
     public Result<List<Benchmark>> findByEnergyType(
             @PathVariable @Parameter(description = "能源类型ID") Long energyTypeId) {
-        return Result.content(service.findByEnergyType(energyTypeId));
-    }
-
-    /**
-     * 创建对标值
-     *
-     * @param benchmark 对标值实体
-     * @return 创建后的实体
-     */
-    @PostMapping
-    @Operation(summary = "创建对标值")
-    public Result<Benchmark> create(@RequestBody Benchmark benchmark) {
-        try {
-            return Result.content(service.create(benchmark));
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(benchmarkService.findByEnergyType(energyTypeId));
     }
 
     /**
@@ -175,11 +177,8 @@ public class BenchmarkController {
     @PutMapping("/{id}")
     @Operation(summary = "更新对标值")
     public Result<Benchmark> update(@PathVariable Long id, @RequestBody Benchmark benchmark) {
-        try {
-            return Result.content(service.update(id, benchmark));
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        benchmark.setId(id);
+        return Result.content(benchmarkService.saveOrUpdate(benchmark));
     }
 
     /**
@@ -189,14 +188,10 @@ public class BenchmarkController {
      * @return 操作结果
      */
     @DeleteMapping("/{id}")
-    @Operation(summary = "删除对标值")
-    public Result<Void> delete(@PathVariable Long id) {
-        try {
-            service.deleteById(id);
-            return Result.success();
-        } catch (Exception e) {
-            return Result.failure(e.getMessage());
-        }
+    @Operation(summary = "删除基准定义")
+    public Result<String> delete(@PathVariable Long id) {
+        benchmarkService.deleteById(id);
+        return Result.success("删除成功");
     }
 
     /**
@@ -211,11 +206,7 @@ public class BenchmarkController {
     public Result<Benchmark> updateStatus(
             @PathVariable Long id,
             @RequestParam @Parameter(description = "新状态") DataItemStatus status) {
-        try {
-            return Result.content(service.updateStatus(id, status));
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(benchmarkService.updateStatus(id, status));
     }
 
     /**
@@ -228,6 +219,6 @@ public class BenchmarkController {
     @Operation(summary = "按类型统计数量")
     public Result<Long> countByType(
             @PathVariable @Parameter(description = "类型") BenchmarkType type) {
-        return Result.content(service.countByType(type));
+        return Result.content(benchmarkService.countByType(type));
     }
 }

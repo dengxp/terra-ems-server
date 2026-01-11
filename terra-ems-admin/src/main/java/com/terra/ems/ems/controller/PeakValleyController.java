@@ -28,7 +28,7 @@ import com.terra.ems.ems.entity.TimePeriodPrice;
 import com.terra.ems.ems.service.PeakValleyAnalysisService;
 import com.terra.ems.ems.service.PeakValleyAnalysisService.DailyPeakValleyData;
 import com.terra.ems.ems.service.PeakValleyAnalysisService.PeakValleyAnalysisResult;
-import com.terra.ems.framework.controller.Controller;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -63,7 +63,7 @@ public class PeakValleyController {
      */
     @Operation(summary = "按日分析")
     @GetMapping("/daily")
-    public Result<PeakValleyAnalysisResult> getDailyAnalysis(
+    public Result<PeakValleyAnalysisResult> findDailyAnalysis(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "日期，格式 yyyy-MM-dd") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         PeakValleyAnalysisResult result = peakValleyAnalysisService.getDailyAnalysis(energyUnitId, date);
@@ -79,7 +79,7 @@ public class PeakValleyController {
      */
     @Operation(summary = "按月分析")
     @GetMapping("/monthly")
-    public Result<PeakValleyAnalysisResult> getMonthlyAnalysis(
+    public Result<PeakValleyAnalysisResult> findMonthlyAnalysis(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "年月，格式 yyyy-MM") @RequestParam String yearMonth) {
         YearMonth ym = YearMonth.parse(yearMonth);
@@ -96,7 +96,7 @@ public class PeakValleyController {
      */
     @Operation(summary = "按年分析")
     @GetMapping("/yearly")
-    public Result<PeakValleyAnalysisResult> getYearlyAnalysis(
+    public Result<PeakValleyAnalysisResult> findYearlyAnalysis(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "年份") @RequestParam int year) {
         PeakValleyAnalysisResult result = peakValleyAnalysisService.getYearlyAnalysis(energyUnitId, year);
@@ -113,7 +113,7 @@ public class PeakValleyController {
      */
     @Operation(summary = "时段汇总")
     @GetMapping("/summary")
-    public Result<PeakValleyAnalysisResult> getPeriodSummary(
+    public Result<PeakValleyAnalysisResult> findPeriodSummary(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "开始日期，格式 yyyy-MM-dd") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @Parameter(description = "结束日期，格式 yyyy-MM-dd") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
@@ -131,7 +131,7 @@ public class PeakValleyController {
      */
     @Operation(summary = "获取每日详细数据")
     @GetMapping("/daily-details")
-    public Result<List<DailyPeakValleyData>> getDailyDetailedData(
+    public Result<List<DailyPeakValleyData>> findDailyDetailedData(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "开始日期，格式 yyyy-MM-dd") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @Parameter(description = "结束日期，格式 yyyy-MM-dd") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
@@ -147,7 +147,7 @@ public class PeakValleyController {
      */
     @Operation(summary = "获取电价配置列表")
     @GetMapping("/price-configs")
-    public Result<List<TimePeriodPrice>> getPriceConfigs() {
+    public Result<List<TimePeriodPrice>> findPriceConfigs() {
         return Result.content(peakValleyAnalysisService.getPriceConfigs());
     }
 }

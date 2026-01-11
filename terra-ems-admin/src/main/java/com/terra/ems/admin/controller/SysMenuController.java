@@ -24,8 +24,8 @@
 package com.terra.ems.admin.controller;
 
 import com.terra.ems.common.domain.Result;
-import com.terra.ems.framework.controller.WritableController;
-import com.terra.ems.framework.service.WritableService;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysMenu;
 import com.terra.ems.system.service.SysMenuService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -50,7 +50,7 @@ import java.util.List;
 @Tag(name = "菜单管理")
 @RestController
 @RequestMapping("/system/menu")
-public class SysMenuController extends WritableController<SysMenu, Long> {
+public class SysMenuController extends BaseController<SysMenu, Long> {
 
     private final SysMenuService menuService;
 
@@ -60,22 +60,12 @@ public class SysMenuController extends WritableController<SysMenu, Long> {
     }
 
     /**
-     * 获取可写业务服务
+     * 获取业务服务
      *
      * @return 菜单管理服务
      */
     @Override
-    protected WritableService<SysMenu, Long> getWritableService() {
-        return menuService;
-    }
-
-    /**
-     * 获取只读业务服务
-     *
-     * @return 菜单管理服务
-     */
-    @Override
-    protected com.terra.ems.framework.service.ReadableService<SysMenu, Long> getReadableService() {
+    protected BaseService<SysMenu, Long> getService() {
         return menuService;
     }
 

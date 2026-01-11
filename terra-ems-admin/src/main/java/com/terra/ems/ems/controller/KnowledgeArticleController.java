@@ -25,6 +25,8 @@ package com.terra.ems.ems.controller;
 
 import com.terra.ems.ems.entity.KnowledgeArticle;
 import com.terra.ems.ems.service.KnowledgeArticleService;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.common.domain.Result;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,6 +41,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import com.terra.ems.framework.definition.dto.Pager;
+import org.springframework.validation.annotation.Validated;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
+
 /**
  * 知识库文章控制器
  *
@@ -48,22 +59,34 @@ import java.util.List;
 @Tag(name = "知识库管理", description = "知识库文章的增删改查及搜索")
 @RestController
 @RequestMapping("/ems/knowledge")
-@RequiredArgsConstructor
-public class KnowledgeArticleController {
+public class KnowledgeArticleController extends BaseController<KnowledgeArticle, Long> {
 
     private final KnowledgeArticleService knowledgeArticleService;
 
+    public KnowledgeArticleController(KnowledgeArticleService knowledgeArticleService) {
+        this.knowledgeArticleService = knowledgeArticleService;
+    }
+
+    @Override
+    protected BaseService<KnowledgeArticle, Long> getService() {
+        return knowledgeArticleService;
+    }
+
     /**
-     * 创建文章
+     * 创建或更新文章
      *
      * @param article 文章实体
-     * @return 创建后的实体
+     * @return 保存后的实体
      */
-    @Operation(summary = "创建文章")
+    @Override
     @PostMapping
-    public Result<KnowledgeArticle> create(@RequestBody KnowledgeArticle article) {
-        KnowledgeArticle created = knowledgeArticleService.create(article);
-        return Result.content(created);
+    @Operation(summary = "创建或更新文章")
+    public Result<KnowledgeArticle> saveOrUpdate(@RequestBody @Validated KnowledgeArticle article) {
+        if (article.getId() == null) {
+            return Result.content(knowledgeArticleService.create(article));
+        } else {
+            return Result.content(knowledgeArticleService.update(article.getId(), article));
+        }
     }
 
     /**
@@ -90,9 +113,9 @@ public class KnowledgeArticleController {
      */
     @Operation(summary = "删除文章")
     @DeleteMapping("/{id}")
-    public Result<Void> delete(@Parameter(description = "文章ID") @PathVariable Long id) {
-        knowledgeArticleService.delete(id);
-        return Result.success();
+    public Result<String> delete(@Parameter(description = "文章ID") @PathVariable Long id) {
+        knowledgeArticleService.deleteById(id);
+        return Result.success("删除成功");
     }
 
     /**
@@ -116,36 +139,11 @@ public class KnowledgeArticleController {
      */
     @Operation(summary = "获取文章详情（会增加阅读次数）")
     @GetMapping("/{id}")
-    public Result<KnowledgeArticle> getById(@Parameter(description = "文章ID") @PathVariable Long id) {
+    @Override
+    public Result<KnowledgeArticle> findById(@Parameter(description = "文章ID") @PathVariable Long id) {
         return knowledgeArticleService.findByIdAndIncrementView(id)
                 .map(Result::content)
                 .orElse(Result.failure("文章不存在"));
-    }
-
-    /**
-     * 分页查询文章
-     *
-     * @param energyTypeId 能源类型ID
-     * @param page         页码
-     * @param size         每页大小
-     * @return 分页结果
-     */
-    @Operation(summary = "分页查询文章")
-    @GetMapping
-    public Result<Page<KnowledgeArticle>> list(
-            @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId,
-            @Parameter(description = "页码") @RequestParam(defaultValue = "0") int page,
-            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") int size) {
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "sortOrder", "createdAt"));
-
-        Page<KnowledgeArticle> articles;
-        if (energyTypeId != null) {
-            articles = knowledgeArticleService.findByEnergyType(energyTypeId, pageable);
-        } else {
-            articles = knowledgeArticleService.findAll(pageable);
-        }
-        return Result.content(articles);
     }
 
     /**
@@ -175,7 +173,7 @@ public class KnowledgeArticleController {
      */
     @Operation(summary = "获取所有分类")
     @GetMapping("/categories")
-    public Result<List<String>> getCategories() {
+    public Result<List<String>> findCategories() {
         List<String> categories = knowledgeArticleService.getCategories();
         return Result.content(categories);
     }
@@ -187,7 +185,7 @@ public class KnowledgeArticleController {
      */
     @Operation(summary = "获取热门文章")
     @GetMapping("/hot")
-    public Result<List<KnowledgeArticle>> getHotArticles() {
+    public Result<List<KnowledgeArticle>> findHotArticles() {
         List<KnowledgeArticle> hotArticles = knowledgeArticleService.getHotArticles();
         return Result.content(hotArticles);
     }

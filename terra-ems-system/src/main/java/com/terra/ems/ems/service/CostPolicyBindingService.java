@@ -84,31 +84,23 @@ public class CostPolicyBindingService extends BaseService<CostPolicyBinding, Lon
     }
 
     /**
-     * 分页条件查询
-     */
-    public Page<CostPolicyBinding> findByConditions(Long energyUnitId, Long pricePolicyId, DataItemStatus status,
-            Pageable pageable) {
-        return repository.findByConditions(energyUnitId, pricePolicyId, status, pageable);
-    }
-
-    /**
      * 创建绑定
      */
     @Transactional(rollbackFor = Exception.class)
-    public CostPolicyBinding create(Long energyUnitId, Long pricePolicyId, LocalDate startDate, LocalDate endDate,
-            String remark) {
+    public CostPolicyBinding create(CostPolicyBinding binding) {
+        Long energyUnitId = binding.getEnergyUnit() != null ? binding.getEnergyUnit().getId() : null;
+        Long pricePolicyId = binding.getPricePolicy() != null ? binding.getPricePolicy().getId() : null;
+
         EnergyUnit energyUnit = energyUnitRepository.findById(energyUnitId)
                 .orElseThrow(() -> new IllegalArgumentException("用能单元不存在: " + energyUnitId));
         PricePolicy pricePolicy = pricePolicyRepository.findById(pricePolicyId)
                 .orElseThrow(() -> new IllegalArgumentException("电价策略不存在: " + pricePolicyId));
 
-        CostPolicyBinding binding = new CostPolicyBinding();
         binding.setEnergyUnit(energyUnit);
         binding.setPricePolicy(pricePolicy);
-        binding.setEffectiveStartDate(startDate);
-        binding.setEffectiveEndDate(endDate);
-        binding.setRemark(remark);
-        binding.setStatus(DataItemStatus.ENABLE);
+        if (binding.getStatus() == null) {
+            binding.setStatus(DataItemStatus.ENABLE);
+        }
 
         return repository.save(binding);
     }
@@ -117,20 +109,20 @@ public class CostPolicyBindingService extends BaseService<CostPolicyBinding, Lon
      * 更新绑定
      */
     @Transactional(rollbackFor = Exception.class)
-    public CostPolicyBinding update(Long id, Long pricePolicyId, LocalDate startDate, LocalDate endDate,
-            String remark) {
+    public CostPolicyBinding update(Long id, CostPolicyBinding binding) {
         CostPolicyBinding existing = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("绑定记录不存在: " + id));
 
+        Long pricePolicyId = binding.getPricePolicy() != null ? binding.getPricePolicy().getId() : null;
         if (pricePolicyId != null && !pricePolicyId.equals(existing.getPricePolicy().getId())) {
             PricePolicy pricePolicy = pricePolicyRepository.findById(pricePolicyId)
                     .orElseThrow(() -> new IllegalArgumentException("电价策略不存在: " + pricePolicyId));
             existing.setPricePolicy(pricePolicy);
         }
 
-        existing.setEffectiveStartDate(startDate);
-        existing.setEffectiveEndDate(endDate);
-        existing.setRemark(remark);
+        existing.setEffectiveStartDate(binding.getEffectiveStartDate());
+        existing.setEffectiveEndDate(binding.getEffectiveEndDate());
+        existing.setRemark(binding.getRemark());
 
         return repository.save(existing);
     }
@@ -144,5 +136,14 @@ public class CostPolicyBindingService extends BaseService<CostPolicyBinding, Lon
                 .orElseThrow(() -> new IllegalArgumentException("绑定记录不存在: " + id));
         existing.setStatus(status);
         return repository.save(existing);
+    }
+
+    @Override
+    public CostPolicyBinding saveOrUpdate(CostPolicyBinding binding) {
+        if (binding.getId() == null) {
+            return create(binding);
+        } else {
+            return update(binding.getId(), binding);
+        }
     }
 }

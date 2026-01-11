@@ -27,7 +27,8 @@ import com.terra.ems.ems.entity.KnowledgeArticle;
 import com.terra.ems.framework.enums.DataItemStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.terra.ems.framework.jpa.repository.BaseRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -43,7 +44,7 @@ import java.util.List;
  */
 
 @Repository
-public interface KnowledgeArticleRepository extends JpaRepository<KnowledgeArticle, Long> {
+public interface KnowledgeArticleRepository extends BaseRepository<KnowledgeArticle, Long> {
 
         /**
          * 按能源类型查询文章

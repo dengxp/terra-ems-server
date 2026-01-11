@@ -166,8 +166,9 @@ public class PricePolicyService extends BaseService<PricePolicy, Long> {
     /**
      * 删除策略
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         if (!pricePolicyRepository.existsById(id)) {
             throw new IllegalArgumentException("电价策略不存在: " + id);
         }

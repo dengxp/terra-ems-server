@@ -25,9 +25,8 @@ package com.terra.ems.ems.controller;
 
 import com.terra.ems.ems.entity.AlarmLimitType;
 import com.terra.ems.ems.service.AlarmLimitTypeService;
-import com.terra.ems.framework.controller.WritableController;
-import com.terra.ems.framework.service.ReadableService;
-import com.terra.ems.framework.service.WritableService;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,27 +42,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/alarm/limit-types")
 @Tag(name = "报警限值类型")
 @RequiredArgsConstructor
-public class AlarmLimitTypeController extends WritableController<AlarmLimitType, Long> {
+public class AlarmLimitTypeController extends BaseController<AlarmLimitType, Long> {
 
     private final AlarmLimitTypeService alarmLimitTypeService;
 
     /**
-     * 获取可写服务
+     * 获取业务服务
      *
-     * @return 报警阈值类型服务
+     * @return 业务服务
      */
     @Override
-    protected WritableService<AlarmLimitType, Long> getWritableService() {
-        return alarmLimitTypeService;
-    }
-
-    /**
-     * 获取可读服务
-     *
-     * @return 报警阈值类型服务
-     */
-    @Override
-    protected ReadableService<AlarmLimitType, Long> getReadableService() {
+    protected BaseService<AlarmLimitType, Long> getService() {
         return alarmLimitTypeService;
     }
 }

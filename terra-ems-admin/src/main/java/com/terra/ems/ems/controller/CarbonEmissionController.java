@@ -65,7 +65,7 @@ public class CarbonEmissionController extends Controller {
      */
     @Operation(summary = "获取碳排放汇总")
     @GetMapping("/summary")
-    public Result<EnergyStatisticsSummaryDTO> getSummary(
+    public Result<EnergyStatisticsSummaryDTO> findSummary(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
@@ -82,7 +82,7 @@ public class CarbonEmissionController extends Controller {
      */
     @Operation(summary = "获取单元碳排放排名")
     @GetMapping("/ranking")
-    public Result<List<ComparisonAnalysisDTO>> getRanking(
+    public Result<List<ComparisonAnalysisDTO>> findRanking(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {

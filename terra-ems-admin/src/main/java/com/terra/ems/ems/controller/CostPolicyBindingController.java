@@ -26,11 +26,13 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.CostPolicyBinding;
 import com.terra.ems.ems.service.CostPolicyBindingService;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.enums.DataItemStatus;
+import java.util.Optional;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,6 +40,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.terra.ems.framework.definition.dto.Pager;
+import org.springframework.validation.annotation.Validated;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
 
 /**
  * 成本策略绑定控制器
@@ -48,31 +59,37 @@ import java.util.List;
 @RestController
 @RequestMapping("/ems/cost-policy-bindings")
 @Tag(name = "成本策略绑定管理")
-@RequiredArgsConstructor
-public class CostPolicyBindingController {
+public class CostPolicyBindingController extends BaseController<CostPolicyBinding, Long> {
 
-    private final CostPolicyBindingService service;
+    private final CostPolicyBindingService costPolicyBindingService;
 
-    /**
-     * 分页条件查询策略绑定记录
-     *
-     * @param energyUnitId  用能单元ID
-     * @param pricePolicyId 电价策略ID
-     * @param status        状态
-     * @param page          页码
-     * @param size          每页大小
-     * @return 分页结果
-     */
-    @GetMapping
-    @Operation(summary = "分页条件查询")
-    public Result<Page<CostPolicyBinding>> search(
-            @RequestParam(required = false) @Parameter(description = "用能单元ID") Long energyUnitId,
-            @RequestParam(required = false) @Parameter(description = "电价策略ID") Long pricePolicyId,
-            @RequestParam(required = false) @Parameter(description = "状态") DataItemStatus status,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return Result
-                .content(service.findByConditions(energyUnitId, pricePolicyId, status, PageRequest.of(page, size)));
+    public CostPolicyBindingController(CostPolicyBindingService costPolicyBindingService) {
+        this.costPolicyBindingService = costPolicyBindingService;
+    }
+
+    @Override
+    protected BaseService<CostPolicyBinding, Long> getService() {
+        return costPolicyBindingService;
+    }
+
+    @Override
+    protected Specification<CostPolicyBinding> buildSpecification(Map<String, Object> params) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (params.containsKey("energyUnitId") && params.get("energyUnitId") != null) {
+                predicates.add(cb.equal(root.get("energyUnitId"), Long.valueOf(params.get("energyUnitId").toString())));
+            }
+            if (params.containsKey("pricePolicyId") && params.get("pricePolicyId") != null) {
+                predicates
+                        .add(cb.equal(root.get("pricePolicyId"), Long.valueOf(params.get("pricePolicyId").toString())));
+            }
+            if (params.containsKey("status") && params.get("status") != null) {
+                predicates.add(cb.equal(root.get("status"), DataItemStatus.valueOf(params.get("status").toString())));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**
@@ -84,7 +101,7 @@ public class CostPolicyBindingController {
     @GetMapping("/{id}")
     @Operation(summary = "根据ID查询")
     public Result<CostPolicyBinding> findById(@PathVariable Long id) {
-        return java.util.Optional.ofNullable(service.findById(id))
+        return Optional.ofNullable(costPolicyBindingService.findById(id))
                 .map(Result::content)
                 .orElse(Result.failure("绑定记录不存在"));
     }
@@ -99,7 +116,7 @@ public class CostPolicyBindingController {
     @Operation(summary = "按用能单元查询")
     public Result<List<CostPolicyBinding>> findByEnergyUnit(
             @PathVariable @Parameter(description = "用能单元ID") Long energyUnitId) {
-        return Result.content(service.findByEnergyUnit(energyUnitId));
+        return Result.content(costPolicyBindingService.findByEnergyUnit(energyUnitId));
     }
 
     /**
@@ -112,7 +129,7 @@ public class CostPolicyBindingController {
     @Operation(summary = "按电价策略查询")
     public Result<List<CostPolicyBinding>> findByPricePolicy(
             @PathVariable @Parameter(description = "电价策略ID") Long pricePolicyId) {
-        return Result.content(service.findByPricePolicy(pricePolicyId));
+        return Result.content(costPolicyBindingService.findByPricePolicy(pricePolicyId));
     }
 
     /**
@@ -128,59 +145,9 @@ public class CostPolicyBindingController {
             @RequestParam @Parameter(description = "用能单元ID") Long energyUnitId,
             @RequestParam(required = false) @Parameter(description = "日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         LocalDate queryDate = date != null ? date : LocalDate.now();
-        return service.findEffectiveBinding(energyUnitId, queryDate)
+        return costPolicyBindingService.findEffectiveBinding(energyUnitId, queryDate)
                 .map(Result::content)
                 .orElse(Result.failure("未找到有效绑定"));
-    }
-
-    /**
-     * 创建新的费用策略绑定
-     *
-     * @param energyUnitId  用能单元ID
-     * @param pricePolicyId 电价策略ID
-     * @param startDate     生效开始日期
-     * @param endDate       生效结束日期
-     * @param remark        备注
-     * @return 创建后的实体
-     */
-    @PostMapping
-    @Operation(summary = "创建绑定")
-    public Result<CostPolicyBinding> create(
-            @RequestParam @Parameter(description = "用能单元ID") Long energyUnitId,
-            @RequestParam @Parameter(description = "电价策略ID") Long pricePolicyId,
-            @RequestParam @Parameter(description = "生效开始日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(required = false) @Parameter(description = "生效结束日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @RequestParam(required = false) @Parameter(description = "备注") String remark) {
-        try {
-            return Result.content(service.create(energyUnitId, pricePolicyId, startDate, endDate, remark));
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
-    }
-
-    /**
-     * 更新现有的费用策略绑定
-     *
-     * @param id            绑定ID
-     * @param pricePolicyId 电价策略ID
-     * @param startDate     生效开始日期
-     * @param endDate       生效结束日期
-     * @param remark        备注
-     * @return 更新后的实体
-     */
-    @PutMapping("/{id}")
-    @Operation(summary = "更新绑定")
-    public Result<CostPolicyBinding> update(
-            @PathVariable Long id,
-            @RequestParam(required = false) @Parameter(description = "电价策略ID") Long pricePolicyId,
-            @RequestParam @Parameter(description = "生效开始日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(required = false) @Parameter(description = "生效结束日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @RequestParam(required = false) @Parameter(description = "备注") String remark) {
-        try {
-            return Result.content(service.update(id, pricePolicyId, startDate, endDate, remark));
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
     }
 
     /**
@@ -190,14 +157,10 @@ public class CostPolicyBindingController {
      * @return 操作结果
      */
     @DeleteMapping("/{id}")
-    @Operation(summary = "删除绑定")
-    public Result<Void> delete(@PathVariable Long id) {
-        try {
-            service.deleteById(id);
-            return Result.success();
-        } catch (Exception e) {
-            return Result.failure(e.getMessage());
-        }
+    @Operation(summary = "删除绑定关系")
+    public Result<String> delete(@PathVariable Long id) {
+        costPolicyBindingService.deleteById(id);
+        return Result.success("删除成功");
     }
 
     /**
@@ -212,10 +175,7 @@ public class CostPolicyBindingController {
     public Result<CostPolicyBinding> updateStatus(
             @PathVariable Long id,
             @RequestParam @Parameter(description = "新状态") DataItemStatus status) {
-        try {
-            return Result.content(service.updateStatus(id, status));
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(costPolicyBindingService.updateStatus(id, status));
     }
+
 }

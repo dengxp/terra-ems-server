@@ -56,18 +56,6 @@ public interface EnergySavingProjectRepository extends BaseRepository<EnergySavi
         List<EnergySavingProject> findByLiablePersonContainingOrderByCreatedAtDesc(String liablePerson);
 
         /**
-         * 分页查询（支持名称模糊搜索）
-         */
-        @Query("SELECT p FROM EnergySavingProject p WHERE " +
-                        "(:name IS NULL OR p.name LIKE %:name%) AND " +
-                        "(:status IS NULL OR p.status = :status) " +
-                        "ORDER BY p.createdAt DESC")
-        Page<EnergySavingProject> findByConditions(
-                        @Param("name") String name,
-                        @Param("status") ProjectStatus status,
-                        Pageable pageable);
-
-        /**
          * 统计节约量总和
          */
         @Query("SELECT COALESCE(SUM(p.savingAmount), 0) FROM EnergySavingProject p WHERE p.status = :status")

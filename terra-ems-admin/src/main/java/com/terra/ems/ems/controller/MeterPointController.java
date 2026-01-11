@@ -23,6 +23,8 @@
 
 package com.terra.ems.ems.controller;
 
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.MeterPoint;
 import com.terra.ems.ems.service.MeterPointService;
@@ -30,7 +32,6 @@ import com.terra.ems.framework.enums.DataItemStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -49,28 +50,30 @@ import java.util.Set;
 @Tag(name = "采集点位管理")
 @RestController
 @RequestMapping("/meter-points")
-@RequiredArgsConstructor
-public class MeterPointController {
+public class MeterPointController extends BaseController<MeterPoint, Long> {
 
     private final MeterPointService meterPointService;
 
+    public MeterPointController(MeterPointService meterPointService) {
+        this.meterPointService = meterPointService;
+    }
+
+    @Override
+    protected BaseService<MeterPoint, Long> getService() {
+        return meterPointService;
+    }
+
     /**
      * 分页查询采集点位
-     *
-     * @param current   页码
-     * @param pageSize  每页数量
-     * @param sortField 排序字段
-     * @param sortOrder 排序方向
-     * @return 分页结果
      */
-    @Operation(summary = "分页查询采集点位")
-    @GetMapping
-    public Result<Page<MeterPoint>> list(
+    @Operation(summary = "分页查询")
+    @GetMapping("/search")
+    public Result<Page<MeterPoint>> search(
             @Parameter(description = "页码") @RequestParam(defaultValue = "1") int current,
             @Parameter(description = "每页数量") @RequestParam(defaultValue = "10") int pageSize,
             @Parameter(description = "排序字段") @RequestParam(defaultValue = "sortOrder") String sortField,
             @Parameter(description = "排序方向") @RequestParam(defaultValue = "asc") String sortOrder) {
-        Sort sort = sortOrder.equalsIgnoreCase("desc")
+        Sort sort = "desc".equalsIgnoreCase(sortOrder)
                 ? Sort.by(sortField).descending()
                 : Sort.by(sortField).ascending();
         Pageable pageable = PageRequest.of(current - 1, pageSize, sort);
@@ -78,28 +81,11 @@ public class MeterPointController {
     }
 
     /**
-     * 根据ID查询采集点位
-     *
-     * @param id 采集点位ID
-     * @return 采集点位详情
-     */
-    @Operation(summary = "根据ID查询采集点位")
-    @GetMapping("/{id}")
-    public Result<MeterPoint> getById(@PathVariable Long id) {
-        return java.util.Optional.ofNullable(meterPointService.findById(id))
-                .map(Result::content)
-                .orElse(Result.failure("采集点位不存在"));
-    }
-
-    /**
      * 根据编码查询采集点位
-     *
-     * @param code 采集点位编码
-     * @return 采集点位详情
      */
     @Operation(summary = "根据编码查询采集点位")
     @GetMapping("/code/{code}")
-    public Result<MeterPoint> getByCode(@PathVariable String code) {
+    public Result<MeterPoint> findByCode(@PathVariable String code) {
         return meterPointService.findByCode(code)
                 .map(Result::content)
                 .orElse(Result.failure("采集点位不存在"));
@@ -107,70 +93,45 @@ public class MeterPointController {
 
     /**
      * 根据计量器具ID查询采集点位
-     *
-     * @param meterId 计量器具ID
-     * @return 采集点位列表
      */
     @Operation(summary = "根据计量器具ID查询采集点位")
     @GetMapping("/meter/{meterId}")
-    public Result<List<MeterPoint>> getByMeterId(@PathVariable Long meterId) {
+    public Result<List<MeterPoint>> findByMeterId(@PathVariable Long meterId) {
         return Result.content(meterPointService.findByMeterId(meterId));
     }
 
     /**
      * 根据能源类型ID查询采集点位
-     *
-     * @param energyTypeId 能源类型ID
-     * @return 采集点位列表
      */
     @Operation(summary = "根据能源类型ID查询采集点位")
     @GetMapping("/energy-type/{energyTypeId}")
-    public Result<List<MeterPoint>> getByEnergyTypeId(@PathVariable Long energyTypeId) {
+    public Result<List<MeterPoint>> findByEnergyTypeId(@PathVariable Long energyTypeId) {
         return Result.content(meterPointService.findByEnergyTypeId(energyTypeId));
     }
 
     /**
      * 根据用能单元ID查询关联的采集点位
-     *
-     * @param energyUnitId 用能单元ID
-     * @return 采集点位列表
      */
     @Operation(summary = "根据用能单元ID查询关联的采集点位")
     @GetMapping("/energy-unit/{energyUnitId}")
-    public Result<List<MeterPoint>> getByEnergyUnitId(@PathVariable Long energyUnitId) {
+    public Result<List<MeterPoint>> findByEnergyUnitId(@PathVariable Long energyUnitId) {
         return Result.content(meterPointService.findByEnergyUnitId(energyUnitId));
     }
 
     /**
      * 创建采集点位
-     *
-     * @param meterPoint   采集点位实体
-     * @param meterId      计量器具ID
-     * @param energyTypeId 能源类型ID
-     * @return 创建后的实体
      */
     @Operation(summary = "创建采集点位")
-    @PostMapping
+    @PostMapping("/create")
     public Result<MeterPoint> create(
             @RequestBody MeterPoint meterPoint,
             @Parameter(description = "计量器具ID") @RequestParam(required = false) Long meterId,
             @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId) {
-        try {
-            MeterPoint created = meterPointService.create(meterPoint, meterId, energyTypeId);
-            return Result.content(created);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(meterPointService.create(meterPoint, meterId, energyTypeId));
     }
 
     /**
      * 更新采集点位
-     *
-     * @param id           采集点位ID
-     * @param meterPoint   采集点位实体
-     * @param meterId      计量器具ID
-     * @param energyTypeId 能源类型ID
-     * @return 更新后的实体
      */
     @Operation(summary = "更新采集点位")
     @PutMapping("/{id}")
@@ -179,68 +140,34 @@ public class MeterPointController {
             @RequestBody MeterPoint meterPoint,
             @Parameter(description = "计量器具ID") @RequestParam(required = false) Long meterId,
             @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId) {
-        try {
-            MeterPoint updated = meterPointService.update(id, meterPoint, meterId, energyTypeId);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(meterPointService.update(id, meterPoint, meterId, energyTypeId));
     }
 
-    /**
-     * 删除采集点位
-     *
-     * @param id 采集点位ID
-     * @return 操作结果
-     */
-    @Operation(summary = "删除采集点位")
-    @DeleteMapping("/{id}")
-    public Result<Void> delete(@PathVariable Long id) {
-        try {
-            meterPointService.delete(id);
-            return Result.success();
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
-    }
+    // 删除 (delete) 使用 BaseController 默认实现，但需注意 meterPointService.delete 是否有重写逻辑。
+    // 原代码 meterPointService.delete(id) 存在。BaseController 调用
+    // getService().delete(id)。
+    // 如果 Service 逻辑一致，则无需重写。原 Controller 是 delete(@PathVariable Long id)。
+    // BaseController 也是，所以可以直接复用。
 
     /**
      * 修改采集点位状态
-     *
-     * @param id     采集点位ID
-     * @param status 新状态
-     * @return 更新后的实体
      */
     @Operation(summary = "修改采集点位状态")
     @PatchMapping("/{id}/status")
     public Result<MeterPoint> updateStatus(
             @PathVariable Long id,
             @RequestParam DataItemStatus status) {
-        try {
-            MeterPoint updated = meterPointService.updateStatus(id, status);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(meterPointService.updateStatus(id, status));
     }
 
     /**
      * 关联用能单元
-     *
-     * @param id            采集点位ID
-     * @param energyUnitIds 用能单元ID集合
-     * @return 更新后的实体
      */
     @Operation(summary = "关联用能单元")
     @PostMapping("/{id}/energy-units")
     public Result<MeterPoint> assignEnergyUnits(
             @PathVariable Long id,
             @RequestBody Set<Long> energyUnitIds) {
-        try {
-            MeterPoint updated = meterPointService.assignEnergyUnits(id, energyUnitIds);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(meterPointService.assignEnergyUnits(id, energyUnitIds));
     }
 }

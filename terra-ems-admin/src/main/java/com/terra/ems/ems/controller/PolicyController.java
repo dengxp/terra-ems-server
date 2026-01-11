@@ -26,20 +26,21 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.ems.entity.Policy;
 import com.terra.ems.ems.enums.PolicyType;
 import com.terra.ems.ems.service.PolicyService;
-import com.terra.ems.framework.controller.WritableController;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.common.domain.Result;
-import com.terra.ems.framework.service.ReadableService;
-import com.terra.ems.framework.service.WritableService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 政策法规控制器
@@ -50,29 +51,46 @@ import java.util.List;
 @RestController
 @RequestMapping("/ems/policies")
 @Tag(name = "政策法规管理")
-@RequiredArgsConstructor
-public class PolicyController extends WritableController<Policy, Long> {
+public class PolicyController extends BaseController<Policy, Long> {
 
-    private final PolicyService service;
+    private final PolicyService policyService;
 
-    /**
-     * 获取可写服务
-     *
-     * @return 政策法规服务
-     */
-    @Override
-    protected WritableService<Policy, Long> getWritableService() {
-        return service;
+    public PolicyController(PolicyService policyService) {
+        this.policyService = policyService;
     }
 
-    /**
-     * 获取可读服务
-     *
-     * @return 政策法规服务
-     */
     @Override
-    protected ReadableService<Policy, Long> getReadableService() {
-        return service;
+    protected BaseService<Policy, Long> getService() {
+        return policyService;
+    }
+
+    @Override
+    protected Specification<Policy> buildSpecification(Map<String, Object> params) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            // keyword: 仅检索文本字段（title, summary, remark）
+            if (params.containsKey("keyword") && StringUtils.hasText((String) params.get("keyword"))) {
+                String keyword = "%" + params.get("keyword") + "%";
+                predicates.add(cb.or(
+                        cb.like(root.get("title"), keyword),
+                        cb.like(root.get("summary"), keyword),
+                        cb.like(root.get("remark"), keyword)));
+            }
+            if (params.containsKey("title") && StringUtils.hasText((String) params.get("title"))) {
+                predicates.add(cb.like(root.get("title"), "%" + params.get("title") + "%"));
+            }
+            // type: Enum 类型，直接比较
+            if (params.containsKey("type") && params.get("type") != null) {
+                predicates.add(cb.equal(root.get("type"), params.get("type")));
+            }
+            // status: Enum 类型，直接比较
+            if (params.containsKey("status") && params.get("status") != null) {
+                predicates.add(cb.equal(root.get("status"), params.get("status")));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**
@@ -83,7 +101,7 @@ public class PolicyController extends WritableController<Policy, Long> {
     @GetMapping("/enabled")
     @Operation(summary = "查询所有启用的政策")
     public Result<List<Policy>> findAllEnabled() {
-        return Result.content(service.findAllEnabled());
+        return Result.content(policyService.findAllEnabled());
     }
 
     /**
@@ -96,28 +114,7 @@ public class PolicyController extends WritableController<Policy, Long> {
     @Operation(summary = "按类型查询政策列表")
     public Result<List<Policy>> findByType(
             @PathVariable @Parameter(description = "政策类型") PolicyType type) {
-        return Result.content(service.findByType(type));
-    }
-
-    /**
-     * 分页条件查询政策法规
-     *
-     * @param title  政策标题
-     * @param type   政策类型
-     * @param status 状态
-     * @param page   页码
-     * @param size   每页数量
-     * @return 分页结果
-     */
-    @GetMapping("/search")
-    @Operation(summary = "分页条件查询")
-    public Result<Page<Policy>> search(
-            @RequestParam(required = false) @Parameter(description = "政策标题") String title,
-            @RequestParam(required = false) @Parameter(description = "政策类型") PolicyType type,
-            @RequestParam(required = false) @Parameter(description = "状态") DataItemStatus status,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return Result.content(service.findByConditions(title, type, status, PageRequest.of(page, size)));
+        return Result.content(policyService.findByType(type));
     }
 
     /**
@@ -130,7 +127,7 @@ public class PolicyController extends WritableController<Policy, Long> {
     @Operation(summary = "按类型统计政策数量")
     public Result<Long> countByType(
             @PathVariable @Parameter(description = "政策类型") PolicyType type) {
-        return Result.content(service.countByType(type));
+        return Result.content(policyService.countByType(type));
     }
 
     /**
@@ -145,6 +142,6 @@ public class PolicyController extends WritableController<Policy, Long> {
     public Result<Policy> updateStatus(
             @PathVariable Long id,
             @RequestParam @Parameter(description = "新状态") DataItemStatus status) {
-        return Result.content(service.updateStatus(id, status));
+        return Result.content(policyService.updateStatus(id, status));
     }
 }

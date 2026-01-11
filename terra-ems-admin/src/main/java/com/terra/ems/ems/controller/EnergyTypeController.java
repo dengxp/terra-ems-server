@@ -26,11 +26,12 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.EnergyType;
 import com.terra.ems.ems.service.EnergyTypeService;
+import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.enums.DataItemStatus;
+import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -48,25 +49,25 @@ import java.util.List;
 @Tag(name = "能源类型管理")
 @RestController
 @RequestMapping("/energy-types")
-@RequiredArgsConstructor
-public class EnergyTypeController {
+public class EnergyTypeController extends BaseController<EnergyType, Long> {
 
     private final EnergyTypeService energyTypeService;
 
+    public EnergyTypeController(EnergyTypeService energyTypeService) {
+        this.energyTypeService = energyTypeService;
+    }
+
+    @Override
+    protected BaseService<EnergyType, Long> getService() {
+        return energyTypeService;
+    }
+
     /**
-     * 分页查询能源类型
-     *
-     * @param code     编码
-     * @param name     名称
-     * @param category 类别
-     * @param status   状态值
-     * @param page     页码
-     * @param size     每页大小
-     * @return 分页结果
+     * 分页查询能源类型（复杂搜索）
      */
-    @Operation(summary = "分页查询能源类型")
-    @GetMapping
-    public Result<Page<EnergyType>> list(
+    @Operation(summary = "分页搜索")
+    @GetMapping("/search")
+    public Result<Page<EnergyType>> search(
             @Parameter(description = "编码") @RequestParam(required = false) String code,
             @Parameter(description = "名称") @RequestParam(required = false) String name,
             @Parameter(description = "类别") @RequestParam(required = false) String category,
@@ -76,14 +77,11 @@ public class EnergyTypeController {
 
         DataItemStatus statusEnum = status != null ? DataItemStatus.fromValue(status) : null;
         Pageable pageable = PageRequest.of(page, size, Sort.by("sortOrder").ascending());
-        Page<EnergyType> result = energyTypeService.findPage(code, name, category, statusEnum, pageable);
-        return Result.content(result);
+        return Result.content(energyTypeService.findPage(code, name, category, statusEnum, pageable));
     }
 
     /**
      * 查询所有启用的能源类型
-     *
-     * @return 启用的能源类型列表
      */
     @Operation(summary = "查询所有启用的能源类型")
     @GetMapping("/enabled")
@@ -92,119 +90,26 @@ public class EnergyTypeController {
     }
 
     /**
-     * 根据ID查询能源类型
-     *
-     * @param id 能源类型ID
-     * @return 能源类型详情
-     */
-    @Operation(summary = "根据ID查询能源类型")
-    @GetMapping("/{id}")
-    public Result<EnergyType> getById(@PathVariable Long id) {
-        return java.util.Optional.ofNullable(energyTypeService.findById(id))
-                .map(Result::content)
-                .orElse(Result.failure("能源类型不存在"));
-    }
-
-    /**
      * 根据编码查询能源类型
-     *
-     * @param code 能源类型编码
-     * @return 能源类型详情
      */
     @Operation(summary = "根据编码查询能源类型")
     @GetMapping("/code/{code}")
-    public Result<EnergyType> getByCode(@PathVariable String code) {
+    public Result<EnergyType> findByCode(@PathVariable String code) {
         return energyTypeService.findByCode(code)
                 .map(Result::content)
                 .orElse(Result.failure("能源类型不存在"));
     }
 
     /**
-     * 创建能源类型
-     *
-     * @param energyType 能源类型实体
-     * @return 创建后的能源类型
-     */
-    @Operation(summary = "创建能源类型")
-    @PostMapping
-    public Result<EnergyType> create(@RequestBody EnergyType energyType) {
-        try {
-            EnergyType created = energyTypeService.create(energyType);
-            return Result.content(created);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
-    }
-
-    /**
-     * 更新能源类型
-     *
-     * @param id         能源类型ID
-     * @param energyType 能源类型实体
-     * @return 更新后的能源类型
-     */
-    @Operation(summary = "更新能源类型")
-    @PutMapping("/{id}")
-    public Result<EnergyType> update(@PathVariable Long id, @RequestBody EnergyType energyType) {
-        try {
-            EnergyType updated = energyTypeService.update(id, energyType);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
-    }
-
-    /**
-     * 删除能源类型
-     *
-     * @param id 能源类型ID
-     * @return 操作结果
-     */
-    @Operation(summary = "删除能源类型")
-    @DeleteMapping("/{id}")
-    public Result<Void> delete(@PathVariable Long id) {
-        try {
-            energyTypeService.delete(id);
-            return Result.success();
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
-    }
-
-    /**
-     * 批量删除能源类型
-     *
-     * @param ids 能源类型ID列表
-     * @return 操作结果
-     */
-    @Operation(summary = "批量删除能源类型")
-    @DeleteMapping("/batch")
-    public Result<Void> deleteBatch(@RequestParam List<Long> ids) {
-        try {
-            energyTypeService.deleteBatch(ids);
-            return Result.success();
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
-    }
-
-    /**
      * 修改能源类型状态
-     *
-     * @param id     能源类型ID
-     * @param status 状态值
-     * @return 更新后的能源类型
      */
     @Operation(summary = "修改能源类型状态")
     @PatchMapping("/{id}/status")
     public Result<EnergyType> updateStatus(
             @PathVariable Long id,
             @RequestParam DataItemStatus status) {
-        try {
-            EnergyType updated = energyTypeService.updateStatus(id, status);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(energyTypeService.updateStatus(id, status));
     }
+
+    // BaseController 已提供标准 CRUD (getById, saveOrUpdate, delete)，无需重复实现
 }

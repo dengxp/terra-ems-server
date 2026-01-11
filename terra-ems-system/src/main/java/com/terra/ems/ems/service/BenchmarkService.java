@@ -92,13 +92,6 @@ public class BenchmarkService extends BaseService<Benchmark, Long> {
     }
 
     /**
-     * 分页条件查询
-     */
-    public Page<Benchmark> findByConditions(String name, BenchmarkType type, DataItemStatus status, Pageable pageable) {
-        return repository.findByConditions(name, type, status, pageable);
-    }
-
-    /**
      * 按类型统计数量
      */
     public long countByType(BenchmarkType type) {
@@ -106,44 +99,61 @@ public class BenchmarkService extends BaseService<Benchmark, Long> {
     }
 
     /**
-     * 创建对标值
+     * 创建或更新对标值
+     * 统一处理唯一性校验和字段更新
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
-    public Benchmark create(Benchmark benchmark) {
-        if (existsByCode(benchmark.getCode())) {
-            throw new IllegalArgumentException("标杆编码已存在: " + benchmark.getCode());
+    public Benchmark saveOrUpdate(Benchmark benchmark) {
+        if (benchmark.getId() == null) {
+            // 新建：检查编码唯一性
+            if (existsByCode(benchmark.getCode())) {
+                throw new IllegalArgumentException("标杆编码已存在: " + benchmark.getCode());
+            }
+            if (benchmark.getStatus() == null) {
+                benchmark.setStatus(DataItemStatus.ENABLE);
+            }
+            return repository.save(benchmark);
+        } else {
+            // 更新：检查编码是否被其他记录占用
+            Benchmark existing = repository.findById(benchmark.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("对标值不存在: " + benchmark.getId()));
+
+            if (!existing.getCode().equals(benchmark.getCode()) && existsByCode(benchmark.getCode())) {
+                throw new IllegalArgumentException("标杆编码已存在: " + benchmark.getCode());
+            }
+
+            existing.setCode(benchmark.getCode());
+            existing.setName(benchmark.getName());
+            existing.setType(benchmark.getType());
+            existing.setGrade(benchmark.getGrade());
+            existing.setValue(benchmark.getValue());
+            existing.setUnit(benchmark.getUnit());
+            existing.setNationalNum(benchmark.getNationalNum());
+            existing.setEnergyType(benchmark.getEnergyType());
+            existing.setStatus(benchmark.getStatus());
+            existing.setRemark(benchmark.getRemark());
+
+            return repository.save(existing);
         }
-        if (benchmark.getStatus() == null) {
-            benchmark.setStatus(DataItemStatus.ENABLE);
-        }
-        return repository.save(benchmark);
     }
 
     /**
-     * 更新对标值
+     * 创建对标值 (保留向后兼容)
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public Benchmark create(Benchmark benchmark) {
+        benchmark.setId(null); // 确保是新建
+        return saveOrUpdate(benchmark);
+    }
+
+    /**
+     * 更新对标值 (保留向后兼容)
      */
     @Transactional(rollbackFor = Exception.class)
     public Benchmark update(Long id, Benchmark benchmark) {
-        Benchmark existing = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("对标值不存在: " + id));
-
-        // 检查编码是否被其他记录使用
-        if (!existing.getCode().equals(benchmark.getCode()) && existsByCode(benchmark.getCode())) {
-            throw new IllegalArgumentException("标杆编码已存在: " + benchmark.getCode());
-        }
-
-        existing.setCode(benchmark.getCode());
-        existing.setName(benchmark.getName());
-        existing.setType(benchmark.getType());
-        existing.setGrade(benchmark.getGrade());
-        existing.setValue(benchmark.getValue());
-        existing.setUnit(benchmark.getUnit());
-        existing.setNationalNum(benchmark.getNationalNum());
-        existing.setEnergyType(benchmark.getEnergyType());
-        existing.setStatus(benchmark.getStatus());
-        existing.setRemark(benchmark.getRemark());
-
-        return repository.save(existing);
+        benchmark.setId(id); // 确保是更新
+        return saveOrUpdate(benchmark);
     }
 
     /**

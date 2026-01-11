@@ -70,13 +70,6 @@ public class EnergySavingProjectService extends BaseService<EnergySavingProject,
     }
 
     /**
-     * 分页条件查询
-     */
-    public Page<EnergySavingProject> findByConditions(String name, ProjectStatus status, Pageable pageable) {
-        return repository.findByConditions(name, status, pageable);
-    }
-
-    /**
      * 获取指定状态的节约量总和
      */
     public BigDecimal getTotalSavingAmount(ProjectStatus status) {

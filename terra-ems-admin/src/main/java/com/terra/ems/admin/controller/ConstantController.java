@@ -24,8 +24,10 @@
 package com.terra.ems.admin.controller;
 
 import com.terra.ems.common.domain.Result;
+import com.terra.ems.framework.controller.Controller;
 import com.terra.ems.system.service.ConstantService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,9 +42,10 @@ import java.util.Map;
  * @since 2026-01-11
  */
 
+@Tag(name = "系统常量")
 @RestController
 @RequestMapping("/system/constant")
-public class ConstantController {
+public class ConstantController extends Controller {
 
     private final ConstantService constantService;
 
@@ -57,7 +60,7 @@ public class ConstantController {
      */
     @Operation(summary = "获取系统常量")
     @GetMapping("/options")
-    public Result<Map<String, Object>> getAllOptions() {
+    public Result<Map<String, Object>> findAllOptions() {
         Map<String, Object> allEnums = constantService.getAllOptions();
         if (MapUtils.isNotEmpty(allEnums)) {
             return Result.content(allEnums);

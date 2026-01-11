@@ -27,12 +27,12 @@ import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.PricePolicy;
 import com.terra.ems.ems.entity.PricePolicyItem;
 import com.terra.ems.ems.service.PricePolicyService;
-import com.terra.ems.framework.controller.Controller;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.enums.DataItemStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -51,10 +51,18 @@ import java.util.Map;
 @Tag(name = "电价策略管理")
 @RestController
 @RequestMapping("/price-policies")
-@RequiredArgsConstructor
-public class PricePolicyController extends Controller {
+public class PricePolicyController extends BaseController<PricePolicy, Long> {
 
     private final PricePolicyService pricePolicyService;
+
+    public PricePolicyController(PricePolicyService pricePolicyService) {
+        this.pricePolicyService = pricePolicyService;
+    }
+
+    @Override
+    protected BaseService<PricePolicy, Long> getService() {
+        return pricePolicyService;
+    }
 
     /**
      * 分页查询电价策略
@@ -65,9 +73,9 @@ public class PricePolicyController extends Controller {
      * @param sortOrder 排序方向
      * @return 分页结果
      */
-    @Operation(summary = "分页查询电价策略")
-    @GetMapping
-    public Result<Page<PricePolicy>> list(
+    @Operation(summary = "分页查询")
+    @GetMapping("/search")
+    public Result<Page<PricePolicy>> search(
             @Parameter(description = "页码") @RequestParam(defaultValue = "1") int current,
             @Parameter(description = "每页数量") @RequestParam(defaultValue = "10") int pageSize,
             @Parameter(description = "排序字段") @RequestParam(defaultValue = "sortOrder") String sortField,
@@ -81,39 +89,14 @@ public class PricePolicyController extends Controller {
     }
 
     /**
-     * 查询所有电价策略列表
-     *
-     * @return 电价策略列表
-     */
-    @Operation(summary = "查询所有电价策略")
-    @GetMapping("/all")
-    public Result<List<PricePolicy>> listAll() {
-        return Result.content(pricePolicyService.findAll());
-    }
-
-    /**
      * 查询所有已启用的电价策略
      *
      * @return 启用的电价策略列表
      */
     @Operation(summary = "查询启用的电价策略")
     @GetMapping("/enabled")
-    public Result<List<PricePolicy>> listEnabled() {
+    public Result<List<PricePolicy>> findEnabled() {
         return Result.content(pricePolicyService.findEnabled());
-    }
-
-    /**
-     * 根据ID查询电价策略详情
-     *
-     * @param id 电价策略ID
-     * @return 电价策略详情
-     */
-    @Operation(summary = "根据ID查询电价策略")
-    @GetMapping("/{id}")
-    public Result<PricePolicy> getById(@PathVariable Long id) {
-        return java.util.Optional.ofNullable(pricePolicyService.findById(id))
-                .map(Result::content)
-                .orElse(Result.failure("电价策略不存在"));
     }
 
     /**
@@ -124,7 +107,7 @@ public class PricePolicyController extends Controller {
      */
     @Operation(summary = "根据编码查询电价策略")
     @GetMapping("/code/{code}")
-    public Result<PricePolicy> getByCode(@PathVariable String code) {
+    public Result<PricePolicy> findByCode(@PathVariable String code) {
         return pricePolicyService.findByCode(code)
                 .map(Result::content)
                 .orElse(Result.failure("电价策略不存在"));
@@ -138,7 +121,7 @@ public class PricePolicyController extends Controller {
      */
     @Operation(summary = "根据能源类型ID查询电价策略")
     @GetMapping("/energy-type/{energyTypeId}")
-    public Result<List<PricePolicy>> getByEnergyTypeId(@PathVariable Long energyTypeId) {
+    public Result<List<PricePolicy>> findByEnergyTypeId(@PathVariable Long energyTypeId) {
         return Result.content(pricePolicyService.findByEnergyTypeId(energyTypeId));
     }
 
@@ -149,19 +132,15 @@ public class PricePolicyController extends Controller {
      * @return 创建后的电价策略实体
      */
     @Operation(summary = "创建电价策略")
-    @PostMapping
+    @PostMapping("/create")
     public Result<PricePolicy> create(@RequestBody Map<String, Object> payload) {
-        try {
-            PricePolicy pricePolicy = extractPricePolicy(payload);
-            Long energyTypeId = payload.get("energyTypeId") != null
-                    ? Long.valueOf(payload.get("energyTypeId").toString())
-                    : 1L; // 默认为电（ID=1）
-            List<PricePolicyItem> items = extractItems(payload);
-            PricePolicy created = pricePolicyService.create(pricePolicy, energyTypeId, items);
-            return Result.content(created);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        PricePolicy pricePolicy = extractPricePolicy(payload);
+        Long energyTypeId = payload.get("energyTypeId") != null
+                ? Long.parseLong(payload.get("energyTypeId").toString())
+                : 1L; // 默认为电（ID=1）
+        List<PricePolicyItem> items = extractItems(payload);
+        PricePolicy created = pricePolicyService.create(pricePolicy, energyTypeId, items);
+        return Result.content(created);
     }
 
     /**
@@ -174,17 +153,13 @@ public class PricePolicyController extends Controller {
     @Operation(summary = "更新电价策略")
     @PutMapping("/{id}")
     public Result<PricePolicy> update(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
-        try {
-            PricePolicy pricePolicy = extractPricePolicy(payload);
-            Long energyTypeId = payload.get("energyTypeId") != null
-                    ? Long.valueOf(payload.get("energyTypeId").toString())
-                    : 1L;
-            List<PricePolicyItem> items = extractItems(payload);
-            PricePolicy updated = pricePolicyService.update(id, pricePolicy, energyTypeId, items);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        PricePolicy pricePolicy = extractPricePolicy(payload);
+        Long energyTypeId = payload.get("energyTypeId") != null
+                ? Long.valueOf(payload.get("energyTypeId").toString())
+                : 1L;
+        List<PricePolicyItem> items = extractItems(payload);
+        PricePolicy updated = pricePolicyService.update(id, pricePolicy, energyTypeId, items);
+        return Result.content(updated);
     }
 
     /**
@@ -195,13 +170,9 @@ public class PricePolicyController extends Controller {
      */
     @Operation(summary = "删除电价策略")
     @DeleteMapping("/{id}")
-    public Result<Void> delete(@PathVariable Long id) {
-        try {
-            pricePolicyService.delete(id);
-            return Result.success();
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+    public Result<String> delete(@PathVariable Long id) {
+        pricePolicyService.deleteById(id);
+        return Result.success("删除成功");
     }
 
     /**
@@ -216,12 +187,8 @@ public class PricePolicyController extends Controller {
     public Result<PricePolicy> updateStatus(
             @PathVariable Long id,
             @RequestParam DataItemStatus status) {
-        try {
-            PricePolicy updated = pricePolicyService.updateStatus(id, status);
-            return Result.content(updated);
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        PricePolicy updated = pricePolicyService.updateStatus(id, status);
+        return Result.content(updated);
     }
 
     /**

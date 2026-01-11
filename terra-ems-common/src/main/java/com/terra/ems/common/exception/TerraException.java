@@ -21,49 +21,42 @@
  *
  */
 
-package com.terra.ems.ems.controller;
+package com.terra.ems.common.exception;
 
+import com.terra.ems.common.constant.ErrorCodes;
 import com.terra.ems.common.domain.Result;
-import com.terra.ems.ems.entity.AlarmRecord;
-import com.terra.ems.ems.service.AlarmRecordService;
-import com.terra.ems.framework.controller.ReadableController;
-import com.terra.ems.framework.service.ReadableService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-
-import org.springframework.web.bind.annotation.*;
+import org.apache.commons.lang3.StringUtils;
 
 /**
- * 报警历史记录控制器
+ * 业务异常基类
  *
  * @author dengxueping
  * @since 2026-01-11
  */
-@RestController
-@RequestMapping("/alarm/records")
-@Tag(name = "报警历史记录")
-public class AlarmRecordController extends ReadableController<AlarmRecord, Long> {
+public class TerraException extends RuntimeException {
 
-    private final AlarmRecordService alarmRecordService;
+    private final ErrorCodes errorCode;
 
-    public AlarmRecordController(AlarmRecordService alarmRecordService) {
-        this.alarmRecordService = alarmRecordService;
+    public TerraException(ErrorCodes errorCode) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
     }
 
-    @Override
-    protected ReadableService<AlarmRecord, Long> getReadableService() {
-        return alarmRecordService;
+    public TerraException(String message) {
+        super(message);
+        this.errorCode = ErrorCodes.INTERNAL_SERVER_ERROR;
     }
 
-    /**
-     * 处理报警记录
-     */
-    @Operation(summary = "处理报警记录")
-    @PostMapping("/{id}/handle")
-    public Result<AlarmRecord> handleAlarm(
-            @PathVariable Long id,
-            @RequestParam String remark,
-            @RequestParam Integer status) {
-        return Result.content(alarmRecordService.handleAlarm(id, remark, status));
+    public TerraException(ErrorCodes errorCode, String message) {
+        super(StringUtils.defaultIfBlank(message, errorCode.getMessage()));
+        this.errorCode = errorCode;
+    }
+
+    public ErrorCodes getErrorCode() {
+        return errorCode;
+    }
+
+    public Result<String> getResult() {
+        return Result.failure(super.getMessage(), errorCode.getSequence(), errorCode.getStatus(), (String) null);
     }
 }

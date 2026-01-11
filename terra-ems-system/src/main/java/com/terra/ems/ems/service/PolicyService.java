@@ -70,13 +70,6 @@ public class PolicyService extends BaseService<Policy, Long> {
     }
 
     /**
-     * 分页条件查询
-     */
-    public Page<Policy> findByConditions(String title, PolicyType type, DataItemStatus status, Pageable pageable) {
-        return repository.findByConditions(title, type, status, pageable);
-    }
-
-    /**
      * 按类型统计启用的政策数量
      */
     public long countByType(PolicyType type) {

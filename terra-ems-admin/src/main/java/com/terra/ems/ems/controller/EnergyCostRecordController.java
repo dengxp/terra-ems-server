@@ -27,6 +27,9 @@ import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.EnergyCostRecord;
 import com.terra.ems.ems.enums.RecordPeriodType;
 import com.terra.ems.ems.service.EnergyCostRecordService;
+import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.service.BaseService;
+import java.util.Optional;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,8 +45,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.validation.annotation.Validated;
+
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.ems.dto.CostDeviationDTO;
 import com.terra.ems.ems.dto.CostTrendDTO;
+import java.util.ArrayList;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
 
 /**
  * 能源成本记录控制器
@@ -54,35 +64,45 @@ import com.terra.ems.ems.dto.CostTrendDTO;
 @RestController
 @RequestMapping("/ems/energy-cost-records")
 @Tag(name = "能源成本记录管理")
-@RequiredArgsConstructor
-public class EnergyCostRecordController {
+public class EnergyCostRecordController extends BaseController<EnergyCostRecord, Long> {
 
-    private final EnergyCostRecordService service;
+    private final EnergyCostRecordService energyCostRecordService;
 
-    /**
-     * 分页条件查询成本记录
-     *
-     * @param energyUnitId 用能单元ID
-     * @param energyTypeId 能源类型ID
-     * @param periodType   周期类型
-     * @param startDate    开始日期
-     * @param endDate      结束日期
-     * @param page         页码
-     * @param size         每页大小
-     * @return 分页结果
-     */
-    @GetMapping
-    @Operation(summary = "分页条件查询")
-    public Result<Page<EnergyCostRecord>> search(
-            @RequestParam(required = false) @Parameter(description = "用能单元ID") Long energyUnitId,
-            @RequestParam(required = false) @Parameter(description = "能源类型ID") Long energyTypeId,
-            @RequestParam(required = false) @Parameter(description = "周期类型") RecordPeriodType periodType,
-            @RequestParam(required = false) @Parameter(description = "开始日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(required = false) @Parameter(description = "结束日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return Result.content(service.findByConditions(energyUnitId, energyTypeId, periodType, startDate, endDate,
-                PageRequest.of(page, size)));
+    public EnergyCostRecordController(EnergyCostRecordService energyCostRecordService) {
+        this.energyCostRecordService = energyCostRecordService;
+    }
+
+    @Override
+    protected BaseService<EnergyCostRecord, Long> getService() {
+        return energyCostRecordService;
+    }
+
+    @Override
+    protected Specification<EnergyCostRecord> buildSpecification(Map<String, Object> params) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (params.containsKey("energyUnitId") && params.get("energyUnitId") != null) {
+                predicates.add(cb.equal(root.get("energyUnitId"), Long.valueOf(params.get("energyUnitId").toString())));
+            }
+            if (params.containsKey("energyTypeId") && params.get("energyTypeId") != null) {
+                predicates.add(cb.equal(root.get("energyTypeId"), Long.valueOf(params.get("energyTypeId").toString())));
+            }
+            if (params.containsKey("periodType") && params.get("periodType") != null) {
+                predicates.add(cb.equal(root.get("periodType"),
+                        RecordPeriodType.valueOf(params.get("periodType").toString())));
+            }
+            if (params.containsKey("startDate") && params.get("startDate") != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("startDate"),
+                        LocalDate.parse(params.get("startDate").toString())));
+            }
+            if (params.containsKey("endDate") && params.get("endDate") != null) {
+                predicates.add(
+                        cb.lessThanOrEqualTo(root.get("endDate"), LocalDate.parse(params.get("endDate").toString())));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**
@@ -94,7 +114,7 @@ public class EnergyCostRecordController {
     @GetMapping("/{id}")
     @Operation(summary = "根据ID查询")
     public Result<EnergyCostRecord> findById(@PathVariable Long id) {
-        return java.util.Optional.ofNullable(service.findById(id))
+        return Optional.ofNullable(energyCostRecordService.findById(id))
                 .map(Result::content)
                 .orElse(Result.failure("成本记录不存在"));
     }
@@ -113,7 +133,7 @@ public class EnergyCostRecordController {
             @PathVariable @Parameter(description = "用能单元ID") Long energyUnitId,
             @RequestParam @Parameter(description = "开始日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @Parameter(description = "结束日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        return Result.content(service.findByEnergyUnitAndDateRange(energyUnitId, startDate, endDate));
+        return Result.content(energyCostRecordService.findByEnergyUnitAndDateRange(energyUnitId, startDate, endDate));
     }
 
     /**
@@ -126,29 +146,31 @@ public class EnergyCostRecordController {
      */
     @GetMapping("/statistics")
     @Operation(summary = "统计成本和用量")
-    public Result<Map<String, BigDecimal>> getStatistics(
+    public Result<Map<String, BigDecimal>> findStatistics(
             @RequestParam(required = false) @Parameter(description = "用能单元ID") Long energyUnitId,
             @RequestParam @Parameter(description = "开始日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @Parameter(description = "结束日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         Map<String, BigDecimal> stats = new HashMap<>();
-        stats.put("totalCost", service.sumCostByDateRange(energyUnitId, startDate, endDate));
-        stats.put("totalConsumption", service.sumConsumptionByDateRange(energyUnitId, startDate, endDate));
+        stats.put("totalCost", energyCostRecordService.sumCostByDateRange(energyUnitId, startDate, endDate));
+        stats.put("totalConsumption",
+                energyCostRecordService.sumConsumptionByDateRange(energyUnitId, startDate, endDate));
         return Result.content(stats);
     }
 
     /**
-     * 手动创建成本记录
+     * 创建或更新成本记录
      *
      * @param record 成本记录实体
-     * @return 创建后的实体
+     * @return 保存后的实体
      */
+    @Override
     @PostMapping
-    @Operation(summary = "创建成本记录")
-    public Result<EnergyCostRecord> create(@RequestBody EnergyCostRecord record) {
-        try {
-            return Result.content(service.create(record));
-        } catch (Exception e) {
-            return Result.failure(e.getMessage());
+    @Operation(summary = "创建或更新成本记录")
+    public Result<EnergyCostRecord> saveOrUpdate(@RequestBody @Validated EnergyCostRecord record) {
+        if (record.getId() == null) {
+            return Result.content(energyCostRecordService.create(record));
+        } else {
+            return Result.content(energyCostRecordService.update(record.getId(), record));
         }
     }
 
@@ -162,11 +184,7 @@ public class EnergyCostRecordController {
     @PutMapping("/{id}")
     @Operation(summary = "更新成本记录")
     public Result<EnergyCostRecord> update(@PathVariable Long id, @RequestBody EnergyCostRecord record) {
-        try {
-            return Result.content(service.update(id, record));
-        } catch (IllegalArgumentException e) {
-            return Result.failure(e.getMessage());
-        }
+        return Result.content(energyCostRecordService.update(id, record));
     }
 
     /**
@@ -176,14 +194,10 @@ public class EnergyCostRecordController {
      * @return 操作结果
      */
     @DeleteMapping("/{id}")
-    @Operation(summary = "删除成本记录")
-    public Result<Void> delete(@PathVariable Long id) {
-        try {
-            service.deleteById(id);
-            return Result.success();
-        } catch (Exception e) {
-            return Result.failure(e.getMessage());
-        }
+    @Operation(summary = "删除用能成本记录")
+    public Result<String> delete(@PathVariable Long id) {
+        energyCostRecordService.deleteById(id);
+        return Result.success("删除成功");
     }
 
     /**
@@ -196,11 +210,11 @@ public class EnergyCostRecordController {
      */
     @GetMapping("/deviation")
     @Operation(summary = "偏差分析")
-    public Result<CostDeviationDTO> getDeviationAnalysis(
+    public Result<CostDeviationDTO> findDeviationAnalysis(
             @RequestParam(required = false) @Parameter(description = "用能单元ID") Long energyUnitId,
             @RequestParam @Parameter(description = "时间类型 (MONTH/YEAR)") String timeType,
             @RequestParam @Parameter(description = "查询日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataTime) {
-        return Result.content(service.getDeviationAnalysis(energyUnitId, timeType, dataTime));
+        return Result.content(energyCostRecordService.getDeviationAnalysis(energyUnitId, timeType, dataTime));
     }
 
     /**
@@ -213,10 +227,10 @@ public class EnergyCostRecordController {
      */
     @GetMapping("/trend")
     @Operation(summary = "成本趋势分析")
-    public Result<CostTrendDTO> getCostTrendAnalysis(
+    public Result<CostTrendDTO> findCostTrendAnalysis(
             @RequestParam(required = false) @Parameter(description = "用能单元ID") Long energyUnitId,
             @RequestParam @Parameter(description = "时间类型 (DAY/MONTH/YEAR)") String timeType,
             @RequestParam @Parameter(description = "查询日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataTime) {
-        return Result.content(service.getCostTrendAnalysis(energyUnitId, timeType, dataTime));
+        return Result.content(energyCostRecordService.getCostTrendAnalysis(energyUnitId, timeType, dataTime));
     }
 }

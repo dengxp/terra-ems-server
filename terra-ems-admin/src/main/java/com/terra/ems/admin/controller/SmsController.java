@@ -28,6 +28,7 @@ import com.terra.ems.framework.controller.Controller;
 import com.terra.ems.framework.domain.dto.SmsCodeRequest;
 import com.terra.ems.framework.domain.dto.SmsLoginRequest;
 import com.terra.ems.framework.service.SmsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import com.terra.ems.system.entity.SysUser;
 import com.terra.ems.system.service.SysUserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,9 +55,10 @@ import java.util.Map;
  * @author dengxueping
  * @since 2026-01-11
  */
+@Tag(name = "短信服务")
 @RestController
 @RequestMapping("/sms")
-public class SmsController {
+public class SmsController extends Controller {
 
     private static final Logger log = LoggerFactory.getLogger(SmsController.class);
 
@@ -76,17 +78,12 @@ public class SmsController {
      */
     @PostMapping("/send")
     public Result<Map<String, Object>> sendCode(@Valid @RequestBody SmsCodeRequest request) {
-        try {
-            boolean success = smsService.sendCode(request.phoneNumber());
+        boolean success = smsService.sendCode(request.phoneNumber());
 
-            Map<String, Object> data = new HashMap<>();
-            data.put("message", "验证码已发送");
+        Map<String, Object> data = new HashMap<>();
+        data.put("message", "验证码已发送");
 
-            return success ? Result.content(data) : Result.failure("发送验证码失败");
-        } catch (Exception e) {
-            log.error("发送验证码失败", e);
-            return Result.failure(e.getMessage());
-        }
+        return success ? Result.content(data) : Result.failure("发送验证码失败");
     }
 
     /**
@@ -99,55 +96,50 @@ public class SmsController {
     @PostMapping("/login")
     public Result<Map<String, Object>> loginBySms(@Valid @RequestBody SmsLoginRequest request,
             HttpServletRequest httpRequest) {
-        try {
-            // 验证验证码
-            boolean isValidCode = smsService.verifyCode(request.phone(), request.code());
-            if (!isValidCode) {
-                return Result.failure("验证码错误或已过期");
-            }
-
-            // 根据手机号查找用户
-            SysUser user = userService.findByPhone(request.phone());
-            if (user == null) {
-                return Result.failure("该手机号未绑定账号，请联系管理员");
-            }
-
-            if (!user.isEnabled()) {
-                return Result.failure("账号已被禁用");
-            }
-
-            // 清除已使用的验证码
-            smsService.clearCode(request.phone());
-
-            // 设置认证信息
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    user.getUsername(),
-                    null,
-                    Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
-
-            SecurityContext context = SecurityContextHolder.createEmptyContext();
-            context.setAuthentication(authentication);
-            SecurityContextHolder.setContext(context);
-
-            // 将Context保存到Session
-            HttpSession session = httpRequest.getSession(true);
-            session.setAttribute("SPRING_SECURITY_CONTEXT", context);
-
-            // 获取Token (Session ID)
-            String token = session.getId();
-
-            // 构造返回数据
-            Map<String, Object> data = new HashMap<>();
-            data.put("token", token);
-            data.put("username", user.getUsername());
-            data.put("phone", user.getPhone());
-
-            log.info("用户 {} 通过手机号 {} 登录成功", user.getUsername(), request.phone());
-
-            return Result.content(data);
-        } catch (Exception e) {
-            log.error("手机号登录失败", e);
-            return Result.failure("登录失败: " + e.getMessage());
+        // 验证验证码
+        boolean isValidCode = smsService.verifyCode(request.phone(), request.code());
+        if (!isValidCode) {
+            return Result.failure("验证码错误或已过期");
         }
+
+        // 根据手机号查找用户
+        SysUser user = userService.findByPhone(request.phone());
+        if (user == null) {
+            return Result.failure("该手机号未绑定账号，请联系管理员");
+        }
+
+        if (!user.isEnabled()) {
+            return Result.failure("账号已被禁用");
+        }
+
+        // 清除已使用的验证码
+        smsService.clearCode(request.phone());
+
+        // 设置认证信息
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                user.getUsername(),
+                null,
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
+
+        // 将Context保存到Session
+        HttpSession session = httpRequest.getSession(true);
+        session.setAttribute("SPRING_SECURITY_CONTEXT", context);
+
+        // 获取Token (Session ID)
+        String token = session.getId();
+
+        // 构造返回数据
+        Map<String, Object> data = new HashMap<>();
+        data.put("token", token);
+        data.put("username", user.getUsername());
+        data.put("phone", user.getPhone());
+
+        log.info("用户 {} 通过手机号 {} 登录成功", user.getUsername(), request.phone());
+
+        return Result.content(data);
     }
 }
