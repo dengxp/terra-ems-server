@@ -112,11 +112,11 @@ public class SysUserController extends BaseController<SysUser, Long> {
      * 获取当前登录用户信息
      *
      * @param principal 当前认证主体
-     * @return 用户 DTO 信息
+     * @return 用户信息
      */
     @Operation(summary = "获取当前登录用户信息")
     @GetMapping("/current-user")
-    public Result<UserDTO> findCurrentUser(Principal principal) {
+    public Result<SysUser> findCurrentUser(Principal principal) {
         log.info("[Terra]|- SysUser Controller findCurrentUser, principal: {}", principal);
         if (principal == null) {
             return Result.failure("未获取到登录信息");
@@ -126,10 +126,9 @@ public class SysUserController extends BaseController<SysUser, Long> {
         Authentication authentication = (Authentication) principal;
         String username = authentication.getName();
 
-        // 查询数据库并转换为 DTO（不包含敏感信息）
         SysUser user = userService.findByUsername(username);
         if (user != null) {
-            return Result.success("获取成功", userMapper.toDTO(user));
+            return Result.success("获取成功", user);
         } else {
             return Result.failure("用户不存在");
         }

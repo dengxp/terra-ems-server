@@ -36,8 +36,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.persistence.criteria.Predicate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,12 +76,32 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
             @Parameter(description = "名称") @RequestParam(required = false) String name,
             @Parameter(description = "类别") @RequestParam(required = false) String category,
             @Parameter(description = "状态值") @RequestParam(required = false) Integer status,
-            @Parameter(description = "页码") @RequestParam(defaultValue = "0") int page,
-            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") int size) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") int pageNumber,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") int pageSize) {
 
-        DataItemStatus statusEnum = status != null ? DataItemStatus.fromValue(status) : null;
-        Pageable pageable = PageRequest.of(page, size, Sort.by("sortOrder").ascending());
-        return Result.content(energyTypeService.findPage(code, name, category, statusEnum, pageable));
+        // 构建 Specification
+        Specification<EnergyType> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (StringUtils.hasText(code)) {
+                predicates.add(cb.like(root.get("code"), "%" + code + "%"));
+            }
+            if (StringUtils.hasText(name)) {
+                predicates.add(cb.like(root.get("name"), "%" + name + "%"));
+            }
+            if (StringUtils.hasText(category)) {
+                predicates.add(cb.equal(root.get("category"), category));
+            }
+            if (status != null) {
+                DataItemStatus statusEnum = DataItemStatus.fromValue(status);
+                predicates.add(cb.equal(root.get("status"), statusEnum));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, Sort.by("sortOrder").ascending());
+        return Result.content(energyTypeService.findByPage(spec, pageable));
     }
 
     /**

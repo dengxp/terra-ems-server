@@ -24,6 +24,7 @@
 package com.terra.ems.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -60,6 +61,7 @@ public class SysUser extends BaseEntity {
     private String username;
 
     @Schema(title = "密码")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", length = 128, nullable = false)
     private String password;
 

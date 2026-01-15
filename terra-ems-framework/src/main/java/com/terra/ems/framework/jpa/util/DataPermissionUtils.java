@@ -78,19 +78,24 @@ public class DataPermissionUtils {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            // 部门过滤
-            Set<Long> deptIds = user.getAccessibleDeptIds();
-            if (!CollectionUtils.isEmpty(deptIds)) {
-                Path<Long> deptPath = root.get(deptField);
-                predicates.add(deptPath.in(deptIds));
-            }
+            try {
+                // 部门过滤
+                Set<Long> deptIds = user.getAccessibleDeptIds();
+                if (!CollectionUtils.isEmpty(deptIds)) {
+                    Path<Long> deptPath = root.get(deptField);
+                    predicates.add(deptPath.in(deptIds));
+                }
 
-            // 本人数据过滤
-            // 逻辑：如果同时设置了部门过滤，通常是 OR 关系，或者是取并集
-            // 这里我们优先判断 accessibleDeptIds，如果为空且角色配置为仅本人，则进行 userField 过滤
-            if (DataPermissionContext.getIsSelf() || CollectionUtils.isEmpty(deptIds)) {
-                Path<String> userPath = root.get(userField);
-                predicates.add(cb.equal(userPath, user.getUserId()));
+                // 本人数据过滤
+                // 逻辑：如果同时设置了部门过滤，通常是 OR 关系，或者是取并集
+                // 这里我们优先判断 accessibleDeptIds，如果为空且角色配置为仅本人，则进行 userField 过滤
+                if (DataPermissionContext.getIsSelf() || CollectionUtils.isEmpty(deptIds)) {
+                    Path<String> userPath = root.get(userField);
+                    predicates.add(cb.equal(userPath, user.getUserId()));
+                }
+            } catch (IllegalArgumentException e) {
+                // 实体不包含指定的数据权限字段，跳过数据权限过滤
+                return cb.conjunction();
             }
 
             if (predicates.isEmpty()) {
