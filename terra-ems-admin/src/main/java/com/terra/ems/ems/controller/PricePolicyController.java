@@ -26,17 +26,16 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.PricePolicy;
 import com.terra.ems.ems.entity.PricePolicyItem;
+import com.terra.ems.ems.param.PricePolicyQueryParam;
 import com.terra.ems.ems.service.PricePolicyService;
 import com.terra.ems.framework.controller.BaseController;
-import com.terra.ems.framework.service.BaseService;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.enums.DataItemStatus;
+import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -67,25 +66,15 @@ public class PricePolicyController extends BaseController<PricePolicy, Long> {
     /**
      * 分页查询电价策略
      *
-     * @param current   当前页码
-     * @param pageSize  每页数量
-     * @param sortField 排序字段
-     * @param sortOrder 排序方向
+     * @param pager 分页参数
+     * @param param 查询参数
      * @return 分页结果
      */
     @Operation(summary = "分页查询")
     @GetMapping("/search")
-    public Result<Page<PricePolicy>> search(
-            @Parameter(description = "页码") @RequestParam(defaultValue = "1") int current,
-            @Parameter(description = "每页数量") @RequestParam(defaultValue = "10") int pageSize,
-            @Parameter(description = "排序字段") @RequestParam(defaultValue = "sortOrder") String sortField,
-            @Parameter(description = "排序方向") @RequestParam(defaultValue = "asc") String sortOrder) {
-
-        Sort sort = sortOrder.equalsIgnoreCase("desc")
-                ? Sort.by(sortField).descending()
-                : Sort.by(sortField).ascending();
-        Pageable pageable = PageRequest.of(current - 1, pageSize, sort);
-        return Result.content(pricePolicyService.findAll(pageable));
+    public Result<Map<String, Object>> search(Pager pager, PricePolicyQueryParam param) {
+        Page<PricePolicy> pages = pricePolicyService.findAll(pager.getPageable());
+        return result(pages);
     }
 
     /**

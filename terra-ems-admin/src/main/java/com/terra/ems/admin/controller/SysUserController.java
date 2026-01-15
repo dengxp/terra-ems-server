@@ -25,6 +25,7 @@ package com.terra.ems.admin.controller;
 
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.dto.UserDTO;
 import com.terra.ems.system.entity.SysUser;
@@ -44,6 +45,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.Map;
 
 /**
  * 系统用户控制器
@@ -87,9 +89,8 @@ public class SysUserController extends BaseController<SysUser, Long> {
      */
     @Operation(summary = "高级搜索用户列表", description = "使用强类型参数进行高级搜索")
     @GetMapping("/search")
-    public Result<org.springframework.data.domain.Page<SysUser>> search(
-            com.terra.ems.framework.definition.dto.Pager pager, com.terra.ems.system.param.UserQueryParam param) {
-        return Result.success("查询成功", userService.findPage(pager, param));
+    public Result<Map<String, Object>> search(Pager pager, com.terra.ems.system.param.UserQueryParam param) {
+        return result(userService.findPage(pager, param));
     }
 
     /**

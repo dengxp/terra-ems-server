@@ -25,21 +25,18 @@ package com.terra.ems.ems.controller;
 
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.Meter;
+import com.terra.ems.ems.param.MeterQueryParam;
 import com.terra.ems.ems.service.MeterService;
 import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * 计量器具档案控制器
@@ -68,17 +65,11 @@ public class MeterController extends BaseController<Meter, Long> {
      */
     @Operation(summary = "分页查询")
     @GetMapping("/search")
-    public Result<Page<Meter>> search(
-            @Parameter(description = "编码") @RequestParam(required = false) String code,
-            @Parameter(description = "名称") @RequestParam(required = false) String name,
-            @Parameter(description = "种类") @RequestParam(required = false) String type,
-            @Parameter(description = "状态值") @RequestParam(required = false) Integer status,
-            @Parameter(description = "页码") @RequestParam(defaultValue = "0") int page,
-            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") int size) {
-
-        DataItemStatus statusEnum = status != null ? DataItemStatus.fromValue(status) : null;
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
-        return Result.content(meterService.findPage(code, name, type, statusEnum, pageable));
+    public Result<Map<String, Object>> search(Pager pager, MeterQueryParam param) {
+        DataItemStatus statusEnum = param.getStatus() != null ? DataItemStatus.fromValue(param.getStatus()) : null;
+        Page<Meter> pages = meterService.findPage(param.getCode(), param.getName(), param.getType(), statusEnum,
+                pager.getPageable());
+        return result(pages);
     }
 
     @Operation(summary = "更新计量器具")

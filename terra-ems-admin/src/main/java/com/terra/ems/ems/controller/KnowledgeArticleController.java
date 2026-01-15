@@ -24,8 +24,10 @@
 package com.terra.ems.ems.controller;
 
 import com.terra.ems.ems.entity.KnowledgeArticle;
+import com.terra.ems.ems.param.KnowledgeArticleQueryParam;
 import com.terra.ems.ems.service.KnowledgeArticleService;
 import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.common.domain.Result;
@@ -34,18 +36,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import com.terra.ems.framework.definition.dto.Pager;
 import org.springframework.validation.annotation.Validated;
 import java.util.Map;
 import java.util.ArrayList;
-import java.util.List;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
@@ -149,21 +146,15 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
     /**
      * 搜索文章
      *
-     * @param keyword 搜索关键词
-     * @param page    页码
-     * @param size    每页大小
+     * @param pager 分页参数
+     * @param param 查询参数
      * @return 搜索结果
      */
     @Operation(summary = "搜索文章")
     @GetMapping("/search")
-    public Result<Page<KnowledgeArticle>> search(
-            @Parameter(description = "搜索关键词") @RequestParam String keyword,
-            @Parameter(description = "页码") @RequestParam(defaultValue = "0") int page,
-            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") int size) {
-
-        Pageable pageable = PageRequest.of(page, size);
-        Page<KnowledgeArticle> articles = knowledgeArticleService.search(keyword, pageable);
-        return Result.content(articles);
+    public Result<Map<String, Object>> search(Pager pager, KnowledgeArticleQueryParam param) {
+        Page<KnowledgeArticle> articles = knowledgeArticleService.search(param.getKeyword(), pager.getPageable());
+        return result(articles);
     }
 
     /**

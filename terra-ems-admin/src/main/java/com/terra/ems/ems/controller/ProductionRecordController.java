@@ -25,17 +25,15 @@ package com.terra.ems.ems.controller;
 
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.ProductionRecord;
+import com.terra.ems.ems.param.ProductionRecordQueryParam;
 import com.terra.ems.ems.service.ProductionRecordService;
 import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -129,28 +127,17 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
     /**
      * 分页查询指定单元和日期范围内的产量记录
      *
-     * @param energyUnitId 用能单元ID
-     * @param dataType     数据类型
-     * @param startDate    开始日期
-     * @param endDate      结束日期
-     * @param page         页码
-     * @param size         每页大小
+     * @param pager 分页参数
+     * @param param 查询参数
      * @return 分页结果
      */
     @Operation(summary = "分页查询")
     @GetMapping("/search")
-    public Result<Page<ProductionRecord>> search(
-            @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
-            @Parameter(description = "数据类型") @RequestParam(required = false, defaultValue = "1") String dataType,
-            @Parameter(description = "开始日期") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @Parameter(description = "结束日期") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @Parameter(description = "页码") @RequestParam(defaultValue = "0") int page,
-            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") int size) {
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "recordDate"));
+    public Result<Map<String, Object>> search(Pager pager, ProductionRecordQueryParam param) {
         Page<ProductionRecord> records = productionRecordService.findByEnergyUnitAndDateRange(
-                energyUnitId, dataType, startDate, endDate, pageable);
-        return Result.content(records);
+                param.getEnergyUnitId(), param.getDataType(), param.getStartDate(), param.getEndDate(),
+                pager.getPageable());
+        return result(records);
     }
 
     /**

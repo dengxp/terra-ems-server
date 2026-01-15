@@ -25,17 +25,16 @@ package com.terra.ems.ems.controller;
 
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.EnergyType;
+import com.terra.ems.ems.param.EnergyTypeQueryParam;
 import com.terra.ems.ems.service.EnergyTypeService;
 import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +42,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 能源类型控制器
@@ -71,37 +71,31 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
      */
     @Operation(summary = "分页搜索")
     @GetMapping("/search")
-    public Result<Page<EnergyType>> search(
-            @Parameter(description = "编码") @RequestParam(required = false) String code,
-            @Parameter(description = "名称") @RequestParam(required = false) String name,
-            @Parameter(description = "类别") @RequestParam(required = false) String category,
-            @Parameter(description = "状态值") @RequestParam(required = false) Integer status,
-            @Parameter(description = "页码") @RequestParam(defaultValue = "1") int pageNumber,
-            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") int pageSize) {
+    public Result<Map<String, Object>> search(Pager pager, EnergyTypeQueryParam param) {
 
         // 构建 Specification
         Specification<EnergyType> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (StringUtils.hasText(code)) {
-                predicates.add(cb.like(root.get("code"), "%" + code + "%"));
+            if (StringUtils.hasText(param.getCode())) {
+                predicates.add(cb.like(root.get("code"), "%" + param.getCode() + "%"));
             }
-            if (StringUtils.hasText(name)) {
-                predicates.add(cb.like(root.get("name"), "%" + name + "%"));
+            if (StringUtils.hasText(param.getName())) {
+                predicates.add(cb.like(root.get("name"), "%" + param.getName() + "%"));
             }
-            if (StringUtils.hasText(category)) {
-                predicates.add(cb.equal(root.get("category"), category));
+            if (StringUtils.hasText(param.getCategory())) {
+                predicates.add(cb.equal(root.get("category"), param.getCategory()));
             }
-            if (status != null) {
-                DataItemStatus statusEnum = DataItemStatus.fromValue(status);
+            if (param.getStatus() != null) {
+                DataItemStatus statusEnum = DataItemStatus.fromValue(param.getStatus());
                 predicates.add(cb.equal(root.get("status"), statusEnum));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };
 
-        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, Sort.by("sortOrder").ascending());
-        return Result.content(energyTypeService.findByPage(spec, pageable));
+        Page<EnergyType> pages = energyTypeService.findByPage(spec, pager.getPageable());
+        return result(pages);
     }
 
     /**

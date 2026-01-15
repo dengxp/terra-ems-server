@@ -24,21 +24,21 @@
 package com.terra.ems.ems.controller;
 
 import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.MeterPoint;
+import com.terra.ems.ems.param.MeterPointQueryParam;
 import com.terra.ems.ems.service.MeterPointService;
 import com.terra.ems.framework.enums.DataItemStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -68,16 +68,9 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
      */
     @Operation(summary = "分页查询")
     @GetMapping("/search")
-    public Result<Page<MeterPoint>> search(
-            @Parameter(description = "页码") @RequestParam(defaultValue = "1") int current,
-            @Parameter(description = "每页数量") @RequestParam(defaultValue = "10") int pageSize,
-            @Parameter(description = "排序字段") @RequestParam(defaultValue = "sortOrder") String sortField,
-            @Parameter(description = "排序方向") @RequestParam(defaultValue = "asc") String sortOrder) {
-        Sort sort = "desc".equalsIgnoreCase(sortOrder)
-                ? Sort.by(sortField).descending()
-                : Sort.by(sortField).ascending();
-        Pageable pageable = PageRequest.of(current - 1, pageSize, sort);
-        return Result.content(meterPointService.findAll(pageable));
+    public Result<Map<String, Object>> search(Pager pager, MeterPointQueryParam param) {
+        Page<MeterPoint> pages = meterPointService.findAll(pager.getPageable());
+        return result(pages);
     }
 
     /**
