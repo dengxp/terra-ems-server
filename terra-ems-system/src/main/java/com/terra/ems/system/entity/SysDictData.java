@@ -31,6 +31,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -44,6 +45,8 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "sys_dict_data", indexes = {
         @Index(name = "idx_dict_data_type", columnList = "typeCode")
+}, uniqueConstraints = {
+        @UniqueConstraint(name = "uk_dict_data_value_type", columnNames = { "value", "typeCode" })
 })
 @EqualsAndHashCode(callSuper = true)
 public class SysDictData extends BaseEntity {
