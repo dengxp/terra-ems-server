@@ -26,17 +26,21 @@ package com.terra.ems.admin.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.definition.dto.Pager;
+import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.service.BaseService;
-import com.terra.ems.system.dto.UserDTO;
 import com.terra.ems.system.entity.SysUser;
 import com.terra.ems.system.mapper.UserMapper;
+import com.terra.ems.system.param.UserQueryParam;
 import com.terra.ems.system.service.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.criteria.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +49,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,16 +87,53 @@ public class SysUserController extends BaseController<SysUser, Long> {
     }
 
     /**
-     * 高级搜索用户列表
+     * 分页查询用户
      *
      * @param pager 分页参数
      * @param param 用户查询参数
      * @return 分页结果
      */
     @Operation(summary = "高级搜索用户列表", description = "使用强类型参数进行高级搜索")
-    @GetMapping("/search")
-    public Result<Map<String, Object>> search(Pager pager, com.terra.ems.system.param.UserQueryParam param) {
-        return result(userService.findPage(pager, param));
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(Pager pager, UserQueryParam param) {
+        Specification<SysUser> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            // 关键字模糊查询
+            if (StringUtils.hasText(param.getKeyword())) {
+                String keyword = "%" + param.getKeyword() + "%";
+                predicates.add(cb.or(
+                        cb.like(root.get("username"), keyword),
+                        cb.like(root.get("nickname"), keyword),
+                        cb.like(root.get("phone"), keyword)));
+            }
+
+            // 精确/前缀查询
+            if (StringUtils.hasText(param.getUsername())) {
+                predicates.add(cb.like(root.get("username"), param.getUsername() + "%"));
+            }
+            if (StringUtils.hasText(param.getPhone())) {
+                predicates.add(cb.like(root.get("phone"), param.getPhone() + "%"));
+            }
+            if (param.getDeptId() != null) {
+                predicates.add(cb.equal(root.get("dept").get("id"), param.getDeptId()));
+            }
+            if (param.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"), DataItemStatus.fromValue(param.getStatus())));
+            }
+
+            // 时间范围
+            if (param.getBeginTime() != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("createTime"), param.getBeginTime()));
+            }
+            if (param.getEndTime() != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("createTime"), param.getEndTime()));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        return findByPage(pager, spec);
     }
 
     /**

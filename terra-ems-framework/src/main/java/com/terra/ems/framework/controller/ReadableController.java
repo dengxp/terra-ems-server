@@ -119,23 +119,31 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
     }
 
     /**
-     * 分页查询数据
+     * 分页查询数据助手方法 (不直接映射端点)
      *
-     * @param pager  分页参数
-     * @param params 查询参数
-     * @return 分页结果
+     * @param pager 分页参数
+     * @param spec  查询条件
+     * @return 分页结果 Map
      */
-    @AccessLimited
-    @Operation(summary = "分页查询数据", description = "通过分页参数 and 可选条件获取数据列表。若无查询条件则为简单分页。")
-    @GetMapping
-    public Result<Page<E>> findByPage(Pager pager, @RequestParam(required = false) Map<String, Object> params) {
-        Specification<E> spec = (params != null && !params.isEmpty()) ? buildSpecification(params) : null;
+    protected Result<Map<String, Object>> findByPage(Pager pager, Specification<E> spec) {
         Page<E> page;
         if (spec != null) {
             page = getReadableService().findByPage(spec, pager.getPageable());
         } else {
             page = getReadableService().findByPage(pager.getPageable());
         }
-        return Result.success("查询成功", page);
+        return result(page);
+    }
+
+    /**
+     * 分页查询数据 (Map 参数版本，不直接映射端点)
+     *
+     * @param pager  分页参数
+     * @param params 查询参数 Map
+     * @return 分页结果 Map
+     */
+    protected Result<Map<String, Object>> findByPage(Pager pager, Map<String, Object> params) {
+        Specification<E> spec = (params != null && !params.isEmpty()) ? buildSpecification(params) : null;
+        return findByPage(pager, spec);
     }
 }
