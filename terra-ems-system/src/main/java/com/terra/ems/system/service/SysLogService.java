@@ -49,7 +49,7 @@ public class SysLogService extends BaseService<SysLog, Long> {
      * @return 日志仓库
      */
     @Override
-    protected BaseRepository<SysLog, Long> getRepository() {
+    public BaseRepository<SysLog, Long> getRepository() {
         return logRepository;
     }
 

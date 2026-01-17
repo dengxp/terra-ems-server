@@ -47,7 +47,7 @@ public class AlarmRecordService extends BaseService<AlarmRecord, Long> {
     private final AlarmRecordRepository alarmRecordRepository;
 
     @Override
-    protected BaseRepository<AlarmRecord, Long> getRepository() {
+    public BaseRepository<AlarmRecord, Long> getRepository() {
         return alarmRecordRepository;
     }
 

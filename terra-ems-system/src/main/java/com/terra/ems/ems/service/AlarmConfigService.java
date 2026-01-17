@@ -47,7 +47,7 @@ public class AlarmConfigService extends BaseService<AlarmConfig, Long> {
     private final AlarmConfigRepository alarmConfigRepository;
 
     @Override
-    protected BaseRepository<AlarmConfig, Long> getRepository() {
+    public BaseRepository<AlarmConfig, Long> getRepository() {
         return alarmConfigRepository;
     }
 

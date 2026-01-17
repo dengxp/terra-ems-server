@@ -51,7 +51,7 @@ public class SysMenuService extends BaseService<SysMenu, Long> {
      * @return 菜单仓库
      */
     @Override
-    protected BaseRepository<SysMenu, Long> getRepository() {
+    public BaseRepository<SysMenu, Long> getRepository() {
         return menuRepository;
     }
 

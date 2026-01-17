@@ -51,7 +51,7 @@ public class PolicyService extends BaseService<Policy, Long> {
     private final PolicyRepository repository;
 
     @Override
-    protected BaseRepository<Policy, Long> getRepository() {
+    public BaseRepository<Policy, Long> getRepository() {
         return repository;
     }
 

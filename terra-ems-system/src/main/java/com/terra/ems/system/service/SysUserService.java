@@ -71,7 +71,7 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
      * @return 用户仓库
      */
     @Override
-    protected BaseRepository<SysUser, Long> getRepository() {
+    public BaseRepository<SysUser, Long> getRepository() {
         return userRepository;
     }
 

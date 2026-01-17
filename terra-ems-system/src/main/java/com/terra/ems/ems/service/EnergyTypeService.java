@@ -55,7 +55,7 @@ public class EnergyTypeService extends BaseService<EnergyType, Long> {
     private final EnergyTypeRepository energyTypeRepository;
 
     @Override
-    protected BaseRepository<EnergyType, Long> getRepository() {
+    public BaseRepository<EnergyType, Long> getRepository() {
         return energyTypeRepository;
     }
 

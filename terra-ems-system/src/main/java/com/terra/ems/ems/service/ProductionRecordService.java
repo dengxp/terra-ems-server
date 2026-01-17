@@ -57,7 +57,7 @@ public class ProductionRecordService extends BaseService<ProductionRecord, Long>
     private final ProductionRecordRepository productionRecordRepository;
 
     @Override
-    protected BaseRepository<ProductionRecord, Long> getRepository() {
+    public BaseRepository<ProductionRecord, Long> getRepository() {
         return productionRecordRepository;
     }
 

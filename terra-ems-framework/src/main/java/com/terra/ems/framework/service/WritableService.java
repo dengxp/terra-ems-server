@@ -26,6 +26,7 @@ package com.terra.ems.framework.service;
 import com.terra.ems.framework.jpa.entity.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 可写服务接口
@@ -41,26 +42,71 @@ public interface WritableService<E extends Entity, ID extends Serializable> exte
      * @param domain 实体
      * @return 保存后的实体
      */
-    E saveOrUpdate(E domain);
+    default E saveOrUpdate(E domain) {
+        return getRepository().save(domain);
+    }
 
     /**
      * 删除实体
      *
      * @param id 实体ID
      */
-    void deleteById(ID id);
+    default void deleteById(ID id) {
+        getRepository().deleteById(id);
+    }
 
     /**
      * 批量删除实体
      *
      * @param ids 实体ID集合
      */
-    void deleteAllById(Iterable<ID> ids);
+    default void deleteAllById(Iterable<ID> ids) {
+        getRepository().deleteAllById(ids);
+    }
 
     /**
      * 删除实体
      *
      * @param domain 实体
      */
-    void delete(E domain);
+    default void delete(E domain) {
+        getRepository().delete(domain);
+    }
+
+    /**
+     * 批量保存或更新数据
+     *
+     * @param entities 实体集合
+     * @return 已经保存的实体集合
+     */
+    default <S extends E> List<S> saveAll(Iterable<S> entities) {
+        return getRepository().saveAll(entities);
+    }
+
+    /**
+     * 保存或者更新并刷新
+     *
+     * @param entity 实体
+     * @return 保存后实体
+     */
+    default E saveAndFlush(E entity) {
+        return getRepository().saveAndFlush(entity);
+    }
+
+    /**
+     * 批量保存或者更新并刷新
+     *
+     * @param entities 实体列表
+     * @return 保存或更新后的实体
+     */
+    default List<E> saveAllAndFlush(Iterable<E> entities) {
+        return getRepository().saveAllAndFlush(entities);
+    }
+
+    /**
+     * 刷新实体状态
+     */
+    default void flush() {
+        getRepository().flush();
+    }
 }

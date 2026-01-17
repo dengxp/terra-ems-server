@@ -55,7 +55,7 @@ public class KnowledgeArticleService extends BaseService<KnowledgeArticle, Long>
     private final KnowledgeArticleRepository knowledgeArticleRepository;
 
     @Override
-    protected BaseRepository<KnowledgeArticle, Long> getRepository() {
+    public BaseRepository<KnowledgeArticle, Long> getRepository() {
         return knowledgeArticleRepository;
     }
 

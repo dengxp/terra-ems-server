@@ -49,7 +49,7 @@ public class SysConfigService extends BaseService<SysConfig, Long> {
      * @return 系统参数配置仓库
      */
     @Override
-    protected BaseRepository<SysConfig, Long> getRepository() {
+    public BaseRepository<SysConfig, Long> getRepository() {
         return configRepository;
     }
 

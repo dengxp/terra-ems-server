@@ -55,7 +55,7 @@ public class MeterService extends BaseService<Meter, Long> {
     private final MeterRepository meterRepository;
 
     @Override
-    protected BaseRepository<Meter, Long> getRepository() {
+    public BaseRepository<Meter, Long> getRepository() {
         return meterRepository;
     }
 

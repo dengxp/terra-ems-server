@@ -62,7 +62,7 @@ public class EnergyCostRecordService extends BaseService<EnergyCostRecord, Long>
     private final EnergyCostRecordRepository repository;
 
     @Override
-    protected BaseRepository<EnergyCostRecord, Long> getRepository() {
+    public BaseRepository<EnergyCostRecord, Long> getRepository() {
         return repository;
     }
 

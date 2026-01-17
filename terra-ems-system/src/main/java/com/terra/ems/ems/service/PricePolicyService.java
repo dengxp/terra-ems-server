@@ -55,7 +55,7 @@ public class PricePolicyService extends BaseService<PricePolicy, Long> {
     private final EnergyTypeRepository energyTypeRepository;
 
     @Override
-    protected BaseRepository<PricePolicy, Long> getRepository() {
+    public BaseRepository<PricePolicy, Long> getRepository() {
         return pricePolicyRepository;
     }
 

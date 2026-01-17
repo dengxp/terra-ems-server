@@ -58,7 +58,7 @@ public class CostPolicyBindingService extends BaseService<CostPolicyBinding, Lon
     private final PricePolicyRepository pricePolicyRepository;
 
     @Override
-    protected BaseRepository<CostPolicyBinding, Long> getRepository() {
+    public BaseRepository<CostPolicyBinding, Long> getRepository() {
         return repository;
     }
 

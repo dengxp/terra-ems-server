@@ -49,7 +49,7 @@ public class EnergyUnitService extends BaseService<EnergyUnit, Long> {
     private final EnergyUnitRepository energyUnitRepository;
 
     @Override
-    protected BaseRepository<EnergyUnit, Long> getRepository() {
+    public BaseRepository<EnergyUnit, Long> getRepository() {
         return energyUnitRepository;
     }
 

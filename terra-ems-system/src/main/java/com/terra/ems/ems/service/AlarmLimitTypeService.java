@@ -44,7 +44,7 @@ public class AlarmLimitTypeService extends BaseService<AlarmLimitType, Long> {
     private final AlarmLimitTypeRepository repository;
 
     @Override
-    protected BaseRepository<AlarmLimitType, Long> getRepository() {
+    public BaseRepository<AlarmLimitType, Long> getRepository() {
         return repository;
     }
 }

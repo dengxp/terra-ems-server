@@ -86,6 +86,11 @@ public class SysDictTypeController extends BaseController<SysDictType, Long> {
             return cb.and(predicates.toArray(new Predicate[0]));
         };
 
+        // 如果没有指定排序，则默认按创建时间倒序
+        if (pager.getSortOrders().isEmpty()) {
+            pager.addSortOrder("createdAt", "DESC");
+        }
+
         return findByPage(pager, spec);
     }
 }

@@ -60,7 +60,7 @@ public class SysDeptService extends BaseService<SysDept, Long> {
      * @return 部门仓库
      */
     @Override
-    protected BaseRepository<SysDept, Long> getRepository() {
+    public BaseRepository<SysDept, Long> getRepository() {
         return deptRepository;
     }
 

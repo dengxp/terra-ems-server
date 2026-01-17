@@ -54,7 +54,7 @@ public class SysDictTypeService extends BaseService<SysDictType, Long> {
     private final SysDictDataRepository dictDataRepository;
 
     @Override
-    protected BaseRepository<SysDictType, Long> getRepository() {
+    public BaseRepository<SysDictType, Long> getRepository() {
         return dictTypeRepository;
     }
 

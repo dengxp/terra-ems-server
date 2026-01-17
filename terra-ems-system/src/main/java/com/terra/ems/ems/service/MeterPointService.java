@@ -62,7 +62,7 @@ public class MeterPointService extends BaseService<MeterPoint, Long> {
     private final EnergyUnitRepository energyUnitRepository;
 
     @Override
-    protected BaseRepository<MeterPoint, Long> getRepository() {
+    public BaseRepository<MeterPoint, Long> getRepository() {
         return meterPointRepository;
     }
 

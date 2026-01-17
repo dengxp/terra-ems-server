@@ -24,7 +24,9 @@
 package com.terra.ems.framework.service;
 
 import com.terra.ems.framework.jpa.entity.Entity;
+import com.terra.ems.framework.jpa.repository.BaseRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -41,12 +43,31 @@ import java.util.List;
 public interface ReadableService<E extends Entity, ID extends Serializable> {
 
     /**
+     * 获取Repository
+     *
+     * @return {@link com.terra.ems.framework.jpa.repository.BaseRepository}
+     */
+    com.terra.ems.framework.jpa.repository.BaseRepository<E, ID> getRepository();
+
+    /**
      * 根据ID查询实体
      *
      * @param id 实体ID
      * @return 实体
      */
-    E findById(ID id);
+    default E findById(ID id) {
+        return getRepository().findById(id).orElse(null);
+    }
+
+    /**
+     * 数据是否存在
+     *
+     * @param id 数据ID
+     * @return true 存在，false 不存在
+     */
+    default boolean existsById(ID id) {
+        return getRepository().existsById(id);
+    }
 
     /**
      * 根据条件查询所有实体
@@ -54,7 +75,9 @@ public interface ReadableService<E extends Entity, ID extends Serializable> {
      * @param specification 查询条件
      * @return 实体列表
      */
-    List<E> findAll(Specification<E> specification);
+    default List<E> findAll(Specification<E> specification) {
+        return getRepository().findAll(specification);
+    }
 
     /**
      * 根据条件查询所有实体，并排序
@@ -63,14 +86,28 @@ public interface ReadableService<E extends Entity, ID extends Serializable> {
      * @param sort          排序
      * @return 实体列表
      */
-    List<E> findAll(Specification<E> specification, Sort sort);
+    default List<E> findAll(Specification<E> specification, Sort sort) {
+        return getRepository().findAll(specification, sort);
+    }
 
     /**
      * 查找所有实体
      *
      * @return 实体列表
      */
-    List<E> findAll();
+    default List<E> findAll() {
+        return getRepository().findAll();
+    }
+
+    /**
+     * 查找所有实体
+     *
+     * @param sort 排序
+     * @return 实体列表
+     */
+    default List<E> findAll(Sort sort) {
+        return getRepository().findAll(sort);
+    }
 
     /**
      * 分页查询
@@ -79,7 +116,9 @@ public interface ReadableService<E extends Entity, ID extends Serializable> {
      * @param pageSize   每页大小
      * @return 分页数据
      */
-    Page<E> findByPage(int pageNumber, int pageSize);
+    default Page<E> findByPage(int pageNumber, int pageSize) {
+        return findByPage(org.springframework.data.domain.PageRequest.of(pageNumber, pageSize));
+    }
 
     /**
      * 分页查询
@@ -89,7 +128,9 @@ public interface ReadableService<E extends Entity, ID extends Serializable> {
      * @param sort       排序
      * @return 分页数据
      */
-    Page<E> findByPage(int pageNumber, int pageSize, Sort sort);
+    default Page<E> findByPage(int pageNumber, int pageSize, Sort sort) {
+        return findByPage(org.springframework.data.domain.PageRequest.of(pageNumber, pageSize, sort));
+    }
 
     /**
      * 分页查询
@@ -97,7 +138,9 @@ public interface ReadableService<E extends Entity, ID extends Serializable> {
      * @param pageable 分页参数
      * @return 分页数据
      */
-    Page<E> findByPage(Pageable pageable);
+    default Page<E> findByPage(Pageable pageable) {
+        return getRepository().findAll(pageable);
+    }
 
     /**
      * 根据条件分页查询
@@ -106,14 +149,31 @@ public interface ReadableService<E extends Entity, ID extends Serializable> {
      * @param pageable      分页参数
      * @return 分页数据
      */
-    Page<E> findByPage(Specification<E> specification, Pageable pageable);
+    default Page<E> findByPage(Specification<E> specification, Pageable pageable) {
+        return getRepository().findAll(specification, pageable);
+    }
+
+    /**
+     * 根据条件分页查询
+     *
+     * @param specification 查询条件
+     * @param pageNumber    当前页
+     * @param pageSize      每页大小
+     * @return 分页数据
+     */
+    default Page<E> findByPage(Specification<E> specification, int pageNumber, int pageSize) {
+        return getRepository().findAll(specification,
+                org.springframework.data.domain.PageRequest.of(pageNumber, pageSize));
+    }
 
     /**
      * 获取实体总数
      *
      * @return 总数
      */
-    long count();
+    default long count() {
+        return getRepository().count();
+    }
 
     /**
      * 根据条件获取实体总数
@@ -121,5 +181,7 @@ public interface ReadableService<E extends Entity, ID extends Serializable> {
      * @param specification 查询条件
      * @return 总数
      */
-    long count(Specification<E> specification);
+    default long count(Specification<E> specification) {
+        return getRepository().count(specification);
+    }
 }

@@ -50,7 +50,7 @@ public class TimePeriodPriceService extends BaseService<TimePeriodPrice, Long> {
     private final TimePeriodPriceRepository timePeriodPriceRepository;
 
     @Override
-    protected BaseRepository<TimePeriodPrice, Long> getRepository() {
+    public BaseRepository<TimePeriodPrice, Long> getRepository() {
         return timePeriodPriceRepository;
     }
 

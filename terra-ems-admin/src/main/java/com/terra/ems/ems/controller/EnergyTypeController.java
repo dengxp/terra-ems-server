@@ -67,11 +67,11 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
     }
 
     /**
-     * 分页查询能源类型（复杂搜索）
+     * 分页查询能源类型
      */
-    @Operation(summary = "分页搜索")
-    @GetMapping("/search")
-    public Result<Map<String, Object>> search(Pager pager, EnergyTypeQueryParam param) {
+    @Operation(summary = "分页查询")
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(Pager pager, EnergyTypeQueryParam param) {
 
         // 构建 Specification
         Specification<EnergyType> spec = (root, query, cb) -> {

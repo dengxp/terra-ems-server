@@ -76,6 +76,9 @@ public class Sorter extends AbstractDto {
         @Schema(name = "属性值", title = "指定排序的字段名称")
         private String property;
 
+        public SortOrder() {
+        }
+
         public SortOrder(String property, String direction) {
             this.property = property;
             this.direction = direction;

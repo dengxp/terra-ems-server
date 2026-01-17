@@ -49,7 +49,7 @@ public class SysDictDataService extends BaseService<SysDictData, Long> {
     private final SysDictDataRepository dictDataRepository;
 
     @Override
-    protected BaseRepository<SysDictData, Long> getRepository() {
+    public BaseRepository<SysDictData, Long> getRepository() {
         return dictDataRepository;
     }
 

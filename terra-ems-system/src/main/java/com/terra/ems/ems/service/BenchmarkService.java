@@ -52,7 +52,7 @@ public class BenchmarkService extends BaseService<Benchmark, Long> {
     private final BenchmarkRepository repository;
 
     @Override
-    protected BaseRepository<Benchmark, Long> getRepository() {
+    public BaseRepository<Benchmark, Long> getRepository() {
         return repository;
     }
 

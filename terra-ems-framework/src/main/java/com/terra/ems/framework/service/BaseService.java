@@ -50,7 +50,7 @@ public abstract class BaseService<E extends Entity, ID extends Serializable> imp
      *
      * @return 基础 Repository
      */
-    protected abstract BaseRepository<E, ID> getRepository();
+    public abstract BaseRepository<E, ID> getRepository();
 
     /**
      * 构建模糊查询字符串
@@ -67,11 +67,6 @@ public abstract class BaseService<E extends Entity, ID extends Serializable> imp
     }
 
     @Override
-    public E findById(ID id) {
-        return getRepository().findById(id).orElse(null);
-    }
-
-    @Override
     public List<E> findAll(Specification<E> specification) {
         Specification<E> dpSpec = DataPermissionUtils.buildSpecification("dept", "createBy");
         return getRepository().findAll(specification == null ? dpSpec : specification.and(dpSpec));
@@ -84,21 +79,6 @@ public abstract class BaseService<E extends Entity, ID extends Serializable> imp
     }
 
     @Override
-    public List<E> findAll() {
-        return findAll((Specification<E>) null);
-    }
-
-    @Override
-    public Page<E> findByPage(int pageNumber, int pageSize) {
-        return findByPage(PageRequest.of(pageNumber, pageSize));
-    }
-
-    @Override
-    public Page<E> findByPage(int pageNumber, int pageSize, Sort sort) {
-        return findByPage(PageRequest.of(pageNumber, pageSize, sort));
-    }
-
-    @Override
     public Page<E> findByPage(Pageable pageable) {
         return findByPage(null, pageable);
     }
@@ -107,39 +87,5 @@ public abstract class BaseService<E extends Entity, ID extends Serializable> imp
     public Page<E> findByPage(Specification<E> specification, Pageable pageable) {
         Specification<E> dpSpec = DataPermissionUtils.buildSpecification("dept", "createBy");
         return getRepository().findAll(specification == null ? dpSpec : specification.and(dpSpec), pageable);
-    }
-
-    @Override
-    public long count() {
-        return getRepository().count();
-    }
-
-    @Override
-    public long count(Specification<E> specification) {
-        return getRepository().count(specification);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public E saveOrUpdate(E domain) {
-        return getRepository().save(domain);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void deleteById(ID id) {
-        getRepository().deleteById(id);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void deleteAllById(Iterable<ID> ids) {
-        getRepository().deleteAllById(ids);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void delete(E domain) {
-        getRepository().delete(domain);
     }
 }

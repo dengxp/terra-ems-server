@@ -49,7 +49,7 @@ public class SysPostService extends BaseService<SysPost, Long> {
      * @return 岗位仓库
      */
     @Override
-    protected BaseRepository<SysPost, Long> getRepository() {
+    public BaseRepository<SysPost, Long> getRepository() {
         return postRepository;
     }
 

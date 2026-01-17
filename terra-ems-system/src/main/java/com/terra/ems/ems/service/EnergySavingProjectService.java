@@ -51,7 +51,7 @@ public class EnergySavingProjectService extends BaseService<EnergySavingProject,
     private final EnergySavingProjectRepository repository;
 
     @Override
-    protected BaseRepository<EnergySavingProject, Long> getRepository() {
+    public BaseRepository<EnergySavingProject, Long> getRepository() {
         return repository;
     }
 

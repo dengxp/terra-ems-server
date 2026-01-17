@@ -49,7 +49,7 @@ public class SysNoticeService extends BaseService<SysNotice, Long> {
      * @return 通知公告仓库
      */
     @Override
-    protected BaseRepository<SysNotice, Long> getRepository() {
+    public BaseRepository<SysNotice, Long> getRepository() {
         return noticeRepository;
     }
 }
