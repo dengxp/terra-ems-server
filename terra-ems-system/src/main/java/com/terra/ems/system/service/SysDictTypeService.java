@@ -23,9 +23,11 @@
 
 package com.terra.ems.system.service;
 
+import com.terra.ems.common.exception.TerraException;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysDictType;
+import com.terra.ems.system.repository.SysDictDataRepository;
 import com.terra.ems.system.repository.SysDictTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
@@ -33,7 +35,9 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -47,10 +51,34 @@ import java.util.Optional;
 public class SysDictTypeService extends BaseService<SysDictType, Long> {
 
     private final SysDictTypeRepository dictTypeRepository;
+    private final SysDictDataRepository dictDataRepository;
 
     @Override
     protected BaseRepository<SysDictType, Long> getRepository() {
         return dictTypeRepository;
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        dictTypeRepository.findById(id).ifPresent(dictType -> {
+            if (dictDataRepository.existsByTypeCode(dictType.getType())) {
+                throw new TerraException("该字典类型下已配置字典项，请先删除字典项再进行操作");
+            }
+        });
+        super.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllById(Iterable<Long> ids) {
+        List<SysDictType> list = dictTypeRepository.findAllById(ids);
+        for (SysDictType dictType : list) {
+            if (dictDataRepository.existsByTypeCode(dictType.getType())) {
+                throw new TerraException("字典类型 [" + dictType.getName() + "] 下已配置字典项，请先删除字典项再进行操作");
+            }
+        }
+        super.deleteAllById(ids);
     }
 
     /**

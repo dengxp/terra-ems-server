@@ -26,6 +26,7 @@ package com.terra.ems.system.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.definition.dto.Pager;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysDictData;
 import com.terra.ems.system.service.SysDictDataService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,6 +40,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,7 +64,7 @@ public class SysDictDataController extends BaseController<SysDictData, Long> {
     private final SysDictDataService dictDataService;
 
     @Override
-    protected com.terra.ems.framework.service.BaseService<SysDictData, Long> getService() {
+    protected BaseService<SysDictData, Long> getService() {
         return dictDataService;
     }
 
@@ -71,12 +73,16 @@ public class SysDictDataController extends BaseController<SysDictData, Long> {
     public Result<Map<String, Object>> findByPage(
             Pager pager,
             @RequestParam(required = false) String label,
+            @RequestParam(required = false) String value,
             @RequestParam(required = false) String typeCode,
             @RequestParam(required = false) String status) {
         Specification<SysDictData> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.hasText(label)) {
                 predicates.add(cb.like(root.get("label"), "%" + label + "%"));
+            }
+            if (StringUtils.hasText(value)) {
+                predicates.add(cb.equal(root.get("value"), value));
             }
             if (StringUtils.hasText(typeCode)) {
                 predicates.add(cb.equal(root.get("typeCode"), typeCode));
@@ -94,14 +100,5 @@ public class SysDictDataController extends BaseController<SysDictData, Long> {
     @GetMapping(value = "/type/{dictType}")
     public Result<List<SysDictData>> dictType(@Parameter(description = "字典类型") @PathVariable String dictType) {
         return Result.content(dictDataService.findByType(dictType));
-    }
-
-    @Operation(summary = "批量删除字典数据")
-    @DeleteMapping("/{ids}")
-    public Result<Void> remove(@PathVariable Long[] ids) {
-        for (Long id : ids) {
-            dictDataService.deleteById(id);
-        }
-        return Result.success("删除成功");
     }
 }

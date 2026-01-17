@@ -65,11 +65,7 @@ public abstract class Controller {
      * @return {@link Result} List
      */
     protected <E extends Entity> Result<List<E>> result(List<E> domains) {
-        if (domains != null) {
-            return Result.success("查询数据成功!", domains);
-        } else {
-            return Result.failure("查询数据失败");
-        }
+        return Result.success("查询数据成功!", domains != null ? domains : new java.util.ArrayList<>());
     }
 
     /**
@@ -95,15 +91,7 @@ public abstract class Controller {
      * @return {@link Result} Map
      */
     protected <E extends Entity> Result<Map<String, Object>> result(Page<E> pages) {
-        if (null == pages) {
-            return Result.failure("查询数据失败！");
-        }
-
-        if (pages != null) {
-            return Result.success("查询数据成功！", getPageInfoMap(pages));
-        } else {
-            return Result.failure("查询数据失败！");
-        }
+        return Result.success("查询数据成功！", pages != null ? getPageInfoMap(pages) : new HashMap<>(0));
     }
 
     /**
@@ -113,16 +101,7 @@ public abstract class Controller {
      * @return {@link Result} Map
      */
     protected Result<Map<String, Object>> result(Map<String, Object> map) {
-
-        if (null == map) {
-            return Result.failure("查询数据失败！");
-        }
-
-        if (map != null) {
-            return Result.success("查询数据成功！", map);
-        } else {
-            return Result.failure("查询数据失败！");
-        }
+        return Result.success("查询数据成功！", map != null ? map : new HashMap<>(0));
     }
 
     /**

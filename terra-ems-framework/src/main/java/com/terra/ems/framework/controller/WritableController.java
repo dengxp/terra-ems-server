@@ -28,6 +28,8 @@ import com.terra.ems.framework.jpa.entity.Entity;
 import com.terra.ems.framework.rest.annotation.Idempotent;
 import com.terra.ems.framework.service.WritableService;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.PropertyAccessorFactory;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -41,6 +43,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 可写Controller基类
@@ -66,10 +69,29 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
                         @Parameter(name = "domain", required = true, description = "可转换为实体的json数据")
         })
         @PostMapping
-        @PutMapping
         public Result<E> saveOrUpdate(@RequestBody @Validated E domain) {
                 E savedEntity = getWritableService().saveOrUpdate(domain);
                 return Result.success("保存成功", savedEntity);
+        }
+
+        /**
+         * 根据ID更新数据
+         *
+         * @param id     实体ID
+         * @param domain 实体数据
+         * @return 更新后的实体数据
+         */
+        /**
+         * 根据ID更新数据 (不直接映射端点，避免与子类冲突)
+         *
+         * @param id     实体ID
+         * @param domain 实体数据
+         * @return 更新后的实体数据
+         */
+        protected Result<E> update(ID id, @RequestBody @Validated E domain) {
+                BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(domain);
+                bw.setPropertyValue("id", id);
+                return saveOrUpdate(domain);
         }
 
         /**
@@ -87,6 +109,20 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
         @DeleteMapping("/{id}")
         public Result<String> delete(@PathVariable ID id) {
                 getWritableService().deleteById(id);
+                return Result.success("删除成功");
+        }
+
+        /**
+         * 批量删除数据
+         *
+         * @param ids 实体ID集合
+         * @return 操作消息
+         */
+        @Idempotent
+        @Operation(summary = "批量删除数据", description = "根据实体ID集合批量删除数据")
+        @DeleteMapping
+        public Result<String> delete(@RequestBody List<ID> ids) {
+                getWritableService().deleteAllById(ids);
                 return Result.success("删除成功");
         }
 }

@@ -47,19 +47,20 @@ public class GlobalExceptionResolver {
         // 安全相关
         EXCEPTION_DICTIONARY.put("AccessDeniedException", ErrorCodes.ACCESS_DENIED);
         EXCEPTION_DICTIONARY.put("InsufficientAuthenticationException", ErrorCodes.UNAUTHORIZED);
-        
+
         // 数据库相关
         EXCEPTION_DICTIONARY.put("DataIntegrityViolationException", ErrorCodes.INTERNAL_SERVER_ERROR);
         EXCEPTION_DICTIONARY.put("BadSqlGrammarException", ErrorCodes.INTERNAL_SERVER_ERROR);
-        
+
         // 参数与请求相关
-        EXCEPTION_DICTIONARY.put("MethodArgumentNotValidException", ErrorCodes.INTERNAL_SERVER_ERROR); // 通常在 Handler 中特殊处理
+        EXCEPTION_DICTIONARY.put("MethodArgumentNotValidException", ErrorCodes.INTERNAL_SERVER_ERROR); // 通常在 Handler
+                                                                                                       // 中特殊处理
         EXCEPTION_DICTIONARY.put("BindException", ErrorCodes.INTERNAL_SERVER_ERROR);
         EXCEPTION_DICTIONARY.put("HttpRequestMethodNotSupportedException", ErrorCodes.INTERNAL_SERVER_ERROR);
         EXCEPTION_DICTIONARY.put("HttpMediaTypeNotSupportedException", ErrorCodes.INTERNAL_SERVER_ERROR);
         EXCEPTION_DICTIONARY.put("HttpMessageNotReadableException", ErrorCodes.INTERNAL_SERVER_ERROR);
         EXCEPTION_DICTIONARY.put("MissingServletRequestParameterException", ErrorCodes.INTERNAL_SERVER_ERROR);
-        
+
         // 业务/逻辑相关
         EXCEPTION_DICTIONARY.put("IllegalArgumentException", ErrorCodes.INTERNAL_SERVER_ERROR);
         EXCEPTION_DICTIONARY.put("NullPointerException", ErrorCodes.INTERNAL_SERVER_ERROR);
@@ -83,12 +84,16 @@ public class GlobalExceptionResolver {
         } else {
             Result<String> result = Result.failure();
             String exceptionName = ex.getClass().getSimpleName();
-            
+
             if (StringUtils.isNotEmpty(exceptionName) && EXCEPTION_DICTIONARY.containsKey(exceptionName)) {
                 ErrorCodes errorCode = EXCEPTION_DICTIONARY.get(exceptionName);
                 result = Result.failure(errorCode);
             } else {
                 log.warn("[Terra] |- 字典中未找到异常名 [{}], 使用默认错误响应", exceptionName);
+                // 对于未定义的异常，如果存在 Message，则透传给 Result
+                if (StringUtils.isNotBlank(ex.getMessage())) {
+                    result.message(ex.getMessage());
+                }
             }
 
             result.path(path);

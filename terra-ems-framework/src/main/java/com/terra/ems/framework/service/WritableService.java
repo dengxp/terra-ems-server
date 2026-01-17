@@ -51,6 +51,13 @@ public interface WritableService<E extends Entity, ID extends Serializable> exte
     void deleteById(ID id);
 
     /**
+     * 批量删除实体
+     *
+     * @param ids 实体ID集合
+     */
+    void deleteAllById(Iterable<ID> ids);
+
+    /**
      * 删除实体
      *
      * @param domain 实体

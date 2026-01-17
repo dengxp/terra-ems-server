@@ -26,6 +26,7 @@ package com.terra.ems.system.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.definition.dto.Pager;
+import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysDictType;
 import com.terra.ems.system.service.SysDictTypeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +36,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +61,7 @@ public class SysDictTypeController extends BaseController<SysDictType, Long> {
     private final SysDictTypeService dictTypeService;
 
     @Override
-    protected com.terra.ems.framework.service.BaseService<SysDictType, Long> getService() {
+    protected BaseService<SysDictType, Long> getService() {
         return dictTypeService;
     }
 
@@ -87,14 +87,5 @@ public class SysDictTypeController extends BaseController<SysDictType, Long> {
         };
 
         return findByPage(pager, spec);
-    }
-
-    @Operation(summary = "批量删除字典类型")
-    @DeleteMapping("/{ids}")
-    public Result<Void> remove(@PathVariable Long[] ids) {
-        for (Long id : ids) {
-            dictTypeService.deleteById(id);
-        }
-        return Result.success("删除成功");
     }
 }

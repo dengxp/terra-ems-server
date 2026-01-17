@@ -133,6 +133,12 @@ public abstract class BaseService<E extends Entity, ID extends Serializable> imp
 
     @Transactional(rollbackFor = Exception.class)
     @Override
+    public void deleteAllById(Iterable<ID> ids) {
+        getRepository().deleteAllById(ids);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public void delete(E domain) {
         getRepository().delete(domain);
     }

@@ -40,4 +40,6 @@ public interface SysDictDataRepository extends BaseRepository<SysDictData, Long>
     List<SysDictData> findByTypeCodeAndStatusOrderBySortOrder(String typeCode, String status);
 
     List<SysDictData> findByTypeCodeOrderBySortOrder(String typeCode);
+
+    boolean existsByTypeCode(String typeCode);
 }
