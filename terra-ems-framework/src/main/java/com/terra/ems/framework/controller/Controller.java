@@ -65,10 +65,8 @@ public abstract class Controller {
      * @return {@link Result} List
      */
     protected <E extends Entity> Result<List<E>> result(List<E> domains) {
-        if (CollectionUtils.isNotEmpty(domains)) {
+        if (domains != null) {
             return Result.success("查询数据成功!", domains);
-        } else if (domains != null) {
-            return Result.empty("未查询到数据！");
         } else {
             return Result.failure("查询数据失败");
         }
@@ -82,10 +80,10 @@ public abstract class Controller {
      * @return {@link Result} List
      */
     protected <T> Result<T[]> result(T[] domains) {
-        if (ArrayUtils.isNotEmpty(domains)) {
+        if (domains != null) {
             return Result.success("查询数据成功！", domains);
         } else {
-            return Result.empty("未查询到数据！");
+            return Result.failure("查询数据失败！");
         }
     }
 
@@ -101,10 +99,10 @@ public abstract class Controller {
             return Result.failure("查询数据失败！");
         }
 
-        if (CollectionUtils.isNotEmpty(pages.getContent())) {
+        if (pages != null) {
             return Result.success("查询数据成功！", getPageInfoMap(pages));
         } else {
-            return Result.empty("未查询到数据！");
+            return Result.failure("查询数据失败！");
         }
     }
 
@@ -120,10 +118,10 @@ public abstract class Controller {
             return Result.failure("查询数据失败！");
         }
 
-        if (MapUtils.isNotEmpty(map)) {
+        if (map != null) {
             return Result.success("查询数据成功！", map);
         } else {
-            return Result.empty("未查询到数据！");
+            return Result.failure("查询数据失败！");
         }
     }
 
