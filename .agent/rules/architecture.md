@@ -143,9 +143,40 @@ Service 层命名应与 Spring Data JPA 及 Controller 层保持语义一致。
 ## 层次结构（Tree）管理规范
 
 ### 1. 数据映射模式 (Data Mapping)
-- **解耦设计**：在 Entity 中定义 `@Transient` 的 `parentId` 字段用于 API 接收。
-- **关联处理**：Service 层负责根据 `parentId` 查找 Parent 实体并设置到关联属性中。
-- **默认值保护**：Service 在保存前必须检查并应用业务字段（如 `status`, `sortOrder`）的默认值。
+
+对于 `@ManyToOne` 关联（如 `parent` 字段），推荐使用 **`@JsonProperty` 桥接模式** 实现前端 ID 与后端实体对象的无缝转换：
+
+```java
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "parent_id")
+private EnergyUnit parent;
+
+/**
+ * 获取父节点ID（用于前端展示和反序列化桥接）
+ */
+@JsonProperty("parentId")
+public Long getParentId() {
+    return parent != null ? parent.getId() : null;
+}
+
+/**
+ * 设置父节点ID（用于接收前端扁平数据并自动转为对象存根）
+ */
+@JsonProperty("parentId")
+public void setParentId(Long parentId) {
+    if (parentId != null) {
+        this.parent = new EnergyUnit();
+        this.parent.setId(parentId);
+    } else {
+        this.parent = null;
+    }
+}
+```
+
+**优势**：
+- **解耦**：前端只需传递扁平的 `parentId`，无需构造嵌套对象。
+- **透明**：Jackson 反序列化时自动调用 `setParentId`，JPA 保存时直接使用 `parent` 关联。
+- **双向**：序列化响应时，`getParentId` 自动输出扁平 ID，避免循环引用。
 
 ### 2. 移动逻辑安全性 (Move Safety)
 - **非法路径校验**：移动节点时必须校验：
