@@ -60,14 +60,6 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
     }
 
     /**
-     * 隐藏基类的 saveOrUpdate 方法，使用 create 替代（因需 parentId 参数）
-     */
-    @Override
-    public Result<EnergyUnit> saveOrUpdate(EnergyUnit entity) {
-        throw new UnsupportedOperationException("请使用 POST /energy-units?parentId= 的 create 方法");
-    }
-
-    /**
      * 获取完整树形结构
      */
     @Operation(summary = "获取完整树形结构")
@@ -112,17 +104,6 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
         return energyUnitService.findByCode(code)
                 .map(Result::content)
                 .orElse(Result.failure("用能单元不存在"));
-    }
-
-    /**
-     * 创建用能单元
-     */
-    @Operation(summary = "创建用能单元")
-    @PostMapping("/create")
-    public Result<EnergyUnit> create(
-            @RequestBody EnergyUnit energyUnit,
-            @Parameter(description = "父节点ID，不传表示创建根节点") @RequestParam(required = false) Long parentId) {
-        return Result.content(energyUnitService.create(energyUnit, parentId));
     }
 
     /**

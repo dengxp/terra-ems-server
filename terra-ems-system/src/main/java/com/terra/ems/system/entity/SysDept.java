@@ -24,6 +24,7 @@
 package com.terra.ems.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -101,12 +102,27 @@ public class SysDept extends BaseEntity {
     private List<SysDept> children = new ArrayList<>();
 
     /**
-     * 获取父部门ID
+     * 获取父部门ID（用于前端展示和反序列化桥接）
      *
      * @return 父部门ID
      */
-    @Transient
+    @JsonProperty("parentId")
     public Long getParentId() {
         return parent != null ? parent.getId() : null;
+    }
+
+    /**
+     * 设置父部门ID（用于接收前端扁平数据并自动转为对象存根）
+     *
+     * @param parentId 父部门ID
+     */
+    @JsonProperty("parentId")
+    public void setParentId(Long parentId) {
+        if (parentId != null) {
+            this.parent = new SysDept();
+            this.parent.setId(parentId);
+        } else {
+            this.parent = null;
+        }
     }
 }

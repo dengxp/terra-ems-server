@@ -24,6 +24,7 @@
 package com.terra.ems.ems.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.terra.ems.ems.enums.EnergyUnitType;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
@@ -121,11 +122,24 @@ public class EnergyUnit extends BaseEntity {
     private BigDecimal ratedPower;
 
     /**
-     * 获取父节点ID（避免懒加载问题）
+     * 获取父节点ID（用于前端展示和反序列化桥接）
      */
-    @Transient
+    @JsonProperty("parentId")
     public Long getParentId() {
         return parent != null ? parent.getId() : null;
+    }
+
+    /**
+     * 设置父节点ID（用于接收前端扁平数据并自动转为对象存根）
+     */
+    @JsonProperty("parentId")
+    public void setParentId(Long parentId) {
+        if (parentId != null) {
+            this.parent = new EnergyUnit();
+            this.parent.setId(parentId);
+        } else {
+            this.parent = null;
+        }
     }
 
     /**

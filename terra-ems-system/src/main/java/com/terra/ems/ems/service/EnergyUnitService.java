@@ -93,61 +93,6 @@ public class EnergyUnitService extends BaseService<EnergyUnit, Long> {
     }
 
     /**
-     * 创建用能单元
-     *
-     * @param energyUnit 用能单元
-     * @param parentId   父节点ID（null表示根节点）
-     * @return 创建后的用能单元
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public EnergyUnit create(EnergyUnit energyUnit, Long parentId) {
-        // 检查编码是否重复
-        if (energyUnitRepository.existsByCode(energyUnit.getCode())) {
-            throw new IllegalArgumentException("编码已存在: " + energyUnit.getCode());
-        }
-
-        // 设置父节点和层级
-        if (parentId != null) {
-            EnergyUnit parent = energyUnitRepository.findById(parentId)
-                    .orElseThrow(() -> new IllegalArgumentException("父节点不存在: " + parentId));
-            energyUnit.setParent(parent);
-            energyUnit.setLevel(parent.getLevel() + 1);
-        } else {
-            energyUnit.setParent(null);
-            energyUnit.setLevel(0);
-        }
-
-        return energyUnitRepository.save(energyUnit);
-    }
-
-    /**
-     * 更新用能单元
-     *
-     * @param id         ID
-     * @param energyUnit 用能单元
-     * @return 更新后的用能单元
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public EnergyUnit update(Long id, EnergyUnit energyUnit) {
-        EnergyUnit existing = energyUnitRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("用能单元不存在: " + id));
-
-        // 检查编码是否被其他记录使用
-        Optional<EnergyUnit> byCode = energyUnitRepository.findByCode(energyUnit.getCode());
-        if (byCode.isPresent() && !byCode.get().getId().equals(id)) {
-            throw new IllegalArgumentException("编码已被使用: " + energyUnit.getCode());
-        }
-
-        existing.setCode(energyUnit.getCode());
-        existing.setName(energyUnit.getName());
-        existing.setSortOrder(energyUnit.getSortOrder());
-        existing.setStatus(energyUnit.getStatus());
-        existing.setRemark(energyUnit.getRemark());
-
-        return energyUnitRepository.save(existing);
-    }
-
-    /**
      * 移动节点（更改父节点）
      *
      * @param id          节点ID

@@ -81,35 +81,6 @@ public class SysDeptService extends BaseService<SysDept, Long> {
     }
 
     /**
-     * 校验部门编码是否唯一
-     *
-     * @param code 部门编码
-     * @param id   部门ID（用于排除自身）
-     * @return true 表示唯一，false 表示已重复
-     */
-    public boolean checkCodeUnique(String code, Long id) {
-        // 简单实现，后期可扩展
-        return true;
-    }
-
-    /**
-     * 创建部门
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public SysDept createDept(SysDept dept) {
-        SysDept parent = dept.getParent();
-        if (parent != null) {
-            SysDept parentDept = deptRepository.findById(parent.getId()).orElse(null);
-            if (parentDept != null) {
-                dept.setAncestors(parentDept.getAncestors() + "," + parentDept.getId());
-            }
-        } else {
-            dept.setAncestors("0");
-        }
-        return deptRepository.save(dept);
-    }
-
-    /**
      * 获取所有状态为启用的部门列表
      *
      * @return 启用的部门列表

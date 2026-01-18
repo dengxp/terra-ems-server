@@ -78,19 +78,4 @@ public class SysDeptController extends BaseController<SysDept, Long> {
         return Result.content(deptService.findDeptTree(null));
     }
 
-    /**
-     * 保存或更新部门信息
-     *
-     * @param dept 部门实体
-     * @return 操作结果及实体
-     */
-    @Operation(summary = "保存或更新部门")
-    @Override
-    @PreAuthorize("hasAnyAuthority('system:dept:add', 'system:dept:edit')")
-    public Result<SysDept> saveOrUpdate(@Validated @RequestBody SysDept dept) {
-        if (!deptService.checkCodeUnique(dept.getCode(), dept.getId())) {
-            return Result.failure("操作部门'" + dept.getName() + "'失败，部门编码已存在");
-        }
-        return super.saveOrUpdate(dept);
-    }
 }
