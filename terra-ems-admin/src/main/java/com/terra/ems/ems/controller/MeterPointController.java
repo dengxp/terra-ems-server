@@ -128,30 +128,9 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
         return Result.content(meterPointService.findByEnergyUnitId(energyUnitId));
     }
 
-    /**
-     * 创建采集点位
-     */
-    @Operation(summary = "创建采集点位")
-    @PostMapping("/create")
-    public Result<MeterPoint> create(
-            @RequestBody MeterPoint meterPoint,
-            @Parameter(description = "计量器具ID") @RequestParam(required = false) Long meterId,
-            @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId) {
-        return Result.content(meterPointService.create(meterPoint, meterId, energyTypeId));
-    }
-
-    /**
-     * 更新采集点位
-     */
-    @Operation(summary = "更新采集点位")
-    @PutMapping("/{id}")
-    public Result<MeterPoint> update(
-            @PathVariable Long id,
-            @RequestBody MeterPoint meterPoint,
-            @Parameter(description = "计量器具ID") @RequestParam(required = false) Long meterId,
-            @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId) {
-        return Result.content(meterPointService.update(id, meterPoint, meterId, energyTypeId));
-    }
+    // create 和 update 方法已删除
+    // 现在使用基类 BaseController 的 saveOrUpdate 方法（POST /meter-points）
+    // MeterPoint 实体通过 @JsonProperty 桥接模式自动处理 meterId 和 energyTypeId 的转换
 
     // 删除 (delete) 使用 BaseController 默认实现，但需注意 meterPointService.delete 是否有重写逻辑。
     // 原代码 meterPointService.delete(id) 存在。BaseController 调用

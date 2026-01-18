@@ -131,4 +131,50 @@ public class MeterPoint extends BaseEntity {
         @JoinTable(name = "ems_energy_unit_point", joinColumns = @JoinColumn(name = "meter_point_id"), inverseJoinColumns = @JoinColumn(name = "energy_unit_id"))
         @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "children", "parent", "meterPoints" })
         private Set<EnergyUnit> energyUnits = new HashSet<>();
+
+        // ============================================================================
+        // @JsonProperty 桥接模式 - 用于前端扁平数据与后端实体对象的无缝转换
+        // ============================================================================
+
+        /**
+         * 获取计量器具ID（用于前端展示和反序列化桥接）
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("meterId")
+        public Long getMeterId() {
+                return meter != null ? meter.getId() : null;
+        }
+
+        /**
+         * 设置计量器具ID（用于接收前端扁平数据并自动转为对象存根）
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("meterId")
+        public void setMeterId(Long meterId) {
+                if (meterId != null) {
+                        this.meter = new Meter();
+                        this.meter.setId(meterId);
+                } else {
+                        this.meter = null;
+                }
+        }
+
+        /**
+         * 获取能源类型ID（用于前端展示和反序列化桥接）
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("energyTypeId")
+        public Long getEnergyTypeId() {
+                return energyType != null ? energyType.getId() : null;
+        }
+
+        /**
+         * 设置能源类型ID（用于接收前端扁平数据并自动转为对象存根）
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("energyTypeId")
+        public void setEnergyTypeId(Long energyTypeId) {
+                if (energyTypeId != null) {
+                        this.energyType = new EnergyType();
+                        this.energyType.setId(energyTypeId);
+                } else {
+                        this.energyType = null;
+                }
+        }
 }

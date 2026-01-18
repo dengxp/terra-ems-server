@@ -67,6 +67,23 @@ public class MeterPointService extends BaseService<MeterPoint, Long> {
     }
 
     /**
+     * 保存或更新采集点位（重写基类方法以实现编码重复校验）
+     *
+     * @param meterPoint 采集点位
+     * @return 保存后的采集点位
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public MeterPoint saveOrUpdate(MeterPoint meterPoint) {
+        // 检查编码是否重复
+        Optional<MeterPoint> existing = meterPointRepository.findByCode(meterPoint.getCode());
+        if (existing.isPresent() && !existing.get().getId().equals(meterPoint.getId())) {
+            throw new IllegalArgumentException("编码已存在: " + meterPoint.getCode());
+        }
+        return meterPointRepository.save(meterPoint);
+    }
+
+    /**
      * 分页查询
      *
      * @param pageable 分页参数
