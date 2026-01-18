@@ -25,6 +25,7 @@ package com.terra.ems.ems.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.terra.ems.framework.enums.DataItemStatus;
+import com.terra.ems.framework.enums.EnergyCategory;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -72,7 +73,8 @@ public class EnergyType extends BaseEntity {
 
         @Schema(title = "类别", description = "ELECTRIC/GAS/STEAM/WATER/OTHER")
         @Column(name = "category", length = 20)
-        private String category;
+        @Convert(converter = EnergyCategory.EnergyCategoryConverter.class)
+        private EnergyCategory category;
 
         @Schema(title = "是否可存储")
         @Column(name = "storable", nullable = false)

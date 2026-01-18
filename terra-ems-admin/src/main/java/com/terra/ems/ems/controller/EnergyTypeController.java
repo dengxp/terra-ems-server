@@ -44,6 +44,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.terra.ems.framework.enums.EnergyCategory;
+
 /**
  * 能源类型控制器
  *
@@ -84,7 +86,8 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
                 predicates.add(cb.like(root.get("name"), "%" + param.getName() + "%"));
             }
             if (StringUtils.hasText(param.getCategory())) {
-                predicates.add(cb.equal(root.get("category"), param.getCategory()));
+                EnergyCategory categoryEnum = EnergyCategory.fromValue(param.getCategory());
+                predicates.add(cb.equal(root.get("category"), categoryEnum));
             }
             if (param.getStatus() != null) {
                 DataItemStatus statusEnum = DataItemStatus.fromValue(param.getStatus());
@@ -127,6 +130,16 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
             @PathVariable Long id,
             @RequestParam DataItemStatus status) {
         return Result.content(energyTypeService.updateStatus(id, status));
+    }
+
+    /**
+     * 批量删除能源类型
+     */
+    @Operation(summary = "批量删除能源类型")
+    @DeleteMapping("/batch")
+    public Result<Void> deleteBatch(@RequestParam List<Long> ids) {
+        energyTypeService.deleteBatch(ids);
+        return Result.success();
     }
 
     // BaseController 已提供标准 CRUD (getById, saveOrUpdate, delete)，无需重复实现

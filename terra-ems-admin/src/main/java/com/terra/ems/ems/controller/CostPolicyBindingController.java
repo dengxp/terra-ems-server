@@ -93,6 +93,19 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
     }
 
     /**
+     * 分页查询成本策略绑定
+     *
+     * @param pager  分页参数
+     * @param params 查询参数
+     * @return 分页结果
+     */
+    @GetMapping
+    @Operation(summary = "分页查询")
+    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
+        return findByPage(pager, buildSpecification(params));
+    }
+
+    /**
      * 根据ID查询绑定详情
      *
      * @param id 绑定ID

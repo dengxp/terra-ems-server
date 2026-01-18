@@ -28,6 +28,7 @@ import com.terra.ems.ems.entity.Benchmark;
 import com.terra.ems.ems.enums.BenchmarkType;
 import com.terra.ems.ems.service.BenchmarkService;
 import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.enums.DataItemStatus;
 import java.util.Optional;
@@ -61,6 +62,19 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
     @Override
     protected BaseService<Benchmark, Long> getService() {
         return benchmarkService;
+    }
+
+    /**
+     * 分页查询对标值
+     *
+     * @param pager  分页参数
+     * @param params 查询参数
+     * @return 分页结果
+     */
+    @GetMapping
+    @Operation(summary = "分页查询")
+    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
+        return findByPage(pager, buildSpecification(params));
     }
 
     @Override

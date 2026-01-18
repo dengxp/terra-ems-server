@@ -37,8 +37,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -132,12 +136,28 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
      * @return 分页结果
      */
     @Operation(summary = "分页查询")
-    @GetMapping("/search")
-    public Result<Map<String, Object>> search(Pager pager, ProductionRecordQueryParam param) {
-        Page<ProductionRecord> records = productionRecordService.findByEnergyUnitAndDateRange(
-                param.getEnergyUnitId(), param.getDataType(), param.getStartDate(), param.getEndDate(),
-                pager.getPageable());
-        return result(records);
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(Pager pager, ProductionRecordQueryParam param) {
+        return findByPage(pager, buildSpecification(param));
+    }
+
+    private Specification<ProductionRecord> buildSpecification(ProductionRecordQueryParam param) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (param.getEnergyUnitId() != null) {
+                predicates.add(cb.equal(root.get("energyUnitId"), param.getEnergyUnitId()));
+            }
+            if (param.getDataType() != null) {
+                predicates.add(cb.equal(root.get("dataType"), param.getDataType()));
+            }
+            if (param.getStartDate() != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("dataDate"), param.getStartDate()));
+            }
+            if (param.getEndDate() != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("dataDate"), param.getEndDate()));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**

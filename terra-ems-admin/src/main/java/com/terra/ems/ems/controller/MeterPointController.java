@@ -37,6 +37,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -67,10 +72,22 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
      * 分页查询采集点位
      */
     @Operation(summary = "分页查询")
-    @GetMapping("/search")
-    public Result<Map<String, Object>> search(Pager pager, MeterPointQueryParam param) {
-        Page<MeterPoint> pages = meterPointService.findAll(pager.getPageable());
-        return result(pages);
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(Pager pager, MeterPointQueryParam param) {
+        return findByPage(pager, buildSpecification(param));
+    }
+
+    private Specification<MeterPoint> buildSpecification(MeterPointQueryParam param) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (StringUtils.hasText(param.getCode())) {
+                predicates.add(cb.like(root.get("code"), "%" + param.getCode() + "%"));
+            }
+            if (StringUtils.hasText(param.getName())) {
+                predicates.add(cb.like(root.get("name"), "%" + param.getName() + "%"));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**

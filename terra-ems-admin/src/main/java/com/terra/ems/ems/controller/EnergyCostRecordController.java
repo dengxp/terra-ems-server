@@ -106,6 +106,19 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
     }
 
     /**
+     * 分页查询成本记录
+     *
+     * @param pager  分页参数
+     * @param params 查询参数
+     * @return 分页结果
+     */
+    @GetMapping
+    @Operation(summary = "分页查询")
+    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
+        return findByPage(pager, buildSpecification(params));
+    }
+
+    /**
      * 根据ID查询成本记录详情
      *
      * @param id 记录ID

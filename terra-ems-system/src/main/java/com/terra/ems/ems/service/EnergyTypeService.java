@@ -60,40 +60,6 @@ public class EnergyTypeService extends BaseService<EnergyType, Long> {
     }
 
     /**
-     * 分页查询
-     *
-     * @param code     编码
-     * @param name     名称（模糊查询）
-     * @param category 类别
-     * @param status   状态
-     * @param pageable 分页参数
-     * @return 分页结果
-     */
-    public Page<EnergyType> findPage(String code, String name, String category, DataItemStatus status,
-            Pageable pageable) {
-        Specification<EnergyType> spec = (root, query, cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
-
-            if (StringUtils.hasText(code)) {
-                predicates.add(cb.like(root.get("code"), "%" + code + "%"));
-            }
-            if (StringUtils.hasText(name)) {
-                predicates.add(cb.like(root.get("name"), "%" + name + "%"));
-            }
-            if (StringUtils.hasText(category)) {
-                predicates.add(cb.equal(root.get("category"), category));
-            }
-            if (status != null) {
-                predicates.add(cb.equal(root.get("status"), status));
-            }
-
-            return cb.and(predicates.toArray(new Predicate[0]));
-        };
-
-        return energyTypeRepository.findAll(spec, pageable);
-    }
-
-    /**
      * 查询所有启用的能源类型
      *
      * @return 能源类型列表
@@ -110,56 +76,6 @@ public class EnergyTypeService extends BaseService<EnergyType, Long> {
      */
     public Optional<EnergyType> findByCode(String code) {
         return energyTypeRepository.findByCode(code);
-    }
-
-    /**
-     * 创建能源类型
-     *
-     * @param energyType 能源类型
-     * @return 创建后的能源类型
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public EnergyType create(EnergyType energyType) {
-        // 检查编码是否重复
-        if (energyTypeRepository.existsByCode(energyType.getCode())) {
-            throw new IllegalArgumentException("编码已存在: " + energyType.getCode());
-        }
-        return energyTypeRepository.save(energyType);
-    }
-
-    /**
-     * 更新能源类型
-     *
-     * @param id         ID
-     * @param energyType 能源类型
-     * @return 更新后的能源类型
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public EnergyType update(Long id, EnergyType energyType) {
-        EnergyType existing = energyTypeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("能源类型不存在: " + id));
-
-        // 检查编码是否被其他记录使用
-        Optional<EnergyType> byCode = energyTypeRepository.findByCode(energyType.getCode());
-        if (byCode.isPresent() && !byCode.get().getId().equals(id)) {
-            throw new IllegalArgumentException("编码已被使用: " + energyType.getCode());
-        }
-
-        existing.setCode(energyType.getCode());
-        existing.setName(energyType.getName());
-        existing.setUnit(energyType.getUnit());
-        existing.setCategory(energyType.getCategory());
-        existing.setStorable(energyType.getStorable());
-        existing.setCoefficient(energyType.getCoefficient());
-        existing.setEmissionFactor(energyType.getEmissionFactor());
-        existing.setDefaultPrice(energyType.getDefaultPrice());
-        existing.setIcon(energyType.getIcon());
-        existing.setColor(energyType.getColor());
-        existing.setSortOrder(energyType.getSortOrder());
-        existing.setStatus(energyType.getStatus());
-        existing.setRemark(energyType.getRemark());
-
-        return energyTypeRepository.save(existing);
     }
 
     /**

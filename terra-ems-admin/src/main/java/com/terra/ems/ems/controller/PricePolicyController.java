@@ -38,6 +38,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -71,10 +76,22 @@ public class PricePolicyController extends BaseController<PricePolicy, Long> {
      * @return 分页结果
      */
     @Operation(summary = "分页查询")
-    @GetMapping("/search")
-    public Result<Map<String, Object>> search(Pager pager, PricePolicyQueryParam param) {
-        Page<PricePolicy> pages = pricePolicyService.findAll(pager.getPageable());
-        return result(pages);
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(Pager pager, PricePolicyQueryParam param) {
+        return findByPage(pager, buildSpecification(param));
+    }
+
+    private Specification<PricePolicy> buildSpecification(PricePolicyQueryParam param) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (StringUtils.hasText(param.getName())) {
+                predicates.add(cb.like(root.get("name"), "%" + param.getName() + "%"));
+            }
+            if (StringUtils.hasText(param.getCode())) {
+                predicates.add(cb.like(root.get("code"), "%" + param.getCode() + "%"));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**

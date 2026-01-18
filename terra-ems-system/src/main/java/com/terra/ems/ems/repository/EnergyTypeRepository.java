@@ -26,6 +26,7 @@ package com.terra.ems.ems.repository;
 import com.terra.ems.ems.entity.EnergyType;
 import com.terra.ems.ems.entity.EnergyUnit;
 import com.terra.ems.framework.enums.DataItemStatus;
+import com.terra.ems.framework.enums.EnergyCategory;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import org.springframework.stereotype.Repository;
 
@@ -64,7 +65,7 @@ public interface EnergyTypeRepository extends BaseRepository<EnergyType, Long> {
      * @param category 类别
      * @return 能源类型列表
      */
-    List<EnergyType> findByCategory(String category);
+    List<EnergyType> findByCategory(EnergyCategory category);
 
     /**
      * 根据状态查询

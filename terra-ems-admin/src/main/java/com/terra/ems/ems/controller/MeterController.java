@@ -36,6 +36,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -64,12 +70,28 @@ public class MeterController extends BaseController<Meter, Long> {
      * 分页查询计量器具
      */
     @Operation(summary = "分页查询")
-    @GetMapping("/search")
-    public Result<Map<String, Object>> search(Pager pager, MeterQueryParam param) {
-        DataItemStatus statusEnum = param.getStatus() != null ? DataItemStatus.fromValue(param.getStatus()) : null;
-        Page<Meter> pages = meterService.findPage(param.getCode(), param.getName(), param.getType(), statusEnum,
-                pager.getPageable());
-        return result(pages);
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(Pager pager, MeterQueryParam param) {
+        return findByPage(pager, buildSpecification(param));
+    }
+
+    private Specification<Meter> buildSpecification(MeterQueryParam param) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (StringUtils.hasText(param.getCode())) {
+                predicates.add(cb.like(root.get("code"), "%" + param.getCode() + "%"));
+            }
+            if (StringUtils.hasText(param.getName())) {
+                predicates.add(cb.like(root.get("name"), "%" + param.getName() + "%"));
+            }
+            if (StringUtils.hasText(param.getType())) {
+                predicates.add(cb.equal(root.get("type"), param.getType()));
+            }
+            if (param.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"), DataItemStatus.fromValue(param.getStatus())));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     @Operation(summary = "更新计量器具")

@@ -85,6 +85,17 @@ public class GlobalExceptionResolver {
             Result<String> result = Result.failure();
             String exceptionName = ex.getClass().getSimpleName();
 
+            // 特殊处理数据完整性违规异常（如唯一约束冲突）
+            if ("DataIntegrityViolationException".equals(exceptionName)) {
+                String message = extractConstraintViolationMessage(ex);
+                result = Result.failure(ErrorCodes.INTERNAL_SERVER_ERROR);
+                result.message(message);
+                result.path(path);
+                result.detail(ex.getMessage());
+                log.error("[Terra] |- 数据完整性异常: {}", message);
+                return result;
+            }
+
             if (StringUtils.isNotEmpty(exceptionName) && EXCEPTION_DICTIONARY.containsKey(exceptionName)) {
                 ErrorCodes errorCode = EXCEPTION_DICTIONARY.get(exceptionName);
                 result = Result.failure(errorCode);
@@ -103,5 +114,44 @@ public class GlobalExceptionResolver {
             log.error("[Terra] |- 系统异常 [{}]: {}", exceptionName, ex.getMessage());
             return result;
         }
+    }
+
+    /**
+     * 从数据完整性违规异常中提取用户友好的错误信息
+     *
+     * @param ex 异常
+     * @return 用户友好的错误信息
+     */
+    private static String extractConstraintViolationMessage(Exception ex) {
+        String message = ex.getMessage();
+        Throwable cause = ex.getCause();
+
+        // 遍历异常链查找 ConstraintViolationException
+        while (cause != null) {
+            String causeName = cause.getClass().getSimpleName();
+            String causeMessage = cause.getMessage();
+
+            // PostgreSQL/Hibernate 唯一约束冲突
+            if ("ConstraintViolationException".equals(causeName) ||
+                    "PSQLException".equals(causeName)) {
+
+                if (causeMessage != null) {
+                    // 匹配常见的唯一约束违规模式
+                    if (causeMessage.contains("duplicate key") ||
+                            causeMessage.contains("unique constraint") ||
+                            causeMessage.contains("重复键违反唯一约束")) {
+                        return "数据重复，已存在相同的记录";
+                    }
+                    if (causeMessage.contains("foreign key constraint") ||
+                            causeMessage.contains("违反外键约束")) {
+                        return "操作失败，该数据正在被其他记录引用";
+                    }
+                }
+            }
+            cause = cause.getCause();
+        }
+
+        // 默认返回通用消息
+        return "数据保存失败，请检查输入数据是否有效";
     }
 }

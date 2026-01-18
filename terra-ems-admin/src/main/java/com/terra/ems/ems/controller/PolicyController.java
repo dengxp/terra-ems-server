@@ -30,6 +30,7 @@ import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.common.domain.Result;
+import com.terra.ems.framework.definition.dto.Pager;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -91,6 +92,19 @@ public class PolicyController extends BaseController<Policy, Long> {
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };
+    }
+
+    /**
+     * 分页查询政策
+     *
+     * @param pager  分页参数
+     * @param params 查询参数
+     * @return 分页结果
+     */
+    @GetMapping
+    @Operation(summary = "分页查询政策")
+    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
+        return findByPage(pager, buildSpecification(params));
     }
 
     /**
