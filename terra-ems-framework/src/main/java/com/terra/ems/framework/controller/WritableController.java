@@ -121,7 +121,7 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
         @Idempotent
         @Operation(summary = "批量删除数据", description = "根据实体ID集合批量删除数据")
         @DeleteMapping
-        public Result<String> delete(@RequestBody List<ID> ids) {
+        public Result<String> deleteBatch(@RequestBody List<ID> ids) {
                 getWritableService().deleteAllById(ids);
                 return Result.success("删除成功");
         }

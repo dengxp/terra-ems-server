@@ -132,15 +132,5 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
         return Result.content(energyTypeService.updateStatus(id, status));
     }
 
-    /**
-     * 批量删除能源类型
-     */
-    @Operation(summary = "批量删除能源类型")
-    @DeleteMapping("/batch")
-    public Result<Void> deleteBatch(@RequestParam List<Long> ids) {
-        energyTypeService.deleteBatch(ids);
-        return Result.success();
-    }
-
-    // BaseController 已提供标准 CRUD (getById, saveOrUpdate, delete)，无需重复实现
+    // BaseController 已提供标准 CRUD (getById, saveOrUpdate, delete, deleteBatch)，无需重复实现
 }

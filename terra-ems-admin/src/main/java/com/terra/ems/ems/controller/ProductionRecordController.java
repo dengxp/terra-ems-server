@@ -98,19 +98,6 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
     }
 
     /**
-     * 批量删除产量记录
-     *
-     * @param ids 记录ID列表
-     * @return 操作结果
-     */
-    @Operation(summary = "批量删除产量记录")
-    @DeleteMapping("/batch")
-    public Result<Void> deleteBatch(@RequestBody List<Long> ids) {
-        productionRecordService.deleteByIds(ids);
-        return Result.success();
-    }
-
-    /**
      * 获取指定产量记录的详细信息
      *
      * @param id 记录ID

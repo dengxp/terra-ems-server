@@ -116,19 +116,6 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
     }
 
     /**
-     * 批量删除文章
-     *
-     * @param ids 文章ID列表
-     * @return 操作结果
-     */
-    @Operation(summary = "批量删除文章")
-    @DeleteMapping("/batch")
-    public Result<Void> deleteBatch(@RequestBody List<Long> ids) {
-        knowledgeArticleService.deleteByIds(ids);
-        return Result.success();
-    }
-
-    /**
      * 获取文章详情（会增加阅读次数）
      *
      * @param id 文章ID
