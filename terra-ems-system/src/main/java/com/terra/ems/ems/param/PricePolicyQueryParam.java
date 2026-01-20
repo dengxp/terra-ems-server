@@ -41,4 +41,7 @@ public class PricePolicyQueryParam {
 
     @Schema(description = "编码")
     private String code;
+
+    @Schema(description = "状态")
+    private Integer status;
 }

@@ -24,6 +24,7 @@
 package com.terra.ems.ems.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
 import com.terra.ems.framework.enums.DataItemStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -70,6 +71,17 @@ public class PricePolicy extends BaseEntity {
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @Schema(description = "关联能源类型")
     private EnergyType energyType;
+
+    /**
+     * 设置能源类型ID（用于 JSON 反序列化）
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public void setEnergyTypeId(Long energyTypeId) {
+        if (energyTypeId != null) {
+            this.energyType = new EnergyType();
+            this.energyType.setId(energyTypeId);
+        }
+    }
 
     @Column(name = "is_multi_rate")
     @Schema(description = "是否复费率（分时电价）")

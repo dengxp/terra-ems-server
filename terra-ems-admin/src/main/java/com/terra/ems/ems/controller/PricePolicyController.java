@@ -25,7 +25,6 @@ package com.terra.ems.ems.controller;
 
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.PricePolicy;
-import com.terra.ems.ems.entity.PricePolicyItem;
 import com.terra.ems.ems.param.PricePolicyQueryParam;
 import com.terra.ems.ems.service.PricePolicyService;
 import com.terra.ems.framework.controller.BaseController;
@@ -33,9 +32,7 @@ import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.persistence.criteria.Predicate;
@@ -48,6 +45,11 @@ import java.util.Map;
 
 /**
  * 电价策略控制器
+ * 
+ * 继承 BaseController 自动获得：
+ * - POST / → saveOrUpdate (新增/更新)
+ * - DELETE /{id} → delete (单个删除)
+ * - DELETE / → deleteBatch (批量删除)
  *
  * @author dengxueping
  * @since 2026-01-11
@@ -89,6 +91,10 @@ public class PricePolicyController extends BaseController<PricePolicy, Long> {
             }
             if (StringUtils.hasText(param.getCode())) {
                 predicates.add(cb.like(root.get("code"), "%" + param.getCode() + "%"));
+            }
+            if (param.getStatus() != null) {
+                DataItemStatus statusEnum = param.getStatus() == 0 ? DataItemStatus.ENABLE : DataItemStatus.FORBIDDEN;
+                predicates.add(cb.equal(root.get("status"), statusEnum));
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
@@ -132,56 +138,6 @@ public class PricePolicyController extends BaseController<PricePolicy, Long> {
     }
 
     /**
-     * 创建电价策略及明细
-     *
-     * @param payload 包含策略基本信息和明细列表的负载
-     * @return 创建后的电价策略实体
-     */
-    @Operation(summary = "创建电价策略")
-    @PostMapping("/create")
-    public Result<PricePolicy> create(@RequestBody Map<String, Object> payload) {
-        PricePolicy pricePolicy = extractPricePolicy(payload);
-        Long energyTypeId = payload.get("energyTypeId") != null
-                ? Long.parseLong(payload.get("energyTypeId").toString())
-                : 1L; // 默认为电（ID=1）
-        List<PricePolicyItem> items = extractItems(payload);
-        PricePolicy created = pricePolicyService.create(pricePolicy, energyTypeId, items);
-        return Result.content(created);
-    }
-
-    /**
-     * 更新电价策略及其明细
-     *
-     * @param id      策略ID
-     * @param payload 包含更新信息的负载
-     * @return 更新后的电价策略实体
-     */
-    @Operation(summary = "更新电价策略")
-    @PutMapping("/{id}")
-    public Result<PricePolicy> update(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
-        PricePolicy pricePolicy = extractPricePolicy(payload);
-        Long energyTypeId = payload.get("energyTypeId") != null
-                ? Long.valueOf(payload.get("energyTypeId").toString())
-                : 1L;
-        List<PricePolicyItem> items = extractItems(payload);
-        PricePolicy updated = pricePolicyService.update(id, pricePolicy, energyTypeId, items);
-        return Result.content(updated);
-    }
-
-    /**
-     * 删除指定的电价策略
-     *
-     * @param id 策略ID
-     * @return 操作结果
-     */
-    @Operation(summary = "删除电价策略")
-    @DeleteMapping("/{id}")
-    public Result<String> delete(@PathVariable Long id) {
-        pricePolicyService.deleteById(id);
-        return Result.success("删除成功");
-    }
-
-    /**
      * 快捷更新电价策略状态
      *
      * @param id     策略ID
@@ -195,54 +151,5 @@ public class PricePolicyController extends BaseController<PricePolicy, Long> {
             @RequestParam DataItemStatus status) {
         PricePolicy updated = pricePolicyService.updateStatus(id, status);
         return Result.content(updated);
-    }
-
-    /**
-     * 从请求体提取策略基本信息
-     */
-    private PricePolicy extractPricePolicy(Map<String, Object> payload) {
-        PricePolicy policy = new PricePolicy();
-        policy.setCode((String) payload.get("code"));
-        policy.setName((String) payload.get("name"));
-        policy.setIsMultiRate(payload.get("isMultiRate") != null
-                ? (Boolean) payload.get("isMultiRate")
-                : true);
-        policy.setSortOrder(payload.get("sortOrder") != null
-                ? Integer.valueOf(payload.get("sortOrder").toString())
-                : 0);
-        if (payload.get("status") != null) {
-            int statusValue = Integer.parseInt(payload.get("status").toString());
-            policy.setStatus(statusValue == 0 ? DataItemStatus.ENABLE : DataItemStatus.FORBIDDEN);
-        }
-        policy.setRemark((String) payload.get("remark"));
-        return policy;
-    }
-
-    /**
-     * 从请求体提取明细列表
-     */
-    @SuppressWarnings("unchecked")
-    private List<PricePolicyItem> extractItems(Map<String, Object> payload) {
-        Object itemsObj = payload.get("items");
-        if (itemsObj == null) {
-            return List.of();
-        }
-        List<Map<String, Object>> itemMaps = (List<Map<String, Object>>) itemsObj;
-        return itemMaps.stream().map(m -> {
-            PricePolicyItem item = new PricePolicyItem();
-            if (m.get("periodType") != null) {
-                item.setPeriodType(com.terra.ems.ems.enums.PeriodType.valueOf(m.get("periodType").toString()));
-            }
-            if (m.get("price") != null) {
-                item.setPrice(new java.math.BigDecimal(m.get("price").toString()));
-            }
-            if (m.get("sortOrder") != null) {
-                item.setSortOrder(Integer.valueOf(m.get("sortOrder").toString()));
-            }
-            item.setStartTime((String) m.get("startTime"));
-            item.setEndTime((String) m.get("endTime"));
-            item.setRemark((String) m.get("remark"));
-            return item;
-        }).toList();
     }
 }

@@ -86,6 +86,24 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
             if (StringUtils.hasText(param.getName())) {
                 predicates.add(cb.like(root.get("name"), "%" + param.getName() + "%"));
             }
+            if (param.getMeterId() != null) {
+                predicates.add(cb.equal(root.get("meter").get("id"), param.getMeterId()));
+            }
+            if (param.getEnergyTypeId() != null) {
+                predicates.add(cb.equal(root.get("energyType").get("id"), param.getEnergyTypeId()));
+            }
+            if (StringUtils.hasText(param.getPointType())) {
+                predicates.add(cb.equal(root.get("pointType"), param.getPointType()));
+            }
+            if (StringUtils.hasText(param.getCategory())) {
+                predicates.add(cb.equal(root.get("category"), param.getCategory()));
+            }
+            if (param.getStatus() != null) {
+                DataItemStatus status = DataItemStatus.get(param.getStatus());
+                if (status != null) {
+                    predicates.add(cb.equal(root.get("status"), status));
+                }
+            }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
     }

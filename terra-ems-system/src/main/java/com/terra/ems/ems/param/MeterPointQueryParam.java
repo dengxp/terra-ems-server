@@ -41,4 +41,19 @@ public class MeterPointQueryParam {
 
     @Schema(description = "名称")
     private String name;
+
+    @Schema(description = "计量器具ID")
+    private Long meterId;
+
+    @Schema(description = "能源类型ID")
+    private Long energyTypeId;
+
+    @Schema(description = "点位类型", example = "COLLECT, CALC")
+    private String pointType;
+
+    @Schema(description = "分类", example = "ENERGY, PRODUCT, EFFICIENCY, OPERATION, OTHER")
+    private String category;
+
+    @Schema(description = "状态（0=启用, 1=禁用）")
+    private Integer status;
 }

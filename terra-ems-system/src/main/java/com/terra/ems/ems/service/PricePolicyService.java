@@ -23,10 +23,7 @@
 
 package com.terra.ems.ems.service;
 
-import com.terra.ems.ems.entity.EnergyType;
 import com.terra.ems.ems.entity.PricePolicy;
-import com.terra.ems.ems.entity.PricePolicyItem;
-import com.terra.ems.ems.repository.EnergyTypeRepository;
 import com.terra.ems.ems.repository.PricePolicyRepository;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
@@ -46,13 +43,11 @@ import java.util.Optional;
  * @author dengxueping
  * @since 2026-01-11
  */
-
 @Service
 @RequiredArgsConstructor
 public class PricePolicyService extends BaseService<PricePolicy, Long> {
 
     private final PricePolicyRepository pricePolicyRepository;
-    private final EnergyTypeRepository energyTypeRepository;
 
     @Override
     public BaseRepository<PricePolicy, Long> getRepository() {
@@ -95,93 +90,11 @@ public class PricePolicyService extends BaseService<PricePolicy, Long> {
     }
 
     /**
-     * 创建策略（含明细）
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public PricePolicy create(PricePolicy pricePolicy, Long energyTypeId, List<PricePolicyItem> items) {
-        // 检查编码是否重复
-        if (pricePolicyRepository.existsByCode(pricePolicy.getCode())) {
-            throw new IllegalArgumentException("编码已存在: " + pricePolicy.getCode());
-        }
-
-        // 设置关联的能源类型
-        if (energyTypeId != null) {
-            EnergyType energyType = energyTypeRepository.findById(energyTypeId)
-                    .orElseThrow(() -> new IllegalArgumentException("能源类型不存在: " + energyTypeId));
-            pricePolicy.setEnergyType(energyType);
-        }
-
-        // 设置明细
-        if (items != null && !items.isEmpty()) {
-            for (PricePolicyItem item : items) {
-                pricePolicy.addItem(item);
-            }
-        }
-
-        return pricePolicyRepository.save(pricePolicy);
-    }
-
-    /**
-     * 更新策略（含明细）
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public PricePolicy update(Long id, PricePolicy pricePolicy, Long energyTypeId, List<PricePolicyItem> items) {
-        PricePolicy existing = pricePolicyRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("电价策略不存在: " + id));
-
-        // 检查编码是否被其他记录使用
-        Optional<PricePolicy> byCode = pricePolicyRepository.findByCode(pricePolicy.getCode());
-        if (byCode.isPresent() && !byCode.get().getId().equals(id)) {
-            throw new IllegalArgumentException("编码已被使用: " + pricePolicy.getCode());
-        }
-
-        // 更新基本信息
-        existing.setCode(pricePolicy.getCode());
-        existing.setName(pricePolicy.getName());
-        existing.setIsMultiRate(pricePolicy.getIsMultiRate());
-        existing.setSortOrder(pricePolicy.getSortOrder());
-        existing.setStatus(pricePolicy.getStatus());
-        existing.setRemark(pricePolicy.getRemark());
-
-        // 更新关联的能源类型
-        if (energyTypeId != null) {
-            EnergyType energyType = energyTypeRepository.findById(energyTypeId)
-                    .orElseThrow(() -> new IllegalArgumentException("能源类型不存在: " + energyTypeId));
-            existing.setEnergyType(energyType);
-        } else {
-            existing.setEnergyType(null);
-        }
-
-        // 更新明细（先清空再添加）
-        existing.getItems().clear();
-        if (items != null && !items.isEmpty()) {
-            for (PricePolicyItem item : items) {
-                existing.addItem(item);
-            }
-        }
-
-        return pricePolicyRepository.save(existing);
-    }
-
-    /**
-     * 删除策略
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void deleteById(Long id) {
-        if (!pricePolicyRepository.existsById(id)) {
-            throw new IllegalArgumentException("电价策略不存在: " + id);
-        }
-        pricePolicyRepository.deleteById(id);
-    }
-
-    /**
      * 修改状态
      */
     @Transactional(rollbackFor = Exception.class)
     public PricePolicy updateStatus(Long id, DataItemStatus status) {
-        PricePolicy existing = pricePolicyRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("电价策略不存在: " + id));
+        PricePolicy existing = pricePolicyRepository.findById(id).orElseThrow();
         existing.setStatus(status);
         return pricePolicyRepository.save(existing);
     }
