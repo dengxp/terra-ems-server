@@ -25,13 +25,22 @@ package com.terra.ems.ems.controller;
 
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.AlarmRecord;
+import com.terra.ems.ems.param.AlarmRecordQueryParam;
 import com.terra.ems.ems.service.AlarmRecordService;
 import com.terra.ems.framework.controller.ReadableController;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.service.ReadableService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 报警历史记录控制器
@@ -53,6 +62,38 @@ public class AlarmRecordController extends ReadableController<AlarmRecord, Long>
     @Override
     protected ReadableService<AlarmRecord, Long> getReadableService() {
         return alarmRecordService;
+    }
+
+    /**
+     * 分页查询报警记录
+     */
+    @Operation(summary = "分页查询报警记录")
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(Pager pager, AlarmRecordQueryParam param) {
+        return findByPage(pager, buildSpecification(param));
+    }
+
+    private Specification<AlarmRecord> buildSpecification(AlarmRecordQueryParam param) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (param.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"), param.getStatus()));
+            }
+            if (param.getMeterPointId() != null) {
+                predicates.add(cb.equal(root.get("alarmConfig").get("meterPoint").get("id"), param.getMeterPointId()));
+            }
+            if (param.getAlarmLimitTypeId() != null) {
+                predicates.add(
+                        cb.equal(root.get("alarmConfig").get("alarmLimitType").get("id"), param.getAlarmLimitTypeId()));
+            }
+            if (param.getStartTime() != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("triggerTime"), param.getStartTime()));
+            }
+            if (param.getEndTime() != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("triggerTime"), param.getEndTime()));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**

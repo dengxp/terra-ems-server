@@ -26,6 +26,7 @@ import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.system.entity.SysDept;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -55,7 +56,8 @@ public interface SysDeptRepository extends BaseRepository<SysDept, Long> {
     /**
      * 根据父ID查询子部门
      */
-    List<SysDept> findByParent_IdOrderBySortOrderAsc(Long parentId);
+    @Query("select e from SysDept e where e.parent.id = :parentId order by e.sortOrder asc")
+    List<SysDept> findByParentIdOrderBySortOrderAsc(@Param("parentId") Long parentId);
 
     /**
      * 根据祖级查询部门列表（性能优化：用于查询某个部门下的所有层级）

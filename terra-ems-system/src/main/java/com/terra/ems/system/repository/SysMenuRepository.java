@@ -25,6 +25,8 @@ package com.terra.ems.system.repository;
 
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.system.entity.SysMenu;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -42,5 +44,6 @@ public interface SysMenuRepository extends BaseRepository<SysMenu, Long> {
     /**
      * 根据父ID查询子菜单
      */
-    List<SysMenu> findByParent_IdOrderBySortOrderAsc(Long parentId);
+    @Query("select e from SysMenu e where e.parent.id = :parentId order by e.sortOrder asc")
+    List<SysMenu> findByParentIdOrderBySortOrderAsc(@Param("parentId") Long parentId);
 }

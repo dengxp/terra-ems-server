@@ -73,10 +73,10 @@ public class SysDeptService extends BaseService<SysDept, Long> {
     public List<SysDept> findDeptTree(Long parentId) {
         if (parentId == null) {
             // 返回顶级部门树
-            return deptRepository.findByParent_IdOrderBySortOrderAsc(null);
+            return deptRepository.findByParentIdOrderBySortOrderAsc(null);
         } else {
             // 返回指定部门及其子树
-            return deptRepository.findByParent_IdOrderBySortOrderAsc(parentId);
+            return deptRepository.findByParentIdOrderBySortOrderAsc(parentId);
         }
     }
 

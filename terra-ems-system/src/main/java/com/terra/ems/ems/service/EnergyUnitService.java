@@ -79,7 +79,7 @@ public class EnergyUnitService extends BaseService<EnergyUnit, Long> {
      * @return 子节点列表
      */
     public List<EnergyUnit> getChildren(Long parentId) {
-        return energyUnitRepository.findByParent_IdOrderBySortOrderAsc(parentId);
+        return energyUnitRepository.findByParentIdOrderBySortOrderAsc(parentId);
     }
 
     /**

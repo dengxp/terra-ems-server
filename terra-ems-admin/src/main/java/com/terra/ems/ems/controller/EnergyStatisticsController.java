@@ -83,11 +83,11 @@ public class EnergyStatisticsController extends Controller {
      */
     @Operation(summary = "获取同比分析")
     @GetMapping("/yoy")
-    public Result<List<ComparisonAnalysisDTO>> findYoYAnalysis(
+    public Result<List<ComparisonAnalysisDTO>> findYoyAnalysis(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
-        return Result.content(energyStatisticsService.getYoYAnalysis(parentUnitId, timeType, dataTime));
+        return Result.content(energyStatisticsService.getYoyAnalysis(parentUnitId, timeType, dataTime));
     }
 
     /**
@@ -100,11 +100,11 @@ public class EnergyStatisticsController extends Controller {
      */
     @Operation(summary = "获取环比分析")
     @GetMapping("/mom")
-    public Result<List<ComparisonAnalysisDTO>> findMoMAnalysis(
+    public Result<List<ComparisonAnalysisDTO>> findMomAnalysis(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
-        return Result.content(energyStatisticsService.getMoMAnalysis(parentUnitId, timeType, dataTime));
+        return Result.content(energyStatisticsService.getMomAnalysis(parentUnitId, timeType, dataTime));
     }
 
     /**

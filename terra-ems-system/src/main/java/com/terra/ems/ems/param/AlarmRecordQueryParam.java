@@ -21,47 +21,38 @@
  *
  */
 
-package com.terra.ems.system.service;
+package com.terra.ems.ems.param;
 
-import com.terra.ems.framework.jpa.repository.BaseRepository;
-import com.terra.ems.framework.service.BaseService;
-import com.terra.ems.system.entity.SysMenu;
-import com.terra.ems.system.repository.SysMenuRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 /**
- * 系统菜单服务
+ * 报警记录查询参数
  *
  * @author dengxueping
- * @since 2026-01-11
+ * @since 2026-01-21
  */
+@Data
+@Schema(title = "报警记录查询参数")
+public class AlarmRecordQueryParam {
 
-@Service
-@RequiredArgsConstructor
-public class SysMenuService extends BaseService<SysMenu, Long> {
+    @Schema(description = "处理状态 (0: 未处理, 1: 已处理, 2: 忽略)")
+    private Integer status;
 
-    private final SysMenuRepository menuRepository;
+    @Schema(description = "采集点位ID")
+    private Long meterPointId;
 
-    /**
-     * 获取数据访问仓库
-     *
-     * @return 菜单仓库
-     */
-    @Override
-    public BaseRepository<SysMenu, Long> getRepository() {
-        return menuRepository;
-    }
+    @Schema(description = "报警限值类型ID")
+    private Long alarmLimitTypeId;
 
-    /**
-     * 查询指定父菜单下的子菜单树
-     *
-     * @param parentId 父菜单ID
-     * @return 菜单列表
-     */
-    public List<SysMenu> findMenuTree(Long parentId) {
-        return menuRepository.findByParentIdOrderBySortOrderAsc(parentId);
-    }
+    @Schema(description = "开始时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime startTime;
+
+    @Schema(description = "结束时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime endTime;
 }

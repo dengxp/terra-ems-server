@@ -58,31 +58,34 @@ public class AlarmLimitTypeController extends BaseController<AlarmLimitType, Lon
 
     private final AlarmLimitTypeService alarmLimitTypeService;
 
-    @Override
-    protected Specification<AlarmLimitType> buildSpecification(Map<String, Object> params) {
-        return (root, query, cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
-            if (params.containsKey("keyword") && StringUtils.hasText((String) params.get("keyword"))) {
-                String keyword = "%" + params.get("keyword") + "%";
-                predicates.add(cb.or(
-                        cb.like(root.get("limitName"), keyword),
-                        cb.like(root.get("limitCode"), keyword)));
-            }
-            return cb.and(predicates.toArray(new Predicate[0]));
-        };
-    }
-
     /**
      * 分页查询报警限值类型
      *
-     * @param pager  分页参数
-     * @param params 查询参数
+     * @param pager 分页参数
+     * @param name  限值名称（模糊匹配）
+     * @param code  限值编码（模糊匹配）
      * @return 分页结果
      */
     @GetMapping
     @Operation(summary = "分页查询")
-    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
-        return findByPage(pager, buildSpecification(params));
+    public Result<Map<String, Object>> findByPage(
+            Pager pager,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String code) {
+        return findByPage(pager, buildSpecification(name, code));
+    }
+
+    private Specification<AlarmLimitType> buildSpecification(String name, String code) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (StringUtils.hasText(name)) {
+                predicates.add(cb.like(root.get("limitName"), "%" + name + "%"));
+            }
+            if (StringUtils.hasText(code)) {
+                predicates.add(cb.like(root.get("limitCode"), "%" + code + "%"));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**

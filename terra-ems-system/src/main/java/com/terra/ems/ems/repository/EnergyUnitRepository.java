@@ -27,6 +27,8 @@ import com.terra.ems.ems.entity.EnergyUnit;
 import com.terra.ems.ems.enums.EnergyUnitType;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -71,7 +73,8 @@ public interface EnergyUnitRepository extends BaseRepository<EnergyUnit, Long> {
      * @param parentId 父节点ID
      * @return 子节点列表
      */
-    List<EnergyUnit> findByParent_IdOrderBySortOrderAsc(Long parentId);
+    @Query("select e from EnergyUnit e where e.parent.id = :parentId order by e.sortOrder asc")
+    List<EnergyUnit> findByParentIdOrderBySortOrderAsc(@Param("parentId") Long parentId);
 
     /**
      * 根据状态查询所有根节点
@@ -94,7 +97,8 @@ public interface EnergyUnitRepository extends BaseRepository<EnergyUnit, Long> {
      * @param parentId 父节点ID
      * @return 子节点数量
      */
-    long countByParent_Id(Long parentId);
+    @Query("select count(e) from EnergyUnit e where e.parent.id = :parentId")
+    long countByParentId(@Param("parentId") Long parentId);
 
     /**
      * 查询指定层级的所有节点
@@ -130,7 +134,9 @@ public interface EnergyUnitRepository extends BaseRepository<EnergyUnit, Long> {
      * @param unitType 单元类型
      * @return 节点列表
      */
-    List<EnergyUnit> findByParent_IdAndUnitTypeOrderBySortOrderAsc(Long parentId, EnergyUnitType unitType);
+    @Query("select e from EnergyUnit e where e.parent.id = :parentId and e.unitType = :unitType order by e.sortOrder asc")
+    List<EnergyUnit> findByParentIdAndUnitTypeOrderBySortOrderAsc(@Param("parentId") Long parentId,
+            @Param("unitType") EnergyUnitType unitType);
 
     /**
      * 根据父节点和类型及状态查询
@@ -140,6 +146,8 @@ public interface EnergyUnitRepository extends BaseRepository<EnergyUnit, Long> {
      * @param status   状态
      * @return 节点列表
      */
-    List<EnergyUnit> findByParent_IdAndUnitTypeAndStatusOrderBySortOrderAsc(
-            Long parentId, EnergyUnitType unitType, DataItemStatus status);
+    @Query("select e from EnergyUnit e where e.parent.id = :parentId and e.unitType = :unitType and e.status = :status order by e.sortOrder asc")
+    List<EnergyUnit> findByParentIdAndUnitTypeAndStatusOrderBySortOrderAsc(
+            @Param("parentId") Long parentId, @Param("unitType") EnergyUnitType unitType,
+            @Param("status") DataItemStatus status);
 }

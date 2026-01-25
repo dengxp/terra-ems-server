@@ -104,7 +104,8 @@ public class EnergyStatisticsService {
                 energyUnitId, timeType, currentRange.start, currentRange.end));
 
         // 趋势数据
-        summary.setTrendData(getTrendData(energyUnitId, timeType, currentRange.start, currentRange.end));
+        summary.setTrendData(
+                getTrendData(energyUnitId, getSubTimeType(timeType), currentRange.start, currentRange.end));
 
         return summary;
     }
@@ -112,26 +113,26 @@ public class EnergyStatisticsService {
     /**
      * 获取同比分析列表
      */
-    public List<ComparisonAnalysisDTO> getYoYAnalysis(Long parentUnitId, String timeType, LocalDateTime dataTime) {
+    public List<ComparisonAnalysisDTO> getYoyAnalysis(Long parentUnitId, String timeType, LocalDateTime dataTime) {
         return getComparisonAnalysis(parentUnitId, timeType, dataTime, true);
     }
 
     /**
      * 获取环比分析列表
      */
-    public List<ComparisonAnalysisDTO> getMoMAnalysis(Long parentUnitId, String timeType, LocalDateTime dataTime) {
+    public List<ComparisonAnalysisDTO> getMomAnalysis(Long parentUnitId, String timeType, LocalDateTime dataTime) {
         return getComparisonAnalysis(parentUnitId, timeType, dataTime, false);
     }
 
     private List<ComparisonAnalysisDTO> getComparisonAnalysis(
-            Long parentUnitId, String timeType, LocalDateTime dataTime, boolean isYoY) {
+            Long parentUnitId, String timeType, LocalDateTime dataTime, boolean isYoy) {
         List<ComparisonAnalysisDTO> result = new ArrayList<>();
 
         // 获取子用能单元
-        List<EnergyUnit> childUnits = energyUnitRepository.findByParent_IdOrderBySortOrderAsc(parentUnitId);
+        List<EnergyUnit> childUnits = energyUnitRepository.findByParentIdOrderBySortOrderAsc(parentUnitId);
 
         TimeRange currentRange = calculateTimeRange(timeType, dataTime);
-        TimeRange comparisonRange = isYoY
+        TimeRange comparisonRange = isYoy
                 ? calculateTimeRange(timeType, dataTime.minusYears(1))
                 : calculateLastPeriodRange(timeType, dataTime);
 
@@ -189,7 +190,8 @@ public class EnergyStatisticsService {
         summary.setEnergyTypeDistribution(getEnergyTypeDistribution(
                 energyUnitId, timeType, currentRange.start, currentRange.end));
 
-        summary.setTrendData(getComprehensiveTrendData(energyUnitId, timeType, currentRange.start, currentRange.end));
+        summary.setTrendData(getComprehensiveTrendData(energyUnitId, getSubTimeType(timeType), currentRange.start,
+                currentRange.end));
 
         return summary;
     }
@@ -305,23 +307,20 @@ public class EnergyStatisticsService {
 
     private TimeRange calculateTimeRange(String timeType, LocalDateTime dataTime) {
         LocalDateTime start, end;
-        switch (timeType) {
-            case "DAY":
-                start = dataTime.toLocalDate().atStartOfDay();
-                end = start.plusDays(1).minusNanos(1);
-                break;
-            case "MONTH":
+        end = switch (timeType) {
+            case "MONTH" -> {
                 start = dataTime.withDayOfMonth(1).toLocalDate().atStartOfDay();
-                end = start.plusMonths(1).minusNanos(1);
-                break;
-            case "YEAR":
+                yield start.plusMonths(1).minusNanos(1);
+            }
+            case "YEAR" -> {
                 start = dataTime.withDayOfYear(1).toLocalDate().atStartOfDay();
-                end = start.plusYears(1).minusNanos(1);
-                break;
-            default:
+                yield start.plusYears(1).minusNanos(1);
+            }
+            default -> {
                 start = dataTime.toLocalDate().atStartOfDay();
-                end = start.plusDays(1).minusNanos(1);
-        }
+                yield start.plusDays(1).minusNanos(1);
+            }
+        };
         return new TimeRange(start, end);
     }
 
@@ -354,6 +353,15 @@ public class EnergyStatisticsService {
     private record TimeRange(LocalDateTime start, LocalDateTime end) {
     }
 
+    private String getSubTimeType(String timeType) {
+        return switch (timeType) {
+            case "YEAR" -> "MONTH";
+            case "MONTH" -> "DAY";
+            case "DAY" -> "HOUR";
+            default -> "DAY";
+        };
+    }
+
     /**
      * 获取工序能耗分析
      * 分析各子用能单元（工序）的能耗情况
@@ -371,7 +379,7 @@ public class EnergyStatisticsService {
         TimeRange currentRange = calculateTimeRange(timeType, dataTime);
 
         // 获取子用能单元
-        List<EnergyUnit> childUnits = energyUnitRepository.findByParent_IdOrderBySortOrderAsc(parentUnitId);
+        List<EnergyUnit> childUnits = energyUnitRepository.findByParentIdOrderBySortOrderAsc(parentUnitId);
 
         // 获取能源单位
         String unitName = "tce";
@@ -424,13 +432,13 @@ public class EnergyStatisticsService {
             List<Object[]> trendData;
             if (energyTypeId != null) {
                 trendData = energyDataRepository.findTrendByEnergyUnitAndEnergyType(
-                        unit.getId(), energyTypeId, timeType, currentRange.start, currentRange.end);
+                        unit.getId(), energyTypeId, getSubTimeType(timeType), currentRange.start, currentRange.end);
             } else {
                 trendData = energyDataRepository.findStandardCoalTrendByEnergyUnit(
-                        unit.getId(), timeType, currentRange.start, currentRange.end);
+                        unit.getId(), getSubTimeType(timeType), currentRange.start, currentRange.end);
             }
 
-            DateTimeFormatter formatter = getFormatter(timeType);
+            DateTimeFormatter formatter = getFormatter(getSubTimeType(timeType));
             for (Object[] row : trendData) {
                 ProcessEnergyAnalysisDTO.TimeSlotEnergy slot = new ProcessEnergyAnalysisDTO.TimeSlotEnergy();
                 slot.setLabel(((LocalDateTime) row[0]).format(formatter));
@@ -538,10 +546,10 @@ public class EnergyStatisticsService {
         List<Object[]> energyTrend;
         if (energyTypeId != null) {
             energyTrend = energyDataRepository.findTrendByEnergyUnitAndEnergyType(
-                    energyUnitId, energyTypeId, timeType, range.start, range.end);
+                    energyUnitId, energyTypeId, getSubTimeType(timeType), range.start, range.end);
         } else {
             energyTrend = energyDataRepository.findStandardCoalTrendByEnergyUnit(
-                    energyUnitId, timeType, range.start, range.end);
+                    energyUnitId, getSubTimeType(timeType), range.start, range.end);
         }
 
         // 获取产量趋势
@@ -557,7 +565,7 @@ public class EnergyStatisticsService {
         // 合并数据
         java.util.Map<String, BigDecimal> energyMap = new java.util.HashMap<>();
         java.util.Map<String, BigDecimal> prodMap = new java.util.HashMap<>();
-        DateTimeFormatter formatter = getFormatter(timeType);
+        DateTimeFormatter formatter = getFormatter(getSubTimeType(timeType));
 
         for (Object[] row : energyTrend) {
             String label = ((LocalDateTime) row[0]).format(formatter);
@@ -619,13 +627,13 @@ public class EnergyStatisticsService {
         TimeRange currentRange = calculateTimeRange(timeType, dataTime);
 
         // 获取子用能单元（支路类型优先，如果没有则获取所有子节点）
-        List<EnergyUnit> branches = energyUnitRepository.findByParent_IdAndUnitTypeAndStatusOrderBySortOrderAsc(
+        List<EnergyUnit> branches = energyUnitRepository.findByParentIdAndUnitTypeAndStatusOrderBySortOrderAsc(
                 parentUnitId, com.terra.ems.ems.enums.EnergyUnitType.BRANCH,
                 com.terra.ems.framework.enums.DataItemStatus.ENABLE);
 
         if (branches.isEmpty()) {
             // 如果没有标记为支路的节点，则使用所有子节点
-            branches = energyUnitRepository.findByParent_IdOrderBySortOrderAsc(parentUnitId);
+            branches = energyUnitRepository.findByParentIdOrderBySortOrderAsc(parentUnitId);
         }
 
         // 获取能源单位
@@ -682,13 +690,13 @@ public class EnergyStatisticsService {
             List<Object[]> trendData;
             if (energyTypeId != null) {
                 trendData = energyDataRepository.findTrendByEnergyUnitAndEnergyType(
-                        branch.getId(), energyTypeId, timeType, currentRange.start, currentRange.end);
+                        branch.getId(), energyTypeId, getSubTimeType(timeType), currentRange.start, currentRange.end);
             } else {
                 trendData = energyDataRepository.findTrendByEnergyUnit(
-                        branch.getId(), timeType, currentRange.start, currentRange.end);
+                        branch.getId(), getSubTimeType(timeType), currentRange.start, currentRange.end);
             }
 
-            DateTimeFormatter formatter = getFormatter(timeType);
+            DateTimeFormatter formatter = getFormatter(getSubTimeType(timeType));
             for (Object[] row : trendData) {
                 com.terra.ems.ems.dto.BranchAnalysisDTO.TimeSlotData slot = new com.terra.ems.ems.dto.BranchAnalysisDTO.TimeSlotData();
                 slot.setLabel(((LocalDateTime) row[0]).format(formatter));
@@ -722,7 +730,7 @@ public class EnergyStatisticsService {
         TimeRange currentRange = calculateTimeRange(timeType, dataTime);
 
         // 获取子用能单元
-        List<EnergyUnit> childUnits = energyUnitRepository.findByParent_IdOrderBySortOrderAsc(parentUnitId);
+        List<EnergyUnit> childUnits = energyUnitRepository.findByParentIdOrderBySortOrderAsc(parentUnitId);
 
         for (EnergyUnit unit : childUnits) {
             com.terra.ems.ems.dto.BenchmarkAnalysisDTO dto = new com.terra.ems.ems.dto.BenchmarkAnalysisDTO();
