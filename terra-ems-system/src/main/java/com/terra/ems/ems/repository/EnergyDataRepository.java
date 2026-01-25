@@ -83,8 +83,9 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          * 按用能单元ID和能源类型查询能耗汇总
          */
         @Query("SELECT SUM(e.value) FROM EnergyData e " +
+                        "JOIN e.energyType et " +
                         "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
-                        "WHERE eu.id = :energyUnitId AND e.energyType.id = :energyTypeId " +
+                        "WHERE eu.id = :energyUnitId AND et.id = :energyTypeId " +
                         "AND e.timeType = :timeType AND e.dataTime BETWEEN :startTime AND :endTime")
         BigDecimal sumByEnergyUnitAndEnergyTypeAndTimeRange(
                         @Param("energyUnitId") Long energyUnitId,
@@ -111,8 +112,9 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          * 按能源类型查询趋势数据
          */
         @Query("SELECT e.dataTime, SUM(e.value) FROM EnergyData e " +
+                        "JOIN e.energyType et " +
                         "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
-                        "WHERE eu.id = :energyUnitId AND e.energyType.id = :energyTypeId " +
+                        "WHERE eu.id = :energyUnitId AND et.id = :energyTypeId " +
                         "AND e.timeType = :timeType AND e.dataTime BETWEEN :startTime AND :endTime " +
                         "GROUP BY e.dataTime ORDER BY e.dataTime")
         List<Object[]> findTrendByEnergyUnitAndEnergyType(

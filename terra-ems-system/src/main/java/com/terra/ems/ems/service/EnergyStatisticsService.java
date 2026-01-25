@@ -68,9 +68,11 @@ public class EnergyStatisticsService {
      * @param energyUnitId 用能单元ID
      * @param timeType     时间类型 (DAY/MONTH/YEAR)
      * @param dataTime     数据时间
+     * @param energyTypeId 能源类型ID（可选，为空时统计折标煤汇总）
      * @return 统计汇总
      */
-    public EnergyStatisticsSummaryDTO getSummary(Long energyUnitId, String timeType, LocalDateTime dataTime) {
+    public EnergyStatisticsSummaryDTO getSummary(Long energyUnitId, String timeType, LocalDateTime dataTime,
+            Long energyTypeId) {
         EnergyStatisticsSummaryDTO summary = new EnergyStatisticsSummaryDTO();
 
         // 计算时间范围
@@ -78,20 +80,41 @@ public class EnergyStatisticsService {
         TimeRange lastYearRange = calculateTimeRange(timeType, dataTime.minusYears(1));
         TimeRange lastPeriodRange = calculateLastPeriodRange(timeType, dataTime);
 
-        // 当期总能耗
-        BigDecimal currentTotal = energyDataRepository.sumByEnergyUnitAndTimeRange(
-                energyUnitId, timeType, currentRange.start, currentRange.end);
-        summary.setCurrentTotal(currentTotal != null ? currentTotal : BigDecimal.ZERO);
+        // 如果没有指定能源类型，则汇总折标煤，否则按物理量统计
+        if (energyTypeId == null) {
+            // 当期总能耗 (tce)
+            summary.setCurrentTotal(orZero(energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
+                    energyUnitId, timeType, currentRange.start, currentRange.end)));
 
-        // 同期总能耗
-        BigDecimal lastYearTotal = energyDataRepository.sumByEnergyUnitAndTimeRange(
-                energyUnitId, timeType, lastYearRange.start, lastYearRange.end);
-        summary.setLastYearTotal(lastYearTotal != null ? lastYearTotal : BigDecimal.ZERO);
+            // 同期总能耗 (tce)
+            summary.setLastYearTotal(orZero(energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
+                    energyUnitId, timeType, lastYearRange.start, lastYearRange.end)));
 
-        // 上期总能耗
-        BigDecimal lastPeriodTotal = energyDataRepository.sumByEnergyUnitAndTimeRange(
-                energyUnitId, timeType, lastPeriodRange.start, lastPeriodRange.end);
-        summary.setLastPeriodTotal(lastPeriodTotal != null ? lastPeriodTotal : BigDecimal.ZERO);
+            // 上期总能耗 (tce)
+            summary.setLastPeriodTotal(orZero(energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
+                    energyUnitId, timeType, lastPeriodRange.start, lastPeriodRange.end)));
+
+            // 趋势数据项 (tce)
+            summary.setTrendData(getComprehensiveTrendData(energyUnitId, getSubTimeType(timeType), currentRange.start,
+                    currentRange.end));
+        } else {
+            // 当期总能耗 (物理量)
+            summary.setCurrentTotal(orZero(energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
+                    energyUnitId, energyTypeId, timeType, currentRange.start, currentRange.end)));
+
+            // 同期总能耗 (物理量)
+            summary.setLastYearTotal(orZero(energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
+                    energyUnitId, energyTypeId, timeType, lastYearRange.start, lastYearRange.end)));
+
+            // 上期总能耗 (物理量)
+            summary.setLastPeriodTotal(orZero(energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
+                    energyUnitId, energyTypeId, timeType, lastPeriodRange.start, lastPeriodRange.end)));
+
+            // 趋势数据项 (物理量)
+            summary.setTrendData(
+                    getTrendDataByEnergyType(energyUnitId, energyTypeId, getSubTimeType(timeType), currentRange.start,
+                            currentRange.end));
+        }
 
         // 计算同比增长率
         summary.setYoyRate(calculateChangeRate(summary.getCurrentTotal(), summary.getLastYearTotal()));
@@ -99,33 +122,35 @@ public class EnergyStatisticsService {
         // 计算环比增长率
         summary.setMomRate(calculateChangeRate(summary.getCurrentTotal(), summary.getLastPeriodTotal()));
 
-        // 能源类型分布
+        // 能源类型分布（目前主要针对综合汇总显示）
         summary.setEnergyTypeDistribution(getEnergyTypeDistribution(
                 energyUnitId, timeType, currentRange.start, currentRange.end));
 
-        // 趋势数据
-        summary.setTrendData(
-                getTrendData(energyUnitId, getSubTimeType(timeType), currentRange.start, currentRange.end));
-
         return summary;
+    }
+
+    private BigDecimal orZero(BigDecimal value) {
+        return value != null ? value : BigDecimal.ZERO;
     }
 
     /**
      * 获取同比分析列表
      */
-    public List<ComparisonAnalysisDTO> getYoyAnalysis(Long parentUnitId, String timeType, LocalDateTime dataTime) {
-        return getComparisonAnalysis(parentUnitId, timeType, dataTime, true);
+    public List<ComparisonAnalysisDTO> getYoyAnalysis(Long parentUnitId, String timeType, LocalDateTime dataTime,
+            Long energyTypeId) {
+        return getComparisonAnalysis(parentUnitId, timeType, dataTime, true, energyTypeId);
     }
 
     /**
      * 获取环比分析列表
      */
-    public List<ComparisonAnalysisDTO> getMomAnalysis(Long parentUnitId, String timeType, LocalDateTime dataTime) {
-        return getComparisonAnalysis(parentUnitId, timeType, dataTime, false);
+    public List<ComparisonAnalysisDTO> getMomAnalysis(Long parentUnitId, String timeType, LocalDateTime dataTime,
+            Long energyTypeId) {
+        return getComparisonAnalysis(parentUnitId, timeType, dataTime, false, energyTypeId);
     }
 
     private List<ComparisonAnalysisDTO> getComparisonAnalysis(
-            Long parentUnitId, String timeType, LocalDateTime dataTime, boolean isYoy) {
+            Long parentUnitId, String timeType, LocalDateTime dataTime, boolean isYoy, Long energyTypeId) {
         List<ComparisonAnalysisDTO> result = new ArrayList<>();
 
         // 获取子用能单元
@@ -136,21 +161,37 @@ public class EnergyStatisticsService {
                 ? calculateTimeRange(timeType, dataTime.minusYears(1))
                 : calculateLastPeriodRange(timeType, dataTime);
 
+        // 获取能源单位名称
+        String unitName = "tce";
+        if (energyTypeId != null) {
+            unitName = energyTypeRepository.findById(energyTypeId)
+                    .map(com.terra.ems.ems.entity.EnergyType::getUnit)
+                    .orElse("kWh");
+        }
+
         for (EnergyUnit unit : childUnits) {
             ComparisonAnalysisDTO dto = new ComparisonAnalysisDTO();
             dto.setEnergyUnitId(unit.getId());
             dto.setEnergyUnitName(unit.getName());
 
-            BigDecimal currentValue = energyDataRepository.sumByEnergyUnitAndTimeRange(
-                    unit.getId(), timeType, currentRange.start, currentRange.end);
-            BigDecimal comparisonValue = energyDataRepository.sumByEnergyUnitAndTimeRange(
-                    unit.getId(), timeType, comparisonRange.start, comparisonRange.end);
+            BigDecimal currentValue, comparisonValue;
+            if (energyTypeId == null) {
+                currentValue = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
+                        unit.getId(), timeType, currentRange.start, currentRange.end);
+                comparisonValue = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
+                        unit.getId(), timeType, comparisonRange.start, comparisonRange.end);
+            } else {
+                currentValue = energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
+                        unit.getId(), energyTypeId, timeType, currentRange.start, currentRange.end);
+                comparisonValue = energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
+                        unit.getId(), energyTypeId, timeType, comparisonRange.start, comparisonRange.end);
+            }
 
             dto.setCurrentValue(currentValue != null ? currentValue : BigDecimal.ZERO);
             dto.setComparisonValue(comparisonValue != null ? comparisonValue : BigDecimal.ZERO);
             dto.setDifference(dto.getCurrentValue().subtract(dto.getComparisonValue()));
             dto.setChangeRate(calculateChangeRate(dto.getCurrentValue(), dto.getComparisonValue()));
-            dto.setUnit("kWh"); // 默认单位，可根据能源类型调整
+            dto.setUnit(unitName);
 
             result.add(dto);
         }
@@ -270,6 +311,26 @@ public class EnergyStatisticsService {
             } else {
                 item.setPercentage(BigDecimal.ZERO);
             }
+            result.add(item);
+        }
+
+        return result;
+    }
+
+    private List<TrendDataItem> getTrendDataByEnergyType(
+            Long energyUnitId, Long energyTypeId, String timeType, LocalDateTime startTime, LocalDateTime endTime) {
+        List<Object[]> data = energyDataRepository.findTrendByEnergyUnitAndEnergyType(
+                energyUnitId, energyTypeId, timeType, startTime, endTime);
+
+        List<TrendDataItem> result = new ArrayList<>();
+        DateTimeFormatter formatter = getFormatter(timeType);
+
+        for (Object[] row : data) {
+            TrendDataItem item = new TrendDataItem();
+            LocalDateTime dt = (LocalDateTime) row[0];
+            item.setDataTime(dt);
+            item.setLabel(dt.format(formatter));
+            item.setValue((BigDecimal) row[1]);
             result.add(item);
         }
 

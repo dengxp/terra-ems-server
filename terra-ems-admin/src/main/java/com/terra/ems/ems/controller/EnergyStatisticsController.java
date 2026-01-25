@@ -69,8 +69,9 @@ public class EnergyStatisticsController extends Controller {
     public Result<EnergyStatisticsSummaryDTO> findSummary(
             @Parameter(description = "用能单元ID") @RequestParam Long energyUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "DAY") String timeType,
-            @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
-        return Result.content(energyStatisticsService.getSummary(energyUnitId, timeType, dataTime));
+            @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime,
+            @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId) {
+        return Result.content(energyStatisticsService.getSummary(energyUnitId, timeType, dataTime, energyTypeId));
     }
 
     /**
@@ -86,8 +87,9 @@ public class EnergyStatisticsController extends Controller {
     public Result<List<ComparisonAnalysisDTO>> findYoyAnalysis(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
-            @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
-        return Result.content(energyStatisticsService.getYoyAnalysis(parentUnitId, timeType, dataTime));
+            @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime,
+            @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId) {
+        return Result.content(energyStatisticsService.getYoyAnalysis(parentUnitId, timeType, dataTime, energyTypeId));
     }
 
     /**
@@ -103,8 +105,9 @@ public class EnergyStatisticsController extends Controller {
     public Result<List<ComparisonAnalysisDTO>> findMomAnalysis(
             @Parameter(description = "父用能单元ID") @RequestParam Long parentUnitId,
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
-            @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime) {
-        return Result.content(energyStatisticsService.getMomAnalysis(parentUnitId, timeType, dataTime));
+            @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime,
+            @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId) {
+        return Result.content(energyStatisticsService.getMomAnalysis(parentUnitId, timeType, dataTime, energyTypeId));
     }
 
     /**
