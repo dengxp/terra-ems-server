@@ -34,10 +34,10 @@ import lombok.Getter;
 @Getter
 public enum TimePeriodType {
 
-    SHARP("尖峰", 1.5),
-    PEAK("高峰", 1.2),
-    FLAT("平段", 1.0),
-    VALLEY("低谷", 0.6),
+    SHARP("尖", 1.5),
+    PEAK("峰", 1.2),
+    FLAT("平", 1.0),
+    VALLEY("谷", 0.6),
     DEEP_VALLEY("深谷", 0.3);
 
     private final String label;
