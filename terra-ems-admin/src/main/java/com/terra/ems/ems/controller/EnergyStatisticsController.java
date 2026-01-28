@@ -30,6 +30,7 @@ import com.terra.ems.ems.dto.ComparisonAnalysisDTO;
 import com.terra.ems.ems.dto.EnergyStatisticsSummaryDTO;
 import com.terra.ems.ems.dto.ProcessEnergyAnalysisDTO;
 import com.terra.ems.ems.dto.UnitConsumptionDTO;
+import com.terra.ems.ems.enums.EnergyUnitType;
 import com.terra.ems.ems.service.EnergyStatisticsService;
 import com.terra.ems.framework.controller.Controller;
 import io.swagger.v3.oas.annotations.Operation;
@@ -205,7 +206,7 @@ public class EnergyStatisticsController extends Controller {
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime,
             @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId) {
         return Result.content(
-                energyStatisticsService.getBranchAnalysis(parentUnitId, timeType, dataTime, energyTypeId));
+                energyStatisticsService.getBranchAnalysis(parentUnitId, timeType, dataTime, energyTypeId, null));
     }
 
     // ==================== 对标分析 ====================

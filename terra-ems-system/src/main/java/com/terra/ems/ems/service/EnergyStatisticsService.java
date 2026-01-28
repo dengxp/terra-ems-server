@@ -30,10 +30,15 @@ import com.terra.ems.ems.dto.EnergyStatisticsSummaryDTO.TrendDataItem;
 import com.terra.ems.ems.dto.ProcessEnergyAnalysisDTO;
 import com.terra.ems.ems.dto.UnitConsumptionDTO;
 import com.terra.ems.ems.entity.EnergyUnit;
+import com.terra.ems.ems.dto.BenchmarkAnalysisDTO;
+import com.terra.ems.ems.dto.BranchAnalysisDTO;
+import com.terra.ems.ems.enums.BenchmarkType;
+import com.terra.ems.ems.enums.EnergyUnitType;
 import com.terra.ems.ems.repository.EnergyDataRepository;
 import com.terra.ems.ems.repository.EnergyTypeRepository;
 import com.terra.ems.ems.repository.EnergyUnitRepository;
 import com.terra.ems.ems.repository.ProductionRecordRepository;
+import com.terra.ems.framework.enums.DataItemStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -681,29 +686,30 @@ public class EnergyStatisticsService {
      * @param energyTypeId 能源类型ID（可选，默认电力）
      * @return 支路能耗分析列表
      */
-    public List<com.terra.ems.ems.dto.BranchAnalysisDTO> getBranchAnalysis(
-            Long parentUnitId, String timeType, LocalDateTime dataTime, Long energyTypeId) {
+    public List<BranchAnalysisDTO> getBranchAnalysis(
+            Long parentUnitId, String timeType, LocalDateTime dataTime, Long energyTypeId,
+            EnergyUnitType childUnitType) {
 
-        List<com.terra.ems.ems.dto.BranchAnalysisDTO> result = new ArrayList<>();
+        List<BranchAnalysisDTO> result = new ArrayList<>();
         TimeRange currentRange = calculateTimeRange(timeType, dataTime);
 
-        // 获取子用能单元（支路类型优先，如果没有则获取所有子节点）
+        // 如果未指定子节点类型，默认为支路
+        if (childUnitType == null) {
+            childUnitType = EnergyUnitType.BRANCH;
+        }
+
+        // 获取子用能单元（使用指定的类型）
         List<EnergyUnit> branches = energyUnitRepository.findByParentIdAndUnitTypeAndStatusOrderBySortOrderAsc(
-                parentUnitId, com.terra.ems.ems.enums.EnergyUnitType.BRANCH,
-                com.terra.ems.framework.enums.DataItemStatus.ENABLE);
+                parentUnitId, childUnitType,
+                DataItemStatus.ENABLE);
 
         if (branches.isEmpty()) {
             // 如果没有标记为支路的节点，则使用所有子节点
             branches = energyUnitRepository.findByParentIdOrderBySortOrderAsc(parentUnitId);
         }
 
-        // 获取能源单位
+        // 获取能源单位 (默认kWh)
         String unitName = "kWh";
-        if (energyTypeId != null) {
-            unitName = energyTypeRepository.findById(energyTypeId)
-                    .map(com.terra.ems.ems.entity.EnergyType::getUnit)
-                    .orElse("kWh");
-        }
 
         // 计算总能耗用于占比计算
         BigDecimal totalEnergy = BigDecimal.ZERO;
@@ -728,7 +734,7 @@ public class EnergyStatisticsService {
             EnergyUnit branch = (EnergyUnit) data[0];
             BigDecimal consumption = (BigDecimal) data[1];
 
-            com.terra.ems.ems.dto.BranchAnalysisDTO dto = new com.terra.ems.ems.dto.BranchAnalysisDTO();
+            BranchAnalysisDTO dto = new BranchAnalysisDTO();
             dto.setBranchId(branch.getId());
             dto.setBranchName(branch.getName());
             dto.setVoltageLevel(branch.getVoltageLevel());
@@ -747,19 +753,13 @@ public class EnergyStatisticsService {
             }
 
             // 获取时段能耗明细
-            List<com.terra.ems.ems.dto.BranchAnalysisDTO.TimeSlotData> timeSlotData = new ArrayList<>();
-            List<Object[]> trendData;
-            if (energyTypeId != null) {
-                trendData = energyDataRepository.findTrendByEnergyUnitAndEnergyType(
-                        branch.getId(), energyTypeId, getSubTimeType(timeType), currentRange.start, currentRange.end);
-            } else {
-                trendData = energyDataRepository.findTrendByEnergyUnit(
-                        branch.getId(), getSubTimeType(timeType), currentRange.start, currentRange.end);
-            }
+            List<BranchAnalysisDTO.TimeSlotData> timeSlotData = new ArrayList<>();
+            List<Object[]> trendData = energyDataRepository.findTrendByEnergyUnit(
+                    branch.getId(), getSubTimeType(timeType), currentRange.start, currentRange.end);
 
             DateTimeFormatter formatter = getFormatter(getSubTimeType(timeType));
             for (Object[] row : trendData) {
-                com.terra.ems.ems.dto.BranchAnalysisDTO.TimeSlotData slot = new com.terra.ems.ems.dto.BranchAnalysisDTO.TimeSlotData();
+                BranchAnalysisDTO.TimeSlotData slot = new BranchAnalysisDTO.TimeSlotData();
                 slot.setLabel(((LocalDateTime) row[0]).format(formatter));
                 slot.setValue((BigDecimal) row[1]);
                 timeSlotData.add(slot);
@@ -784,17 +784,17 @@ public class EnergyStatisticsService {
      * @param benchmarkType 标杆类型（可选）
      * @return 对标分析列表
      */
-    public List<com.terra.ems.ems.dto.BenchmarkAnalysisDTO> getBenchmarkAnalysis(
+    public List<BenchmarkAnalysisDTO> getBenchmarkAnalysis(
             Long parentUnitId, String timeType, LocalDateTime dataTime, String benchmarkType) {
 
-        List<com.terra.ems.ems.dto.BenchmarkAnalysisDTO> result = new ArrayList<>();
+        List<BenchmarkAnalysisDTO> result = new ArrayList<>();
         TimeRange currentRange = calculateTimeRange(timeType, dataTime);
 
         // 获取子用能单元
         List<EnergyUnit> childUnits = energyUnitRepository.findByParentIdOrderBySortOrderAsc(parentUnitId);
 
         for (EnergyUnit unit : childUnits) {
-            com.terra.ems.ems.dto.BenchmarkAnalysisDTO dto = new com.terra.ems.ems.dto.BenchmarkAnalysisDTO();
+            BenchmarkAnalysisDTO dto = new BenchmarkAnalysisDTO();
             dto.setEnergyUnitId(unit.getId());
             dto.setEnergyUnitName(unit.getName());
 
