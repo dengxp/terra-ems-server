@@ -30,7 +30,7 @@ import com.terra.ems.ems.dto.ComparisonAnalysisDTO;
 import com.terra.ems.ems.dto.EnergyStatisticsSummaryDTO;
 import com.terra.ems.ems.dto.ProcessEnergyAnalysisDTO;
 import com.terra.ems.ems.dto.UnitConsumptionDTO;
-import com.terra.ems.ems.enums.EnergyUnitType;
+
 import com.terra.ems.ems.service.EnergyStatisticsService;
 import com.terra.ems.framework.controller.Controller;
 import io.swagger.v3.oas.annotations.Operation;
