@@ -32,7 +32,7 @@ import com.terra.ems.ems.dto.UnitConsumptionDTO;
 import com.terra.ems.ems.entity.EnergyUnit;
 import com.terra.ems.ems.dto.BenchmarkAnalysisDTO;
 import com.terra.ems.ems.dto.BranchAnalysisDTO;
-import com.terra.ems.ems.enums.BenchmarkType;
+
 import com.terra.ems.ems.enums.EnergyUnitType;
 import com.terra.ems.ems.repository.EnergyDataRepository;
 import com.terra.ems.ems.repository.EnergyTypeRepository;
@@ -49,7 +49,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 能耗统计分析服务
