@@ -36,7 +36,6 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * 尖峰平谷分析服务

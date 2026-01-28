@@ -28,16 +28,12 @@ import com.terra.ems.ems.repository.EnergyTypeRepository;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.framework.service.BaseService;
-import jakarta.persistence.criteria.Predicate;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

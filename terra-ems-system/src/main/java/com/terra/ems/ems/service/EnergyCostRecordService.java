@@ -29,15 +29,13 @@ import com.terra.ems.ems.repository.EnergyCostRecordRepository;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.framework.service.BaseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.terra.ems.ems.dto.CostDeviationDTO;
 import com.terra.ems.ems.dto.CostTrendDTO;
 import com.terra.ems.ems.entity.EnergyType;
-import com.terra.ems.ems.entity.EnergyUnit;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

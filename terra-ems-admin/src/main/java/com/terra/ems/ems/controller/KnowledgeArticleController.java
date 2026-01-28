@@ -34,7 +34,7 @@ import com.terra.ems.common.domain.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +45,6 @@ import java.util.Map;
 import java.util.ArrayList;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.util.StringUtils;
 
 /**
  * 知识库文章控制器

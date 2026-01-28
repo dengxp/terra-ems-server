@@ -24,7 +24,6 @@
 package com.terra.ems.common.domain;
 
 import lombok.Data;
-import lombok.Getter;
 
 /**
  * 错误详情

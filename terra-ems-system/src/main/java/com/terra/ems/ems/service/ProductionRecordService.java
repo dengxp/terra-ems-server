@@ -26,7 +26,7 @@ package com.terra.ems.ems.service;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.ems.entity.ProductionRecord;
-import com.terra.ems.ems.enums.TimeGranularity;
+
 import com.terra.ems.ems.repository.ProductionRecordRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
