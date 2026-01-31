@@ -23,6 +23,7 @@
 
 package com.terra.ems.ems.service;
 
+import com.terra.ems.common.domain.Option;
 import com.terra.ems.ems.entity.EnergyType;
 import com.terra.ems.ems.repository.EnergyTypeRepository;
 import com.terra.ems.framework.enums.DataItemStatus;
@@ -36,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 能源类型服务实现类
@@ -113,5 +115,16 @@ public class EnergyTypeService extends BaseService<EnergyType, Long> {
                 .orElseThrow(() -> new IllegalArgumentException("能源类型不存在: " + id));
         existing.setStatus(status);
         return energyTypeRepository.save(existing);
+    }
+
+    /**
+     * 获取所有启用状态的能源类型选项列表 (Select组件专用)
+     *
+     * @return 选项列表
+     */
+    public List<Option<Long>> findOptions() {
+        return findAllEnabled().stream()
+                .map(e -> Option.of(e.getId(), e.getName()))
+                .collect(Collectors.toList());
     }
 }

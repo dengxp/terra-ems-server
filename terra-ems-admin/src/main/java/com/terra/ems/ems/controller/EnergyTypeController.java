@@ -23,6 +23,7 @@
 
 package com.terra.ems.ems.controller;
 
+import com.terra.ems.common.domain.Option;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.EnergyType;
 import com.terra.ems.ems.param.EnergyTypeQueryParam;
@@ -132,5 +133,12 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
         return Result.content(energyTypeService.updateStatus(id, status));
     }
 
-    // BaseController 已提供标准 CRUD (getById, saveOrUpdate, delete, deleteBatch)，无需重复实现
+    /**
+     * 获取能源类型选项列表
+     */
+    @Operation(summary = "获取能源类型选项列表")
+    @GetMapping("/options")
+    public Result<List<Option<Long>>> findOptions() {
+        return Result.content(energyTypeService.findOptions());
+    }
 }

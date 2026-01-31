@@ -4,6 +4,7 @@
 
 package com.terra.ems.ems.service;
 
+import com.terra.ems.common.domain.Option;
 import com.terra.ems.ems.entity.Product;
 import com.terra.ems.ems.repository.ProductRepository;
 import com.terra.ems.framework.enums.DataItemStatus;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 产品信息服务
@@ -58,5 +60,16 @@ public class ProductService extends BaseService<Product, Long> {
             return productRepository.save(entity);
         }
         return null;
+    }
+
+    /**
+     * 获取所有启用状态的产品选项列表 (Select组件专用)
+     *
+     * @return 选项列表
+     */
+    public List<Option<Long>> findOptions() {
+        return findEnabled().stream()
+                .map(p -> Option.of(p.getId(), p.getName()))
+                .collect(Collectors.toList());
     }
 }

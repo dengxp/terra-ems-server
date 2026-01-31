@@ -40,6 +40,16 @@ Controller                     # 基础定义，提供统一响应转换方法
 | 移动节点 | PATCH | `/ems/resource/{id}/move` | 变更父节点，对应 `move` |
 | 修改状态 | PATCH | `/ems/resource/{id}/status` | 简单属性变更 |
 
+### 2. 下拉选项标准 (Selection Options)
+
+为统一前端下拉组件（Select/Cascader）的数据源，必须遵循以下规范：
+
+1. **DTO 定义**：使用 `com.terra.ems.common.domain.Option<T>`（包含 `label` 和 `value`）。
+2. **Service 层**：定义 `findOptions()` 方法，返回 `List<Option<T>>`。
+3. **Controller 层**：暴露 `GET /options` 接口。
+4. **前端交互**：通过该接口获取 ID (`value`) 与 名称 (`label`) 的映射，禁止直接使用实体列表。
+
+### 3. RESTful 命名规则
 - **命名规则**：使用小写字母和连字符 `-`；模块前缀如 `/system/`、`/ems/`；资源名使用单数（如 `/user` 而非 `/users`）。
 
 ## 命名规范 (Naming Conventions)

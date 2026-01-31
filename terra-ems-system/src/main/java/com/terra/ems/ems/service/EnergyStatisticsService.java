@@ -38,6 +38,7 @@ import com.terra.ems.ems.repository.EnergyDataRepository;
 import com.terra.ems.ems.repository.EnergyTypeRepository;
 import com.terra.ems.ems.repository.EnergyUnitRepository;
 import com.terra.ems.ems.repository.ProductionRecordRepository;
+import com.terra.ems.ems.repository.ProductRepository;
 import com.terra.ems.framework.enums.DataItemStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -65,6 +66,7 @@ public class EnergyStatisticsService {
     private final EnergyUnitRepository energyUnitRepository;
     private final ProductionRecordRepository productionRecordRepository;
     private final EnergyTypeRepository energyTypeRepository;
+    private final ProductRepository productRepository;
 
     /**
      * 获取统计汇总
@@ -528,7 +530,7 @@ public class EnergyStatisticsService {
      * @return 单耗分析结果
      */
     public UnitConsumptionDTO getUnitConsumptionAnalysis(
-            Long energyUnitId, String timeType, LocalDateTime dataTime, Long energyTypeId, String productName) {
+            Long energyUnitId, String timeType, LocalDateTime dataTime, Long energyTypeId, Long productId) {
 
         UnitConsumptionDTO dto = new UnitConsumptionDTO();
 
@@ -541,6 +543,14 @@ public class EnergyStatisticsService {
             dto.setEnergyUnitId(unit.getId());
             dto.setEnergyUnitName(unit.getName());
         });
+
+        // 解析产品名称
+        String productName = null;
+        if (productId != null) {
+            productName = productRepository.findById(productId)
+                    .map(com.terra.ems.ems.entity.Product::getName)
+                    .orElse(null);
+        }
 
         // 当期能耗
         BigDecimal currentEnergy = sumEnergyConsumption(energyUnitId, energyTypeId, timeType, currentRange);

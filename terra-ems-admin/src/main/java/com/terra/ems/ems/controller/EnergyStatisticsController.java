@@ -172,7 +172,7 @@ public class EnergyStatisticsController extends Controller {
      * @param timeType     时间类型
      * @param dataTime     数据时间
      * @param energyTypeId 能源类型ID
-     * @param productName  产品名称
+     * @param productId    产品ID
      * @return 单耗分析数据
      */
     @Operation(summary = "获取单耗分析")
@@ -182,9 +182,9 @@ public class EnergyStatisticsController extends Controller {
             @Parameter(description = "时间类型：DAY/MONTH/YEAR") @RequestParam(defaultValue = "MONTH") String timeType,
             @Parameter(description = "数据时间") @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dataTime,
             @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId,
-            @Parameter(description = "产品名称") @RequestParam(required = false) String productName) {
+            @Parameter(description = "产品ID") @RequestParam(required = false) Long productId) {
         return Result.content(energyStatisticsService.getUnitConsumptionAnalysis(energyUnitId, timeType, dataTime,
-                energyTypeId, productName));
+                energyTypeId, productId));
     }
 
     // ==================== 支路分析 ====================

@@ -4,7 +4,7 @@
 
 package com.terra.ems.ems.controller;
 
-import com.terra.ems.common.domain.Result;
+import com.terra.ems.common.domain.Option;
 import com.terra.ems.ems.entity.Product;
 import com.terra.ems.ems.service.ProductService;
 import com.terra.ems.framework.controller.BaseController;
@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import com.terra.ems.ems.param.ProductQueryParam;
 import com.terra.ems.ems.enums.ProductType;
 import com.terra.ems.framework.definition.dto.Pager;
+import com.terra.ems.common.domain.Result;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
@@ -127,5 +128,11 @@ public class ProductController extends BaseController<Product, Long> {
             @PathVariable Long id,
             @RequestParam DataItemStatus status) {
         return Result.content(productService.updateStatus(id, status));
+    }
+
+    @Operation(summary = "获取产品选项列表")
+    @GetMapping("/options")
+    public Result<List<Option<Long>>> findOptions() {
+        return Result.content(productService.findOptions());
     }
 }
