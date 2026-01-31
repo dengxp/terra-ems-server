@@ -26,6 +26,7 @@ package com.terra.ems.ems.param;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -42,7 +43,7 @@ public class ProductionRecordQueryParam {
     @Schema(description = "用能单元ID")
     private Long energyUnitId;
 
-    @Schema(description = "数据类型 (1:日, 2:月等)")
+    @Schema(description = "数据类型 (1: 产量, 2: 仪表, 3: 指标)")
     private String dataType = "1";
 
     @Schema(description = "开始日期")

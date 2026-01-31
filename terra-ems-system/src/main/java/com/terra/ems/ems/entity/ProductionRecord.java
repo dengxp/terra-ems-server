@@ -25,13 +25,14 @@ package com.terra.ems.ems.entity;
 
 import com.terra.ems.ems.enums.TimeGranularity;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * 产品产量记录
@@ -61,9 +62,10 @@ public class ProductionRecord extends BaseEntity {
     @Column(name = "energy_unit_id", nullable = false)
     private Long energyUnitId;
 
-    @Schema(title = "记录日期")
+    @Schema(title = "记录时间")
     @Column(name = "record_date", nullable = false)
-    private LocalDate recordDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime recordDate;
 
     @Schema(title = "产品名称")
     @Column(name = "product_name", length = 100, nullable = false)

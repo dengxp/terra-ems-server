@@ -37,6 +37,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -152,23 +154,29 @@ public class ProductionRecordService extends BaseService<ProductionRecord, Long>
      */
     public Page<ProductionRecord> findByEnergyUnitAndDateRange(
             Long energyUnitId, String dataType, LocalDate startDate, LocalDate endDate, Pageable pageable) {
+        LocalDateTime start = startDate != null ? startDate.atStartOfDay() : null;
+        LocalDateTime end = endDate != null ? endDate.atTime(LocalTime.MAX) : null;
         return productionRecordRepository.findByEnergyUnitIdAndDataTypeAndRecordDateBetween(
-                energyUnitId, dataType, startDate, endDate, pageable);
+                energyUnitId, dataType, start, end, pageable);
     }
 
     /**
      * 查询日期范围内的所有产量记录
      */
     public List<ProductionRecord> findByDateRange(LocalDate startDate, LocalDate endDate) {
-        return productionRecordRepository.findByRecordDateBetween(startDate, endDate);
+        LocalDateTime start = startDate != null ? startDate.atStartOfDay() : null;
+        LocalDateTime end = endDate != null ? endDate.atTime(LocalTime.MAX) : null;
+        return productionRecordRepository.findByRecordDateBetween(start, end);
     }
 
     /**
      * 汇总指定用能单元在日期范围内的总产量
      */
     public BigDecimal sumQuantity(Long energyUnitId, String dataType, LocalDate startDate, LocalDate endDate) {
+        LocalDateTime start = startDate != null ? startDate.atStartOfDay() : null;
+        LocalDateTime end = endDate != null ? endDate.atTime(LocalTime.MAX) : null;
         BigDecimal total = productionRecordRepository.sumQuantityByEnergyUnitAndDataTypeAndDateRange(
-                energyUnitId, dataType, startDate, endDate);
+                energyUnitId, dataType, start, end);
         return total != null ? total : BigDecimal.ZERO;
     }
 
@@ -177,8 +185,10 @@ public class ProductionRecordService extends BaseService<ProductionRecord, Long>
      */
     public Map<String, BigDecimal> sumQuantityGroupByProduct(
             Long energyUnitId, String dataType, LocalDate startDate, LocalDate endDate) {
+        LocalDateTime start = startDate != null ? startDate.atStartOfDay() : null;
+        LocalDateTime end = endDate != null ? endDate.atTime(LocalTime.MAX) : null;
         List<Object[]> results = productionRecordRepository.sumQuantityGroupByProduct(
-                energyUnitId, dataType, startDate, endDate);
+                energyUnitId, dataType, start, end);
 
         Map<String, BigDecimal> productQuantities = new HashMap<>();
         for (Object[] row : results) {

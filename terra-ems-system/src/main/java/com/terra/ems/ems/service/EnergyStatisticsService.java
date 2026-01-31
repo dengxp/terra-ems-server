@@ -607,10 +607,10 @@ public class EnergyStatisticsService {
     private BigDecimal sumProductionQuantity(Long energyUnitId, String productName, TimeRange range) {
         if (productName != null && !productName.isEmpty()) {
             return productionRecordRepository.sumQuantityByEnergyUnitAndDataTypeAndProductNameAndDateRange(
-                    energyUnitId, "1", productName, range.start.toLocalDate(), range.end.toLocalDate());
+                    energyUnitId, "1", productName, range.start, range.end);
         } else {
             return productionRecordRepository.sumQuantityByEnergyUnitAndDataTypeAndDateRange(
-                    energyUnitId, "1", range.start.toLocalDate(), range.end.toLocalDate());
+                    energyUnitId, "1", range.start, range.end);
         }
     }
 
@@ -631,10 +631,10 @@ public class EnergyStatisticsService {
         List<Object[]> prodTrend;
         if (productName != null && !productName.isEmpty()) {
             prodTrend = productionRecordRepository.findTrendByEnergyUnitAndDataTypeAndProductName(
-                    energyUnitId, "1", productName, range.start.toLocalDate(), range.end.toLocalDate());
+                    energyUnitId, "1", productName, range.start, range.end);
         } else {
             prodTrend = productionRecordRepository.findTrendByEnergyUnitAndDataType(
-                    energyUnitId, "1", range.start.toLocalDate(), range.end.toLocalDate());
+                    energyUnitId, "1", range.start, range.end);
         }
 
         // 合并数据
@@ -648,12 +648,14 @@ public class EnergyStatisticsService {
         }
 
         for (Object[] row : prodTrend) {
-            // 产量记录里是 LocalDate
+            // 产量记录里是 LocalDateTime
             String label;
-            if (row[0] instanceof LocalDate) {
-                label = ((LocalDate) row[0]).atStartOfDay().format(formatter);
-            } else {
+            if (row[0] instanceof java.sql.Timestamp) {
+                label = ((java.sql.Timestamp) row[0]).toLocalDateTime().format(formatter);
+            } else if (row[0] instanceof LocalDateTime) {
                 label = ((LocalDateTime) row[0]).format(formatter);
+            } else {
+                label = row[0].toString();
             }
             prodMap.put(label, (BigDecimal) row[1]);
         }

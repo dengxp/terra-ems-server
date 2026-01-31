@@ -138,10 +138,10 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
                 predicates.add(cb.equal(root.get("dataType"), param.getDataType()));
             }
             if (param.getStartDate() != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("dataDate"), param.getStartDate()));
+                predicates.add(cb.greaterThanOrEqualTo(root.get("recordDate"), param.getStartDate()));
             }
             if (param.getEndDate() != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("dataDate"), param.getEndDate()));
+                predicates.add(cb.lessThanOrEqualTo(root.get("recordDate"), param.getEndDate()));
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };

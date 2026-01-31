@@ -34,7 +34,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,24 +57,25 @@ public interface ProductionRecordRepository extends BaseRepository<ProductionRec
          * 分页查询产量记录
          */
         Page<ProductionRecord> findByEnergyUnitIdAndDataTypeAndRecordDateBetween(
-                        Long energyUnitId, String dataType, LocalDate startDate, LocalDate endDate, Pageable pageable);
+                        Long energyUnitId, String dataType, LocalDateTime startDate, LocalDateTime endDate,
+                        Pageable pageable);
 
         /**
          * 按日期范围查询所有记录
          */
-        List<ProductionRecord> findByRecordDateBetween(LocalDate startDate, LocalDate endDate);
+        List<ProductionRecord> findByRecordDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 
         /**
          * 按用能单元、产品名称和日期范围查询
          */
         List<ProductionRecord> findByEnergyUnitIdAndProductNameAndRecordDateBetween(
-                        Long energyUnitId, String productName, LocalDate startDate, LocalDate endDate);
+                        Long energyUnitId, String productName, LocalDateTime startDate, LocalDateTime endDate);
 
         /**
          * 查询指定日期的产量记录（避免重复录入）
          */
         Optional<ProductionRecord> findByEnergyUnitIdAndDataTypeAndProductNameAndRecordDateAndGranularity(
-                        Long energyUnitId, String dataType, String productName, LocalDate recordDate,
+                        Long energyUnitId, String dataType, String productName, LocalDateTime recordDate,
                         TimeGranularity granularity);
 
         /**
@@ -86,8 +87,8 @@ public interface ProductionRecordRepository extends BaseRepository<ProductionRec
         BigDecimal sumQuantityByEnergyUnitAndDataTypeAndDateRange(
                         @Param("energyUnitId") Long energyUnitId,
                         @Param("dataType") String dataType,
-                        @Param("startDate") LocalDate startDate,
-                        @Param("endDate") LocalDate endDate);
+                        @Param("startDate") LocalDateTime startDate,
+                        @Param("endDate") LocalDateTime endDate);
 
         /**
          * 按产品名称汇总产量
@@ -100,8 +101,8 @@ public interface ProductionRecordRepository extends BaseRepository<ProductionRec
                         @Param("energyUnitId") Long energyUnitId,
                         @Param("dataType") String dataType,
                         @Param("productName") String productName,
-                        @Param("startDate") LocalDate startDate,
-                        @Param("endDate") LocalDate endDate);
+                        @Param("startDate") LocalDateTime startDate,
+                        @Param("endDate") LocalDateTime endDate);
 
         /**
          * 查询产量趋势
@@ -113,8 +114,8 @@ public interface ProductionRecordRepository extends BaseRepository<ProductionRec
         List<Object[]> findTrendByEnergyUnitAndDataType(
                         @Param("energyUnitId") Long energyUnitId,
                         @Param("dataType") String dataType,
-                        @Param("startDate") LocalDate startDate,
-                        @Param("endDate") LocalDate endDate);
+                        @Param("startDate") LocalDateTime startDate,
+                        @Param("endDate") LocalDateTime endDate);
 
         /**
          * 按产品名称查询产量趋势
@@ -128,8 +129,8 @@ public interface ProductionRecordRepository extends BaseRepository<ProductionRec
                         @Param("energyUnitId") Long energyUnitId,
                         @Param("dataType") String dataType,
                         @Param("productName") String productName,
-                        @Param("startDate") LocalDate startDate,
-                        @Param("endDate") LocalDate endDate);
+                        @Param("startDate") LocalDateTime startDate,
+                        @Param("endDate") LocalDateTime endDate);
 
         /**
          * 按产品名称汇总产量
@@ -141,8 +142,8 @@ public interface ProductionRecordRepository extends BaseRepository<ProductionRec
         List<Object[]> sumQuantityGroupByProduct(
                         @Param("energyUnitId") Long energyUnitId,
                         @Param("dataType") String dataType,
-                        @Param("startDate") LocalDate startDate,
-                        @Param("endDate") LocalDate endDate);
+                        @Param("startDate") LocalDateTime startDate,
+                        @Param("endDate") LocalDateTime endDate);
 
         /**
          * 获取用能单元下的产品名称列表

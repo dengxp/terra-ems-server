@@ -87,6 +87,7 @@ public class GlobalExceptionResolver {
 
             // 特殊处理数据完整性违规异常（如唯一约束冲突）
             if ("DataIntegrityViolationException".equals(exceptionName)) {
+                log.error("[Terra] |- 数据完整性异常详情: ", ex);
                 String message = extractConstraintViolationMessage(ex);
                 result = Result.failure(ErrorCodes.INTERNAL_SERVER_ERROR);
                 result.message(message);
