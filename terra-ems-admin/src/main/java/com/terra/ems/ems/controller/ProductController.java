@@ -54,6 +54,9 @@ public class ProductController extends BaseController<Product, Long> {
                 if (StringUtils.hasText(query.getName())) {
                     predicates.add(cb.like(root.get("name"), "%" + query.getName() + "%"));
                 }
+                if (StringUtils.hasText(query.getType())) {
+                    predicates.add(cb.equal(root.get("type"), ProductType.fromValue(query.getType())));
+                }
                 if (query.getStatus() != null) {
                     predicates.add(cb.equal(root.get("status"), query.getStatus()));
                 }

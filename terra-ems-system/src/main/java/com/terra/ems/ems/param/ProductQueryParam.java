@@ -17,6 +17,9 @@ public class ProductQueryParam {
     @Schema(title = "产品名称")
     private String name;
 
+    @Schema(title = "产品类型")
+    private String type;
+
     @Schema(title = "状态")
     private DataItemStatus status;
 }
