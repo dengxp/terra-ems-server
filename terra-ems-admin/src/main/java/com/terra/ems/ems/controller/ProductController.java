@@ -13,6 +13,7 @@ import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.terra.ems.ems.param.ProductQueryParam;
+import com.terra.ems.ems.enums.ProductType;
 import com.terra.ems.framework.definition.dto.Pager;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
