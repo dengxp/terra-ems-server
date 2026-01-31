@@ -26,5 +26,5 @@ public interface ProductRepository extends BaseRepository<Product, Long> {
      * @param status 状态
      * @return 产品列表
      */
-    List<Product> findByStatusOrderBySortOrderAsc(DataItemStatus status);
+    List<Product> findByStatusOrderByCodeAsc(DataItemStatus status);
 }

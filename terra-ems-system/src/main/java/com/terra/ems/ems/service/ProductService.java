@@ -39,7 +39,7 @@ public class ProductService extends BaseService<Product, Long> {
      * @return 产品列表
      */
     public List<Product> findEnabled() {
-        return productRepository.findByStatusOrderBySortOrderAsc(DataItemStatus.ENABLE);
+        return productRepository.findByStatusOrderByCodeAsc(DataItemStatus.ENABLE);
     }
 
     /**
