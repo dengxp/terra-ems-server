@@ -132,20 +132,37 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
     /**
      * 分页查询文章
      *
-     * @param pager        分页参数
-     * @param energyTypeId 能源类型ID（可选）
+     * @param pager 分页参数
+     * @param param 查询参数
      * @return 分页结果
      */
     @Operation(summary = "分页查询")
     @GetMapping
-    public Result<Map<String, Object>> findByPage(
-            Pager pager,
-            @Parameter(description = "能源类型ID") @RequestParam(required = false) Long energyTypeId) {
+    public Result<Map<String, Object>> findByPage(Pager pager, KnowledgeArticleQueryParam param) {
         Specification<KnowledgeArticle> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (energyTypeId != null) {
-                predicates.add(cb.equal(root.get("energyTypeId"), energyTypeId));
+
+            // 关键词模糊搜索 (标题或内容)
+            if (org.springframework.util.StringUtils.hasText(param.getKeyword())) {
+                String keyword = "%" + param.getKeyword() + "%";
+                predicates.add(cb.or(
+                        cb.like(root.get("title"), keyword),
+                        cb.like(root.get("content"), keyword)));
             }
+
+            // 能源类型过滤
+            if (param.getEnergyTypeId() != null) {
+                predicates.add(cb.equal(root.get("energyTypeId"), param.getEnergyTypeId()));
+            }
+
+            // 分类过滤
+            if (org.springframework.util.StringUtils.hasText(param.getCategory())) {
+                predicates.add(cb.equal(root.get("category"), param.getCategory()));
+            }
+
+            // 默认只查询启用的文章
+            predicates.add(cb.equal(root.get("status"), DataItemStatus.ENABLE));
+
             return cb.and(predicates.toArray(new Predicate[0]));
         };
         return findByPage(pager, spec);

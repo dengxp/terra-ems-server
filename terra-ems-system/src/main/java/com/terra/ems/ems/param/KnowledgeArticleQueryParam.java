@@ -38,4 +38,10 @@ public class KnowledgeArticleQueryParam {
 
     @Schema(description = "搜索关键词")
     private String keyword;
+
+    @Schema(description = "能源类型ID")
+    private Long energyTypeId;
+
+    @Schema(description = "分类标签")
+    private String category;
 }
