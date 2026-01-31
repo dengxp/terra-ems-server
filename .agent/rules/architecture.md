@@ -59,6 +59,18 @@ Controller                     # 基础定义，提供统一响应转换方法
 | **批量删除** | `deleteBatch` | - | `deleteBatch(@RequestBody List<ID> ids)` | 统一映射 `DELETE /`；必须使用 `@RequestBody` |
 | **Service注入** | `xxxService` | `service` | `private final SysUserService sysUserService` | 禁止使用通用的 `service` 变量名 |
 
+### 2. 枚举参数绑定规范 (Enum Handling)
+
+Controller 在接收枚举类型的查询参数时，为了提高鲁棒性：
+- **推荐**：使用 `@RequestParam` 配合显式的转换逻辑（如 `ProductType.fromValue`），或在 Entity/Param 中使用 `@JsonValue`。
+- **原因**：防止前端传递非标准的数值或字符串导致 Spring 默认映射失败。
+
+### 3. 数据排序与展示策略 (Sorting & ID Policy)
+
+1. **默认排序**：Service 层查询应默认按 `Code`（编码）或 `ID`（主键）进行排序。
+2. **隐藏技术列**：除非业务严需，否则应避免在前端展示技术主键 ID，推荐优先展示业务层面的“编码”或“名称”。
+3. **简化排序逻辑**：应尽量利用系统自动排序，避免引入高维护成本的手动 `ranking` 或 `sortOrder` 字段，除非业务有强烈的自定义排序需求。
+
 ### 2. Service 层
 
 Service 层命名应与 Spring Data JPA 及 Controller 层保持语义一致。
