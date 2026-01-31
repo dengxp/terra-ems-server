@@ -70,7 +70,6 @@ public class KnowledgeArticle extends BaseEntity {
     private String summary;
 
     @Schema(title = "内容", description = "支持富文本HTML")
-    @Lob
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 

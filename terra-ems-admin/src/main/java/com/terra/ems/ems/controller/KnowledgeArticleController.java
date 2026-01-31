@@ -172,7 +172,8 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };
-        return findByPage(pager, spec);
+        Page<KnowledgeArticle> articles = knowledgeArticleService.findByPage(spec, pager.getPageable());
+        return result(articles);
     }
 
     /**
