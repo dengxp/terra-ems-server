@@ -20,6 +20,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import java.util.Map;
  * @author dengxueping
  * @since 2026-01-25
  */
+@Slf4j
 @Tag(name = "产品管理")
 @RestController
 @RequestMapping("/products")
@@ -47,8 +49,47 @@ public class ProductController extends BaseController<Product, Long> {
 
     @Operation(summary = "分页查询产品")
     @GetMapping
-    public Result<Map<String, Object>> findByPage(Pager pager, @ModelAttribute ProductQueryParam query) {
-        return super.findByPage(pager, buildSpecification(query));
+    public Result<Map<String, Object>> findByPage(
+            Pager pager,
+            @RequestParam(required = false) String code,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) Integer status) {
+
+        log.info("[ProductController] findByPage, code: {}, name: {}, type: {}, status: {}", code, name, type, status);
+
+        Specification<Product> spec = (root, q, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (StringUtils.hasText(code)) {
+                predicates.add(cb.like(root.get("code"), "%" + code + "%"));
+            }
+            if (StringUtils.hasText(name)) {
+                predicates.add(cb.like(root.get("name"), "%" + name + "%"));
+            }
+            if (StringUtils.hasText(type)) {
+                try {
+                    // 尝试根据 value 转换
+                    ProductType enumType = ProductType.fromValue(type);
+                    predicates.add(cb.equal(root.get("type"), enumType));
+                } catch (Exception e) {
+                    // 如果 value 转换失败，尝试根据 name 转换
+                    try {
+                        ProductType enumType = ProductType.valueOf(type);
+                        predicates.add(cb.equal(root.get("type"), enumType));
+                    } catch (Exception ex) {
+                        log.warn("Invalid product type parameter: {}", type);
+                    }
+                }
+            }
+            if (status != null) {
+                predicates.add(cb.equal(root.get("status"), DataItemStatus.fromValue(status)));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        return super.findByPage(pager, spec);
     }
 
     private Specification<Product> buildSpecification(ProductQueryParam query) {
