@@ -23,28 +23,28 @@
 
 package com.terra.ems.ems.controller;
 
+import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.KnowledgeArticle;
 import com.terra.ems.ems.param.KnowledgeArticleQueryParam;
 import com.terra.ems.ems.service.KnowledgeArticleService;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.definition.dto.Pager;
-import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.framework.enums.DataItemStatus;
-import com.terra.ems.common.domain.Result;
+import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
+import jakarta.persistence.criteria.Predicate;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-import org.springframework.validation.annotation.Validated;
-import java.util.Map;
 import java.util.ArrayList;
-import jakarta.persistence.criteria.Predicate;
-import org.springframework.data.jpa.domain.Specification;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 知识库文章控制器
@@ -151,24 +151,23 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
             }
 
             // 2. 精确或特定字段模糊搜索
-            if (org.springframework.util.StringUtils.hasText(param.getTitle())) {
+            if (StringUtils.hasText(param.getTitle())) {
                 predicates.add(cb.like(root.get("title"), "%" + param.getTitle() + "%"));
             }
-            if (org.springframework.util.StringUtils.hasText(param.getAuthor())) {
+            if (StringUtils.hasText(param.getAuthor())) {
                 predicates.add(cb.like(root.get("author"), "%" + param.getAuthor() + "%"));
             }
-            if (org.springframework.util.StringUtils.hasText(param.getCategory())) {
+            if (StringUtils.hasText(param.getCategory())) {
                 predicates.add(cb.equal(root.get("category"), param.getCategory()));
             }
             if (param.getEnergyTypeId() != null) {
                 predicates.add(cb.equal(root.get("energyTypeId"), param.getEnergyTypeId()));
             }
             if (param.getStatus() != null) {
-                predicates.add(cb.equal(root.get("status"),
-                        com.terra.ems.framework.enums.DataItemStatus.fromValue(param.getStatus())));
+                predicates.add(cb.equal(root.get("status"), DataItemStatus.fromValue(param.getStatus())));
             } else {
                 // 如果没传状态，默认查启用
-                predicates.add(cb.equal(root.get("status"), com.terra.ems.framework.enums.DataItemStatus.ENABLE));
+                predicates.add(cb.equal(root.get("status"), DataItemStatus.ENABLE));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));
