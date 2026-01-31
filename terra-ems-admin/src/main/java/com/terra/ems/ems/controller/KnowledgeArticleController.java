@@ -143,7 +143,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
             List<Predicate> predicates = new ArrayList<>();
 
             // 1. 关键词全局搜索 (标题或内容)
-            if (org.springframework.util.StringUtils.hasText(param.getKeyword())) {
+            if (StringUtils.hasText(param.getKeyword())) {
                 String keyword = "%" + param.getKeyword() + "%";
                 predicates.add(cb.or(
                         cb.like(root.get("title"), keyword),
