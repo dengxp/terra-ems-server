@@ -47,8 +47,12 @@ public class ProductController extends BaseController<Product, Long> {
 
     @Operation(summary = "分页查询产品")
     @GetMapping
-    public Result<Map<String, Object>> findByPage(Pager pager, ProductQueryParam query) {
-        Specification<Product> spec = (root, q, cb) -> {
+    public Result<Map<String, Object>> findByPage(Pager pager, @ModelAttribute ProductQueryParam query) {
+        return super.findByPage(pager, buildSpecification(query));
+    }
+
+    private Specification<Product> buildSpecification(ProductQueryParam query) {
+        return (root, q, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             if (query != null) {
@@ -68,8 +72,6 @@ public class ProductController extends BaseController<Product, Long> {
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };
-
-        return super.findByPage(pager, spec);
     }
 
     @Operation(summary = "获取启用的产品列表")
