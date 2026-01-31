@@ -52,6 +52,9 @@ public class ProductController extends BaseController<Product, Long> {
             List<Predicate> predicates = new ArrayList<>();
 
             if (query != null) {
+                if (StringUtils.hasText(query.getCode())) {
+                    predicates.add(cb.like(root.get("code"), "%" + query.getCode() + "%"));
+                }
                 if (StringUtils.hasText(query.getName())) {
                     predicates.add(cb.like(root.get("name"), "%" + query.getName() + "%"));
                 }
@@ -59,7 +62,7 @@ public class ProductController extends BaseController<Product, Long> {
                     predicates.add(cb.equal(root.get("type"), ProductType.fromValue(query.getType())));
                 }
                 if (query.getStatus() != null) {
-                    predicates.add(cb.equal(root.get("status"), query.getStatus()));
+                    predicates.add(cb.equal(root.get("status"), DataItemStatus.fromValue(query.getStatus())));
                 }
             }
 
