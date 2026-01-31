@@ -142,7 +142,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
         Specification<KnowledgeArticle> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            // 关键词模糊搜索 (标题或内容)
+            // 1. 关键词全局搜索 (标题或内容)
             if (org.springframework.util.StringUtils.hasText(param.getKeyword())) {
                 String keyword = "%" + param.getKeyword() + "%";
                 predicates.add(cb.or(
@@ -150,18 +150,26 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
                         cb.like(root.get("content"), keyword)));
             }
 
-            // 能源类型过滤
-            if (param.getEnergyTypeId() != null) {
-                predicates.add(cb.equal(root.get("energyTypeId"), param.getEnergyTypeId()));
+            // 2. 精确或特定字段模糊搜索
+            if (org.springframework.util.StringUtils.hasText(param.getTitle())) {
+                predicates.add(cb.like(root.get("title"), "%" + param.getTitle() + "%"));
             }
-
-            // 分类过滤
+            if (org.springframework.util.StringUtils.hasText(param.getAuthor())) {
+                predicates.add(cb.like(root.get("author"), "%" + param.getAuthor() + "%"));
+            }
             if (org.springframework.util.StringUtils.hasText(param.getCategory())) {
                 predicates.add(cb.equal(root.get("category"), param.getCategory()));
             }
-
-            // 默认只查询启用的文章
-            predicates.add(cb.equal(root.get("status"), DataItemStatus.ENABLE));
+            if (param.getEnergyTypeId() != null) {
+                predicates.add(cb.equal(root.get("energyTypeId"), param.getEnergyTypeId()));
+            }
+            if (param.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"),
+                        com.terra.ems.framework.enums.DataItemStatus.fromValue(param.getStatus())));
+            } else {
+                // 如果没传状态，默认查启用
+                predicates.add(cb.equal(root.get("status"), com.terra.ems.framework.enums.DataItemStatus.ENABLE));
+            }
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };
