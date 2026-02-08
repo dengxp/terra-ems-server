@@ -87,6 +87,10 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
+            // code: 精确匹配或模糊匹配
+            if (StringUtils.hasText(queryParam.getCode())) {
+                predicates.add(cb.like(root.get("code"), "%" + queryParam.getCode() + "%"));
+            }
             // keyword: 仅检索文本字段（name, remark）
             if (StringUtils.hasText(queryParam.getKeyword())) {
                 String keyword = "%" + queryParam.getKeyword() + "%";

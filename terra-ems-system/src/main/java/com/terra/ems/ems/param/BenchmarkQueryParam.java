@@ -19,6 +19,9 @@ import lombok.Data;
 @Schema(description = "对标值查询参数")
 public class BenchmarkQueryParam {
 
+    @Schema(description = "标杆编码")
+    private String code;
+
     @Schema(description = "关键词 (名称/备注)")
     private String keyword;
 
