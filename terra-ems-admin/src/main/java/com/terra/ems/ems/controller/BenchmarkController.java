@@ -26,6 +26,7 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.Benchmark;
 import com.terra.ems.ems.enums.BenchmarkType;
+import com.terra.ems.ems.param.BenchmarkQueryParam;
 import com.terra.ems.ems.service.BenchmarkService;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.definition.dto.Pager;
@@ -35,9 +36,10 @@ import java.util.Optional;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Map;
 import java.util.ArrayList;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
@@ -67,38 +69,39 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
     /**
      * 分页查询对标值
      *
-     * @param pager  分页参数
-     * @param params 查询参数
+     * @param pager      分页参数
+     * @param queryParam 查询参数
      * @return 分页结果
      */
     @GetMapping
     @Operation(summary = "分页查询")
-    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
-        return findByPage(pager, buildSpecification(params));
+    public Result<Page<Benchmark>> findByPage(Pager pager, BenchmarkQueryParam queryParam) {
+        Page<Benchmark> page = benchmarkService.findByPage(buildSpecification(queryParam), pager.getPageable());
+        return Result.content(page);
     }
 
-    @Override
-    protected Specification<Benchmark> buildSpecification(Map<String, Object> params) {
+    /**
+     * 构建查询规范
+     */
+    private Specification<Benchmark> buildSpecification(BenchmarkQueryParam queryParam) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             // keyword: 仅检索文本字段（name, remark）
-            if (params.containsKey("keyword") && params.get("keyword") != null) {
-                String keyword = "%" + params.get("keyword") + "%";
+            if (StringUtils.hasText(queryParam.getKeyword())) {
+                String keyword = "%" + queryParam.getKeyword() + "%";
                 predicates.add(cb.or(
                         cb.like(root.get("name"), keyword),
                         cb.like(root.get("remark"), keyword)));
             }
-            if (params.containsKey("name") && params.get("name") != null) {
-                predicates.add(cb.like(root.get("name"), "%" + params.get("name") + "%"));
+            if (StringUtils.hasText(queryParam.getName())) {
+                predicates.add(cb.like(root.get("name"), "%" + queryParam.getName() + "%"));
             }
-            // type: Enum 类型，直接比较
-            if (params.containsKey("type") && params.get("type") != null) {
-                predicates.add(cb.equal(root.get("type"), params.get("type")));
+            if (queryParam.getType() != null) {
+                predicates.add(cb.equal(root.get("type"), queryParam.getType()));
             }
-            // status: Enum 类型，直接比较
-            if (params.containsKey("status") && params.get("status") != null) {
-                predicates.add(cb.equal(root.get("status"), params.get("status")));
+            if (queryParam.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"), queryParam.getStatus()));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

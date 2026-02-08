@@ -26,6 +26,7 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.EnergyCostRecord;
 import com.terra.ems.ems.enums.RecordPeriodType;
+import com.terra.ems.ems.param.EnergyCostRecordQueryParam;
 import com.terra.ems.ems.service.EnergyCostRecordService;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.service.BaseService;
@@ -34,6 +35,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,45 +76,46 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
         return energyCostRecordService;
     }
 
-    @Override
-    protected Specification<EnergyCostRecord> buildSpecification(Map<String, Object> params) {
-        return (root, query, cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
-
-            if (params.containsKey("energyUnitId") && params.get("energyUnitId") != null) {
-                predicates.add(cb.equal(root.get("energyUnitId"), Long.valueOf(params.get("energyUnitId").toString())));
-            }
-            if (params.containsKey("energyTypeId") && params.get("energyTypeId") != null) {
-                predicates.add(cb.equal(root.get("energyTypeId"), Long.valueOf(params.get("energyTypeId").toString())));
-            }
-            if (params.containsKey("periodType") && params.get("periodType") != null) {
-                predicates.add(cb.equal(root.get("periodType"),
-                        RecordPeriodType.valueOf(params.get("periodType").toString())));
-            }
-            if (params.containsKey("startDate") && params.get("startDate") != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("startDate"),
-                        LocalDate.parse(params.get("startDate").toString())));
-            }
-            if (params.containsKey("endDate") && params.get("endDate") != null) {
-                predicates.add(
-                        cb.lessThanOrEqualTo(root.get("endDate"), LocalDate.parse(params.get("endDate").toString())));
-            }
-
-            return cb.and(predicates.toArray(new Predicate[0]));
-        };
-    }
-
     /**
      * 分页查询成本记录
      *
-     * @param pager  分页参数
-     * @param params 查询参数
+     * @param pager      分页参数
+     * @param queryParam 查询参数
      * @return 分页结果
      */
     @GetMapping
     @Operation(summary = "分页查询")
-    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
-        return findByPage(pager, buildSpecification(params));
+    public Result<Page<EnergyCostRecord>> findByPage(Pager pager, EnergyCostRecordQueryParam queryParam) {
+        Page<EnergyCostRecord> page = energyCostRecordService.findByPage(buildSpecification(queryParam),
+                pager.getPageable());
+        return Result.content(page);
+    }
+
+    /**
+     * 构建查询规范
+     */
+    private Specification<EnergyCostRecord> buildSpecification(EnergyCostRecordQueryParam queryParam) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (queryParam.getEnergyUnitId() != null) {
+                predicates.add(cb.equal(root.get("energyUnitId"), queryParam.getEnergyUnitId()));
+            }
+            if (queryParam.getEnergyTypeId() != null) {
+                predicates.add(cb.equal(root.get("energyTypeId"), queryParam.getEnergyTypeId()));
+            }
+            if (queryParam.getPeriodType() != null) {
+                predicates.add(cb.equal(root.get("periodType"), queryParam.getPeriodType()));
+            }
+            if (queryParam.getStartDate() != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("startDate"), queryParam.getStartDate()));
+            }
+            if (queryParam.getEndDate() != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("endDate"), queryParam.getEndDate()));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**

@@ -34,6 +34,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,9 +43,7 @@ import java.util.List;
 
 import com.terra.ems.framework.definition.dto.Pager;
 
-import java.util.Map;
 import java.util.ArrayList;
-import java.util.List;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -70,37 +69,47 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
         return costPolicyBindingService;
     }
 
-    @Override
-    protected Specification<CostPolicyBinding> buildSpecification(Map<String, Object> params) {
-        return (root, query, cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
-
-            if (params.containsKey("energyUnitId") && params.get("energyUnitId") != null) {
-                predicates.add(cb.equal(root.get("energyUnitId"), Long.valueOf(params.get("energyUnitId").toString())));
-            }
-            if (params.containsKey("pricePolicyId") && params.get("pricePolicyId") != null) {
-                predicates
-                        .add(cb.equal(root.get("pricePolicyId"), Long.valueOf(params.get("pricePolicyId").toString())));
-            }
-            if (params.containsKey("status") && params.get("status") != null) {
-                predicates.add(cb.equal(root.get("status"), DataItemStatus.valueOf(params.get("status").toString())));
-            }
-
-            return cb.and(predicates.toArray(new Predicate[0]));
-        };
-    }
-
     /**
      * 分页查询成本策略绑定
      *
-     * @param pager  分页参数
-     * @param params 查询参数
+     * @param pager         分页参数
+     * @param energyUnitId  用能单元ID
+     * @param pricePolicyId 电价策略ID
+     * @param status        状态
      * @return 分页结果
      */
     @GetMapping
     @Operation(summary = "分页查询")
-    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
-        return findByPage(pager, buildSpecification(params));
+    public Result<Page<CostPolicyBinding>> findByPage(
+            Pager pager,
+            @RequestParam(required = false) @Parameter(description = "用能单元ID") Long energyUnitId,
+            @RequestParam(required = false) @Parameter(description = "电价策略ID") Long pricePolicyId,
+            @RequestParam(required = false) @Parameter(description = "状态") DataItemStatus status) {
+        Page<CostPolicyBinding> page = costPolicyBindingService.findByPage(
+                buildSpecification(energyUnitId, pricePolicyId, status), pager.getPageable());
+        return Result.content(page);
+    }
+
+    /**
+     * 构建查询规范
+     */
+    private Specification<CostPolicyBinding> buildSpecification(Long energyUnitId, Long pricePolicyId,
+            DataItemStatus status) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (energyUnitId != null) {
+                predicates.add(cb.equal(root.get("energyUnitId"), energyUnitId));
+            }
+            if (pricePolicyId != null) {
+                predicates.add(cb.equal(root.get("pricePolicyId"), pricePolicyId));
+            }
+            if (status != null) {
+                predicates.add(cb.equal(root.get("status"), status));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**

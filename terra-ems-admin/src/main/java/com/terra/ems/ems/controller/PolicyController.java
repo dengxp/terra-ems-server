@@ -25,6 +25,7 @@ package com.terra.ems.ems.controller;
 
 import com.terra.ems.ems.entity.Policy;
 import com.terra.ems.ems.enums.PolicyType;
+import com.terra.ems.ems.param.PolicyQueryParam;
 import com.terra.ems.ems.service.PolicyService;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.service.BaseService;
@@ -35,13 +36,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 政策法规控制器
@@ -65,46 +66,47 @@ public class PolicyController extends BaseController<Policy, Long> {
         return policyService;
     }
 
-    @Override
-    protected Specification<Policy> buildSpecification(Map<String, Object> params) {
+    /**
+     * 分页查询政策
+     *
+     * @param pager      分页参数
+     * @param queryParam 查询参数
+     * @return 分页结果
+     */
+    @GetMapping
+    @Operation(summary = "分页查询政策")
+    public Result<Page<Policy>> findByPage(Pager pager, PolicyQueryParam queryParam) {
+        Page<Policy> page = policyService.findByPage(buildSpecification(queryParam), pager.getPageable());
+        return Result.content(page);
+    }
+
+    /**
+     * 构建查询规范
+     */
+    private Specification<Policy> buildSpecification(PolicyQueryParam queryParam) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             // keyword: 仅检索文本字段（title, summary, remark）
-            if (params.containsKey("keyword") && StringUtils.hasText((String) params.get("keyword"))) {
-                String keyword = "%" + params.get("keyword") + "%";
+            if (StringUtils.hasText(queryParam.getKeyword())) {
+                String keyword = "%" + queryParam.getKeyword() + "%";
                 predicates.add(cb.or(
                         cb.like(root.get("title"), keyword),
                         cb.like(root.get("summary"), keyword),
                         cb.like(root.get("remark"), keyword)));
             }
-            if (params.containsKey("title") && StringUtils.hasText((String) params.get("title"))) {
-                predicates.add(cb.like(root.get("title"), "%" + params.get("title") + "%"));
+            if (StringUtils.hasText(queryParam.getTitle())) {
+                predicates.add(cb.like(root.get("title"), "%" + queryParam.getTitle() + "%"));
             }
-            // type: Enum 类型，直接比较
-            if (params.containsKey("type") && params.get("type") != null) {
-                predicates.add(cb.equal(root.get("type"), params.get("type")));
+            if (queryParam.getType() != null) {
+                predicates.add(cb.equal(root.get("type"), queryParam.getType()));
             }
-            // status: Enum 类型，直接比较
-            if (params.containsKey("status") && params.get("status") != null) {
-                predicates.add(cb.equal(root.get("status"), params.get("status")));
+            if (queryParam.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"), queryParam.getStatus()));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };
-    }
-
-    /**
-     * 分页查询政策
-     *
-     * @param pager  分页参数
-     * @param params 查询参数
-     * @return 分页结果
-     */
-    @GetMapping
-    @Operation(summary = "分页查询政策")
-    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
-        return findByPage(pager, buildSpecification(params));
     }
 
     /**
