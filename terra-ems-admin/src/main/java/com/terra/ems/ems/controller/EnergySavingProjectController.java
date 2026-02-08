@@ -25,6 +25,7 @@ package com.terra.ems.ems.controller;
 
 import com.terra.ems.ems.entity.EnergySavingProject;
 import com.terra.ems.ems.enums.ProjectStatus;
+import com.terra.ems.ems.param.EnergySavingProjectQueryParam;
 import com.terra.ems.ems.service.EnergySavingProjectService;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.service.BaseService;
@@ -37,7 +38,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import org.springframework.data.domain.Page;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
@@ -65,20 +66,31 @@ public class EnergySavingProjectController extends BaseController<EnergySavingPr
         return energySavingProjectService;
     }
 
-    @Override
-    protected Specification<EnergySavingProject> buildSpecification(Map<String, Object> params) {
+    /**
+     * 构建查询规范
+     *
+     * @param queryParam 查询参数
+     * @return JPA Specification
+     */
+    protected Specification<EnergySavingProject> buildSpecification(EnergySavingProjectQueryParam queryParam) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (params.containsKey("keyword") && StringUtils.hasText((String) params.get("keyword"))) {
-                String keyword = "%" + params.get("keyword") + "%";
+            if (StringUtils.hasText(queryParam.getKeyword())) {
+                String keyword = "%" + queryParam.getKeyword() + "%";
                 predicates.add(cb.or(
                         cb.like(root.get("name"), keyword),
                         cb.like(root.get("liablePerson"), keyword),
                         cb.like(root.get("remark"), keyword)));
             }
-            if (params.containsKey("status") && params.get("status") != null) {
-                predicates.add(cb.equal(root.get("status"), params.get("status")));
+            if (StringUtils.hasText(queryParam.getName())) {
+                predicates.add(cb.like(root.get("name"), "%" + queryParam.getName() + "%"));
+            }
+            if (queryParam.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"), queryParam.getStatus()));
+            }
+            if (StringUtils.hasText(queryParam.getLiablePerson())) {
+                predicates.add(cb.like(root.get("liablePerson"), "%" + queryParam.getLiablePerson() + "%"));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));
@@ -88,14 +100,14 @@ public class EnergySavingProjectController extends BaseController<EnergySavingPr
     /**
      * 分页查询节能项目
      *
-     * @param pager  分页参数
-     * @param params 查询参数
+     * @param pager      分页参数
+     * @param queryParam 查询参数
      * @return 分页结果
      */
     @GetMapping
     @Operation(summary = "分页查询节能项目")
-    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
-        return findByPage(pager, buildSpecification(params));
+    public Result<Page<EnergySavingProject>> findByPage(Pager pager, EnergySavingProjectQueryParam queryParam) {
+        return Result.success(energySavingProjectService.findByPage(pager, buildSpecification(queryParam)));
     }
 
     /**
