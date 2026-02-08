@@ -22,9 +22,6 @@ public class BenchmarkQueryParam {
     @Schema(description = "关键词 (名称/备注)")
     private String keyword;
 
-    @Schema(description = "名称")
-    private String name;
-
     @Schema(description = "对标类型")
     private BenchmarkType type;
 

@@ -94,9 +94,6 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
                         cb.like(root.get("name"), keyword),
                         cb.like(root.get("remark"), keyword)));
             }
-            if (StringUtils.hasText(queryParam.getName())) {
-                predicates.add(cb.like(root.get("name"), "%" + queryParam.getName() + "%"));
-            }
             if (queryParam.getType() != null) {
                 predicates.add(cb.equal(root.get("type"), queryParam.getType()));
             }

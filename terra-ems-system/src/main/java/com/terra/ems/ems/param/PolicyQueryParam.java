@@ -22,9 +22,6 @@ public class PolicyQueryParam {
     @Schema(description = "关键词 (标题/摘要/备注)")
     private String keyword;
 
-    @Schema(description = "标题")
-    private String title;
-
     @Schema(description = "政策类型")
     private PolicyType type;
 

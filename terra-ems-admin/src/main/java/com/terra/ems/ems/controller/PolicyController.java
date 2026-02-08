@@ -95,9 +95,6 @@ public class PolicyController extends BaseController<Policy, Long> {
                         cb.like(root.get("summary"), keyword),
                         cb.like(root.get("remark"), keyword)));
             }
-            if (StringUtils.hasText(queryParam.getTitle())) {
-                predicates.add(cb.like(root.get("title"), "%" + queryParam.getTitle() + "%"));
-            }
             if (queryParam.getType() != null) {
                 predicates.add(cb.equal(root.get("type"), queryParam.getType()));
             }
