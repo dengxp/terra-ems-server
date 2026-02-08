@@ -68,6 +68,11 @@ public enum ErrorCodes {
     SESSION_EXPIRED(4001, 401, "Session已过期，请重新登录"),
 
     /**
+     * 请求参数错误
+     */
+    BAD_REQUEST(400, 400, "请求参数错误"),
+
+    /**
      * 访问被拒绝
      */
     ACCESS_DENIED(4003, 403, "您没有权限执行此操作");

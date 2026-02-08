@@ -62,7 +62,7 @@ public class GlobalExceptionResolver {
         EXCEPTION_DICTIONARY.put("MissingServletRequestParameterException", ErrorCodes.INTERNAL_SERVER_ERROR);
 
         // 业务/逻辑相关
-        EXCEPTION_DICTIONARY.put("IllegalArgumentException", ErrorCodes.INTERNAL_SERVER_ERROR);
+        EXCEPTION_DICTIONARY.put("IllegalArgumentException", ErrorCodes.BAD_REQUEST);
         EXCEPTION_DICTIONARY.put("NullPointerException", ErrorCodes.INTERNAL_SERVER_ERROR);
     }
 
@@ -109,7 +109,10 @@ public class GlobalExceptionResolver {
             }
 
             result.path(path);
-            result.stackTrace(ex.getStackTrace());
+            // 对于业务异常（如 IllegalArgumentException），始终透传异常消息
+            if (StringUtils.isNotBlank(ex.getMessage())) {
+                result.message(ex.getMessage());
+            }
             result.detail(ex.getMessage());
 
             log.error("[Terra] |- 系统异常 [{}]: {}", exceptionName, ex.getMessage());
