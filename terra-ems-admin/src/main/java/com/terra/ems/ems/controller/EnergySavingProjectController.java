@@ -107,7 +107,9 @@ public class EnergySavingProjectController extends BaseController<EnergySavingPr
     @GetMapping
     @Operation(summary = "分页查询节能项目")
     public Result<Page<EnergySavingProject>> findByPage(Pager pager, EnergySavingProjectQueryParam queryParam) {
-        return Result.success(energySavingProjectService.findByPage(pager, buildSpecification(queryParam)));
+        Page<EnergySavingProject> page = energySavingProjectService.findByPage(buildSpecification(queryParam),
+                pager.getPageable());
+        return Result.success(page);
     }
 
     /**
