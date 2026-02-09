@@ -171,23 +171,6 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
     }
 
     /**
-     * 创建或更新成本记录
-     *
-     * @param record 成本记录实体
-     * @return 保存后的实体
-     */
-    @Override
-    @PostMapping
-    @Operation(summary = "创建或更新成本记录")
-    public Result<EnergyCostRecord> saveOrUpdate(@RequestBody @Validated EnergyCostRecord record) {
-        if (record.getId() == null) {
-            return Result.content(energyCostRecordService.create(record));
-        } else {
-            return Result.content(energyCostRecordService.update(record.getId(), record));
-        }
-    }
-
-    /**
      * 更新成本记录详情
      *
      * @param id     记录ID

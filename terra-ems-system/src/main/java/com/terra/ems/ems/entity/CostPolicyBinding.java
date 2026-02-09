@@ -24,6 +24,7 @@
 package com.terra.ems.ems.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -85,4 +86,22 @@ public class CostPolicyBinding extends BaseEntity {
     @Column(name = "remark", length = 500)
     @Schema(description = "备注")
     private String remark;
+
+    // ========== @JsonProperty 桥接方法 ==========
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public void setEnergyUnitId(Long energyUnitId) {
+        if (energyUnitId != null) {
+            this.energyUnit = new EnergyUnit();
+            this.energyUnit.setId(energyUnitId);
+        }
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public void setPricePolicyId(Long pricePolicyId) {
+        if (pricePolicyId != null) {
+            this.pricePolicy = new PricePolicy();
+            this.pricePolicy.setId(pricePolicyId);
+        }
+    }
 }

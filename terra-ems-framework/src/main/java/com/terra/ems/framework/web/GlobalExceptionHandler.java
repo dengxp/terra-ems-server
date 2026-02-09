@@ -33,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import com.terra.ems.common.constant.ErrorCodes;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -40,13 +41,24 @@ import java.util.stream.Collectors;
 
 /**
  * 全局异常处理器
- *
- * @author dengxueping
- * @since 2026-01-11
  */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    /**
+     * 处理非法参数异常 (业务逻辑校验通常抛出此异常)
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Result<String> handleIllegalArgumentException(IllegalArgumentException e, HttpServletRequest request,
+            HttpServletResponse response) {
+        log.warn("[Terra] |- 捕获到非法参数异常: {}", e.getMessage());
+        Result<String> result = Result.failure(ErrorCodes.BAD_REQUEST);
+        result.message(e.getMessage());
+        result.path(request.getRequestURI());
+        response.setStatus(result.getStatus());
+        return result;
+    }
 
     /**
      * 处理方法参数校验异常 (@Valid / @Validated)

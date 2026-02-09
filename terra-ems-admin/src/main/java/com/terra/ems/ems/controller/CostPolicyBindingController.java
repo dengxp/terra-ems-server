@@ -99,10 +99,10 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
             List<Predicate> predicates = new ArrayList<>();
 
             if (energyUnitId != null) {
-                predicates.add(cb.equal(root.get("energyUnitId"), energyUnitId));
+                predicates.add(cb.equal(root.get("energyUnit").get("id"), energyUnitId));
             }
             if (pricePolicyId != null) {
-                predicates.add(cb.equal(root.get("pricePolicyId"), pricePolicyId));
+                predicates.add(cb.equal(root.get("pricePolicy").get("id"), pricePolicyId));
             }
             if (status != null) {
                 predicates.add(cb.equal(root.get("status"), status));

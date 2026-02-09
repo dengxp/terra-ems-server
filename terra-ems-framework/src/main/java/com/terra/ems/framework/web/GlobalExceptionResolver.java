@@ -27,7 +27,7 @@ import com.terra.ems.common.constant.ErrorCodes;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.common.exception.TerraException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -97,23 +97,19 @@ public class GlobalExceptionResolver {
                 return result;
             }
 
-            if (StringUtils.isNotEmpty(exceptionName) && EXCEPTION_DICTIONARY.containsKey(exceptionName)) {
+            if (StringUtils.hasText(exceptionName) && EXCEPTION_DICTIONARY.containsKey(exceptionName)) {
                 ErrorCodes errorCode = EXCEPTION_DICTIONARY.get(exceptionName);
                 result = Result.failure(errorCode);
             } else {
                 log.warn("[Terra] |- 字典中未找到异常名 [{}], 使用默认错误响应", exceptionName);
-                // 对于未定义的异常，如果存在 Message，则透传给 Result
-                if (StringUtils.isNotBlank(ex.getMessage())) {
-                    result.message(ex.getMessage());
-                }
             }
 
             result.path(path);
-            // 对于业务异常（如 IllegalArgumentException），始终透传异常消息
-            if (StringUtils.isNotBlank(ex.getMessage())) {
+            // 始终透传异常消息给 message 和 detail
+            if (StringUtils.hasText(ex.getMessage())) {
                 result.message(ex.getMessage());
+                result.detail(ex.getMessage());
             }
-            result.detail(ex.getMessage());
 
             log.error("[Terra] |- 系统异常 [{}]: {}", exceptionName, ex.getMessage());
             return result;

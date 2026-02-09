@@ -65,14 +65,15 @@ public class CostPolicyBindingService extends BaseService<CostPolicyBinding, Lon
      * 按用能单元查询绑定
      */
     public List<CostPolicyBinding> findByEnergyUnit(Long energyUnitId) {
-        return repository.findByEnergyUnitIdAndStatusOrderByEffectiveStartDateDesc(energyUnitId, DataItemStatus.ENABLE);
+        return repository.findByEnergyUnit_IdAndStatusOrderByEffectiveStartDateDesc(energyUnitId,
+                DataItemStatus.ENABLE);
     }
 
     /**
      * 按电价策略查询绑定
      */
     public List<CostPolicyBinding> findByPricePolicy(Long pricePolicyId) {
-        return repository.findByPricePolicyIdAndStatusOrderByCreatedAtDesc(pricePolicyId, DataItemStatus.ENABLE);
+        return repository.findByPricePolicy_IdAndStatusOrderByCreatedAtDesc(pricePolicyId, DataItemStatus.ENABLE);
     }
 
     /**

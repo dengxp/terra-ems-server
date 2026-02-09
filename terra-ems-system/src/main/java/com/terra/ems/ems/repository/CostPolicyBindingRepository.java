@@ -49,13 +49,13 @@ public interface CostPolicyBindingRepository extends BaseRepository<CostPolicyBi
         /**
          * 按用能单元查询
          */
-        List<CostPolicyBinding> findByEnergyUnitIdAndStatusOrderByEffectiveStartDateDesc(Long energyUnitId,
+        List<CostPolicyBinding> findByEnergyUnit_IdAndStatusOrderByEffectiveStartDateDesc(Long energyUnitId,
                         DataItemStatus status);
 
         /**
          * 按电价策略查询
          */
-        List<CostPolicyBinding> findByPricePolicyIdAndStatusOrderByCreatedAtDesc(Long pricePolicyId,
+        List<CostPolicyBinding> findByPricePolicy_IdAndStatusOrderByCreatedAtDesc(Long pricePolicyId,
                         DataItemStatus status);
 
         /**
@@ -73,5 +73,5 @@ public interface CostPolicyBindingRepository extends BaseRepository<CostPolicyBi
         /**
          * 按用能单元统计绑定数量
          */
-        long countByEnergyUnitIdAndStatus(Long energyUnitId, DataItemStatus status);
+        long countByEnergyUnit_IdAndStatus(Long energyUnitId, DataItemStatus status);
 }
