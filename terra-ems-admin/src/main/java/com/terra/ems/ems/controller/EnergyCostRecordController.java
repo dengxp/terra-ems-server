@@ -99,19 +99,19 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
             List<Predicate> predicates = new ArrayList<>();
 
             if (queryParam.getEnergyUnitId() != null) {
-                predicates.add(cb.equal(root.get("energyUnitId"), queryParam.getEnergyUnitId()));
+                predicates.add(cb.equal(root.get("energyUnit").get("id"), queryParam.getEnergyUnitId()));
             }
             if (queryParam.getEnergyTypeId() != null) {
-                predicates.add(cb.equal(root.get("energyTypeId"), queryParam.getEnergyTypeId()));
+                predicates.add(cb.equal(root.get("energyType").get("id"), queryParam.getEnergyTypeId()));
             }
             if (queryParam.getPeriodType() != null) {
                 predicates.add(cb.equal(root.get("periodType"), queryParam.getPeriodType()));
             }
             if (queryParam.getStartDate() != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("startDate"), queryParam.getStartDate()));
+                predicates.add(cb.greaterThanOrEqualTo(root.get("recordDate"), queryParam.getStartDate()));
             }
             if (queryParam.getEndDate() != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("endDate"), queryParam.getEndDate()));
+                predicates.add(cb.lessThanOrEqualTo(root.get("recordDate"), queryParam.getEndDate()));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));
