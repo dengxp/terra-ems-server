@@ -134,9 +134,6 @@ public class EnergyCostRecordService extends BaseService<EnergyCostRecord, Long>
     public CostDeviationDTO getDeviationAnalysis(Long energyUnitId, String timeType, LocalDate dataTime) {
         CostDeviationDTO result = new CostDeviationDTO();
 
-        // 将 timeType 字符串转换为 RecordPeriodType 枚举
-        RecordPeriodType periodType = RecordPeriodType.valueOf(timeType);
-
         // 计算当期、同期、上期的日期范围
         LocalDate currentStart, currentEnd, lastYearStart, lastYearEnd, lastPeriodStart, lastPeriodEnd;
 
@@ -157,23 +154,23 @@ public class EnergyCostRecordService extends BaseService<EnergyCostRecord, Long>
             lastPeriodEnd = currentEnd.minusMonths(1);
         }
 
-        // 获取当期数据（添加 periodType 过滤）
+        // 获取当期数据
         List<EnergyCostRecord> currentRecords = energyUnitId != null
-                ? repository.findByEnergyUnitIdAndPeriodTypeAndRecordDateBetweenOrderByRecordDateAsc(energyUnitId,
-                        periodType, currentStart, currentEnd)
-                : repository.findByPeriodTypeAndRecordDateBetween(periodType, currentStart, currentEnd);
+                ? repository.findByEnergyUnitIdAndRecordDateBetweenOrderByRecordDateDesc(energyUnitId, currentStart,
+                        currentEnd)
+                : repository.findByRecordDateBetween(currentStart, currentEnd);
 
-        // 获取同期数据（添加 periodType 过滤）
+        // 获取同期数据
         List<EnergyCostRecord> lastYearRecords = energyUnitId != null
-                ? repository.findByEnergyUnitIdAndPeriodTypeAndRecordDateBetweenOrderByRecordDateAsc(energyUnitId,
-                        periodType, lastYearStart, lastYearEnd)
-                : repository.findByPeriodTypeAndRecordDateBetween(periodType, lastYearStart, lastYearEnd);
+                ? repository.findByEnergyUnitIdAndRecordDateBetweenOrderByRecordDateDesc(energyUnitId, lastYearStart,
+                        lastYearEnd)
+                : repository.findByRecordDateBetween(lastYearStart, lastYearEnd);
 
-        // 获取上期数据（添加 periodType 过滤）
+        // 获取上期数据
         List<EnergyCostRecord> lastPeriodRecords = energyUnitId != null
-                ? repository.findByEnergyUnitIdAndPeriodTypeAndRecordDateBetweenOrderByRecordDateAsc(energyUnitId,
-                        periodType, lastPeriodStart, lastPeriodEnd)
-                : repository.findByPeriodTypeAndRecordDateBetween(periodType, lastPeriodStart, lastPeriodEnd);
+                ? repository.findByEnergyUnitIdAndRecordDateBetweenOrderByRecordDateDesc(energyUnitId, lastPeriodStart,
+                        lastPeriodEnd)
+                : repository.findByRecordDateBetween(lastPeriodStart, lastPeriodEnd);
 
         // 构建电力数据
         CostDeviationDTO.ElectricityData electricityData = buildElectricityData(currentRecords, lastYearRecords,
@@ -321,9 +318,6 @@ public class EnergyCostRecordService extends BaseService<EnergyCostRecord, Long>
     public CostTrendDTO getCostTrendAnalysis(Long energyUnitId, String timeType, LocalDate dataTime) {
         CostTrendDTO result = new CostTrendDTO();
 
-        // 将 timeType 字符串转换为 RecordPeriodType 枚举
-        RecordPeriodType periodType = RecordPeriodType.valueOf(timeType);
-
         // 计算时间范围
         LocalDate startDate, endDate;
         int periods;
@@ -350,11 +344,11 @@ public class EnergyCostRecordService extends BaseService<EnergyCostRecord, Long>
                 break;
         }
 
-        // 获取记录（添加 periodType 过滤）
+        // 获取记录
         List<EnergyCostRecord> records = energyUnitId != null
-                ? repository.findByEnergyUnitIdAndPeriodTypeAndRecordDateBetweenOrderByRecordDateAsc(energyUnitId,
-                        periodType, startDate, endDate)
-                : repository.findByPeriodTypeAndRecordDateBetween(periodType, startDate, endDate);
+                ? repository.findByEnergyUnitIdAndRecordDateBetweenOrderByRecordDateDesc(energyUnitId, startDate,
+                        endDate)
+                : repository.findByRecordDateBetween(startDate, endDate);
 
         // 按能源类型分组
         Map<Long, List<EnergyCostRecord>> byEnergyType = records.stream()
