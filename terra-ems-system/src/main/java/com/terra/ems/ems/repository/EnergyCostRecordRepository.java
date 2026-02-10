@@ -89,4 +89,10 @@ public interface EnergyCostRecordRepository extends BaseRepository<EnergyCostRec
          * 按用能单元和周期类型统计记录数
          */
         long countByEnergyUnitIdAndPeriodType(Long energyUnitId, RecordPeriodType periodType);
+
+        /**
+         * 按周期类型和日期范围查询所有记录
+         */
+        List<EnergyCostRecord> findByPeriodTypeAndRecordDateBetween(
+                        RecordPeriodType periodType, LocalDate startDate, LocalDate endDate);
 }
