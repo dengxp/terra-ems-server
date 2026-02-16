@@ -40,6 +40,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
 
 /**
  * 报警历史记录控制器
@@ -99,6 +101,7 @@ public class AlarmRecordController extends ReadableController<AlarmRecord, Long>
      * 处理报警记录
      */
     @Operation(summary = "处理报警记录")
+    @Log(title = "告警记录", businessType = BusinessType.UPDATE)
     @PostMapping("/{id}/handle")
     public Result<AlarmRecord> handleAlarm(
             @PathVariable Long id,

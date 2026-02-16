@@ -45,6 +45,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 字典类型控制器
@@ -92,5 +97,23 @@ public class SysDictTypeController extends BaseController<SysDictType, Long> {
         }
 
         return findByPage(pager, spec);
+    }
+
+    @Log(title = "字典类型", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<SysDictType> saveOrUpdate(@Validated @RequestBody SysDictType domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "字典类型", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Log(title = "字典类型", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

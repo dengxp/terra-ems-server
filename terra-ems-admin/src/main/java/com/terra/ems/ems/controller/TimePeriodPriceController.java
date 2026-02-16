@@ -39,6 +39,9 @@ import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 分时电价配置控制器
@@ -123,6 +126,7 @@ public class TimePeriodPriceController extends BaseController<TimePeriodPrice, L
      * @return 更新后的实体
      */
     @Operation(summary = "更新分时电价配置")
+    @Log(title = "分时电价", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
     public Result<TimePeriodPrice> update(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
         TimePeriodPrice timePeriodPrice = extractTimePeriodPrice(payload);
@@ -136,6 +140,7 @@ public class TimePeriodPriceController extends BaseController<TimePeriodPrice, L
      * @param id 配置ID
      * @return 操作结果
      */
+    @Log(title = "分时电价", businessType = BusinessType.DELETE)
     @Operation(summary = "删除分时电价配置")
     @DeleteMapping("/{id}")
     public Result<String> delete(@PathVariable Long id) {
@@ -151,6 +156,7 @@ public class TimePeriodPriceController extends BaseController<TimePeriodPrice, L
      * @return 更新后的实体
      */
     @Operation(summary = "修改状态")
+    @Log(title = "分时电价", businessType = BusinessType.UPDATE)
     @PatchMapping("/{id}/status")
     public Result<TimePeriodPrice> updateStatus(
             @PathVariable Long id,
@@ -189,5 +195,17 @@ public class TimePeriodPriceController extends BaseController<TimePeriodPrice, L
         }
         price.setRemark((String) payload.get("remark"));
         return price;
+    }
+
+    @Log(title = "分时电价", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<TimePeriodPrice> saveOrUpdate(@Validated @RequestBody TimePeriodPrice domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "分时电价", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

@@ -46,6 +46,10 @@ import com.terra.ems.framework.definition.dto.Pager;
 import java.util.ArrayList;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 成本策略绑定控制器
@@ -176,6 +180,7 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
      * @param id 绑定ID
      * @return 操作结果
      */
+    @Log(title = "费用策略绑定", businessType = BusinessType.DELETE)
     @DeleteMapping("/{id}")
     @Operation(summary = "删除绑定关系")
     public Result<String> delete(@PathVariable Long id) {
@@ -190,6 +195,7 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
      * @param status 新状态
      * @return 更新后的实体
      */
+    @Log(title = "费用策略绑定", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}/status")
     @Operation(summary = "更新状态")
     public Result<CostPolicyBinding> updateStatus(
@@ -198,4 +204,16 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
         return Result.content(costPolicyBindingService.updateStatus(id, status));
     }
 
+
+    @Log(title = "费用策略绑定", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<CostPolicyBinding> saveOrUpdate(@Validated @RequestBody CostPolicyBinding domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "费用策略绑定", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
 }

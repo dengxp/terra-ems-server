@@ -27,6 +27,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 产品管理控制器
@@ -123,6 +127,7 @@ public class ProductController extends BaseController<Product, Long> {
     }
 
     @Operation(summary = "修改状态")
+    @Log(title = "产品管理", businessType = BusinessType.UPDATE)
     @PatchMapping("/{id}/status")
     public Result<Product> updateStatus(
             @PathVariable Long id,
@@ -134,5 +139,23 @@ public class ProductController extends BaseController<Product, Long> {
     @GetMapping("/options")
     public Result<List<Option<Long>>> findOptions() {
         return Result.content(productService.findOptions());
+    }
+
+    @Log(title = "产品管理", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<Product> saveOrUpdate(@Validated @RequestBody Product domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "产品管理", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Log(title = "产品管理", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

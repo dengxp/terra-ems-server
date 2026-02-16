@@ -45,6 +45,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 产品产量记录控制器
@@ -76,6 +79,7 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
      * @return 更新后的实体
      */
     @Operation(summary = "更新产量记录")
+    @Log(title = "生产记录", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
     public Result<ProductionRecord> update(
             @Parameter(description = "记录ID") @PathVariable Long id,
@@ -90,6 +94,7 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
      * @param id 记录ID
      * @return 操作结果
      */
+    @Log(title = "生产记录", businessType = BusinessType.DELETE)
     @Operation(summary = "删除产量记录")
     @DeleteMapping("/{id}")
     public Result<String> delete(@Parameter(description = "记录ID") @PathVariable Long id) {
@@ -205,5 +210,17 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
 
         List<String> productNames = productionRecordService.getProductNames(energyUnitId, dataType);
         return Result.content(productNames);
+    }
+
+    @Log(title = "生产记录", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<ProductionRecord> saveOrUpdate(@Validated @RequestBody ProductionRecord domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "生产记录", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

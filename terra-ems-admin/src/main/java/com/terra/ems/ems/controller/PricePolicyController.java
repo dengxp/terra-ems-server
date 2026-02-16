@@ -42,6 +42,10 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 电价策略控制器
@@ -145,11 +149,30 @@ public class PricePolicyController extends BaseController<PricePolicy, Long> {
      * @return 更新后的实体
      */
     @Operation(summary = "修改电价策略状态")
+    @Log(title = "价格策略", businessType = BusinessType.UPDATE)
     @PatchMapping("/{id}/status")
     public Result<PricePolicy> updateStatus(
             @PathVariable Long id,
             @RequestParam DataItemStatus status) {
         PricePolicy updated = pricePolicyService.updateStatus(id, status);
         return Result.content(updated);
+    }
+
+    @Log(title = "价格策略", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<PricePolicy> saveOrUpdate(@Validated @RequestBody PricePolicy domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "价格策略", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Log(title = "价格策略", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

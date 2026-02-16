@@ -46,6 +46,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.terra.ems.framework.enums.EnergyCategory;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 能源类型控制器
@@ -126,6 +130,7 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
      * 修改能源类型状态
      */
     @Operation(summary = "修改能源类型状态")
+    @Log(title = "能源类型", businessType = BusinessType.UPDATE)
     @PatchMapping("/{id}/status")
     public Result<EnergyType> updateStatus(
             @PathVariable Long id,
@@ -140,5 +145,23 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
     @GetMapping("/options")
     public Result<List<Option<Long>>> findOptions() {
         return Result.content(energyTypeService.findOptions());
+    }
+
+    @Log(title = "能源类型", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<EnergyType> saveOrUpdate(@Validated @RequestBody EnergyType domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "能源类型", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Log(title = "能源类型", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

@@ -43,6 +43,9 @@ import java.util.List;
 import java.util.ArrayList;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 对标值控制器
@@ -192,6 +195,7 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
      * @param benchmark 对标值实体
      * @return 更新后的实体
      */
+    @Log(title = "能效基准", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
     @Operation(summary = "更新对标值")
     public Result<Benchmark> update(@PathVariable Long id, @RequestBody Benchmark benchmark) {
@@ -205,6 +209,7 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
      * @param id 对标值ID
      * @return 操作结果
      */
+    @Log(title = "能效基准", businessType = BusinessType.DELETE)
     @DeleteMapping("/{id}")
     @Operation(summary = "删除基准定义")
     public Result<String> delete(@PathVariable Long id) {
@@ -219,6 +224,7 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
      * @param status 新状态
      * @return 更新后的实体
      */
+    @Log(title = "能效基准", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}/status")
     @Operation(summary = "更新状态")
     public Result<Benchmark> updateStatus(
@@ -238,5 +244,17 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
     public Result<Long> countByType(
             @PathVariable @Parameter(description = "类型") BenchmarkType type) {
         return Result.content(benchmarkService.countByType(type));
+    }
+
+    @Log(title = "能效基准", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<Benchmark> saveOrUpdate(@Validated @RequestBody Benchmark domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "能效基准", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

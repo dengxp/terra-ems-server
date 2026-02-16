@@ -25,17 +25,26 @@ package com.terra.ems.admin.controller;
 
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysConfig;
 import com.terra.ems.system.service.SysConfigService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 参数配置控制器
@@ -84,10 +93,56 @@ public class SysConfigController extends BaseController<SysConfig, Long> {
      * @param config 参数配置实体
      * @return 操作结果及实体
      */
+    @Log(title = "系统配置", businessType = BusinessType.UPDATE)
     @Operation(summary = "保存或更新配置")
     @Override
     @PreAuthorize("hasAnyAuthority('system:config:add', 'system:config:edit')")
     public Result<SysConfig> saveOrUpdate(SysConfig config) {
         return super.saveOrUpdate(config);
+    }
+
+    /**
+     * 分页查询参数配置
+     *
+     * @param pager 分页参数
+     * @param name  参数名称
+     * @param key   参数键名
+     * @param type  系统内置（Y/N）
+     * @return 分页结果
+     */
+    @Operation(summary = "分页查询参数配置")
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(
+            Pager pager,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String key,
+            @RequestParam(required = false) String type) {
+        Specification<SysConfig> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (StringUtils.hasText(name)) {
+                predicates.add(cb.like(root.get("name"), "%" + name + "%"));
+            }
+            if (StringUtils.hasText(key)) {
+                predicates.add(cb.like(root.get("key"), "%" + key + "%"));
+            }
+            if (StringUtils.hasText(type)) {
+                predicates.add(cb.equal(root.get("type"), type));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        return findByPage(pager, spec);
+    }
+
+    @Log(title = "系统配置", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Log(title = "系统配置", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

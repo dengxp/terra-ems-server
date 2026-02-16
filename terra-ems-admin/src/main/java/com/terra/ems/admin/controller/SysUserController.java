@@ -52,6 +52,9 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 系统用户控制器
@@ -142,6 +145,7 @@ public class SysUserController extends BaseController<SysUser, Long> {
      * @param user 用户实体
      * @return 操作结果及实体
      */
+    @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @Operation(summary = "保存或更新用户（标准实体模式）")
     @Override
     public Result<SysUser> saveOrUpdate(@RequestBody @Validated SysUser user) {
@@ -176,5 +180,17 @@ public class SysUserController extends BaseController<SysUser, Long> {
         } else {
             return Result.failure("用户不存在");
         }
+    }
+
+    @Log(title = "用户管理", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Log(title = "用户管理", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

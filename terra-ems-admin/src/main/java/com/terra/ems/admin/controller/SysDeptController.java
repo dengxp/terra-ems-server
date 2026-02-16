@@ -31,10 +31,14 @@ import com.terra.ems.system.service.SysDeptService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 部门管理控制器
@@ -77,4 +81,22 @@ public class SysDeptController extends BaseController<SysDept, Long> {
         return Result.content(deptService.findDeptTree(null));
     }
 
+
+    @Log(title = "部门管理", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<SysDept> saveOrUpdate(@Validated @RequestBody SysDept domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "部门管理", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Log(title = "部门管理", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
 }

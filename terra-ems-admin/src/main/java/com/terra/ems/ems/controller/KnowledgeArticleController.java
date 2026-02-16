@@ -45,6 +45,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
 
 /**
  * 知识库文章控制器
@@ -74,6 +76,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
      * @param article 文章实体
      * @return 保存后的实体
      */
+    @Log(title = "知识库", businessType = BusinessType.UPDATE)
     @Override
     @PostMapping
     @Operation(summary = "创建或更新文章")
@@ -93,6 +96,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
      * @return 更新后的实体
      */
     @Operation(summary = "更新文章")
+    @Log(title = "知识库", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
     public Result<KnowledgeArticle> update(
             @Parameter(description = "文章ID") @PathVariable Long id,
@@ -107,6 +111,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
      * @param id 文章ID
      * @return 操作结果
      */
+    @Log(title = "知识库", businessType = BusinessType.DELETE)
     @Operation(summary = "删除文章")
     @DeleteMapping("/{id}")
     public Result<String> delete(@Parameter(description = "文章ID") @PathVariable Long id) {
@@ -222,11 +227,18 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
      * @return 操作结果
      */
     @Operation(summary = "更新文章状态")
+    @Log(title = "知识库", businessType = BusinessType.UPDATE)
     @PatchMapping("/{id}/status")
     public Result<Void> updateStatus(
             @Parameter(description = "文章ID") @PathVariable Long id,
             @Parameter(description = "状态") @RequestParam DataItemStatus status) {
         knowledgeArticleService.updateStatus(id, status);
         return Result.success();
+    }
+
+    @Log(title = "知识库", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

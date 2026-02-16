@@ -33,12 +33,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 菜单管理控制器
@@ -87,10 +87,24 @@ public class SysMenuController extends BaseController<SysMenu, Long> {
      * @param menu 菜单实体
      * @return 操作结果及实体
      */
+    @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
     @Operation(summary = "保存或更新菜单")
     @Override
     @PreAuthorize("hasAnyAuthority('system:menu:add', 'system:menu:edit')")
     public Result<SysMenu> saveOrUpdate(@Validated @RequestBody SysMenu menu) {
         return super.saveOrUpdate(menu);
+    }
+
+
+    @Log(title = "菜单管理", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Log(title = "菜单管理", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

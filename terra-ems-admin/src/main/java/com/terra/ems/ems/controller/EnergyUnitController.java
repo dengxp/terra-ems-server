@@ -36,6 +36,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 用能单元控制器
@@ -110,6 +114,7 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
      * 移动节点（更改父节点）
      */
     @Operation(summary = "移动节点（更改父节点）")
+    @Log(title = "用能单元", businessType = BusinessType.UPDATE)
     @PatchMapping("/{id}/move")
     public Result<EnergyUnit> move(
             @PathVariable Long id,
@@ -121,6 +126,7 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
      * 修改用能单元状态
      */
     @Operation(summary = "修改用能单元状态")
+    @Log(title = "用能单元", businessType = BusinessType.UPDATE)
     @PatchMapping("/{id}/status")
     public Result<EnergyUnit> updateStatus(
             @PathVariable Long id,
@@ -129,4 +135,22 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
     }
 
     // BaseController 已提供标准 update(via saveOrUpdate), getById, delete
+
+    @Log(title = "用能单元", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<EnergyUnit> saveOrUpdate(@Validated @RequestBody EnergyUnit domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "用能单元", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Log(title = "用能单元", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
 }

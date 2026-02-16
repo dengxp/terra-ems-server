@@ -23,14 +23,28 @@
 
 package com.terra.ems.admin.controller;
 
+import com.terra.ems.common.domain.Result;
 import com.terra.ems.framework.controller.BaseController;
+import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysLog;
 import com.terra.ems.system.service.SysLogService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 系统日志控制器
@@ -59,5 +73,56 @@ public class SysLogController extends BaseController<SysLog, Long> {
     @Override
     protected BaseService<SysLog, Long> getService() {
         return logService;
+    }
+
+    /**
+     * 分页查询系统日志
+     *
+     * @param pager        分页参数
+     * @param title        模块标题
+     * @param businessType 业务类型
+     * @param status       操作状态
+     * @return 分页结果
+     */
+    @Operation(summary = "分页查询系统日志")
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(
+            Pager pager,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) Integer businessType,
+            @RequestParam(required = false) Integer status) {
+        Specification<SysLog> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (StringUtils.hasText(title)) {
+                predicates.add(cb.like(root.get("title"), "%" + title + "%"));
+            }
+            if (businessType != null) {
+                predicates.add(cb.equal(root.get("businessType"), businessType));
+            }
+            if (status != null) {
+                predicates.add(cb.equal(root.get("status"), status));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        return findByPage(pager, spec);
+    }
+
+    @Log(title = "系统日志", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<SysLog> saveOrUpdate(@Validated @RequestBody SysLog domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "系统日志", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Log(title = "系统日志", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }

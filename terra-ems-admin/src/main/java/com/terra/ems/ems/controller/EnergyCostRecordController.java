@@ -53,6 +53,8 @@ import com.terra.ems.ems.dto.CostTrendDTO;
 import java.util.ArrayList;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
 
 /**
  * 能源成本记录控制器
@@ -177,6 +179,7 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
      * @param record 成本记录实体
      * @return 更新后的实体
      */
+    @Log(title = "能源费用记录", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
     @Operation(summary = "更新成本记录")
     public Result<EnergyCostRecord> update(@PathVariable Long id, @RequestBody EnergyCostRecord record) {
@@ -189,6 +192,7 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
      * @param id 记录ID
      * @return 操作结果
      */
+    @Log(title = "能源费用记录", businessType = BusinessType.DELETE)
     @DeleteMapping("/{id}")
     @Operation(summary = "删除用能成本记录")
     public Result<String> delete(@PathVariable Long id) {
@@ -228,5 +232,17 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
             @RequestParam @Parameter(description = "时间类型 (DAY/MONTH/YEAR)") String timeType,
             @RequestParam @Parameter(description = "查询日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataTime) {
         return Result.content(energyCostRecordService.getCostTrendAnalysis(energyUnitId, timeType, dataTime));
+    }
+
+    @Log(title = "能源费用记录", businessType = BusinessType.UPDATE)
+    @Override
+    public Result<EnergyCostRecord> saveOrUpdate(@Validated @RequestBody EnergyCostRecord domain) {
+        return super.saveOrUpdate(domain);
+    }
+
+    @Log(title = "能源费用记录", businessType = BusinessType.DELETE)
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 }
