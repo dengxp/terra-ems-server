@@ -56,7 +56,7 @@ public class AsyncFactory {
      * @param args     列表
      * @return 任务task
      */
-    public static TimerTask recordLogininfor(final String username, final String status, final String message,
+    public static TimerTask recordLoginLog(final String username, final String status, final String message,
             final Object... args) {
         final UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
         final String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
@@ -77,21 +77,21 @@ public class AsyncFactory {
                 // 获取客户端浏览器
                 String browser = userAgent.getBrowser().getName();
                 // 封装对象
-                SysLoginLog logininfor = new SysLoginLog();
-                logininfor.setUserName(username);
-                logininfor.setIpaddr(ip);
-                logininfor.setLoginLocation(address);
-                logininfor.setBrowser(browser);
-                logininfor.setOs(os);
-                logininfor.setMsg(message);
+                SysLoginLog loginLog = new SysLoginLog();
+                loginLog.setUserName(username);
+                loginLog.setIpaddr(ip);
+                loginLog.setLoginLocation(address);
+                loginLog.setBrowser(browser);
+                loginLog.setOs(os);
+                loginLog.setMsg(message);
                 // 日志状态
                 if (Constants.LOGIN_SUCCESS.equals(status) || Constants.LOGOUT.equals(status)) {
-                    logininfor.setStatus(Constants.SUCCESS);
+                    loginLog.setStatus(Constants.SUCCESS);
                 } else if (Constants.LOGIN_FAIL.equals(status)) {
-                    logininfor.setStatus(Constants.FAIL);
+                    loginLog.setStatus(Constants.FAIL);
                 }
                 // 插入数据
-                SpringUtils.getBean(SysLoginLogService.class).saveOrUpdate(logininfor);
+                SpringUtils.getBean(SysLoginLogService.class).saveOrUpdate(loginLog);
             }
         };
     }

@@ -130,7 +130,7 @@ public class SecurityConfig {
             HttpSession session = request.getSession();
             String token = session.getId();
 
-            SpringUtils.getBean(ILoginLogService.class).recordLogininfor(authentication.getName(),
+            SpringUtils.getBean(ILoginLogService.class).recordLoginLog(authentication.getName(),
                     Constants.LOGIN_SUCCESS, "登录成功");
 
             Map<String, Object> data = new HashMap<>();
@@ -151,7 +151,7 @@ public class SecurityConfig {
             // 除非JsonAuthenticationFilter把用户名放到attribute里。
             // 暂时记录 unknown 或者尝试改进 Filter
 
-            SpringUtils.getBean(ILoginLogService.class).recordLogininfor("unknown", Constants.LOGIN_FAIL, message);
+            SpringUtils.getBean(ILoginLogService.class).recordLoginLog("unknown", Constants.LOGIN_FAIL, message);
 
             writeJsonResponse(response, Result.failure(message));
         });

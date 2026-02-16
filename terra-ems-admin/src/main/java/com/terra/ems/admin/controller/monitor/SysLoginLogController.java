@@ -54,7 +54,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 @Tag(name = "系统访问记录")
 @RestController
-@RequestMapping("/monitor/logininfor")
+@RequestMapping("/monitor/login-log")
 @RequiredArgsConstructor
 public class SysLoginLogController extends BaseController<SysLoginLog, Long> {
 

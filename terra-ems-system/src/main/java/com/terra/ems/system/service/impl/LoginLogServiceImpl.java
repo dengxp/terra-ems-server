@@ -36,7 +36,7 @@ import com.terra.ems.system.manager.factory.AsyncFactory;
 @Service
 public class LoginLogServiceImpl implements ILoginLogService {
     @Override
-    public void recordLogininfor(String username, String status, String message, Object... args) {
-        AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, status, message, args));
+    public void recordLoginLog(String username, String status, String message, Object... args) {
+        AsyncManager.me().execute(AsyncFactory.recordLoginLog(username, status, message, args));
     }
 }

@@ -37,5 +37,5 @@ public interface ILoginLogService {
      * @param message  消息
      * @param args     列表
      */
-    void recordLogininfor(String username, String status, String message, Object... args);
+    void recordLoginLog(String username, String status, String message, Object... args);
 }
