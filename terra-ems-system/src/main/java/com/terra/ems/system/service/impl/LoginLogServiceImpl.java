@@ -25,7 +25,7 @@ package com.terra.ems.system.service.impl;
 
 import org.springframework.stereotype.Service;
 import com.terra.ems.framework.manager.AsyncManager;
-import com.terra.ems.framework.service.ILoginLogService;
+import com.terra.ems.framework.service.LoginLogService;
 import com.terra.ems.system.manager.factory.AsyncFactory;
 
 /**
@@ -34,7 +34,7 @@ import com.terra.ems.system.manager.factory.AsyncFactory;
  * @author dengxueping
  */
 @Service
-public class LoginLogServiceImpl implements ILoginLogService {
+public class LoginLogServiceImpl implements LoginLogService {
     @Override
     public void recordLoginLog(String username, String status, String message, Object... args) {
         AsyncManager.me().execute(AsyncFactory.recordLoginLog(username, status, message, args));

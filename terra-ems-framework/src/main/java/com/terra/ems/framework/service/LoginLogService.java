@@ -28,7 +28,7 @@ package com.terra.ems.framework.service;
  * 
  * @author dengxueping
  */
-public interface ILoginLogService {
+public interface LoginLogService {
     /**
      * 记录登录信息
      * 

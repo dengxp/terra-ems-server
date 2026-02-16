@@ -57,7 +57,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import com.terra.ems.framework.service.ILoginLogService;
+import com.terra.ems.framework.service.LoginLogService;
 import com.terra.ems.common.utils.spring.SpringUtils;
 import com.terra.ems.common.constant.Constants;
 
@@ -130,7 +130,7 @@ public class SecurityConfig {
             HttpSession session = request.getSession();
             String token = session.getId();
 
-            SpringUtils.getBean(ILoginLogService.class).recordLoginLog(authentication.getName(),
+            SpringUtils.getBean(LoginLogService.class).recordLoginLog(authentication.getName(),
                     Constants.LOGIN_SUCCESS, "登录成功");
 
             Map<String, Object> data = new HashMap<>();
@@ -151,7 +151,7 @@ public class SecurityConfig {
             // 除非JsonAuthenticationFilter把用户名放到attribute里。
             // 暂时记录 unknown 或者尝试改进 Filter
 
-            SpringUtils.getBean(ILoginLogService.class).recordLoginLog("unknown", Constants.LOGIN_FAIL, message);
+            SpringUtils.getBean(LoginLogService.class).recordLoginLog("unknown", Constants.LOGIN_FAIL, message);
 
             writeJsonResponse(response, Result.failure(message));
         });
