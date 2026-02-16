@@ -44,6 +44,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.terra.ems.common.constant.Constants;
+import com.terra.ems.framework.service.ILoginLogService;
+import com.terra.ems.common.utils.spring.SpringUtils;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -99,16 +102,22 @@ public class SmsController extends Controller {
         // 验证验证码
         boolean isValidCode = smsService.verifyCode(request.phone(), request.code());
         if (!isValidCode) {
+            SpringUtils.getBean(ILoginLogService.class).recordLogininfor(request.phone(), Constants.LOGIN_FAIL,
+                    "验证码错误或已过期");
             return Result.failure("验证码错误或已过期");
         }
 
         // 根据手机号查找用户
         SysUser user = userService.findByPhone(request.phone());
         if (user == null) {
+            SpringUtils.getBean(ILoginLogService.class).recordLogininfor(request.phone(), Constants.LOGIN_FAIL,
+                    "该手机号未绑定账号");
             return Result.failure("该手机号未绑定账号，请联系管理员");
         }
 
         if (!user.isEnabled()) {
+            SpringUtils.getBean(ILoginLogService.class).recordLogininfor(request.phone(), Constants.LOGIN_FAIL,
+                    "账号已被禁用");
             return Result.failure("账号已被禁用");
         }
 
@@ -138,6 +147,8 @@ public class SmsController extends Controller {
         data.put("username", user.getUsername());
         data.put("phone", user.getPhone());
 
+        SpringUtils.getBean(ILoginLogService.class).recordLogininfor(user.getUsername(), Constants.LOGIN_SUCCESS,
+                "登录成功");
         log.info("用户 {} 通过手机号 {} 登录成功", user.getUsername(), request.phone());
 
         return Result.content(data);

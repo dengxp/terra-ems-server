@@ -108,10 +108,10 @@ public class AsyncFactory {
             public void run() {
                 try {
                     // 远程查询操作地点
-                    operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
+                    operLog.setOperationLocation(AddressUtils.getRealAddressByIP(operLog.getOperationIp()));
                     SpringUtils.getBean(SysOperationLogService.class).saveOrUpdate(operLog);
-                    sys_user_logger.info("[AsyncFactory] 操作日志保存成功: title={}, operName={}, operUrl={}",
-                            operLog.getTitle(), operLog.getOperName(), operLog.getOperUrl());
+                    sys_user_logger.info("[AsyncFactory] 操作日志保存成功: title={}, operationName={}, operationUrl={}",
+                            operLog.getTitle(), operLog.getOperationName(), operLog.getOperationUrl());
                 } catch (Exception e) {
                     sys_user_logger.error("[AsyncFactory] 操作日志保存失败: title={}, error={}",
                             operLog.getTitle(), e.getMessage(), e);

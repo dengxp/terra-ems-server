@@ -70,7 +70,7 @@ public class SysOperationLogController extends BaseController<SysOperationLog, L
     public Result<Map<String, Object>> list(
             Pager pager,
             @RequestParam(required = false) String title,
-            @RequestParam(required = false) String operName,
+            @RequestParam(required = false) String operationName,
             @RequestParam(required = false) Integer businessType,
             @RequestParam(required = false) Integer status) {
         Specification<SysOperationLog> spec = (root, query, cb) -> {
@@ -78,8 +78,8 @@ public class SysOperationLogController extends BaseController<SysOperationLog, L
             if (StringUtils.hasText(title)) {
                 predicates.add(cb.like(root.get("title"), "%" + title + "%"));
             }
-            if (StringUtils.hasText(operName)) {
-                predicates.add(cb.like(root.get("operName"), "%" + operName + "%"));
+            if (StringUtils.hasText(operationName)) {
+                predicates.add(cb.like(root.get("operationName"), "%" + operationName + "%"));
             }
             if (businessType != null) {
                 predicates.add(cb.equal(root.get("businessType"), businessType));

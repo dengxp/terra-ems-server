@@ -70,6 +70,7 @@ public enum Gender implements BaseUiEnum<Integer> {
             item.put("value", gender.getValue());
             item.put("key", gender.name());
             item.put("text", gender.getDescription());
+            item.put("label", gender.getDescription());
             JSON_STRUCTURE.add(item);
         }
     }

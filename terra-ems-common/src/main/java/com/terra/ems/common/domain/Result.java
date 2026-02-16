@@ -23,6 +23,7 @@
 
 package com.terra.ems.common.domain;
 
+import cn.hutool.core.date.DateUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.base.MoreObjects;
 import com.terra.ems.common.constant.DefaultConstants;
@@ -50,15 +51,15 @@ import java.util.Map;
 @Schema(title = "统一响应返回实体", description = "所有Rest接口统一返回的实体定义")
 public class Result<T> implements Serializable {
 
-    @Schema(title = "响应时间戳", pattern = DefaultConstants.DATE_TIME_FORMAT)
-    @JsonFormat(pattern = DefaultConstants.DATE_TIME_FORMAT)
-    private final Date timestamp = new Date();
+    @Schema(title = "响应时间戳")
+    private final String timestamp = DateUtil.format(new java.util.Date(),
+            DefaultConstants.DATE_TIME_FORMAT);
 
     @Schema(title = "校验错误信息")
     private final Error error = new Error();
 
     @Schema(title = "自定义响应编码")
-    private int code = 0;
+    private String code = "0";
 
     @Schema(title = "响应返回信息")
     private String message;
@@ -79,7 +80,7 @@ public class Result<T> implements Serializable {
         super();
     }
 
-    private static <T> Result<T> create(String message, String detail, int code, int status, T data,
+    private static <T> Result<T> create(String message, String detail, String code, int status, T data,
             StackTraceElement[] stackTrace) {
         Result<T> result = new Result<>();
         if (StringUtils.isNotBlank(message)) {
@@ -93,7 +94,7 @@ public class Result<T> implements Serializable {
         result.code(code);
         result.status(status);
 
-        if (ObjectUtils.isNotEmpty(data)) {
+        if (data != null) {
             result.data(data);
         }
 
@@ -104,16 +105,16 @@ public class Result<T> implements Serializable {
         return result;
     }
 
-    public static <T> Result<T> success(String message, int code, int status, T data) {
+    public static <T> Result<T> success(String message, String code, int status, T data) {
         return create(message, null, code, status, data, null);
     }
 
-    public static <T> Result<T> success(String message, int code, T data) {
+    public static <T> Result<T> success(String message, String code, T data) {
         return success(message, code, 200, data);
     }
 
     public static <T> Result<T> success(String message, T data) {
-        return success(message, ErrorCodes.OK.getSequence(), data);
+        return success(message, String.valueOf(ErrorCodes.OK.getSequence()), data);
     }
 
     public static <T> Result<T> success(String message) {
@@ -128,24 +129,24 @@ public class Result<T> implements Serializable {
         return success("操作成功！", data);
     }
 
-    public static <T> Result<T> failure(String message, String detail, int code, int status, T data,
+    public static <T> Result<T> failure(String message, String detail, String code, int status, T data,
             StackTraceElement[] stackTrace) {
         return create(message, detail, code, status, data, stackTrace);
     }
 
-    public static <T> Result<T> failure(String message, String detail, int code, int status, T data) {
+    public static <T> Result<T> failure(String message, String detail, String code, int status, T data) {
         return failure(message, detail, code, status, data, null);
     }
 
-    public static <T> Result<T> failure(String message, int code, int status, T data) {
+    public static <T> Result<T> failure(String message, String code, int status, T data) {
         return failure(message, message, code, status, data);
     }
 
-    public static <T> Result<T> failure(String message, String detail, int code, T data) {
+    public static <T> Result<T> failure(String message, String detail, String code, T data) {
         return failure(message, detail, code, 500, data);
     }
 
-    public static <T> Result<T> failure(String message, int code, T data) {
+    public static <T> Result<T> failure(String message, String code, T data) {
         return failure(message, message, code, data);
     }
 
@@ -154,11 +155,11 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> failure(ErrorCodes errorCode, T data) {
-        return failure(errorCode.getMessage(), errorCode.getSequence(), errorCode.getStatus(), data);
+        return failure(errorCode.getMessage(), String.valueOf(errorCode.getSequence()), errorCode.getStatus(), data);
     }
 
     public static <T> Result<T> failure(String message, T data) {
-        return failure(message, ErrorCodes.INTERNAL_SERVER_ERROR.getSequence(), data);
+        return failure(message, String.valueOf(ErrorCodes.INTERNAL_SERVER_ERROR.getSequence()), data);
     }
 
     public static <T> Result<T> failure(String message) {
@@ -169,23 +170,23 @@ public class Result<T> implements Serializable {
         return failure("操作失败！");
     }
 
-    public static <T> Result<T> empty(String message, int code, int status) {
+    public static <T> Result<T> empty(String message, String code, int status) {
         return create(message, null, code, status, null, null);
     }
 
-    public static <T> Result<T> empty(String message, int code) {
+    public static <T> Result<T> empty(String message, String code) {
         return empty(message, code, ErrorCodes.NO_CONTENT.getStatus());
     }
 
     public static <T> Result<T> empty(String message) {
-        return empty(message, ErrorCodes.NO_CONTENT.getSequence());
+        return empty(message, String.valueOf(ErrorCodes.NO_CONTENT.getSequence()));
     }
 
     public static <T> Result<T> empty() {
         return empty("未查询到相关内容！");
     }
 
-    public Result<T> code(int code) {
+    public Result<T> code(String code) {
         this.code = code;
         return this;
     }
@@ -206,7 +207,7 @@ public class Result<T> implements Serializable {
     }
 
     public Result<T> type(ErrorCodes errorCode) {
-        this.code = errorCode.getSequence();
+        this.code = String.valueOf(errorCode.getSequence());
         this.message = errorCode.getMessage();
         this.status = errorCode.getStatus();
         return this;

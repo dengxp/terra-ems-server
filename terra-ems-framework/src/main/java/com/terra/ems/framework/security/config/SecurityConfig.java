@@ -57,6 +57,9 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import com.terra.ems.framework.service.ILoginLogService;
+import com.terra.ems.common.utils.spring.SpringUtils;
+import com.terra.ems.common.constant.Constants;
 
 /**
  * Security配置
@@ -86,7 +89,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/error", "/captcha/**", "/system/constant/**",
-                                "/sms/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
+                                "/sms/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/websocket/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exception -> exception
@@ -127,6 +130,9 @@ public class SecurityConfig {
             HttpSession session = request.getSession();
             String token = session.getId();
 
+            SpringUtils.getBean(ILoginLogService.class).recordLogininfor(authentication.getName(),
+                    Constants.LOGIN_SUCCESS, "登录成功");
+
             Map<String, Object> data = new HashMap<>();
             data.put("token", token);
             data.put("username", authentication.getName());
@@ -140,6 +146,13 @@ public class SecurityConfig {
             if ("Bad credentials".equals(message)) {
                 message = "用户名或密码错误";
             }
+            // 获取用户名 (从request中尝试获取，因为authException可能不包含)
+            // 这里比较难获取用户名，因为JsonAuthenticationFilter已经读取流了。
+            // 除非JsonAuthenticationFilter把用户名放到attribute里。
+            // 暂时记录 unknown 或者尝试改进 Filter
+
+            SpringUtils.getBean(ILoginLogService.class).recordLogininfor("unknown", Constants.LOGIN_FAIL, message);
+
             writeJsonResponse(response, Result.failure(message));
         });
 

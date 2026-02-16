@@ -75,6 +75,7 @@ public enum EnergyUnitType implements BaseUiEnum<String> {
             item.put("value", type.getValue());
             item.put("key", type.name());
             item.put("text", type.getDescription());
+            item.put("label", type.getDescription());
             JSON_STRUCTURE.add(item);
         }
     }

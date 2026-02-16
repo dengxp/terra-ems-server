@@ -18,10 +18,6 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     defer-datasource-initialization: true
   
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:sql/init_dict.sql
 
   
   data:
@@ -45,3 +41,8 @@ logging:
   level:
     com.terra.ems: debug
     org.springframework.security: debug
+
+terra:
+  cache:
+    allow-null-values: true
+    separator: ":"

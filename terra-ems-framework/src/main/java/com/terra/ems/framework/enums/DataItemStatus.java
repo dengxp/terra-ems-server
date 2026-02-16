@@ -64,6 +64,7 @@ public enum DataItemStatus implements BaseUiEnum<Integer> {
             item.put("value", dataItemStatus.getValue());
             item.put("key", dataItemStatus.name());
             item.put("text", dataItemStatus.getDescription());
+            item.put("label", dataItemStatus.getDescription());
             JSON_STRUCTURE.add(item);
         }
     }

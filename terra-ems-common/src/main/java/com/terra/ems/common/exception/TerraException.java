@@ -57,6 +57,7 @@ public class TerraException extends RuntimeException {
     }
 
     public Result<String> getResult() {
-        return Result.failure(super.getMessage(), errorCode.getSequence(), errorCode.getStatus(), (String) null);
+        return Result.failure(super.getMessage(), String.valueOf(errorCode.getSequence()), errorCode.getStatus(),
+                (String) null);
     }
 }

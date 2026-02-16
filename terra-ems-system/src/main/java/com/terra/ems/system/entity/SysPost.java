@@ -23,6 +23,7 @@
 
 package com.terra.ems.system.entity;
 
+import com.terra.ems.common.annotation.Excel;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -54,22 +55,27 @@ public class SysPost extends BaseEntity {
         private Long id;
 
         @Schema(title = "岗位编码")
+        @Excel(name = "岗位编码")
         @Column(name = "code", length = 64, unique = true, nullable = false)
         private String code;
 
         @Schema(title = "岗位名称")
+        @Excel(name = "岗位名称")
         @Column(name = "name", length = 64, nullable = false)
         private String name;
 
         @Schema(title = "显示顺序")
+        @Excel(name = "岗位排序")
         @Column(name = "sort_order")
         private Integer sortOrder = 0;
 
         @Schema(title = "状态")
+        @Excel(name = "状态", readConverterExp = "ENABLE=正常,DISABLE=停用")
         @Column(name = "status", nullable = false)
         private DataItemStatus status = DataItemStatus.ENABLE;
 
         @Schema(title = "备注")
+        @Excel(name = "备注")
         @Column(name = "remark", length = 500)
         private String remark;
 }

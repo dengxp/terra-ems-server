@@ -1,0 +1,138 @@
+/*
+ * Copyright (c) 2024 泰若科技（广州）有限公司. All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
+
+package com.terra.ems.common.utils.spring;
+
+import org.springframework.aop.framework.AopContext;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
+
+/**
+ * spring工具类 方便在非spring管理环境中获取bean
+ * 
+ * @author dengxueping
+ */
+@Component
+public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware {
+    /** Spring应用上下文环境 */
+    private static ConfigurableListableBeanFactory beanFactory;
+
+    private static ApplicationContext applicationContext;
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        SpringUtils.beanFactory = beanFactory;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        SpringUtils.applicationContext = applicationContext;
+    }
+
+    /**
+     * 获取对象
+     *
+     * @param name
+     * @return Object 一个以所给名字注册的bean的实例
+     * @throws org.springframework.beans.BeansException
+     *
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getBean(String name) throws BeansException {
+        return (T) beanFactory.getBean(name);
+    }
+
+    /**
+     * 获取类型为requiredType的对象
+     *
+     * @param clz
+     * @return
+     * @throws org.springframework.beans.BeansException
+     *
+     */
+    public static <T> T getBean(Class<T> clz) throws BeansException {
+        T result = (T) beanFactory.getBean(clz);
+        return result;
+    }
+
+    /**
+     * 如果BeanFactory包含一个与所给名称匹配的bean定义，则返回true
+     *
+     * @param name
+     * @return boolean
+     */
+    public static boolean containsBean(String name) {
+        return beanFactory.containsBean(name);
+    }
+
+    /**
+     * 判断以给定名字注册的bean定义是一个singleton还是一个prototype。
+     * 如果wo给定名字的bean定义没有被找到，将会抛出一个（NoSuchBeanDefinitionException）异常
+     *
+     * @param name
+     * @return boolean
+     * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
+     *
+     */
+    public static boolean isSingleton(String name) throws NoSuchBeanDefinitionException {
+        return beanFactory.isSingleton(name);
+    }
+
+    /**
+     * @param name
+     * @return Class 注册对象的类型
+     * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
+     *
+     */
+    public static Class<?> getType(String name) throws NoSuchBeanDefinitionException {
+        return beanFactory.getType(name);
+    }
+
+    /**
+     * 如果给定的bean名字在bean定义中有别名，则返回这些别名
+     *
+     * @param name
+     * @return
+     * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
+     *
+     */
+    public static String[] getAliases(String name) throws NoSuchBeanDefinitionException {
+        return beanFactory.getAliases(name);
+    }
+
+    /**
+     * 获取aop代理对象
+     * 
+     * @param invoker
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getAopProxy(T invoker) {
+        return (T) AopContext.currentProxy();
+    }
+}
