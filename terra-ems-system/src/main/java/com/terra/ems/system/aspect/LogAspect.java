@@ -48,6 +48,7 @@ import com.terra.ems.common.utils.ip.IpUtils;
 import com.terra.ems.framework.manager.AsyncManager;
 import com.terra.ems.system.manager.factory.AsyncFactory;
 import com.terra.ems.system.entity.SysOperationLog;
+import jakarta.annotation.PostConstruct;
 
 /**
  * 操作日志记录处理
@@ -66,6 +67,13 @@ public class LogAspect {
 
     /** 计算操作消耗时间 */
     private static final ThreadLocal<Long> TIME_THREADLOCAL = new NamedThreadLocal<Long>("Cost Time");
+
+    @PostConstruct
+    public void init() {
+        log.info("========================================");
+        log.info("[LogAspect] 操作日志切面已初始化！AOP 已生效");
+        log.info("========================================");
+    }
 
     /**
      * 处理请求前执行
