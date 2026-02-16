@@ -54,7 +54,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 @Tag(name = "操作日志")
 @RestController
-@RequestMapping("/monitor/operationLog")
+@RequestMapping("/monitor/operation-log")
 @RequiredArgsConstructor
 public class SysOperationLogController extends BaseController<SysOperationLog, Long> {
 
