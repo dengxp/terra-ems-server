@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS sys_user (
     id BIGSERIAL PRIMARY KEY,
     username VARCHAR(64) NOT NULL UNIQUE,
     password VARCHAR(128) NOT NULL,
-    nickname VARCHAR(64),
+    real_name VARCHAR(64),
     email VARCHAR(128),
-    phone VARCHAR(20),
+    phone VARCHAR(20) UNIQUE,
     status INTEGER NOT NULL DEFAULT 1,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
@@ -28,9 +28,10 @@ CREATE TABLE IF NOT EXISTS sys_user (
 
 -- 创建索引
 CREATE INDEX IF NOT EXISTS idx_sys_user_username ON sys_user(username);
+CREATE INDEX IF NOT EXISTS idx_sys_user_phone ON sys_user(phone);
 
 -- 插入测试用户（密码: admin123, BCrypt加密）
-INSERT INTO sys_user (username, password, nickname, status, created_at, updated_at) 
+INSERT INTO sys_user (username, password, real_name, status, created_at, updated_at) 
 VALUES (
     'admin', 
     '$2a$10$N.zmdr9k7uOCQb376NoUnuTUNiCbsd7r0fPp.kGTw3DZSlPRdN5Y6', 
@@ -41,4 +42,4 @@ VALUES (
 ) ON CONFLICT (username) DO NOTHING;
 
 -- 查询验证
-SELECT id, username, nickname, status, created_at FROM sys_user;
+SELECT id, username, real_name, status, created_at FROM sys_user;

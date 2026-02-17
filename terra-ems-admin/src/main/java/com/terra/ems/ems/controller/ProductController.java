@@ -21,7 +21,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,8 +28,6 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 产品管理控制器
@@ -38,12 +35,13 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author dengxueping
  * @since 2026-01-25
  */
-@Slf4j
 @Tag(name = "产品管理")
 @RestController
 @RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController extends BaseController<Product, Long> {
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ProductController.class);
 
     private final ProductService productService;
 
@@ -139,23 +137,5 @@ public class ProductController extends BaseController<Product, Long> {
     @GetMapping("/options")
     public Result<List<Option<Long>>> findOptions() {
         return Result.content(productService.findOptions());
-    }
-
-    @Log(title = "产品管理", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<Product> saveOrUpdate(@Validated @RequestBody Product domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "产品管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "产品管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

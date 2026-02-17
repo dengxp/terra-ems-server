@@ -45,8 +45,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 节能项目控制器
@@ -167,24 +165,5 @@ public class EnergySavingProjectController extends BaseController<EnergySavingPr
             @PathVariable Long id,
             @RequestParam @Parameter(description = "新状态") ProjectStatus status) {
         return Result.content(energySavingProjectService.updateStatus(id, status));
-    }
-
-
-    @Log(title = "节能项目", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<EnergySavingProject> saveOrUpdate(@Validated @RequestBody EnergySavingProject domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "节能项目", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "节能项目", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

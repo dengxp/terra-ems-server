@@ -52,7 +52,7 @@ import java.util.Map;
 public class Result<T> implements Serializable {
 
     @Schema(title = "响应时间戳")
-    private final String timestamp = DateUtil.format(new java.util.Date(),
+    private final String timestamp = DateUtil.format(new Date(),
             DefaultConstants.DATE_TIME_FORMAT);
 
     @Schema(title = "校验错误信息")

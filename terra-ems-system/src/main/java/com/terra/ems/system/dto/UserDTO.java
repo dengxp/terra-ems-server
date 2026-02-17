@@ -54,8 +54,8 @@ public class UserDTO {
     @Schema(title = "用户名")
     private String username;
 
-    @Schema(title = "昵称")
-    private String nickname;
+    @Schema(title = "真实姓名")
+    private String realName;
 
     @Schema(title = "邮箱")
     private String email;

@@ -38,6 +38,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -45,7 +46,6 @@ import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * 对标值控制器
@@ -113,17 +113,6 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
     }
 
     /**
-     * 查询所有对标值
-     *
-     * @return 对标值列表
-     */
-    @GetMapping("/all")
-    @Operation(summary = "查询所有对标值")
-    public Result<List<Benchmark>> findAll() {
-        return Result.content(benchmarkService.findAll());
-    }
-
-    /**
      * 查询所有启用的对标值
      *
      * @return 启用的对标值列表
@@ -132,20 +121,6 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
     @Operation(summary = "查询所有启用的对标值")
     public Result<List<Benchmark>> findAllEnabled() {
         return Result.content(benchmarkService.findAllEnabled());
-    }
-
-    /**
-     * 根据ID查询对标值
-     *
-     * @param id 对标值ID
-     * @return 对标值详情
-     */
-    @GetMapping("/{id}")
-    @Operation(summary = "根据ID查询")
-    public Result<Benchmark> findById(@PathVariable Long id) {
-        return Optional.ofNullable(benchmarkService.findById(id))
-                .map(Result::content)
-                .orElse(Result.failure("对标值不存在"));
     }
 
     /**
@@ -198,23 +173,10 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
     @Log(title = "能效基准", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
     @Operation(summary = "更新对标值")
-    public Result<Benchmark> update(@PathVariable Long id, @RequestBody Benchmark benchmark) {
+    @Override
+    public Result<Benchmark> update(@PathVariable Long id, @RequestBody @Validated Benchmark benchmark) {
         benchmark.setId(id);
         return Result.content(benchmarkService.saveOrUpdate(benchmark));
-    }
-
-    /**
-     * 删除对标值
-     *
-     * @param id 对标值ID
-     * @return 操作结果
-     */
-    @Log(title = "能效基准", businessType = BusinessType.DELETE)
-    @DeleteMapping("/{id}")
-    @Operation(summary = "删除基准定义")
-    public Result<String> delete(@PathVariable Long id) {
-        benchmarkService.deleteById(id);
-        return Result.success("删除成功");
     }
 
     /**
@@ -244,17 +206,5 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
     public Result<Long> countByType(
             @PathVariable @Parameter(description = "类型") BenchmarkType type) {
         return Result.content(benchmarkService.countByType(type));
-    }
-
-    @Log(title = "能效基准", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<Benchmark> saveOrUpdate(@Validated @RequestBody Benchmark domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "能效基准", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

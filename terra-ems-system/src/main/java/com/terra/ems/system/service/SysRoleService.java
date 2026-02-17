@@ -21,34 +21,42 @@
  *
  */
 
-package com.terra.ems.system.repository;
+package com.terra.ems.system.service;
 
+import com.terra.ems.common.domain.Option;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
-import com.terra.ems.system.entity.SysMenu;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
+import com.terra.ems.framework.service.BaseService;
+import com.terra.ems.system.entity.SysRole;
+import com.terra.ems.system.repository.SysRoleRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * 系统菜单仓库
+ * 系统角色服务
  *
  * @author dengxueping
- * @since 2026-01-11
+ * @since 2026-02-16
  */
 
-@Repository
-public interface SysMenuRepository extends BaseRepository<SysMenu, Long> {
+@Service
+@RequiredArgsConstructor
+public class SysRoleService extends BaseService<SysRole, Long> {
+
+    private final SysRoleRepository roleRepository;
+
+    @Override
+    public BaseRepository<SysRole, Long> getRepository() {
+        return roleRepository;
+    }
 
     /**
-     * 查询所有根菜单（无父菜单）
+     * 查询角色选项列表
+     *
+     * @return 角色选项列表
      */
-    List<SysMenu> findByParentIsNullOrderBySortOrderAsc();
-
-    /**
-     * 根据父ID查询子菜单
-     */
-    @Query("select e from SysMenu e where e.parent.id = :parentId order by e.sortOrder asc")
-    List<SysMenu> findByParentIdOrderBySortOrderAsc(@Param("parentId") Long parentId);
+    public List<Option<Long>> findOptions() {
+        return roleRepository.findOptions();
+    }
 }

@@ -55,6 +55,15 @@ public interface SysUserRepository extends BaseRepository<SysUser, Long> {
     Optional<SysUser> findByPhone(String phone);
 
     /**
+     * 根据用户名或手机号查找用户
+     *
+     * @param username 用户名
+     * @param phone    手机号
+     * @return 用户信息
+     */
+    Optional<SysUser> findByUsernameOrPhone(String username, String phone);
+
+    /**
      * 检查用户名是否存在
      *
      * @param username 用户名

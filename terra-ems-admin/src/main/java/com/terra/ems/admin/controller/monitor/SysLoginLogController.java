@@ -40,10 +40,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.terra.ems.common.annotation.Log;
-import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
@@ -65,9 +61,12 @@ public class SysLoginLogController extends BaseController<SysLoginLog, Long> {
         return loginLogService;
     }
 
-    @Operation(summary = "分页查询访问记录")
-    @GetMapping("/list")
-    public Result<Map<String, Object>> list(
+    /**
+     * 分页查询登录日志
+     */
+    @Operation(summary = "分页查询")
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(
             Pager pager,
             @RequestParam(required = false) String userName,
             @RequestParam(required = false) String status,
@@ -93,23 +92,5 @@ public class SysLoginLogController extends BaseController<SysLoginLog, Long> {
     public Result<Void> clean() {
         loginLogService.cleanLoginLog();
         return Result.success();
-    }
-
-    @Log(title = "登录日志", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<SysLoginLog> saveOrUpdate(@Validated @RequestBody SysLoginLog domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "登录日志", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "登录日志", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

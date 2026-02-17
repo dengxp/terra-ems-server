@@ -36,8 +36,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 预报警配置控制器
@@ -73,23 +71,5 @@ public class AlarmConfigController extends BaseController<AlarmConfig, Long> {
     @GetMapping("/meter-point/{meterPointId}")
     public Result<List<AlarmConfig>> findByMeterPoint(@PathVariable Long meterPointId) {
         return Result.content(alarmConfigService.findByMeterPoint(meterPointId));
-    }
-
-    @Log(title = "告警配置", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<AlarmConfig> saveOrUpdate(@Validated @RequestBody AlarmConfig domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "告警配置", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "告警配置", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

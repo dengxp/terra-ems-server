@@ -34,6 +34,7 @@ import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.persistence.criteria.Predicate;
@@ -45,7 +46,6 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * 计量器具档案控制器
@@ -100,27 +100,10 @@ public class MeterController extends BaseController<Meter, Long> {
     @Operation(summary = "更新计量器具")
     @Log(title = "仪表管理", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
-    public Result<Meter> update(@PathVariable Long id, @RequestBody Meter meter) {
+    @Override
+    public Result<Meter> update(@PathVariable Long id, @RequestBody @Validated Meter meter) {
         // 确保ID一致
         meter.setId(id);
         return saveOrUpdate(meter);
-    }
-
-    @Log(title = "仪表管理", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<Meter> saveOrUpdate(@Validated @RequestBody Meter domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "仪表管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "仪表管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

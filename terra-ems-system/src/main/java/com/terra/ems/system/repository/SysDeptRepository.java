@@ -47,11 +47,21 @@ public interface SysDeptRepository extends BaseRepository<SysDept, Long> {
     List<SysDept> findByStatusOrderBySortOrderAsc(DataItemStatus status);
 
     /**
+     * 根据部门名称查询
+     */
+    SysDept findByName(String name);
+
+    /**
      * 查询所有启用的部门
      */
     default List<SysDept> findAllEnabled() {
         return findByStatusOrderBySortOrderAsc(DataItemStatus.ENABLE);
     }
+
+    /**
+     * 查询所有根部门（无父部门）
+     */
+    List<SysDept> findByParentIsNullOrderBySortOrderAsc();
 
     /**
      * 根据父ID查询子部门

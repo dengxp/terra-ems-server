@@ -48,10 +48,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.terra.ems.common.annotation.Log;
-import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 字典数据控制器
@@ -72,7 +68,10 @@ public class SysDictDataController extends BaseController<SysDictData, Long> {
         return dictDataService;
     }
 
-    @Operation(summary = "分页搜索字典数据")
+    /**
+     * 分页查询字典数据
+     */
+    @Operation(summary = "分页查询")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,
@@ -96,7 +95,6 @@ public class SysDictDataController extends BaseController<SysDictData, Long> {
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
-
         return findByPage(pager, spec);
     }
 
@@ -104,23 +102,5 @@ public class SysDictDataController extends BaseController<SysDictData, Long> {
     @GetMapping(value = "/type/{dictType}")
     public Result<List<SysDictData>> dictType(@Parameter(description = "字典类型") @PathVariable String dictType) {
         return Result.content(dictDataService.findByType(dictType));
-    }
-
-    @Log(title = "字典数据", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<SysDictData> saveOrUpdate(@Validated @RequestBody SysDictData domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "字典数据", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "字典数据", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

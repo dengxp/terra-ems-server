@@ -36,9 +36,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 菜单管理控制器
@@ -76,9 +76,9 @@ public class SysMenuController extends BaseController<SysMenu, Long> {
      */
     @Operation(summary = "查询菜单树")
     @GetMapping("/tree")
-    @Override
-    public Result<List<SysMenu>> findTree() {
-        return Result.content(menuService.findMenuTree(null));
+    public Result<List<Map<String, Object>>> findTree() {
+        return result(menuService.findAll(null, org.springframework.data.domain.Sort.by("sortOrder")),
+                SysMenu::getId, SysMenu::getParentId, SysMenu::getName, SysMenu::getSortOrder, null);
     }
 
     /**
@@ -89,22 +89,12 @@ public class SysMenuController extends BaseController<SysMenu, Long> {
      */
     @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
     @Operation(summary = "保存或更新菜单")
+    @PostMapping
+    @PutMapping
     @Override
     @PreAuthorize("hasAnyAuthority('system:menu:add', 'system:menu:edit')")
     public Result<SysMenu> saveOrUpdate(@Validated @RequestBody SysMenu menu) {
         return super.saveOrUpdate(menu);
     }
 
-
-    @Log(title = "菜单管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "菜单管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
-    }
 }

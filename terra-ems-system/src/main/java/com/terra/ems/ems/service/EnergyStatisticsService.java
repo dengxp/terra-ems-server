@@ -49,7 +49,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 能耗统计分析服务
@@ -638,8 +642,8 @@ public class EnergyStatisticsService {
         }
 
         // 合并数据
-        java.util.Map<String, BigDecimal> energyMap = new java.util.HashMap<>();
-        java.util.Map<String, BigDecimal> prodMap = new java.util.HashMap<>();
+        Map<String, BigDecimal> energyMap = new HashMap<>();
+        Map<String, BigDecimal> prodMap = new HashMap<>();
         DateTimeFormatter formatter = getFormatter(getSubTimeType(timeType));
 
         for (Object[] row : energyTrend) {
@@ -661,7 +665,7 @@ public class EnergyStatisticsService {
         }
 
         // 统一时间轴（以能耗或产量时间为准，通常能耗更密）
-        java.util.Set<String> allLabels = new java.util.TreeSet<>();
+        Set<String> allLabels = new TreeSet<>();
         allLabels.addAll(energyMap.keySet());
         allLabels.addAll(prodMap.keySet());
 

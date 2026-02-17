@@ -42,6 +42,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.terra.ems.common.annotation.Log;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import com.terra.ems.common.enums.BusinessStatus;
 import com.terra.ems.common.utils.ServletUtils;
 import com.terra.ems.common.utils.ip.IpUtils;
@@ -114,8 +117,7 @@ public class LogAspect {
             try {
                 // 这里简单尝试获取用户名，实际应该从SecurityContextHolder获取
                 // 由于Aspect是在Framework中，我们假设SecurityContextHolder可用
-                org.springframework.security.core.Authentication authentication = org.springframework.security.core.context.SecurityContextHolder
-                        .getContext().getAuthentication();
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
                 if (authentication != null) {
                     username = authentication.getName();
                 }
@@ -124,33 +126,33 @@ public class LogAspect {
             }
 
             // *========数据库日志=========*//
-            SysOperationLog operLog = new SysOperationLog();
-            operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
+            SysOperationLog operationLog = new SysOperationLog();
+            operationLog.setStatus(BusinessStatus.SUCCESS.ordinal());
             // 请求的地址
             String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
-            operLog.setOperationIp(ip);
-            operLog.setOperationUrl(StringUtils.substring(ServletUtils.getRequest().getRequestURI(), 0, 255));
-            operLog.setOperationName(username);
+            operationLog.setOperationIp(ip);
+            operationLog.setOperationUrl(StringUtils.substring(ServletUtils.getRequest().getRequestURI(), 0, 255));
+            operationLog.setOperationName(username);
 
             if (e != null) {
-                operLog.setStatus(BusinessStatus.FAIL.ordinal());
-                operLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
+                operationLog.setStatus(BusinessStatus.FAIL.ordinal());
+                operationLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
             }
             // 设置方法名称
             String className = joinPoint.getTarget().getClass().getName();
             String methodName = joinPoint.getSignature().getName();
-            operLog.setMethod(className + "." + methodName + "()");
+            operationLog.setMethod(className + "." + methodName + "()");
             // 设置请求方式
-            operLog.setRequestMethod(ServletUtils.getRequest().getMethod());
+            operationLog.setRequestMethod(ServletUtils.getRequest().getMethod());
             // 处理设置注解上的参数
-            getControllerMethodDescription(joinPoint, controllerLog, operLog, jsonResult);
+            getControllerMethodDescription(joinPoint, controllerLog, operationLog, jsonResult);
             // 设置消耗时间
-            operLog.setCostTime(System.currentTimeMillis() - TIME_THREADLOCAL.get());
-            operLog.setOperationTime(LocalDateTime.now());
+            operationLog.setCostTime(System.currentTimeMillis() - TIME_THREADLOCAL.get());
+            operationLog.setOperationTime(LocalDateTime.now());
             // 保存数据库
             log.info("[LogAspect] 准备异步保存操作日志: title={}, operationName={}, operationUrl={}",
-                    operLog.getTitle(), operLog.getOperationName(), operLog.getOperationUrl());
-            AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
+                    operationLog.getTitle(), operationLog.getOperationName(), operationLog.getOperationUrl());
+            AsyncManager.me().execute(AsyncFactory.recordOper(operationLog));
         } catch (Exception exp) {
             // 记录本地异常日志
             log.error("==前置通知异常==");
@@ -165,42 +167,49 @@ public class LogAspect {
      * 获取注解中对方法的描述信息 用于Controller层注解
      * 
      * @param log     日志
-     * @param operLog 操作日志
+     * @param operationLog 操作日志
      * @throws Exception
      */
-    public void getControllerMethodDescription(JoinPoint joinPoint, Log log, SysOperationLog operLog, Object jsonResult)
+    public void getControllerMethodDescription(JoinPoint joinPoint, Log log, SysOperationLog operationLog, Object jsonResult)
             throws Exception {
         // 设置action动作
-        operLog.setBusinessType(log.businessType().ordinal());
+        operationLog.setBusinessType(log.businessType().ordinal());
         // 设置标题
-        operLog.setTitle(log.title());
+        String title = log.title();
+        if (StringUtils.isEmpty(title)) {
+            Tag tag = joinPoint.getTarget().getClass().getAnnotation(Tag.class);
+            if (tag != null && StringUtils.isNotEmpty(tag.name())) {
+                title = tag.name();
+            }
+        }
+        operationLog.setTitle(title);
         // 设置操作人类别
-        operLog.setOperatorType(log.operatorType().ordinal());
+        operationLog.setOperatorType(log.operatorType().ordinal());
         // 是否需要保存request，参数和值
         if (log.isSaveRequestData()) {
             // 获取参数的信息，传入到数据库中。
-            setRequestValue(joinPoint, operLog);
+            setRequestValue(joinPoint, operationLog);
         }
         // 是否需要保存response，参数和值
         if (log.isSaveResponseData() && StringUtils.isNotNull(jsonResult)) {
-            operLog.setJsonResult(StringUtils.substring(objectMapper.writeValueAsString(jsonResult), 0, 2000));
+            operationLog.setJsonResult(StringUtils.substring(objectMapper.writeValueAsString(jsonResult), 0, 2000));
         }
     }
 
     /**
      * 获取请求的参数，放到log中
      * 
-     * @param operLog 操作日志
+     * @param operationLog 操作日志
      * @throws Exception 异常
      */
-    private void setRequestValue(JoinPoint joinPoint, SysOperationLog operLog) throws Exception {
-        String requestMethod = operLog.getRequestMethod();
+    private void setRequestValue(JoinPoint joinPoint, SysOperationLog operationLog) throws Exception {
+        String requestMethod = operationLog.getRequestMethod();
         if ("PUT".equals(requestMethod) || "POST".equals(requestMethod)) {
             String params = argsArrayToString(joinPoint.getArgs());
-            operLog.setOperationParam(StringUtils.substring(params, 0, 2000));
+            operationLog.setOperationParam(StringUtils.substring(params, 0, 2000));
         } else {
             Map<?, ?> paramsMap = ServletUtils.getRequest().getParameterMap();
-            operLog.setOperationParam(StringUtils.substring(objectMapper.writeValueAsString(paramsMap), 0, 2000));
+            operationLog.setOperationParam(StringUtils.substring(objectMapper.writeValueAsString(paramsMap), 0, 2000));
         }
     }
 

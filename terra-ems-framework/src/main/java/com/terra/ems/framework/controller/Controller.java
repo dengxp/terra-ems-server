@@ -26,14 +26,14 @@ package com.terra.ems.framework.controller;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.framework.jpa.entity.Entity;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.domain.Page;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Controller基础定义，提供了统一的响应实体转换方法
@@ -65,7 +65,7 @@ public abstract class Controller {
      * @return {@link Result} List
      */
     protected <E extends Entity> Result<List<E>> result(List<E> domains) {
-        return Result.success("查询数据成功!", domains != null ? domains : new java.util.ArrayList<>());
+        return Result.success("查询数据成功!", domains != null ? domains : new ArrayList<>());
     }
 
     /**
@@ -133,6 +133,103 @@ public abstract class Controller {
     }
 
     /**
+     * 构建树形结构数据响应 (Map实现，不依赖 Hutool)
+     *
+     * @param list           原始数据列表
+     * @param idGetter       ID获取器
+     * @param parentIdGetter 父ID获取器
+     * @param nameGetter     名称获取器
+     * @param weightGetter   权重获取器
+     * @param rootId         根节点ID（null表示构建所有根节点）
+     * @param <E>            实体类型
+     * @param <T>            ID类型
+     * @return 树形结构数据
+     */
+    protected <E, T> Result<List<Map<String, Object>>> result(List<E> list, Function<E, T> idGetter,
+            Function<E, T> parentIdGetter,
+            Function<E, String> nameGetter, Function<E, Integer> weightGetter,
+            T rootId) {
+        if (CollectionUtils.isEmpty(list)) {
+            return Result.success("查询数据成功!", new ArrayList<>());
+        }
+
+        List<Map<String, Object>> treeList = buildTree(list, idGetter, parentIdGetter, nameGetter, weightGetter,
+                rootId);
+        return Result.success("查询数据成功!", treeList);
+    }
+
+    /**
+     * 手动构建树形结构
+     */
+    @SuppressWarnings("unchecked")
+    private <E, T> List<Map<String, Object>> buildTree(List<E> list, Function<E, T> idGetter,
+            Function<E, T> parentIdGetter,
+            Function<E, String> nameGetter, Function<E, Integer> weightGetter,
+            T rootId) {
+        // 1. 将所有节点转为 Map 并存入 ID 映射
+        Map<T, Map<String, Object>> nodeMap = new HashMap<>(); // ID -> Node
+        List<Map<String, Object>> nodeList = new ArrayList<>(); // 所有节点列表 (保持原序或 sortOrder)
+
+        for (E e : list) {
+            T id = idGetter.apply(e);
+            if (id == null)
+                continue;
+
+            // 如果已存在相同 ID 的节点，跳过（防止重复）
+            if (nodeMap.containsKey(id)) {
+                continue;
+            }
+
+            T parentId = parentIdGetter.apply(e);
+            String name = nameGetter.apply(e);
+            Integer weight = weightGetter.apply(e);
+
+            Map<String, Object> node = new HashMap<>();
+            node.put("key", id);
+            node.put("title", name);
+            node.put("value", id);
+            node.put("label", name);
+            node.put("id", id);
+            node.put("parentId", parentId);
+            node.put("name", name);
+            node.put("sortOrder", weight != null ? weight : 0);
+
+            nodeMap.put(id, node);
+            nodeList.add(node);
+        }
+
+        // 2. 组装父子关系
+        List<Map<String, Object>> roots = new ArrayList<>();
+
+        for (Map<String, Object> node : nodeList) {
+            T parentId = (T) node.get("parentId");
+
+            // 判断是否为根节点：parentId 为 null，或者 parentId 等于指定的 rootId，或者父节点在当前列表中找不到
+            boolean isRoot = (parentId == null) ||
+                    (rootId != null && parentId.equals(rootId)) ||
+                    (!nodeMap.containsKey(parentId));
+
+            if (isRoot) {
+                roots.add(node);
+            } else {
+                Map<String, Object> parentNode = nodeMap.get(parentId);
+                if (parentNode != null) {
+                    List<Map<String, Object>> children = (List<Map<String, Object>>) parentNode.get("children");
+                    if (children == null) {
+                        children = new ArrayList<>();
+                        parentNode.put("children", children);
+                    }
+                    children.add(node);
+                }
+            }
+        }
+
+        // 3. 如果需要对 children 排序，可以在这里递归 sort，但通常 list 输入时已经是 sortOrder ASC，所以 sequence
+        // 保持一致即可
+        return roots;
+    }
+
+    /**
      * 返回成功信息
      *
      * @return {@link Result} String
@@ -146,12 +243,6 @@ public abstract class Controller {
      *
      * @param message 信息
      * @return {@link Result} String
-     */
-    /**
-     * 返回成功结果
-     *
-     * @param message 成功消息
-     * @return 成功结果
      */
     protected Result<String> success(String message) {
         return Result.success(message);

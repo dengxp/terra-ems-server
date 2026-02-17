@@ -23,13 +23,17 @@
 
 package com.terra.ems.system.repository;
 
+import com.terra.ems.common.domain.Option;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.system.entity.SysPost;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * 系统岗位仓库
@@ -55,4 +59,17 @@ public interface SysPostRepository extends BaseRepository<SysPost, Long> {
      * 根据状态查询
      */
     List<SysPost> findByStatusOrderBySortOrderAsc(DataItemStatus status);
+
+    /**
+     * 根据ID集合查询
+     */
+    Set<SysPost> findByIdIn(Collection<Long> ids);
+
+    /**
+     * 查询岗位选项列表
+     *
+     * @return 岗位选项列表
+     */
+    @Query("select new com.terra.ems.common.domain.Option(p.id, p.name) from SysPost p where p.status = com.terra.ems.framework.enums.DataItemStatus.ENABLE order by p.sortOrder asc")
+    List<Option<Long>> findOptions();
 }

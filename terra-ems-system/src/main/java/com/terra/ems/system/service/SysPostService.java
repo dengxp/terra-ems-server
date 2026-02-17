@@ -23,12 +23,15 @@
 
 package com.terra.ems.system.service;
 
+import com.terra.ems.common.domain.Option;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysPost;
 import com.terra.ems.system.repository.SysPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 系统岗位服务
@@ -64,5 +67,14 @@ public class SysPostService extends BaseService<SysPost, Long> {
         return postRepository.findByCode(code)
                 .map(post -> post.getId().equals(id))
                 .orElse(true);
+    }
+
+    /**
+     * 查询岗位选项列表
+     *
+     * @return 岗位选项列表
+     */
+    public List<Option<Long>> findOptions() {
+        return postRepository.findOptions();
     }
 }

@@ -24,7 +24,9 @@
 package com.terra.ems.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.terra.ems.framework.enums.DataScope;
+import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -55,6 +57,7 @@ import java.util.Set;
                 @Index(name = "idx_role_id", columnList = "id"),
                 @Index(name = "idx_role_code", columnList = "code")
 })
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class SysRole extends BaseEntity {
 
         @Schema(title = "角色ID")
@@ -109,4 +112,8 @@ public class SysRole extends BaseEntity {
         @JsonIgnore
         @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
         private Set<SysUser> users = new HashSet<>();
+
+        @Schema(title = "角色状态")
+        @Column(name = "status", nullable = false)
+        private DataItemStatus status = DataItemStatus.ENABLE;
 }

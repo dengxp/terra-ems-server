@@ -44,7 +44,6 @@ import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 参数配置控制器
@@ -95,22 +94,18 @@ public class SysConfigController extends BaseController<SysConfig, Long> {
      */
     @Log(title = "系统配置", businessType = BusinessType.UPDATE)
     @Operation(summary = "保存或更新配置")
+    @PostMapping
+    @PutMapping
     @Override
     @PreAuthorize("hasAnyAuthority('system:config:add', 'system:config:edit')")
-    public Result<SysConfig> saveOrUpdate(SysConfig config) {
+    public Result<SysConfig> saveOrUpdate(@Validated @RequestBody SysConfig config) {
         return super.saveOrUpdate(config);
     }
 
     /**
      * 分页查询参数配置
-     *
-     * @param pager 分页参数
-     * @param name  参数名称
-     * @param key   参数键名
-     * @param type  系统内置（Y/N）
-     * @return 分页结果
      */
-    @Operation(summary = "分页查询参数配置")
+    @Operation(summary = "分页查询")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,
@@ -130,19 +125,6 @@ public class SysConfigController extends BaseController<SysConfig, Long> {
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
-
         return findByPage(pager, spec);
-    }
-
-    @Log(title = "系统配置", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "系统配置", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

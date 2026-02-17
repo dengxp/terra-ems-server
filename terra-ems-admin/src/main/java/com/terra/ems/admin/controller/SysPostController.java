@@ -22,7 +22,11 @@
  */
 package com.terra.ems.admin.controller;
 
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.domain.Option;
 import com.terra.ems.common.domain.Result;
+import com.terra.ems.common.enums.BusinessType;
+import com.terra.ems.common.utils.poi.ExcelUtil;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.enums.DataItemStatus;
@@ -32,6 +36,7 @@ import com.terra.ems.system.service.SysPostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,11 +47,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import jakarta.servlet.http.HttpServletResponse;
-import com.terra.ems.common.utils.poi.ExcelUtil;
-import com.terra.ems.common.annotation.Log;
-import com.terra.ems.common.enums.BusinessType;
-import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 岗位管理控制器
@@ -84,6 +84,8 @@ public class SysPostController extends BaseController<SysPost, Long> {
      */
     @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
     @Operation(summary = "保存或更新岗位")
+    @PostMapping
+    @PutMapping
     @Override
     @PreAuthorize("hasAnyAuthority('system:post:add', 'system:post:edit')")
     public Result<SysPost> saveOrUpdate(@Validated @RequestBody SysPost post) {
@@ -95,20 +97,14 @@ public class SysPostController extends BaseController<SysPost, Long> {
 
     /**
      * 分页查询岗位
-     *
-     * @param pager  分页参数
-     * @param name   岗位名称
-     * @param code   岗位编码
-     * @param status 状态
-     * @return 分页结果
      */
-    @Operation(summary = "分页查询岗位")
+    @Operation(summary = "分页查询")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String code,
-            @RequestParam(required = false) Integer status) {
+            @RequestParam(required = false) DataItemStatus status) {
         Specification<SysPost> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.hasText(name)) {
@@ -118,11 +114,10 @@ public class SysPostController extends BaseController<SysPost, Long> {
                 predicates.add(cb.like(root.get("code"), "%" + code + "%"));
             }
             if (status != null) {
-                predicates.add(cb.equal(root.get("status"), DataItemStatus.fromValue(status)));
+                predicates.add(cb.equal(root.get("status"), status));
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
-
         return findByPage(pager, spec);
     }
 
@@ -151,15 +146,9 @@ public class SysPostController extends BaseController<SysPost, Long> {
         util.exportExcel(response, list, "岗位数据");
     }
 
-    @Log(title = "岗位管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "岗位管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
+    @Operation(summary = "查询岗位选项列表")
+    @GetMapping("/options")
+    public Result<List<Option<Long>>> findOptions() {
+        return Result.content(postService.findOptions());
     }
 }

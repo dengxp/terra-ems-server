@@ -23,24 +23,23 @@
 
 package com.terra.ems.framework.controller;
 
+import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.domain.Result;
+import com.terra.ems.common.enums.BusinessType;
 import com.terra.ems.framework.jpa.entity.Entity;
 import com.terra.ems.framework.rest.annotation.Idempotent;
 import com.terra.ems.framework.service.WritableService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.PropertyAccessorFactory;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.Serializable;
 import java.util.List;
@@ -68,7 +67,9 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
         @Parameters({
                         @Parameter(name = "domain", required = true, description = "可转换为实体的json数据")
         })
+        @Log(title = "", businessType = BusinessType.UPDATE)
         @PostMapping
+        @PutMapping
         public Result<E> saveOrUpdate(@RequestBody @Validated E domain) {
                 E savedEntity = getWritableService().saveOrUpdate(domain);
                 return Result.success("保存成功", savedEntity);
@@ -81,14 +82,11 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
          * @param domain 实体数据
          * @return 更新后的实体数据
          */
-        /**
-         * 根据ID更新数据 (不直接映射端点，避免与子类冲突)
-         *
-         * @param id     实体ID
-         * @param domain 实体数据
-         * @return 更新后的实体数据
-         */
-        protected Result<E> update(ID id, @RequestBody @Validated E domain) {
+        @Idempotent
+        @Operation(summary = "通过ID更新数据", description = "根据路径中的ID更新实体数据")
+        @PutMapping("/{id}")
+        @Log(title = "", businessType = BusinessType.UPDATE)
+        public Result<E> update(@PathVariable ID id, @RequestBody @Validated E domain) {
                 BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(domain);
                 bw.setPropertyValue("id", id);
                 return saveOrUpdate(domain);
@@ -106,6 +104,7 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
         @Parameters({
                         @Parameter(name = "id", required = true, in = ParameterIn.PATH, description = "实体ID")
         })
+        @Log(title = "", businessType = BusinessType.DELETE)
         @DeleteMapping("/{id}")
         public Result<String> delete(@PathVariable ID id) {
                 getWritableService().deleteById(id);
@@ -120,6 +119,7 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
          */
         @Idempotent
         @Operation(summary = "批量删除数据", description = "根据实体ID集合批量删除数据")
+        @Log(title = "", businessType = BusinessType.DELETE)
         @DeleteMapping
         public Result<String> deleteBatch(@RequestBody List<ID> ids) {
                 getWritableService().deleteAllById(ids);

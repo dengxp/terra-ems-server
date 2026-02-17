@@ -24,6 +24,7 @@
 package com.terra.ems.framework.jpa.entity;
 
 import com.terra.ems.common.annotation.Excel;
+import com.terra.ems.common.annotation.Excel.Type;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -47,7 +48,7 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity implements Entity {
 
     @Schema(title = "创建时间")
-    @Excel(name = "创建时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "创建时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Type.EXPORT)
     @Column(name = "created_at", updatable = false)
     @CreatedDate
     private LocalDateTime createdAt;

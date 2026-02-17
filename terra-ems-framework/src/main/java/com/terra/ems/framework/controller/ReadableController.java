@@ -57,55 +57,6 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
     protected abstract ReadableService<E, ID> getReadableService();
 
     /**
-     * 构建查询条件
-     * 子类可以重写此方法来处理特定实体的筛选逻辑
-     *
-     * @param params 请求参数
-     * @return Specification 查询条件，返回 null 表示不添加条件
-     */
-    protected Specification<E> buildSpecification(Map<String, Object> params) {
-        return null;
-    }
-
-    /**
-     * 获取树形数据
-     *
-     * @return 树形结构数据列表
-     */
-    @AccessLimited
-    @Operation(summary = "获取树形数据", description = "获取树形结构数据")
-    @GetMapping("/tree")
-    public Result<List<E>> findTree() {
-        List<E> list = getReadableService().findAll();
-        return Result.success("查询成功", list);
-    }
-
-    /**
-     * 根据ID获取单条数据
-     *
-     * @param id 实体ID
-     * @return 实体数据
-     */
-    @AccessLimited
-    @Operation(summary = "获取单条数据", description = "通过ID获取单条数据", responses = {
-            @ApiResponse(description = "实体数据", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Map.class))),
-            @ApiResponse(responseCode = "204", description = "查询成功，未查到数据"),
-            @ApiResponse(responseCode = "500", description = "查询失败")
-    })
-    @Parameters({
-            @Parameter(name = "id", required = true, in = ParameterIn.PATH, description = "实体ID")
-    })
-    @GetMapping("/{id}")
-    public Result<E> findById(@PathVariable ID id) {
-        E entity = getReadableService().findById(id);
-        if (entity != null) {
-            return Result.success("查询成功", entity);
-        } else {
-            return Result.failure("未查到数据");
-        }
-    }
-
-    /**
      * 查询所有数据
      *
      * @return 实体数据列表
@@ -116,6 +67,21 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
     public Result<List<E>> findAll() {
         List<E> list = getReadableService().findAll();
         return Result.success("查询成功", list);
+    }
+
+    /**
+     * 根据ID查询数据
+     *
+     * @param id 主键ID
+     * @return 实体详情
+     */
+    @AccessLimited
+    @Operation(summary = "按ID查询", description = "获取指定ID的实体详情")
+    @GetMapping("/{id}")
+    public Result<E> findById(
+            @Parameter(name = "id", description = "实体ID", in = ParameterIn.PATH) @PathVariable ID id) {
+        E domain = getReadableService().findById(id);
+        return domain != null ? Result.content(domain) : Result.empty();
     }
 
     /**
@@ -133,17 +99,5 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
             page = getReadableService().findByPage(pager.getPageable());
         }
         return result(page);
-    }
-
-    /**
-     * 分页查询数据 (Map 参数版本，不直接映射端点)
-     *
-     * @param pager  分页参数
-     * @param params 查询参数 Map
-     * @return 分页结果 Map
-     */
-    protected Result<Map<String, Object>> findByPage(Pager pager, Map<String, Object> params) {
-        Specification<E> spec = (params != null && !params.isEmpty()) ? buildSpecification(params) : null;
-        return findByPage(pager, spec);
     }
 }

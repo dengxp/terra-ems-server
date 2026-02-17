@@ -395,10 +395,6 @@ public class ExcelUtil<T> {
                         }
                         if (StringUtils.isNotEmpty(attr.readConverterExp())) {
                             val = reverseByExp(Convert.toStr(val), attr.readConverterExp(), attr.separator());
-                        } else if (StringUtils.isNotEmpty(attr.dictType())) {
-                            // Dict support removed
-                            // val = reverseDictByExp(Convert.toStr(val), attr.dictType(),
-                            // attr.separator());
                         } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
                             val = dataFormatHandlerAdapter(val, attr, null);
                         }
@@ -491,13 +487,25 @@ public class ExcelUtil<T> {
             String filename = encodingFilename(sheetName);
             out = new FileOutputStream(getAbsoluteFile(filename));
             wb.write(out);
-            return Result.success(filename);
+            return Result.content(filename);
         } catch (Exception e) {
             log.error("导出Excel异常{}", e.getMessage());
             throw new RuntimeException("导出Excel失败，请联系网站管理员！");
         } finally {
-            IOUtils.closeQuietly(wb);
-            IOUtils.closeQuietly(out);
+            if (wb != null) {
+                try {
+                    wb.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
         }
     }
 
@@ -1010,7 +1018,8 @@ public class ExcelUtil<T> {
      */
     private void createExcelField() {
         this.fields = getFields();
-        this.fields = this.fields.stream().sorted(Comparator.comparing(objects -> ((Excel) objects[1]).sort()))
+        this.fields = this.fields.stream()
+                .sorted(Comparator.comparing((Object[] objects) -> ((Excel) objects[1]).sort()))
                 .collect(Collectors.toList());
         this.maxHeight = getRowHeight();
     }

@@ -54,25 +54,6 @@ public class EnergyUnitService extends BaseService<EnergyUnit, Long> {
     }
 
     /**
-     * 获取完整树形结构
-     *
-     * @return 根节点列表（包含子节点）
-     */
-    public List<EnergyUnit> getTree() {
-        // 查询所有根节点，子节点会通过 @OneToMany 自动加载
-        return energyUnitRepository.findByParentIsNullOrderBySortOrderAsc();
-    }
-
-    /**
-     * 获取启用状态的树形结构
-     *
-     * @return 根节点列表（包含子节点）
-     */
-    public List<EnergyUnit> getEnabledTree() {
-        return energyUnitRepository.findByParentIsNullAndStatusOrderBySortOrderAsc(DataItemStatus.ENABLE);
-    }
-
-    /**
      * 获取指定节点的子节点（懒加载）
      *
      * @param parentId 父节点ID

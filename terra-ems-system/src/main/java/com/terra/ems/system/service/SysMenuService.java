@@ -55,13 +55,4 @@ public class SysMenuService extends BaseService<SysMenu, Long> {
         return menuRepository;
     }
 
-    /**
-     * 查询指定父菜单下的子菜单树
-     *
-     * @param parentId 父菜单ID
-     * @return 菜单列表
-     */
-    public List<SysMenu> findMenuTree(Long parentId) {
-        return menuRepository.findByParentIdOrderBySortOrderAsc(parentId);
-    }
 }

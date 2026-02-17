@@ -41,7 +41,6 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * 分时电价配置控制器
@@ -121,17 +120,17 @@ public class TimePeriodPriceController extends BaseController<TimePeriodPrice, L
     /**
      * 更新现有的分时电价配置
      *
-     * @param id      配置ID
-     * @param payload 更新内容负载
+     * @param id     配置ID
+     * @param entity 分时电价配置实体
      * @return 更新后的实体
      */
     @Operation(summary = "更新分时电价配置")
     @Log(title = "分时电价", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
-    public Result<TimePeriodPrice> update(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
-        TimePeriodPrice timePeriodPrice = extractTimePeriodPrice(payload);
-        timePeriodPrice.setId(id);
-        return Result.content(timePeriodPriceService.saveOrUpdate(timePeriodPrice));
+    @Override
+    public Result<TimePeriodPrice> update(@PathVariable Long id, @RequestBody TimePeriodPrice entity) {
+        entity.setId(id);
+        return Result.content(timePeriodPriceService.saveOrUpdate(entity));
     }
 
     /**
@@ -195,17 +194,5 @@ public class TimePeriodPriceController extends BaseController<TimePeriodPrice, L
         }
         price.setRemark((String) payload.get("remark"));
         return price;
-    }
-
-    @Log(title = "分时电价", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<TimePeriodPrice> saveOrUpdate(@Validated @RequestBody TimePeriodPrice domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "分时电价", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

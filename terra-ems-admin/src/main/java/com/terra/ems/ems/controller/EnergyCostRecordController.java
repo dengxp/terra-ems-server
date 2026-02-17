@@ -37,6 +37,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -44,8 +45,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.validation.annotation.Validated;
 
 import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.ems.dto.CostDeviationDTO;
@@ -121,20 +120,6 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
     }
 
     /**
-     * 根据ID查询成本记录详情
-     *
-     * @param id 记录ID
-     * @return 成本记录详情
-     */
-    @GetMapping("/{id}")
-    @Operation(summary = "根据ID查询")
-    public Result<EnergyCostRecord> findById(@PathVariable Long id) {
-        return Optional.ofNullable(energyCostRecordService.findById(id))
-                .map(Result::content)
-                .orElse(Result.failure("成本记录不存在"));
-    }
-
-    /**
      * 按用能单元和日期范围查询成本记录列表
      *
      * @param energyUnitId 用能单元ID
@@ -182,22 +167,9 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
     @Log(title = "能源费用记录", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
     @Operation(summary = "更新成本记录")
-    public Result<EnergyCostRecord> update(@PathVariable Long id, @RequestBody EnergyCostRecord record) {
+    @Override
+    public Result<EnergyCostRecord> update(@PathVariable Long id, @RequestBody @Validated EnergyCostRecord record) {
         return Result.content(energyCostRecordService.update(id, record));
-    }
-
-    /**
-     * 删除指定的成本记录
-     *
-     * @param id 记录ID
-     * @return 操作结果
-     */
-    @Log(title = "能源费用记录", businessType = BusinessType.DELETE)
-    @DeleteMapping("/{id}")
-    @Operation(summary = "删除用能成本记录")
-    public Result<String> delete(@PathVariable Long id) {
-        energyCostRecordService.deleteById(id);
-        return Result.success("删除成功");
     }
 
     /**
@@ -232,17 +204,5 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
             @RequestParam @Parameter(description = "时间类型 (DAY/MONTH/YEAR)") String timeType,
             @RequestParam @Parameter(description = "查询日期") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataTime) {
         return Result.content(energyCostRecordService.getCostTrendAnalysis(energyUnitId, timeType, dataTime));
-    }
-
-    @Log(title = "能源费用记录", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<EnergyCostRecord> saveOrUpdate(@Validated @RequestBody EnergyCostRecord domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "能源费用记录", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

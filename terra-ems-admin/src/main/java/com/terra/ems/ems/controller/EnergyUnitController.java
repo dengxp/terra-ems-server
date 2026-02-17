@@ -36,10 +36,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 用能单元控制器
@@ -68,8 +67,9 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
      */
     @Operation(summary = "获取完整树形结构")
     @GetMapping("/tree")
-    public Result<List<EnergyUnit>> findTree() {
-        return Result.content(energyUnitService.getTree());
+    public Result<List<Map<String, Object>>> findTree() {
+        return result(energyUnitService.findAll(null, org.springframework.data.domain.Sort.by("sortOrder")),
+                EnergyUnit::getId, EnergyUnit::getParentId, EnergyUnit::getName, EnergyUnit::getSortOrder, null);
     }
 
     /**
@@ -77,8 +77,9 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
      */
     @Operation(summary = "获取启用状态的树形结构")
     @GetMapping("/tree/enabled")
-    public Result<List<EnergyUnit>> findEnabledTree() {
-        return Result.content(energyUnitService.getEnabledTree());
+    public Result<List<Map<String, Object>>> findEnabledTree() {
+        return result(energyUnitService.findEnabled(),
+                EnergyUnit::getId, EnergyUnit::getParentId, EnergyUnit::getName, EnergyUnit::getSortOrder, null);
     }
 
     /**
@@ -135,22 +136,4 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
     }
 
     // BaseController 已提供标准 update(via saveOrUpdate), getById, delete
-
-    @Log(title = "用能单元", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<EnergyUnit> saveOrUpdate(@Validated @RequestBody EnergyUnit domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "用能单元", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "用能单元", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
-    }
 }

@@ -28,16 +28,19 @@ import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysDept;
 import com.terra.ems.system.service.SysDeptService;
+import com.terra.ems.system.param.SysDeptQueryParam;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import com.terra.ems.common.annotation.Log;
-import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
+import java.util.Map;
+import com.terra.ems.framework.definition.dto.Pager;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
@@ -70,33 +73,53 @@ public class SysDeptController extends BaseController<SysDept, Long> {
     }
 
     /**
+     * 分页查询部门
+     */
+    @Operation(summary = "分页查询")
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(Pager pager, SysDeptQueryParam queryParam) {
+        return super.findByPage(pager, buildSpecification(queryParam));
+    }
+
+    /**
+     * 构建查询规范
+     */
+    private Specification<SysDept> buildSpecification(SysDeptQueryParam queryParam) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (StringUtils.hasText(queryParam.getName())) {
+                predicates.add(cb.like(root.get("name"), "%" + queryParam.getName() + "%"));
+            }
+            if (queryParam.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"), queryParam.getStatus()));
+            }
+            if (queryParam.getParentId() != null) {
+                predicates.add(cb.equal(root.get("parent").get("id"), queryParam.getParentId()));
+            } else if (!StringUtils.hasText(queryParam.getName())) {
+                // 如果没有名称查询，也没有指定父节点，则默认只给根节点，防止在树形表格中出现重复 Key（父子同时出现在列表中）
+                predicates.add(cb.isNull(root.get("parent")));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+    }
+
+    /**
+     * 查询部门树形结构
+     *
+     * @return 部门树列表结果
+     */
+    /**
      * 查询部门树形结构
      *
      * @return 部门树列表结果
      */
     @Operation(summary = "查询部门树")
     @GetMapping("/tree")
-    @Override
-    public Result<List<SysDept>> findTree() {
-        return Result.content(deptService.findDeptTree(null));
+    public Result<List<Map<String, Object>>> findTree() {
+        return result(deptService.findAllEnabled(), SysDept::getId, SysDept::getParentId, SysDept::getName,
+                SysDept::getSortOrder, null);
     }
 
-
-    @Log(title = "部门管理", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<SysDept> saveOrUpdate(@Validated @RequestBody SysDept domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "部门管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "部门管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
-    }
 }

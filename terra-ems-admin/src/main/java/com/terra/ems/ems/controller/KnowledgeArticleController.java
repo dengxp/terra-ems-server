@@ -79,6 +79,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
     @Log(title = "知识库", businessType = BusinessType.UPDATE)
     @Override
     @PostMapping
+    @PutMapping
     @Operation(summary = "创建或更新文章")
     public Result<KnowledgeArticle> saveOrUpdate(@RequestBody @Validated KnowledgeArticle article) {
         if (article.getId() == null) {
@@ -98,9 +99,8 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
     @Operation(summary = "更新文章")
     @Log(title = "知识库", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
-    public Result<KnowledgeArticle> update(
-            @Parameter(description = "文章ID") @PathVariable Long id,
-            @RequestBody KnowledgeArticle article) {
+    @Override
+    public Result<KnowledgeArticle> update(@PathVariable Long id, @RequestBody @Validated KnowledgeArticle article) {
         KnowledgeArticle updated = knowledgeArticleService.update(id, article);
         return Result.content(updated);
     }
@@ -234,11 +234,5 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
             @Parameter(description = "状态") @RequestParam DataItemStatus status) {
         knowledgeArticleService.updateStatus(id, status);
         return Result.success();
-    }
-
-    @Log(title = "知识库", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

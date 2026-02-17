@@ -45,10 +45,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.terra.ems.common.annotation.Log;
-import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
@@ -70,13 +66,22 @@ public class SysDictTypeController extends BaseController<SysDictType, Long> {
         return dictTypeService;
     }
 
-    @Operation(summary = "分页搜索字典类型")
+    /**
+     * 分页查询字典类型
+     */
+    @Operation(summary = "分页查询")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String status) {
+
+        // 如果没有指定排序，则默认按创建时间倒序
+        if (pager.getSortOrders().isEmpty()) {
+            pager.addSortOrder("createdAt", "DESC");
+        }
+
         Specification<SysDictType> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.hasText(name)) {
@@ -90,30 +95,6 @@ public class SysDictTypeController extends BaseController<SysDictType, Long> {
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
-
-        // 如果没有指定排序，则默认按创建时间倒序
-        if (pager.getSortOrders().isEmpty()) {
-            pager.addSortOrder("createdAt", "DESC");
-        }
-
         return findByPage(pager, spec);
-    }
-
-    @Log(title = "字典类型", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<SysDictType> saveOrUpdate(@Validated @RequestBody SysDictType domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "字典类型", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "字典类型", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

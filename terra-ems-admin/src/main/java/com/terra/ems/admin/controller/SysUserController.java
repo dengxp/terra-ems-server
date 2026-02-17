@@ -32,6 +32,7 @@ import com.terra.ems.system.entity.SysUser;
 import com.terra.ems.system.mapper.UserMapper;
 import com.terra.ems.system.param.UserQueryParam;
 import com.terra.ems.system.service.SysUserService;
+import com.terra.ems.system.vo.SysUserImportVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.criteria.Predicate;
@@ -40,21 +41,35 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import com.terra.ems.common.utils.poi.ExcelUtil;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.access.prepost.PreAuthorize;
+import java.time.LocalDateTime;
 
 /**
  * 系统用户控制器
@@ -90,53 +105,107 @@ public class SysUserController extends BaseController<SysUser, Long> {
     }
 
     /**
-     * 分页查询用户
-     *
-     * @param pager 分页参数
-     * @param param 用户查询参数
-     * @return 分页结果
+     * 构建查询条件
      */
-    @Operation(summary = "高级搜索用户列表", description = "使用强类型参数进行高级搜索")
-    @GetMapping
-    public Result<Map<String, Object>> findByPage(Pager pager, UserQueryParam param) {
-        Specification<SysUser> spec = (root, query, cb) -> {
+    protected Specification<SysUser> buildSpecification(Map<String, Object> params) {
+        return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
+            String keywordParam = (String) params.get("keyword");
+            String username = (String) params.get("username");
+            String phone = (String) params.get("phone");
+            Object deptIdObj = params.get("deptId");
+            Object statusObj = params.get("status");
+            Object beginTimeObj = params.get("beginTime");
+            Object endTimeObj = params.get("endTime");
+
             // 关键字模糊查询
-            if (StringUtils.hasText(param.getKeyword())) {
-                String keyword = "%" + param.getKeyword() + "%";
+            if (StringUtils.hasText(keywordParam)) {
+                String keyword = "%" + keywordParam + "%";
                 predicates.add(cb.or(
                         cb.like(root.get("username"), keyword),
-                        cb.like(root.get("nickname"), keyword),
+                        cb.like(root.get("realName"), keyword),
                         cb.like(root.get("phone"), keyword)));
             }
 
             // 精确/前缀查询
-            if (StringUtils.hasText(param.getUsername())) {
-                predicates.add(cb.like(root.get("username"), param.getUsername() + "%"));
+            if (StringUtils.hasText(username)) {
+                predicates.add(cb.like(root.get("username"), username + "%"));
             }
-            if (StringUtils.hasText(param.getPhone())) {
-                predicates.add(cb.like(root.get("phone"), param.getPhone() + "%"));
+            if (StringUtils.hasText(phone)) {
+                predicates.add(cb.like(root.get("phone"), phone + "%"));
             }
-            if (param.getDeptId() != null) {
-                predicates.add(cb.equal(root.get("dept").get("id"), param.getDeptId()));
+            if (deptIdObj != null) {
+                Long deptId = null;
+                if (deptIdObj instanceof Long) {
+                    deptId = (Long) deptIdObj;
+                } else if (deptIdObj instanceof String) {
+                    deptId = Long.valueOf((String) deptIdObj);
+                }
+                if (deptId != null) {
+                    predicates.add(cb.equal(root.get("dept").get("id"), deptId));
+                }
             }
-            if (param.getStatus() != null) {
-                predicates.add(cb.equal(root.get("status"), DataItemStatus.fromValue(param.getStatus())));
+            if (statusObj != null) {
+                Integer status = null;
+                if (statusObj instanceof Integer) {
+                    status = (Integer) statusObj;
+                } else if (statusObj instanceof String) {
+                    status = Integer.valueOf((String) statusObj);
+                }
+                if (status != null) {
+                    predicates.add(cb.equal(root.get("status"), DataItemStatus.fromValue(status)));
+                }
             }
 
             // 时间范围
-            if (param.getBeginTime() != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("createTime"), param.getBeginTime()));
+            if (beginTimeObj != null) {
+                LocalDateTime beginTime = null;
+                if (beginTimeObj instanceof LocalDateTime) {
+                    beginTime = (LocalDateTime) beginTimeObj;
+                } else if (beginTimeObj instanceof String) {
+                    String timeStr = (String) beginTimeObj;
+                    if (timeStr.length() == 10) {
+                        timeStr += "T00:00:00";
+                    }
+                    beginTime = LocalDateTime.parse(timeStr);
+                }
+                if (beginTime != null) {
+                    predicates.add(cb.greaterThanOrEqualTo(root.get("createdAt"), beginTime));
+                }
             }
-            if (param.getEndTime() != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("createTime"), param.getEndTime()));
+            if (endTimeObj != null) {
+                LocalDateTime endTime = null;
+                if (endTimeObj instanceof LocalDateTime) {
+                    endTime = (LocalDateTime) endTimeObj;
+                } else if (endTimeObj instanceof String) {
+                    String timeStr = (String) endTimeObj;
+                    if (timeStr.length() == 10) {
+                        timeStr += "T23:59:59";
+                    }
+                    endTime = LocalDateTime.parse(timeStr);
+                }
+                if (endTime != null) {
+                    predicates.add(cb.lessThanOrEqualTo(root.get("createdAt"), endTime));
+                }
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };
+    }
 
-        return findByPage(pager, spec);
+    /**
+     * 分页查询用户
+     *
+     * @param pager  分页参数
+     * @param params 查询参数
+     * @return 分页结果
+     */
+    @Operation(summary = "分页查询")
+    @GetMapping
+    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
+        Specification<SysUser> spec = buildSpecification(params);
+        return super.findByPage(pager, spec);
     }
 
     /**
@@ -147,6 +216,8 @@ public class SysUserController extends BaseController<SysUser, Long> {
      */
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @Operation(summary = "保存或更新用户（标准实体模式）")
+    @PostMapping
+    @PutMapping
     @Override
     public Result<SysUser> saveOrUpdate(@RequestBody @Validated SysUser user) {
         Result<SysUser> result = super.saveOrUpdate(user);
@@ -154,6 +225,43 @@ public class SysUserController extends BaseController<SysUser, Long> {
             result.getData().setPassword(null);
         }
         return result;
+    }
+
+    /**
+     * 创建用户 (复杂逻辑，支持关联绑定)
+     *
+     * @param user 用户实体
+     * @return 操作结果及实体
+     */
+    @Log(title = "用户管理", businessType = BusinessType.INSERT)
+    @Operation(summary = "创建用户 (支持关联绑定)")
+    @PostMapping("/create")
+    public Result<SysUser> create(@RequestBody @Validated SysUser user) {
+        log.info("[Terra]|- SysUser Controller create: user: {}", user);
+        SysUser result = userService.create(user);
+        if (result != null) {
+            result.setPassword(null);
+        }
+        return Result.success("创建成功", result);
+    }
+
+    /**
+     * 重置用户密码
+     *
+     * @param params 用户ID和新密码
+     * @return 操作结果
+     */
+    @Log(title = "用户管理", businessType = BusinessType.UPDATE)
+    @Operation(summary = "重置用户密码")
+    @PostMapping("/resetPwd")
+    public Result<Void> resetPwd(@RequestBody Map<String, Object> params) {
+        Object userId = params.get("userId");
+        Object password = params.get("password");
+        if (userId == null || password == null || !StringUtils.hasText(password.toString())) {
+            return Result.failure("参数错误");
+        }
+        userService.resetPassword(Long.valueOf(userId.toString()), password.toString());
+        return Result.success("重置成功");
     }
 
     /**
@@ -182,15 +290,117 @@ public class SysUserController extends BaseController<SysUser, Long> {
         }
     }
 
-    @Log(title = "用户管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
+    /**
+     * 导出用户列表
+     */
+    @Log(title = "用户管理", businessType = BusinessType.EXPORT)
+    @Operation(summary = "导出用户列表")
+    @PreAuthorize("hasAuthority('system:user:export')")
+    @PostMapping("/export")
+    public void export(HttpServletResponse response, @RequestParam Map<String, Object> params) {
+        log.info("[Terra]|- SysUser Controller export, params: {}", params);
+        Specification<SysUser> spec = buildSpecification(params);
+        List<SysUser> list = userService.findAll(spec);
+        ExcelUtil<SysUser> util = new ExcelUtil<>(SysUser.class);
+        util.exportExcel(response, list, "用户数据");
     }
 
-    @Log(title = "用户管理", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
+    /**
+     * 导出导入模板
+     */
+    @Operation(summary = "导出导入模板")
+    @PreAuthorize("hasAuthority('system:user:export')")
+    @PostMapping("/exportTemplate")
+    public void exportTemplate(HttpServletResponse response) {
+        ExcelUtil<SysUser> util = new ExcelUtil<>(SysUser.class);
+        util.exportExcel(response, new ArrayList<>(), "用户数据");
+    }
+
+    /**
+     * 导入用户数据
+     */
+    @Log(title = "用户管理", businessType = BusinessType.IMPORT)
+    @Operation(summary = "导入用户数据")
+    @PreAuthorize("hasAuthority('system:user:import')")
+    @PostMapping("/importData")
+    public Result<Map<String, Object>> importData(MultipartFile file, boolean updateSupport)
+            throws Exception {
+        ExcelUtil<SysUser> util = new ExcelUtil<>(SysUser.class);
+        List<SysUser> userList = util.importExcel(file.getInputStream());
+        String operName = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<SysUserImportVo> resultList = userService.importUser(userList, updateSupport, operName);
+
+        // Always generate result file
+        ExcelUtil<SysUserImportVo> exportUtil = new ExcelUtil<>(SysUserImportVo.class);
+        Result<String> exportResult = exportUtil.exportExcel(resultList, "用户导入结果");
+        String fileName = exportResult.getData();
+
+        long total = resultList.size();
+        long failureCount = resultList.stream().filter(u -> "失败".equals(u.getImportStatus())).count();
+        long successCount = total - failureCount;
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("total", total);
+        data.put("successCount", successCount);
+        data.put("failureCount", failureCount);
+        data.put("fileUrl", fileName);
+
+        if (failureCount > 0) {
+            Result<Map<String, Object>> result = Result.success("导入完成（存在失败记录），请查看结果文档");
+            return result.data(data);
+        }
+        Result<Map<String, Object>> result = Result.success("恭喜您，数据已全部导入成功！共 " + total + " 条。");
+        return result.data(data);
+    }
+
+    /**
+     * 下载导入结果
+     * 
+     * @param fileName 文件名
+     * @param response 响应
+     */
+    @Operation(summary = "下载导入结果")
+    @GetMapping("/import/result/download")
+    public void downloadImportResult(String fileName, HttpServletResponse response) {
+        try {
+            ExcelUtil<SysUserImportVo> util = new ExcelUtil<>(SysUserImportVo.class);
+            String filePath = util.getAbsoluteFile(fileName);
+            File file = new File(filePath);
+
+            log.info("Try to download import result file: path={}, exists={}", filePath, file.exists());
+
+            if (!file.exists()) {
+                log.error("Import result file not found: {}", filePath);
+                throw new RuntimeException("文件不存在: " + fileName);
+            }
+
+            log.info("File size: {} bytes", file.length());
+
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding("utf-8");
+            String encodedFileName = java.net.URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "%20");
+            response.setHeader("Content-Disposition",
+                    "attachment; filename=" + encodedFileName + "; filename*=utf-8''" + encodedFileName);
+
+            try (java.io.FileInputStream fis = new java.io.FileInputStream(file);
+                    java.io.OutputStream os = response.getOutputStream()) {
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = fis.read(buffer)) != -1) {
+                    os.write(buffer, 0, len);
+                }
+                os.flush();
+            }
+        } catch (Exception e) {
+            log.error("下载导入结果失败", e);
+            try {
+                response.setStatus(500); // Set HTTP 500 error
+                response.setContentType("application/json");
+                response.setCharacterEncoding("utf-8");
+                response.getWriter().write("{\"code\":500,\"msg\":\"下载文件失败: " + e.getMessage() + "\"}");
+            } catch (java.io.IOException ex) {
+                log.error("写入响应失败", ex);
+            }
+        }
     }
 }

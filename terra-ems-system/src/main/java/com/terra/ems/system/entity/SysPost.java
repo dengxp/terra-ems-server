@@ -23,6 +23,7 @@
 
 package com.terra.ems.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.terra.ems.common.annotation.Excel;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
@@ -47,6 +48,7 @@ import lombok.EqualsAndHashCode;
                 @Index(name = "idx_sys_post_code", columnList = "code")
 })
 @Schema(title = "系统岗位")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class SysPost extends BaseEntity {
 
         @Schema(title = "岗位ID")

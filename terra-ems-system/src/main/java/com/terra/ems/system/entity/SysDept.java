@@ -50,6 +50,7 @@ import java.util.List;
         @Index(name = "idx_sys_dept_status", columnList = "status")
 })
 @Schema(title = "部门(组织架构)")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class SysDept extends BaseEntity {
 
     @Schema(title = "部门ID")

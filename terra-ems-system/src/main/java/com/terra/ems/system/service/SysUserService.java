@@ -26,8 +26,11 @@ import com.terra.ems.common.domain.CurrentUser;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysPermission;
+import com.terra.ems.system.entity.SysPost;
 import com.terra.ems.system.entity.SysRole;
 import com.terra.ems.system.entity.SysUser;
+import com.terra.ems.system.repository.SysPostRepository;
+import com.terra.ems.system.repository.SysRoleRepository;
 import com.terra.ems.system.repository.SysUserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,10 +40,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+import com.terra.ems.framework.definition.dto.Pager;
+import com.terra.ems.system.param.UserQueryParam;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.domain.Page;
 
+import com.terra.ems.system.vo.SysUserImportVo;
+import com.terra.ems.common.exception.TerraException;
+import com.terra.ems.common.constant.ErrorCodes;
+import com.terra.ems.framework.enums.DataItemStatus;
+import com.terra.ems.system.entity.SysDept;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
-
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -55,12 +72,18 @@ import java.util.stream.Collectors;
 public class SysUserService extends BaseService<SysUser, Long> implements UserDetailsService {
 
     private final SysUserRepository userRepository;
+    private final SysRoleRepository roleRepository;
+    private final SysPostRepository postRepository;
     private final PasswordEncoder passwordEncoder;
     private final SysDeptService deptService;
 
-    public SysUserService(SysUserRepository userRepository, PasswordEncoder passwordEncoder,
-            SysDeptService deptService) {
+    private static final Logger log = LoggerFactory.getLogger(SysUserService.class);
+
+    public SysUserService(SysUserRepository userRepository, SysRoleRepository roleRepository,
+            SysPostRepository postRepository, PasswordEncoder passwordEncoder, SysDeptService deptService) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.postRepository = postRepository;
         this.passwordEncoder = passwordEncoder;
         this.deptService = deptService;
     }
@@ -73,6 +96,35 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
     @Override
     public BaseRepository<SysUser, Long> getRepository() {
         return userRepository;
+    }
+
+    /**
+     * 根据 ID 查找用户
+     * 并填充用于前端显示的桥接字段
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public SysUser findById(Long id) {
+        SysUser user = super.findById(id);
+        if (user != null) {
+            // 填充部门ID
+            if (user.getDept() != null) {
+                user.setDeptId(user.getDept().getId());
+            }
+            // 填充角色ID集合
+            if (user.getRoles() != null && !user.getRoles().isEmpty()) {
+                user.setRoleIds(user.getRoles().stream()
+                        .map(SysRole::getId)
+                        .collect(Collectors.toSet()));
+            }
+            // 填充岗位ID集合
+            if (user.getPosts() != null && !user.getPosts().isEmpty()) {
+                user.setPostIds(user.getPosts().stream()
+                        .map(SysPost::getId)
+                        .collect(Collectors.toSet()));
+            }
+        }
+        return user;
     }
 
     /**
@@ -96,25 +148,24 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
      * @param param 查询参数
      * @return 用户列表
      */
-    public org.springframework.data.domain.Page<SysUser> findPage(com.terra.ems.framework.definition.dto.Pager pager,
-            com.terra.ems.system.param.UserQueryParam param) {
+    public Page<SysUser> findPage(Pager pager, UserQueryParam param) {
         return userRepository.findAll((root, query, cb) -> {
-            java.util.List<jakarta.persistence.criteria.Predicate> list = new java.util.ArrayList<>();
+            List<Predicate> list = new ArrayList<>();
 
             // 关键字模糊查询
-            if (org.springframework.util.StringUtils.hasText(param.getKeyword())) {
+            if (StringUtils.hasText(param.getKeyword())) {
                 String keyword = "%" + param.getKeyword() + "%";
                 list.add(cb.or(
                         cb.like(root.get("username"), keyword),
-                        cb.like(root.get("nickname"), keyword),
+                        cb.like(root.get("realName"), keyword),
                         cb.like(root.get("phone"), keyword)));
             }
 
             // 精确查询
-            if (org.springframework.util.StringUtils.hasText(param.getUsername())) {
+            if (StringUtils.hasText(param.getUsername())) {
                 list.add(cb.like(root.get("username"), param.getUsername() + "%"));
             }
-            if (org.springframework.util.StringUtils.hasText(param.getPhone())) {
+            if (StringUtils.hasText(param.getPhone())) {
                 list.add(cb.like(root.get("phone"), param.getPhone() + "%"));
             }
             if (param.getDeptId() != null) {
@@ -122,24 +173,24 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
             }
             if (param.getStatus() != null) {
                 list.add(cb.equal(root.get("status"),
-                        com.terra.ems.framework.enums.DataItemStatus.fromValue(param.getStatus())));
+                        DataItemStatus.fromValue(param.getStatus())));
             }
 
             // 时间范围
             if (param.getBeginTime() != null) {
-                list.add(cb.greaterThanOrEqualTo(root.get("createTime"), param.getBeginTime()));
+                list.add(cb.greaterThanOrEqualTo(root.get("createdAt"), param.getBeginTime()));
             }
             if (param.getEndTime() != null) {
-                list.add(cb.lessThanOrEqualTo(root.get("createTime"), param.getEndTime()));
+                list.add(cb.lessThanOrEqualTo(root.get("createdAt"), param.getEndTime()));
             }
 
-            return cb.and(list.toArray(new jakarta.persistence.criteria.Predicate[0]));
+            return cb.and(list.toArray(new Predicate[0]));
         }, pager.getPageable());
     }
 
     /**
      * 添加或更新用户
-     * 处理密码加密逻辑
+     * 处理密码加密及关联绑定逻辑
      *
      * @param user 用户实体
      * @return 保存后的用户实体
@@ -147,10 +198,76 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public SysUser saveOrUpdate(SysUser user) {
-        if (user.getId() == null && user.getPassword() != null) {
+        if (user.getId() == null) {
+            if (StringUtils.hasText(user.getPassword())) {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+        } else {
+            // Update: Keep existing password if not provided
+            if (!StringUtils.hasText(user.getPassword())) {
+                userRepository.findById(user.getId()).ifPresent(existing -> {
+                    user.setPassword(existing.getPassword());
+                });
+            } else {
+                // If provided (and not empty), encode it
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+        }
+
+        // 处理关联绑定 (部门、角色、岗位)
+        handleAssociations(user);
+
+        return super.saveOrUpdate(user);
+    }
+
+    /**
+     * 创建用户 (复杂逻辑)
+     *
+     * @param user 用户实体 (包含 roleIds, postIds, deptId)
+     * @return 保存后的用户实体
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public SysUser create(SysUser user) {
+        // 1. 校验唯一性
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new RuntimeException("用户名 [" + user.getUsername() + "] 已存在");
+        }
+        if (StringUtils.hasText(user.getPhone())
+                && userRepository.findByPhone(user.getPhone()).isPresent()) {
+            throw new RuntimeException("手机号 [" + user.getPhone() + "] 已存在");
+        }
+
+        // 2. 加密密码
+        if (StringUtils.hasText(user.getPassword())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        return super.saveOrUpdate(user);
+
+        // 3. 处理关联绑定
+        handleAssociations(user);
+
+        return getRepository().save(user);
+    }
+
+    /**
+     * 处理用户关联绑定 (部门、角色、岗位)
+     *
+     * @param user 用户实体
+     */
+    private void handleAssociations(SysUser user) {
+        // 1. 关联部门
+        if (user.getDeptId() != null) {
+            user.setDept(deptService.findById(user.getDeptId()));
+        }
+
+        // 2. 关联角色
+        if (user.getRoleIds() != null && !user.getRoleIds().isEmpty()) {
+            user.setRoles(roleRepository.findByIdIn(user.getRoleIds()));
+        }
+
+        // 3. 关联岗位
+        if (user.getPostIds() != null && !user.getPostIds().isEmpty()) {
+            user.setPosts(postRepository.findByIdIn(user.getPostIds()));
+        }
     }
 
     /**
@@ -162,13 +279,14 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser sysUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("用户不存在: " + username));
+    public UserDetails loadUserByUsername(String identifier) throws UsernameNotFoundException {
+        // 支持用户名或手机号登录
+        SysUser sysUser = userRepository.findByUsernameOrPhone(identifier, identifier)
+                .orElseThrow(() -> new UsernameNotFoundException("用户不存在: " + identifier));
 
         // 更新最后登录时间
         sysUser.setLastLoginAt(LocalDateTime.now());
-        userRepository.save(sysUser);
+        getRepository().save(sysUser);
 
         // 获取权限
         Set<GrantedAuthority> authorities = getAuthorities(sysUser);
@@ -190,7 +308,7 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
                 String.valueOf(sysUser.getId()),
                 sysUser.getUsername(),
                 sysUser.getPassword(),
-                sysUser.getNickname(),
+                sysUser.getRealName(),
                 sysUser.getAvatar(),
                 roleCodes,
                 deptId,
@@ -237,5 +355,96 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
         }
 
         return authorities;
+    }
+
+    /**
+     * 导入用户数据 (方案A: 逐行处理)
+     *
+     * @param userList      用户数据列表
+     * @param updateSupport 是否允许更新已存在的数据
+     * @param operName      操作用户
+     * @return 包含导入结果的VO列表
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public List<SysUserImportVo> importUser(List<SysUser> userList, boolean updateSupport, String operName) {
+        if (CollectionUtils.isEmpty(userList)) {
+            throw new TerraException(ErrorCodes.BAD_REQUEST, "导入用户数据不能为空！");
+        }
+
+        List<SysUserImportVo> results = new ArrayList<>();
+
+        for (SysUser user : userList) {
+            if (user == null || !StringUtils.hasText(user.getUsername())) {
+                continue;
+            }
+            SysUserImportVo vo = new SysUserImportVo(user);
+            try {
+                // 1. 验证是否存在这个用户
+                SysUser u = userRepository.findByUsername(user.getUsername()).orElse(null);
+                if (u == null) {
+                    // 处理部门映射
+                    if (user.getDept() != null && StringUtils.hasText(user.getDept().getName())) {
+                        String deptName = user.getDept().getName();
+                        SysDept dept = deptService.findByName(deptName);
+                        if (dept != null) {
+                            user.setDept(dept);
+                        } else {
+                            throw new RuntimeException("部门 [" + deptName + "] 不存在");
+                        }
+                    }
+
+                    // saveOrUpdate will handle the encryption
+                    user.setPassword("123456");
+                    user.setStatus(DataItemStatus.ENABLE);
+                    user.setCreatedAt(LocalDateTime.now());
+                    user.setUpdatedAt(LocalDateTime.now());
+                    saveOrUpdate(user);
+
+                    vo.setImportStatus("成功");
+                    vo.setImportReason("新增成功");
+                } else if (updateSupport) {
+                    // 更新逻辑
+                    user.setId(u.getId());
+                    if (user.getDept() != null && StringUtils.hasText(user.getDept().getName())) {
+                        String deptName = user.getDept().getName();
+                        SysDept dept = deptService.findByName(deptName);
+                        if (dept != null) {
+                            user.setDept(dept);
+                        } else {
+                            throw new RuntimeException("部门 [" + deptName + "] 不存在");
+                        }
+                    }
+                    user.setUpdatedAt(LocalDateTime.now());
+                    saveOrUpdate(user);
+
+                    vo.setImportStatus("成功");
+                    vo.setImportReason("更新成功");
+                } else {
+                    vo.setImportStatus("失败");
+                    vo.setImportReason("账号已存在");
+                }
+            } catch (Exception e) {
+                vo.setImportStatus("失败");
+                vo.setImportReason(e.getMessage());
+                log.warn("导入账号 {} 失败: {}", user.getUsername(), e.getMessage());
+            }
+            results.add(vo);
+        }
+        return results;
+    }
+
+    /**
+     * 重置用户密码
+     *
+     * @param userId   用户ID
+     * @param password 新密码(明文)
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void resetPassword(Long userId, String password) {
+        SysUser user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
+        user.setPassword(passwordEncoder.encode(password));
+        user.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(user);
     }
 }

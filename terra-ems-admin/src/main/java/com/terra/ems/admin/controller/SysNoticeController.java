@@ -93,6 +93,7 @@ public class SysNoticeController extends BaseController<SysNotice, Long> {
     @Operation(summary = "保存或更新通知公告")
     @Override
     @PostMapping
+    @PutMapping
     @Log(title = "通知公告", businessType = BusinessType.UPDATE)
     @PreAuthorize("hasAnyAuthority('system:notice:add', 'system:notice:edit')")
     public Result<SysNotice> saveOrUpdate(@Validated @RequestBody SysNotice notice) {

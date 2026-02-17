@@ -48,7 +48,6 @@ import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -117,20 +116,6 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
     }
 
     /**
-     * 根据ID查询绑定详情
-     *
-     * @param id 绑定ID
-     * @return 绑定记录详情
-     */
-    @GetMapping("/{id}")
-    @Operation(summary = "根据ID查询")
-    public Result<CostPolicyBinding> findById(@PathVariable Long id) {
-        return Optional.ofNullable(costPolicyBindingService.findById(id))
-                .map(Result::content)
-                .orElse(Result.failure("绑定记录不存在"));
-    }
-
-    /**
      * 按用能单元查询绑定列表
      *
      * @param energyUnitId 用能单元ID
@@ -175,20 +160,6 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
     }
 
     /**
-     * 删除绑定记录
-     *
-     * @param id 绑定ID
-     * @return 操作结果
-     */
-    @Log(title = "费用策略绑定", businessType = BusinessType.DELETE)
-    @DeleteMapping("/{id}")
-    @Operation(summary = "删除绑定关系")
-    public Result<String> delete(@PathVariable Long id) {
-        costPolicyBindingService.deleteById(id);
-        return Result.success("删除成功");
-    }
-
-    /**
      * 更新绑定记录状态
      *
      * @param id     绑定ID
@@ -204,16 +175,4 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
         return Result.content(costPolicyBindingService.updateStatus(id, status));
     }
 
-
-    @Log(title = "费用策略绑定", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<CostPolicyBinding> saveOrUpdate(@Validated @RequestBody CostPolicyBinding domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "费用策略绑定", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
-    }
 }

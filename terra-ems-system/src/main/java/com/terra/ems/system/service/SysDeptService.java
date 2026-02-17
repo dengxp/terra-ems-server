@@ -65,22 +65,6 @@ public class SysDeptService extends BaseService<SysDept, Long> {
     }
 
     /**
-     * 查询指定部门及其所有子部门构成的树形结构
-     *
-     * @param parentId 父部门ID，为 null 时从顶级部门开始查询
-     * @return 部门树列表
-     */
-    public List<SysDept> findDeptTree(Long parentId) {
-        if (parentId == null) {
-            // 返回顶级部门树
-            return deptRepository.findByParentIdOrderBySortOrderAsc(null);
-        } else {
-            // 返回指定部门及其子树
-            return deptRepository.findByParentIdOrderBySortOrderAsc(parentId);
-        }
-    }
-
-    /**
      * 获取所有状态为启用的部门列表
      *
      * @return 启用的部门列表
@@ -134,5 +118,12 @@ public class SysDeptService extends BaseService<SysDept, Long> {
             }
         }
         return deptIds;
+    }
+
+    /**
+     * 根据部门名称查询
+     */
+    public com.terra.ems.system.entity.SysDept findByName(String name) {
+        return deptRepository.findByName(name);
     }
 }

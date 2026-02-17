@@ -47,7 +47,6 @@ import java.util.Map;
 import java.util.Set;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * 采集点位控制器
@@ -180,23 +179,5 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
             @PathVariable Long id,
             @RequestBody Set<Long> energyUnitIds) {
         return Result.content(meterPointService.assignEnergyUnits(id, energyUnitIds));
-    }
-
-    @Log(title = "计量点", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<MeterPoint> saveOrUpdate(@Validated @RequestBody MeterPoint domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "计量点", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
-
-    @Log(title = "计量点", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }

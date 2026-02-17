@@ -58,8 +58,8 @@ public class CurrentUser implements UserDetails, CredentialsContainer, Serializa
     @JsonIgnore
     private String password;
 
-    @Schema(title = "昵称")
-    private String nickname;
+    @Schema(title = "真实姓名")
+    private String realName;
 
     @Schema(title = "头像")
     private String avatar;
@@ -91,13 +91,13 @@ public class CurrentUser implements UserDetails, CredentialsContainer, Serializa
     public CurrentUser() {
     }
 
-    public CurrentUser(String userId, String username, String password, String nickname, String avatar,
+    public CurrentUser(String userId, String username, String password, String realName, String avatar,
             Set<String> roles, Long deptId, String deptName, Set<Long> accessibleDeptIds, boolean enabled,
             Collection<? extends GrantedAuthority> authorities) {
         this.userId = userId;
         this.username = username;
         this.password = password;
-        this.nickname = nickname;
+        this.realName = realName;
         this.avatar = avatar;
         this.roles = roles;
         this.deptId = deptId;

@@ -35,6 +35,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.persistence.criteria.Predicate;
@@ -47,7 +48,6 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * 产品产量记录控制器
@@ -81,9 +81,10 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
     @Operation(summary = "更新产量记录")
     @Log(title = "生产记录", businessType = BusinessType.UPDATE)
     @PutMapping("/{id}")
+    @Override
     public Result<ProductionRecord> update(
             @Parameter(description = "记录ID") @PathVariable Long id,
-            @RequestBody ProductionRecord record) {
+            @RequestBody @Validated ProductionRecord record) {
         record.setId(id);
         return Result.content(productionRecordService.saveOrUpdate(record));
     }
@@ -100,24 +101,6 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
     public Result<String> delete(@Parameter(description = "记录ID") @PathVariable Long id) {
         productionRecordService.deleteById(id);
         return Result.success("删除成功");
-    }
-
-    /**
-     * 获取指定产量记录的详细信息
-     *
-     * @param id 记录ID
-     * @return 产量记录详情
-     */
-    @Operation(summary = "获取产量记录详情")
-    @GetMapping("/{id}")
-    @Override
-    public Result<ProductionRecord> findById(@Parameter(description = "记录ID") @PathVariable Long id) {
-        ProductionRecord record = productionRecordService.findById(id);
-        if (record != null) {
-            return Result.content(record);
-        } else {
-            return Result.failure("产量记录不存在");
-        }
     }
 
     /**
@@ -210,17 +193,5 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
 
         List<String> productNames = productionRecordService.getProductNames(energyUnitId, dataType);
         return Result.content(productNames);
-    }
-
-    @Log(title = "生产记录", businessType = BusinessType.UPDATE)
-    @Override
-    public Result<ProductionRecord> saveOrUpdate(@Validated @RequestBody ProductionRecord domain) {
-        return super.saveOrUpdate(domain);
-    }
-
-    @Log(title = "生产记录", businessType = BusinessType.DELETE)
-    @Override
-    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
-        return super.deleteBatch(ids);
     }
 }
