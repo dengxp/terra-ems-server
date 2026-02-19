@@ -38,6 +38,7 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 系统用户实体
@@ -178,12 +179,74 @@ public class SysUser extends BaseEntity {
         private Set<Long> roleIds;
 
         @Transient
-        @JsonProperty("positions")
+        @JsonProperty("posts")
         private Set<Long> postIds;
 
         @Transient
         @JsonProperty("deptId")
         private Long deptId;
+
+        /**
+         * 获取部门名称
+         *
+         * @return 部门名称
+         */
+        @JsonProperty("departmentName")
+        public String getDepartmentName() {
+                return dept != null ? dept.getName() : null;
+        }
+
+        /**
+         * 获取部门ID
+         *
+         * @return 部门ID
+         */
+        @JsonProperty("deptId")
+        public Long getDeptId() {
+                return dept != null ? dept.getId() : (deptId != null ? deptId : null);
+        }
+
+        /**
+         * 设置部门ID（用于接收前端扁平数据并自动转为对象存根）
+         *
+         * @param deptId 部门ID
+         */
+        @JsonProperty("deptId")
+        public void setDeptId(Long deptId) {
+                this.deptId = deptId;
+                if (deptId != null) {
+                        this.dept = new SysDept();
+                        this.dept.setId(deptId);
+                } else {
+                        this.dept = null;
+                }
+        }
+
+        /**
+         * 获取角色ID列表
+         *
+         * @return 角色ID列表
+         */
+        @JsonProperty("roles")
+        public Set<Long> getRoleIds() {
+                if (roles != null && !roles.isEmpty()) {
+                        return roles.stream().map(SysRole::getId).collect(Collectors.toSet());
+                }
+                return roleIds;
+        }
+
+        /**
+         * 获取岗位ID列表
+         *
+         * @return 岗位ID列表
+         */
+        @JsonProperty("posts")
+        public Set<Long> getPostIds() {
+                if (posts != null && !posts.isEmpty()) {
+                        return posts.stream().map(SysPost::getId).collect(Collectors.toSet());
+                }
+                return postIds;
+        }
 
         /**
          * 检查日期是否未过期

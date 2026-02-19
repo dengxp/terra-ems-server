@@ -79,4 +79,16 @@ public interface SysDeptRepository extends BaseRepository<SysDept, Long> {
      * 根据祖级列表模糊查询
      */
     List<SysDept> findByAncestorsLike(String ancestors);
+
+    /**
+     * 查询所有启用的部门（启用 eager loading）
+     */
+    @Query("select distinct d from SysDept d left join fetch d.parent left join fetch d.manager where d.status = 0 order by d.sortOrder asc")
+    List<SysDept> findAllEnabledWithDetails();
+
+    /**
+     * 查询所有部门（含禁用）
+     */
+    @Query("select distinct d from SysDept d left join fetch d.parent left join fetch d.manager order by d.sortOrder asc")
+    List<SysDept> findAllWithDetails();
 }

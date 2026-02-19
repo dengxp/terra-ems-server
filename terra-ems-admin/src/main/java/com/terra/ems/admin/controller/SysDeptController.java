@@ -56,10 +56,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class SysDeptController extends BaseController<SysDept, Long> {
 
     private final SysDeptService deptService;
+    private final com.terra.ems.system.service.SysUserService sysUserService;
 
     @Autowired
-    public SysDeptController(SysDeptService deptService) {
+    public SysDeptController(SysDeptService deptService, com.terra.ems.system.service.SysUserService sysUserService) {
         this.deptService = deptService;
+        this.sysUserService = sysUserService;
     }
 
     /**
@@ -117,9 +119,142 @@ public class SysDeptController extends BaseController<SysDept, Long> {
      */
     @Operation(summary = "查询部门树")
     @GetMapping("/tree")
-    public Result<List<Map<String, Object>>> findTree() {
-        return result(deptService.findAllEnabled(), SysDept::getId, SysDept::getParentId, SysDept::getName,
-                SysDept::getSortOrder, null);
+    public Result<List<SysDept>> findTree() {
+        List<SysDept> allDepts = deptService.findAllWithDetails();
+        // 深度复制或转换为非托管对象以避免 JPA orphanRemoval 风险
+        List<SysDept> detachedDepts = new ArrayList<>();
+        for (SysDept dept : allDepts) {
+            SysDept newDept = new SysDept();
+            // 排除 children (手动构建)
+            // 排除 parentId, managerId (防止 setters 覆盖 parent/manager 实体)
+            org.springframework.beans.BeanUtils.copyProperties(dept, newDept, "children", "parentId", "managerId");
+            detachedDepts.add(newDept);
+        }
+
+        List<SysDept> tree = buildDeptTree(detachedDepts);
+        return Result.content(tree);
+    }
+
+    /**
+     * 构建部门树
+     *
+     * @param depts 部门列表
+     * @return 树形结构
+     */
+    private List<SysDept> buildDeptTree(List<SysDept> depts) {
+        List<SysDept> returnList = new ArrayList<>();
+        List<Long> tempList = new ArrayList<>();
+        for (SysDept dept : depts) {
+            tempList.add(dept.getId());
+        }
+        for (SysDept dept : depts) {
+            // 如果是顶级节点, 遍历该父节点的所有子节点
+            if (dept.getParentId() == null || !tempList.contains(dept.getParentId())) {
+                recursionFn(depts, dept);
+                returnList.add(dept);
+            }
+        }
+        if (returnList.isEmpty()) {
+            return depts;
+        }
+        return returnList;
+    }
+
+    /**
+     * 递归列表
+     */
+    private void recursionFn(List<SysDept> list, SysDept t) {
+        // 得到子节点列表
+        List<SysDept> childList = getChildList(list, t);
+        t.setChildren(childList);
+        for (SysDept tChild : childList) {
+            if (hasChild(list, tChild)) {
+                recursionFn(list, tChild);
+            }
+        }
+    }
+
+    /**
+     * 得到子节点列表
+     */
+    private List<SysDept> getChildList(List<SysDept> list, SysDept t) {
+        List<SysDept> tlist = new ArrayList<>();
+        for (SysDept n : list) {
+            if (n.getParentId() != null && n.getParentId().equals(t.getId())) {
+                tlist.add(n);
+            }
+        }
+        return tlist;
+    }
+
+    /**
+     * 判断是否有子节点
+     */
+    private boolean hasChild(List<SysDept> list, SysDept t) {
+        return getChildList(list, t).size() > 0;
+    }
+
+    /**
+     * 获取指定ID部门的成员
+     *
+     * @param id    部门ID
+     * @param pager 分页参数
+     * @param param 查询参数
+     * @return 成员列表
+     */
+    @Operation(summary = "获取部门成员")
+    @GetMapping("/{id}/members")
+    public Result<Map<String, Object>> getMembers(@PathVariable Long id, Pager pager,
+            com.terra.ems.system.param.UserQueryParam param) {
+        param.setDeptId(id);
+        return result(sysUserService.findPage(pager, param));
+    }
+
+    /**
+     * 添加部门成员
+     *
+     * @param id     部门ID
+     * @param params 参数(userIds)
+     * @return 结果
+     */
+    @Operation(summary = "添加部门成员")
+    @PostMapping("/{id}/members")
+    public Result<Void> addMembers(@PathVariable Long id, @RequestBody Map<String, Object> params) {
+        List<Integer> userIdsInt = (List<Integer>) params.get("userIds");
+        if (userIdsInt == null || userIdsInt.isEmpty()) {
+            return Result.failure("请选择用户");
+        }
+        List<Long> userIds = userIdsInt.stream().map(Integer::longValue).toList();
+        deptService.addMembers(id, userIds);
+        return Result.success("添加成功");
+    }
+
+    /**
+     * 移除部门成员
+     *
+     * @param id     部门ID
+     * @param userId 用户ID
+     * @return 结果
+     */
+    @Operation(summary = "移除部门成员")
+    @DeleteMapping("/{id}/members/{userId}")
+    public Result<Void> removeMember(@PathVariable Long id, @PathVariable Long userId) {
+        deptService.removeMember(id, userId);
+        return Result.success("移除成功");
+    }
+
+    /**
+     * 批量移除部门成员
+     *
+     * @param id      部门ID
+     * @param userIds 用户ID集合
+     * @return 结果
+     */
+    @Operation(summary = "批量移除部门成员")
+    @DeleteMapping("/{id}/members")
+    public Result<Void> removeMembers(@PathVariable Long id, @RequestBody List<Long> userIds) {
+        deptService.removeMembers(id, userIds);
+        return Result.success("移除成功");
     }
 
 }

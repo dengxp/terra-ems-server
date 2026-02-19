@@ -203,9 +203,8 @@ public class SysUserController extends BaseController<SysUser, Long> {
      */
     @Operation(summary = "分页查询")
     @GetMapping
-    public Result<Map<String, Object>> findByPage(Pager pager, @RequestParam Map<String, Object> params) {
-        Specification<SysUser> spec = buildSpecification(params);
-        return super.findByPage(pager, spec);
+    public Result<Map<String, Object>> findByPage(Pager pager, UserQueryParam param) {
+        return result(userService.findPage(pager, param));
     }
 
     /**
@@ -402,5 +401,32 @@ public class SysUserController extends BaseController<SysUser, Long> {
                 log.error("写入响应失败", ex);
             }
         }
+    }
+
+    /**
+     * 查询部门管理员选项
+     *
+     * @param departmentId 部门ID (可选)
+     * @param keyword      关键字 (可选)
+     * @return 选项列表
+     */
+    @Operation(summary = "查询部门管理员选项")
+    @GetMapping("/options-for-department-manager")
+    public Result<List<Map<String, Object>>> findOptionsForDepartmentManager(
+            @RequestParam(required = false) Long departmentId,
+            @RequestParam(required = false) String keyword) {
+        UserQueryParam param = new UserQueryParam();
+        param.setKeyword(keyword);
+        param.setStatus(DataItemStatus.ENABLE.getValue());
+
+        List<SysUser> users = userService.findList(param);
+        List<Map<String, Object>> options = new ArrayList<>();
+        for (SysUser user : users) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("label", user.getRealName());
+            map.put("value", user.getId());
+            options.add(map);
+        }
+        return Result.content(options);
     }
 }

@@ -48,6 +48,7 @@ import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.system.param.UserQueryParam;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 
 import com.terra.ems.system.vo.SysUserImportVo;
 import com.terra.ems.common.exception.TerraException;
@@ -148,7 +149,86 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
      * @param param 查询参数
      * @return 用户列表
      */
+    /**
+     * 分页查询用户
+     *
+     * @param pager 分页参数
+     * @param param 查询参数
+     * @return 用户列表
+     */
     public Page<SysUser> findPage(Pager pager, UserQueryParam param) {
+        return userRepository.findAll(buildSpecification(param), pager.getPageable());
+    }
+
+    /**
+     * 列表查询用户
+     *
+     * @param param 查询参数
+     * @return 用户列表
+     */
+    public List<SysUser> findList(UserQueryParam param) {
+        return userRepository.findAll(buildSpecification(param));
+    }
+
+    /**
+     * 构建查询条件
+     */
+    private Specification<SysUser> buildSpecification(UserQueryParam param) {
+        return (root, query, cb) -> {
+            List<Predicate> list = new ArrayList<>();
+
+            // 关键字模糊查询
+            if (StringUtils.hasText(param.getKeyword())) {
+                String keyword = "%" + param.getKeyword() + "%";
+                list.add(cb.or(
+                        cb.like(root.get("username"), keyword),
+                        cb.like(root.get("realName"), keyword),
+                        cb.like(root.get("phone"), keyword)));
+            }
+
+            // 精确查询
+            if (StringUtils.hasText(param.getUsername())) {
+                list.add(cb.like(root.get("username"), param.getUsername() + "%"));
+            }
+            if (StringUtils.hasText(param.getRealName())) {
+                list.add(cb.like(root.get("realName"), "%" + param.getRealName() + "%"));
+            }
+            if (StringUtils.hasText(param.getPhone())) {
+                list.add(cb.like(root.get("phone"), param.getPhone() + "%"));
+            }
+            if (param.getDeptId() != null) {
+                list.add(cb.equal(root.get("dept").get("id"), param.getDeptId()));
+            }
+            if (param.getExcludeDeptId() != null) {
+                list.add(cb.or(
+                        cb.notEqual(root.get("dept").get("id"), param.getExcludeDeptId()),
+                        cb.isNull(root.get("dept"))));
+            }
+            if (param.getStatus() != null) {
+                list.add(cb.equal(root.get("status"),
+                        DataItemStatus.fromValue(param.getStatus())));
+            }
+
+            // 时间范围
+            if (param.getBeginTime() != null) {
+                list.add(cb.greaterThanOrEqualTo(root.get("createdAt"), param.getBeginTime()));
+            }
+            if (param.getEndTime() != null) {
+                list.add(cb.lessThanOrEqualTo(root.get("createdAt"), param.getEndTime()));
+            }
+
+            return cb.and(list.toArray(new Predicate[0]));
+        };
+    }
+
+    /**
+     * 分页查询无部门用户
+     *
+     * @param pager 分页参数
+     * @param param 查询参数
+     * @return 用户列表
+     */
+    public Page<SysUser> findUsersWithoutDepartment(Pager pager, UserQueryParam param) {
         return userRepository.findAll((root, query, cb) -> {
             List<Predicate> list = new ArrayList<>();
 
@@ -165,12 +245,16 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
             if (StringUtils.hasText(param.getUsername())) {
                 list.add(cb.like(root.get("username"), param.getUsername() + "%"));
             }
+            if (StringUtils.hasText(param.getRealName())) {
+                list.add(cb.like(root.get("realName"), "%" + param.getRealName() + "%"));
+            }
             if (StringUtils.hasText(param.getPhone())) {
                 list.add(cb.like(root.get("phone"), param.getPhone() + "%"));
             }
-            if (param.getDeptId() != null) {
-                list.add(cb.equal(root.get("dept").get("id"), param.getDeptId()));
-            }
+
+            // 强制查询无部门
+            list.add(cb.isNull(root.get("dept")));
+
             if (param.getStatus() != null) {
                 list.add(cb.equal(root.get("status"),
                         DataItemStatus.fromValue(param.getStatus())));

@@ -46,6 +46,9 @@ public class UserQueryParam {
     @Schema(description = "用户名")
     private String username;
 
+    @Schema(description = "用户姓名")
+    private String realName;
+
     @Schema(description = "手机号")
     private String phone;
 
@@ -62,4 +65,7 @@ public class UserQueryParam {
     @Schema(description = "结束时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
+
+    @Schema(description = "排除部门ID")
+    private Long excludeDeptId;
 }

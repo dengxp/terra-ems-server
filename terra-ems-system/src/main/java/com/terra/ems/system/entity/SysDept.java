@@ -31,6 +31,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Formula;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,7 @@ public class SysDept extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "children", "parent" })
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private SysDept parent;
 
     @Schema(title = "部门名称")
@@ -102,6 +104,20 @@ public class SysDept extends BaseEntity {
     @JsonIgnoreProperties({ "parent" })
     private List<SysDept> children = new ArrayList<>();
 
+    @Schema(title = "部门负责人")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager_id")
+    @JsonIgnoreProperties({ "password", "dept", "roles", "hibernateLazyInitializer", "handler" })
+    private SysUser manager;
+
+    @Schema(title = "部门描述")
+    @Column(name = "description", length = 512)
+    private String description;
+
+    @Schema(title = "成员数量")
+    @Formula("(select count(1) from sys_user u where u.dept_id = id)")
+    private Integer memberCount;
+
     /**
      * 获取父部门ID（用于前端展示和反序列化桥接）
      *
@@ -110,6 +126,16 @@ public class SysDept extends BaseEntity {
     @JsonProperty("parentId")
     public Long getParentId() {
         return parent != null ? parent.getId() : null;
+    }
+
+    /**
+     * 获取父部门名称
+     *
+     * @return 父部门名称
+     */
+    @JsonProperty("parentName")
+    public String getParentName() {
+        return parent != null ? parent.getName() : null;
     }
 
     /**
@@ -124,6 +150,41 @@ public class SysDept extends BaseEntity {
             this.parent.setId(parentId);
         } else {
             this.parent = null;
+        }
+    }
+
+    /**
+     * 获取负责人ID（用于前端展示和反序列化桥接）
+     *
+     * @return 负责人ID
+     */
+    @JsonProperty("managerId")
+    public Long getManagerId() {
+        return manager != null ? manager.getId() : null;
+    }
+
+    /**
+     * 获取负责人姓名
+     *
+     * @return 负责人姓名
+     */
+    @JsonProperty("managerName")
+    public String getManagerName() {
+        return manager != null ? manager.getRealName() : null;
+    }
+
+    /**
+     * 设置负责人ID（用于接收前端扁平数据并自动转为对象存根）
+     *
+     * @param managerId 负责人ID
+     */
+    @JsonProperty("managerId")
+    public void setManagerId(Long managerId) {
+        if (managerId != null) {
+            this.manager = new SysUser();
+            this.manager.setId(managerId);
+        } else {
+            this.manager = null;
         }
     }
 }
