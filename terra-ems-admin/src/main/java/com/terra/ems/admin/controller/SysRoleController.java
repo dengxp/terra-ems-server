@@ -24,6 +24,7 @@
 package com.terra.ems.admin.controller;
 
 import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.annotation.SuperPermission;
 import com.terra.ems.common.domain.Option;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.common.enums.BusinessType;
@@ -53,7 +54,7 @@ import java.util.Map;
  * @since 2026-02-16
  */
 
-@Tag(name = "角色管理")
+@Tag(name = "系统管理-角色管理")
 @RestController
 @RequestMapping("/system/role")
 public class SysRoleController extends BaseController<SysRole, Long> {
@@ -73,7 +74,8 @@ public class SysRoleController extends BaseController<SysRole, Long> {
     /**
      * 分页查询角色
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "查询角色列表")
+    @PreAuthorize("hasPerm('system:role:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,
@@ -92,23 +94,122 @@ public class SysRoleController extends BaseController<SysRole, Long> {
         return findByPage(pager, spec);
     }
 
+    @Operation(summary = "查询角色详情")
+    @PreAuthorize("hasPerm('system:role:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<SysRole> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有角色列表(不分页)
+     */
+    @Operation(summary = "查询角色列表(不分页)")
+    @GetMapping("/list")
+    public Result<List<SysRole>> findList() {
+        return Result.content(roleService.findAll());
+    }
+
     /**
      * 保存或更新角色
      */
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
-    @Operation(summary = "保存或更新角色")
+    @Operation(summary = "保存角色")
+    @SuperPermission
     @PostMapping
     @PutMapping
     @Override
-    @PreAuthorize("hasAnyAuthority('system:role:add', 'system:role:edit')")
     public Result<SysRole> saveOrUpdate(@Validated @RequestBody SysRole role) {
         return super.saveOrUpdate(role);
     }
 
     /**
+     * 通过ID更新角色
+     */
+    @Operation(summary = "修改角色")
+    @SuperPermission
+    @PutMapping("/{id}")
+    @Override
+    public Result<SysRole> update(@PathVariable Long id, @RequestBody @Validated SysRole domain) {
+        return super.update(id, domain);
+    }
+
+    /**
+     * 删除角色
+     */
+    @Operation(summary = "删除角色")
+    @SuperPermission
+    @Log(title = "角色管理", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除角色
+     */
+    @Operation(summary = "批量删除角色")
+    @SuperPermission
+    @Log(title = "角色管理", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
+     * 获取角色权限ID列表
+     */
+    @Operation(summary = "查询角色权限")
+    @PreAuthorize("hasPerm('system:role:query')")
+    @GetMapping("/{id}/permissions")
+    public Result<List<Long>> getPermissions(@PathVariable Long id) {
+        return Result.content(roleService.findPermissionIds(id));
+    }
+
+    /**
+     * 更新角色权限
+     */
+    @Operation(summary = "更新角色权限")
+    @SuperPermission
+    @Log(title = "角色管理", businessType = BusinessType.UPDATE)
+    @PostMapping("/{id}/permissions")
+    public Result<String> updatePermissions(@PathVariable Long id, @RequestBody Map<String, List<Long>> data) {
+        List<Long> permissionIds = data.get("permissionIds");
+        roleService.updatePermissions(id, permissionIds);
+        return Result.success("更新权限成功");
+    }
+
+    /**
+     * 添加角色成员
+     */
+    @Operation(summary = "添加角色成员")
+    @SuperPermission
+    @Log(title = "角色管理", businessType = BusinessType.UPDATE)
+    @PostMapping("/{id}/members")
+    public Result<String> addMembers(@PathVariable Long id, @RequestBody List<Long> memberIds) {
+        roleService.addMembers(id, memberIds);
+        return Result.success("添加成员成功");
+    }
+
+    /**
+     * 移除角色成员
+     */
+    @Operation(summary = "移除角色成员")
+    @SuperPermission
+    @Log(title = "角色管理", businessType = BusinessType.UPDATE)
+    @DeleteMapping("/{id}/members")
+    public Result<String> removeMembers(@PathVariable Long id, @RequestBody List<Long> memberIds) {
+        roleService.removeMembers(id, memberIds);
+        return Result.success("移除成员成功");
+    }
+
+    /**
      * 获取角色选项列表
      */
-    @Operation(summary = "查询角色选项列表")
+    @Operation(summary = "查询角色选项")
     @GetMapping("/options")
     public Result<List<Option<Long>>> findOptions() {
         return Result.content(roleService.findOptions());

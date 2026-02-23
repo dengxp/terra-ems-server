@@ -36,6 +36,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 预报警配置控制器
@@ -62,12 +64,50 @@ public class AlarmConfigController extends BaseController<AlarmConfig, Long> {
     }
 
     /**
+     * 保存或更新预报警配置
+     */
+    @Operation(summary = "保存或更新预报警配置")
+    @PostMapping
+    @PutMapping
+    @Override
+    @Log(title = "预报警配置", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:alarm-config:add', 'ems:alarm-config:edit')")
+    public Result<AlarmConfig> saveOrUpdate(@Validated @RequestBody AlarmConfig alarmConfig) {
+        return super.saveOrUpdate(alarmConfig);
+    }
+
+    /**
+     * 删除预报警配置
+     */
+    @Operation(summary = "删除数据")
+    @PreAuthorize("hasPerm('ems:alarm-config:remove')")
+    @Log(title = "预报警配置", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除预报警配置
+     */
+    @Operation(summary = "批量删除数据")
+    @PreAuthorize("hasPerm('ems:alarm-config:remove')")
+    @Log(title = "预报警配置", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 根据采集点位查询配置
      *
      * @param meterPointId 采集点位ID
      * @return 预报警配置列表
      */
     @Operation(summary = "根据采集点位查询配置")
+    @PreAuthorize("hasPerm('ems:alarm-config:list')")
     @GetMapping("/meter-point/{meterPointId}")
     public Result<List<AlarmConfig>> findByMeterPoint(@PathVariable Long meterPointId) {
         return Result.content(alarmConfigService.findByMeterPoint(meterPointId));

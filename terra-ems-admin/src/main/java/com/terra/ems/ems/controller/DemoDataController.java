@@ -17,6 +17,9 @@ import com.terra.ems.framework.enums.DataItemStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -40,6 +43,8 @@ public class DemoDataController {
     private final EnergyDataRepository energyDataRepository;
 
     @Operation(summary = "生成能耗排名演示数据")
+    @Log(title = "演示数据", businessType = BusinessType.INSERT)
+    @PreAuthorize("hasRole('admin')")
     @PostMapping("/generate-ranking-data")
     public Result<String> generateRankingData(@RequestParam Long parentUnitId) {
         List<EnergyUnit> childUnits = energyUnitRepository.findByParentIdOrderBySortOrderAsc(parentUnitId);

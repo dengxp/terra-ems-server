@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * 计量器具档案控制器
@@ -70,9 +71,47 @@ public class MeterController extends BaseController<Meter, Long> {
     }
 
     /**
+     * 保存或更新计量器具
+     */
+    @Operation(summary = "保存或更新计量器具")
+    @PostMapping
+    @PutMapping
+    @Override
+    @Log(title = "计量器具", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:meter:add', 'ems:meter:edit')")
+    public Result<Meter> saveOrUpdate(@Validated @RequestBody Meter meter) {
+        return super.saveOrUpdate(meter);
+    }
+
+    /**
+     * 删除计量器具
+     */
+    @Operation(summary = "删除数据")
+    @PreAuthorize("hasPerm('ems:meter:remove')")
+    @Log(title = "计量器具", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除计量器具
+     */
+    @Operation(summary = "批量删除数据")
+    @PreAuthorize("hasPerm('ems:meter:remove')")
+    @Log(title = "计量器具", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 分页查询计量器具
      */
     @Operation(summary = "分页查询")
+    @PreAuthorize("hasPerm('ems:meter:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, MeterQueryParam param) {
         return findByPage(pager, buildSpecification(param));
@@ -99,6 +138,7 @@ public class MeterController extends BaseController<Meter, Long> {
 
     @Operation(summary = "更新计量器具")
     @Log(title = "仪表管理", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:meter:edit')")
     @PutMapping("/{id}")
     @Override
     public Result<Meter> update(@PathVariable Long id, @RequestBody @Validated Meter meter) {

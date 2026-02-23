@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * 分时电价配置控制器
@@ -111,6 +112,8 @@ public class TimePeriodPriceController extends BaseController<TimePeriodPrice, L
      * @return 保存后的实体
      */
     @Operation(summary = "创建或更新分时电价配置")
+    @Log(title = "分时电价", businessType = BusinessType.INSERT)
+    @PreAuthorize("hasAnyPerm('ems:time-period-price:add', 'ems:time-period-price:edit')")
     @PostMapping("/create")
     public Result<TimePeriodPrice> create(@RequestBody Map<String, Object> payload) {
         TimePeriodPrice timePeriodPrice = extractTimePeriodPrice(payload);
@@ -126,6 +129,7 @@ public class TimePeriodPriceController extends BaseController<TimePeriodPrice, L
      */
     @Operation(summary = "更新分时电价配置")
     @Log(title = "分时电价", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:time-period-price:edit')")
     @PutMapping("/{id}")
     @Override
     public Result<TimePeriodPrice> update(@PathVariable Long id, @RequestBody TimePeriodPrice entity) {
@@ -140,6 +144,7 @@ public class TimePeriodPriceController extends BaseController<TimePeriodPrice, L
      * @return 操作结果
      */
     @Log(title = "分时电价", businessType = BusinessType.DELETE)
+    @PreAuthorize("hasPerm('ems:time-period-price:remove')")
     @Operation(summary = "删除分时电价配置")
     @DeleteMapping("/{id}")
     public Result<String> delete(@PathVariable Long id) {
@@ -156,6 +161,7 @@ public class TimePeriodPriceController extends BaseController<TimePeriodPrice, L
      */
     @Operation(summary = "修改状态")
     @Log(title = "分时电价", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:time-period-price:edit')")
     @PatchMapping("/{id}/status")
     public Result<TimePeriodPrice> updateStatus(
             @PathVariable Long id,

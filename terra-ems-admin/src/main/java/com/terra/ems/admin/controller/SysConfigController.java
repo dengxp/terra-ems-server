@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.terra.ems.common.annotation.SuperPermission;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
 import org.springframework.validation.annotation.Validated;
@@ -52,7 +53,7 @@ import org.springframework.validation.annotation.Validated;
  * @since 2026-01-11
  */
 
-@Tag(name = "参数配置")
+@Tag(name = "系统管理-参数配置")
 @RestController
 @RequestMapping("/system/config")
 public class SysConfigController extends BaseController<SysConfig, Long> {
@@ -80,10 +81,25 @@ public class SysConfigController extends BaseController<SysConfig, Long> {
      * @param configKey 参数键名
      * @return 参数值结果
      */
-    @Operation(summary = "通过键名查询参数值")
+    /**
+     * 通过键名查询参数值
+     *
+     * @param configKey 参数键名
+     * @return 参数值结果
+     */
+    @Operation(summary = "查询参数值")
+    @PreAuthorize("hasPerm('system:config:query')")
     @GetMapping("/configKey/{configKey}")
     public Result<String> findConfigValue(@PathVariable String configKey) {
         return Result.content(configService.getConfigValue(configKey));
+    }
+
+    @Operation(summary = "查询参数详情")
+    @PreAuthorize("hasPerm('system:config:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<SysConfig> findById(@PathVariable Long id) {
+        return super.findById(id);
     }
 
     /**
@@ -93,19 +109,55 @@ public class SysConfigController extends BaseController<SysConfig, Long> {
      * @return 操作结果及实体
      */
     @Log(title = "系统配置", businessType = BusinessType.UPDATE)
-    @Operation(summary = "保存或更新配置")
+    @Operation(summary = "保存参数")
     @PostMapping
     @PutMapping
     @Override
-    @PreAuthorize("hasAnyAuthority('system:config:add', 'system:config:edit')")
+    @PreAuthorize("hasAnyPerm('system:config:add', 'system:config:edit')")
     public Result<SysConfig> saveOrUpdate(@Validated @RequestBody SysConfig config) {
         return super.saveOrUpdate(config);
     }
 
     /**
+     * 通过ID更新参数配置
+     */
+    @Operation(summary = "修改参数")
+    @PreAuthorize("hasPerm('system:config:edit')")
+    @PutMapping("/{id}")
+    @Override
+    public Result<SysConfig> update(@PathVariable Long id, @RequestBody @Validated SysConfig domain) {
+        return super.update(id, domain);
+    }
+
+    /**
+     * 删除参数配置
+     */
+    @Operation(summary = "删除参数")
+    @PreAuthorize("hasPerm('system:config:remove')")
+    @Log(title = "参数配置", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除参数配置
+     */
+    @Operation(summary = "批量删除参数")
+    @PreAuthorize("hasPerm('system:config:remove')")
+    @Log(title = "参数配置", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 分页查询参数配置
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "查询参数列表")
+    @PreAuthorize("hasPerm('system:config:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,

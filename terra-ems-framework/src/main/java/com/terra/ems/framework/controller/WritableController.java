@@ -68,8 +68,8 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
                         @Parameter(name = "domain", required = true, description = "可转换为实体的json数据")
         })
         @Log(title = "", businessType = BusinessType.UPDATE)
-        @PostMapping
-        @PutMapping
+        // @PostMapping
+        // @PutMapping
         public Result<E> saveOrUpdate(@RequestBody @Validated E domain) {
                 E savedEntity = getWritableService().saveOrUpdate(domain);
                 return Result.success("保存成功", savedEntity);
@@ -84,7 +84,7 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
          */
         @Idempotent
         @Operation(summary = "通过ID更新数据", description = "根据路径中的ID更新实体数据")
-        @PutMapping("/{id}")
+        // @PutMapping("/{id}")
         @Log(title = "", businessType = BusinessType.UPDATE)
         public Result<E> update(@PathVariable ID id, @RequestBody @Validated E domain) {
                 BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(domain);
@@ -105,7 +105,7 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
                         @Parameter(name = "id", required = true, in = ParameterIn.PATH, description = "实体ID")
         })
         @Log(title = "", businessType = BusinessType.DELETE)
-        @DeleteMapping("/{id}")
+        // @DeleteMapping("/{id}")
         public Result<String> delete(@PathVariable ID id) {
                 getWritableService().deleteById(id);
                 return Result.success("删除成功");
@@ -120,7 +120,7 @@ public abstract class WritableController<E extends Entity, ID extends Serializab
         @Idempotent
         @Operation(summary = "批量删除数据", description = "根据实体ID集合批量删除数据")
         @Log(title = "", businessType = BusinessType.DELETE)
-        @DeleteMapping
+        // @DeleteMapping
         public Result<String> deleteBatch(@RequestBody List<ID> ids) {
                 getWritableService().deleteAllById(ids);
                 return Result.success("删除成功");

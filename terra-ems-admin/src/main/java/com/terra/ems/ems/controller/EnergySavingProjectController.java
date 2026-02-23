@@ -42,9 +42,11 @@ import org.springframework.data.domain.Page;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * 节能项目控制器
@@ -66,6 +68,43 @@ public class EnergySavingProjectController extends BaseController<EnergySavingPr
     @Override
     protected BaseService<EnergySavingProject, Long> getService() {
         return energySavingProjectService;
+    }
+
+    /**
+     * 保存或更新节能项目
+     */
+    @Operation(summary = "保存或更新节能项目")
+    @PostMapping
+    @PutMapping
+    @Override
+    @Log(title = "节能项目", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:energy-saving-project:add', 'ems:energy-saving-project:edit')")
+    public Result<EnergySavingProject> saveOrUpdate(@Validated @RequestBody EnergySavingProject project) {
+        return super.saveOrUpdate(project);
+    }
+
+    /**
+     * 删除节能项目
+     */
+    @Operation(summary = "删除数据")
+    @PreAuthorize("hasPerm('ems:energy-saving-project:remove')")
+    @Log(title = "节能项目", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除节能项目
+     */
+    @Operation(summary = "批量删除数据")
+    @PreAuthorize("hasPerm('ems:energy-saving-project:remove')")
+    @Log(title = "节能项目", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 
     /**
@@ -108,6 +147,7 @@ public class EnergySavingProjectController extends BaseController<EnergySavingPr
      */
     @GetMapping
     @Operation(summary = "分页查询节能项目")
+    @PreAuthorize("hasPerm('ems:energy-saving:list')")
     public Result<Page<EnergySavingProject>> findByPage(Pager pager, EnergySavingProjectQueryParam queryParam) {
         Page<EnergySavingProject> page = energySavingProjectService.findByPage(buildSpecification(queryParam),
                 pager.getPageable());
@@ -159,6 +199,7 @@ public class EnergySavingProjectController extends BaseController<EnergySavingPr
      * @return 更新后的实体
      */
     @Log(title = "节能项目", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:energy-saving-project:edit')")
     @PutMapping("/{id}/status")
     @Operation(summary = "更新项目状态")
     public Result<EnergySavingProject> updateStatus(

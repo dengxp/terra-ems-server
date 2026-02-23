@@ -42,7 +42,7 @@ import java.util.Map;
  * @since 2026-01-11
  */
 
-@Tag(name = "系统常量")
+@Tag(name = "系统管理-系统常量")
 @RestController
 @RequestMapping("/system/constant")
 public class ConstantController extends Controller {

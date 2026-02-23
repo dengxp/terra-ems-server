@@ -60,7 +60,7 @@ import java.util.stream.Collectors;
  * @since 2026-01-11
  */
 
-@Tag(name = "通知公告")
+@Tag(name = "系统管理-通知公告")
 @RestController
 @RequestMapping("/system/notice")
 public class SysNoticeController extends BaseController<SysNotice, Long> {
@@ -90,12 +90,12 @@ public class SysNoticeController extends BaseController<SysNotice, Long> {
      * @param notice 通知公告实体
      * @return 操作结果及实体
      */
-    @Operation(summary = "保存或更新通知公告")
+    @Operation(summary = "保存公告")
     @Override
     @PostMapping
     @PutMapping
     @Log(title = "通知公告", businessType = BusinessType.UPDATE)
-    @PreAuthorize("hasAnyAuthority('system:notice:add', 'system:notice:edit')")
+    @PreAuthorize("hasAnyPerm('system:notice:add', 'system:notice:edit')")
     public Result<SysNotice> saveOrUpdate(@Validated @RequestBody SysNotice notice) {
         return super.saveOrUpdate(notice);
     }
@@ -106,11 +106,11 @@ public class SysNoticeController extends BaseController<SysNotice, Long> {
      * @param id 公告ID
      * @return 操作结果
      */
-    @Operation(summary = "删除通知公告")
+    @Operation(summary = "删除公告")
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id:\\d+}")
     @Log(title = "通知公告", businessType = BusinessType.DELETE)
-    @PreAuthorize("hasAuthority('system:notice:remove')")
+    @PreAuthorize("hasPerm('system:notice:remove')")
     public Result<String> delete(@PathVariable Long id) {
         return super.delete(id);
     }
@@ -121,13 +121,31 @@ public class SysNoticeController extends BaseController<SysNotice, Long> {
      * @param ids 公告ID集合
      * @return 操作结果
      */
-    @Operation(summary = "批量删除通知公告")
+    @Operation(summary = "批量删除公告")
     @Override
     @DeleteMapping
     @Log(title = "通知公告", businessType = BusinessType.DELETE)
-    @PreAuthorize("hasAuthority('system:notice:remove')")
+    @PreAuthorize("hasPerm('system:notice:remove')")
     public Result<String> deleteBatch(@RequestBody List<Long> ids) {
         return super.deleteBatch(ids);
+    }
+
+    @Operation(summary = "查询公告详情")
+    @GetMapping("/{id:\\d+}")
+    @Override
+    public Result<SysNotice> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 通过ID更新通知公告
+     */
+    @Operation(summary = "修改公告")
+    @PreAuthorize("hasPerm('system:notice:edit')")
+    @PutMapping("/{id:\\d+}")
+    @Override
+    public Result<SysNotice> update(@PathVariable Long id, @RequestBody @Validated SysNotice domain) {
+        return super.update(id, domain);
     }
 
     /**
@@ -140,7 +158,7 @@ public class SysNoticeController extends BaseController<SysNotice, Long> {
      * @param unreadOnly 是否只查未读
      * @return 分页结果
      */
-    @Operation(summary = "分页查询通知公告")
+    @Operation(summary = "查询公告列表")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,
@@ -220,8 +238,8 @@ public class SysNoticeController extends BaseController<SysNotice, Long> {
      * @param id 公告ID
      * @return 操作结果
      */
-    @Operation(summary = "标记公告为已读")
-    @PostMapping("/{id}/read")
+    @Operation(summary = "标记公告已读")
+    @PostMapping("/{id:\\d+}/read")
     public Result<String> markAsRead(@PathVariable Long id) {
         Long userId = getCurrentUserId();
         if (userId != null) {

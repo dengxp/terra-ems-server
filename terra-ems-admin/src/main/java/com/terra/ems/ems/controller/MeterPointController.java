@@ -47,6 +47,8 @@ import java.util.Map;
 import java.util.Set;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 采集点位控制器
@@ -71,9 +73,47 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
     }
 
     /**
+     * 保存或更新采集点位
+     */
+    @Operation(summary = "保存或更新采集点位")
+    @PostMapping
+    @PutMapping
+    @Override
+    @Log(title = "采集点位", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:meter-point:add', 'ems:meter-point:edit')")
+    public Result<MeterPoint> saveOrUpdate(@Validated @RequestBody MeterPoint meterPoint) {
+        return super.saveOrUpdate(meterPoint);
+    }
+
+    /**
+     * 删除采集点位
+     */
+    @Operation(summary = "删除数据")
+    @PreAuthorize("hasPerm('ems:meter-point:remove')")
+    @Log(title = "采集点位", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除采集点位
+     */
+    @Operation(summary = "批量删除数据")
+    @PreAuthorize("hasPerm('ems:meter-point:remove')")
+    @Log(title = "采集点位", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 分页查询采集点位
      */
     @Operation(summary = "分页查询")
+    @PreAuthorize("hasPerm('ems:meter-point:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, MeterPointQueryParam param) {
         return findByPage(pager, buildSpecification(param));
@@ -163,6 +203,7 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
      */
     @Operation(summary = "修改采集点位状态")
     @Log(title = "计量点", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:meter-point:edit')")
     @PatchMapping("/{id}/status")
     public Result<MeterPoint> updateStatus(
             @PathVariable Long id,
@@ -174,6 +215,8 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
      * 关联用能单元
      */
     @Operation(summary = "关联用能单元")
+    @Log(title = "计量点", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:meter-point:edit')")
     @PostMapping("/{id}/energy-units")
     public Result<MeterPoint> assignEnergyUnits(
             @PathVariable Long id,

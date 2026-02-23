@@ -42,7 +42,7 @@ import java.util.Map;
  * @since 2026-01-11
  */
 
-@Tag(name = "验证码管理", description = "验证码生成和验证接口")
+@Tag(name = "系统管理-验证码管理", description = "验证码生成和验证接口")
 @RestController
 @RequestMapping("/captcha")
 public class CaptchaController extends Controller {

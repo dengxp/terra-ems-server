@@ -35,11 +35,15 @@ import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.springframework.security.access.prepost.PreAuthorize;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
@@ -48,7 +52,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author dengxueping
  * @since 2026-02-10
  */
-@Tag(name = "系统访问记录")
+@Tag(name = "系统监控-登录日志")
 @RestController
 @RequestMapping("/monitor/login-log")
 @RequiredArgsConstructor
@@ -61,10 +65,66 @@ public class SysLoginLogController extends BaseController<SysLoginLog, Long> {
         return loginLogService;
     }
 
+    @Operation(summary = "查询登录日志详情")
+    @PreAuthorize("hasPerm('monitor:logininfor:query')")
+    @GetMapping("/{id:\\d+}")
+    @Override
+    public Result<SysLoginLog> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 保存或更新登录日志 (禁止)
+     */
+    @Operation(summary = "提交")
+    @PostMapping
+    @PutMapping
+    @Override
+    @PreAuthorize("denyAll()")
+    public Result<SysLoginLog> saveOrUpdate(@Validated @RequestBody SysLoginLog log) {
+        return Result.failure("登录日志不允许修改");
+    }
+
+    /**
+     * 通过ID更新登录日志 (禁止)
+     */
+    @Operation(summary = "更新")
+    @PreAuthorize("denyAll()")
+    @PutMapping("/{id:\\d+}")
+    @Override
+    public Result<SysLoginLog> update(@PathVariable Long id, @RequestBody @Validated SysLoginLog domain) {
+        return Result.failure("登录日志不允许修改");
+    }
+
+    /**
+     * 删除登录日志
+     */
+    @Operation(summary = "删除登录日志")
+    @PreAuthorize("hasPerm('monitor:logininfor:remove')")
+    @Log(title = "登录日志", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id:\\d+}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除登录日志
+     */
+    @Operation(summary = "批量删除登录日志")
+    @PreAuthorize("hasPerm('monitor:logininfor:remove')")
+    @Log(title = "登录日志", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
     /**
      * 分页查询登录日志
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "查询登录日志列表")
+    @PreAuthorize("hasPerm('monitor:logininfor:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,
@@ -88,6 +148,8 @@ public class SysLoginLogController extends BaseController<SysLoginLog, Long> {
     }
 
     @Operation(summary = "清空登录日志")
+    @PreAuthorize("hasPerm('monitor:logininfor:remove')")
+    @Log(title = "登录日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
     public Result<Void> clean() {
         loginLogService.cleanLoginLog();

@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * 政策法规控制器
@@ -77,6 +78,7 @@ public class PolicyController extends BaseController<Policy, Long> {
      */
     @GetMapping
     @Operation(summary = "分页查询政策")
+    @PreAuthorize("hasPerm('ems:policy:list')")
     public Result<Page<Policy>> findByPage(Pager pager, PolicyQueryParam queryParam) {
         Page<Policy> page = policyService.findByPage(buildSpecification(queryParam), pager.getPageable());
         return Result.content(page);
@@ -153,6 +155,7 @@ public class PolicyController extends BaseController<Policy, Long> {
      * @return 更新后的实体
      */
     @Log(title = "节能策略", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:policy:edit')")
     @PutMapping("/{id}/status")
     @Operation(summary = "更新政策状态")
     public Result<Policy> updateStatus(

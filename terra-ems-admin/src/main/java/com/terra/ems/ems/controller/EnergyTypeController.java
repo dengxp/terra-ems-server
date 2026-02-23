@@ -49,6 +49,8 @@ import com.terra.ems.framework.enums.EnergyCategory;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 能源类型控制器
@@ -73,9 +75,47 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
     }
 
     /**
+     * 保存或更新能源类型
+     */
+    @Operation(summary = "保存或更新能源类型")
+    @PostMapping
+    @PutMapping
+    @Override
+    @Log(title = "能源类型", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:energy-type:add', 'ems:energy-type:edit')")
+    public Result<EnergyType> saveOrUpdate(@Validated @RequestBody EnergyType energyType) {
+        return super.saveOrUpdate(energyType);
+    }
+
+    /**
+     * 删除能源类型
+     */
+    @Operation(summary = "删除数据")
+    @PreAuthorize("hasPerm('ems:energy-type:remove')")
+    @Log(title = "能源类型", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除能源类型
+     */
+    @Operation(summary = "批量删除数据")
+    @PreAuthorize("hasPerm('ems:energy-type:remove')")
+    @Log(title = "能源类型", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 分页查询能源类型
      */
     @Operation(summary = "分页查询")
+    @PreAuthorize("hasPerm('ems:energy-type:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, EnergyTypeQueryParam param) {
 
@@ -130,6 +170,7 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
      */
     @Operation(summary = "修改能源类型状态")
     @Log(title = "能源类型", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:energy-type:edit')")
     @PatchMapping("/{id}/status")
     public Result<EnergyType> updateStatus(
             @PathVariable Long id,

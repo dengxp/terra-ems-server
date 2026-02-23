@@ -34,6 +34,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -107,6 +108,10 @@ public class SysUser extends BaseEntity {
         @Column(name = "remark", length = 512)
         private String remark;
 
+        @Schema(title = "是否为超级管理员")
+        @Column(name = "super_admin")
+        private Boolean superAdmin = false;
+
         @Schema(title = "所属部门")
         @Excel(name = "所属部门", targetAttr = "name", sort = 3)
         @ManyToOne(fetch = FetchType.LAZY)
@@ -136,6 +141,8 @@ public class SysUser extends BaseEntity {
         private LocalDateTime lastLoginAt;
 
         @JsonIgnore
+        @ToString.Exclude
+        @EqualsAndHashCode.Exclude
         @Schema(title = "用户角色列表")
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(name = "sys_user_role", joinColumns = {
@@ -149,6 +156,8 @@ public class SysUser extends BaseEntity {
         private Set<SysRole> roles = new HashSet<>();
 
         @JsonIgnore
+        @ToString.Exclude
+        @EqualsAndHashCode.Exclude
         @Schema(title = "用户权限列表")
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(name = "sys_user_permission", joinColumns = {
@@ -162,6 +171,8 @@ public class SysUser extends BaseEntity {
         private Set<SysPermission> permissions = new HashSet<>();
 
         @JsonIgnore
+        @ToString.Exclude
+        @EqualsAndHashCode.Exclude
         @Schema(title = "用户岗位列表")
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(name = "sys_user_post", joinColumns = {
@@ -175,12 +186,20 @@ public class SysUser extends BaseEntity {
         private Set<SysPost> posts = new HashSet<>();
 
         @Transient
-        @JsonProperty("roles")
+        @JsonProperty("roleIds")
         private Set<Long> roleIds;
 
         @Transient
-        @JsonProperty("posts")
+        @JsonProperty("postIds")
         private Set<Long> postIds;
+
+        @Transient
+        @JsonProperty("roleCodes")
+        private Set<String> roleCodes;
+
+        @Transient
+        @JsonProperty("permissionCodes")
+        private Set<String> permissionCodes;
 
         @Transient
         @JsonProperty("deptId")
@@ -227,7 +246,7 @@ public class SysUser extends BaseEntity {
          *
          * @return 角色ID列表
          */
-        @JsonProperty("roles")
+        @JsonProperty("roleIds")
         public Set<Long> getRoleIds() {
                 if (roles != null && !roles.isEmpty()) {
                         return roles.stream().map(SysRole::getId).collect(Collectors.toSet());
@@ -236,16 +255,39 @@ public class SysUser extends BaseEntity {
         }
 
         /**
+         * 获取角色代码列表
+         *
+         * @return 角色代码列表
+         */
+        @JsonProperty("roleCodes")
+        public Set<String> getRoleCodes() {
+                if (roles != null && !roles.isEmpty()) {
+                        return roles.stream().map(SysRole::getCode).collect(Collectors.toSet());
+                }
+                return roleCodes;
+        }
+
+        /**
          * 获取岗位ID列表
          *
          * @return 岗位ID列表
          */
-        @JsonProperty("posts")
+        @JsonProperty("postIds")
         public Set<Long> getPostIds() {
                 if (posts != null && !posts.isEmpty()) {
                         return posts.stream().map(SysPost::getId).collect(Collectors.toSet());
                 }
                 return postIds;
+        }
+
+        /**
+         * 获取权限代码列表 (供前端使用)
+         *
+         * @return 权限代码列表
+         */
+        @JsonProperty("permissions")
+        public Set<String> getPermissionCodes() {
+                return permissionCodes;
         }
 
         /**
@@ -268,6 +310,15 @@ public class SysUser extends BaseEntity {
          */
         public boolean isEnabled() {
                 return status != DataItemStatus.FORBIDDEN;
+        }
+
+        /**
+         * 是否为超级管理员
+         *
+         * @return 是否为超级管理员
+         */
+        public boolean isAdmin() {
+                return Boolean.TRUE.equals(superAdmin);
         }
 
         /**

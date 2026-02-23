@@ -25,6 +25,7 @@ package com.terra.ems.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.terra.ems.framework.enums.DataScope;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
@@ -33,6 +34,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
@@ -98,6 +100,8 @@ public class SysRole extends BaseEntity {
 
         @Schema(title = "角色权限列表")
         @JsonIgnore
+        @ToString.Exclude
+        @EqualsAndHashCode.Exclude
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(name = "sys_role_permission", joinColumns = {
                         @JoinColumn(name = "role_id", referencedColumnName = "id") }, inverseJoinColumns = {
@@ -110,10 +114,31 @@ public class SysRole extends BaseEntity {
 
         @Schema(title = "角色成员列表")
         @JsonIgnore
+        @ToString.Exclude
+        @EqualsAndHashCode.Exclude
         @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
         private Set<SysUser> users = new HashSet<>();
 
         @Schema(title = "角色状态")
         @Column(name = "status", nullable = false)
         private DataItemStatus status = DataItemStatus.ENABLE;
+
+        @Transient
+        private Set<Long> permissionIds;
+
+        public Set<Long> getPermissionIds() {
+                if (permissionIds == null && permissions != null) {
+                        return permissions.stream().map(SysPermission::getId)
+                                        .collect(java.util.stream.Collectors.toSet());
+                }
+                return permissionIds;
+        }
+
+        public void setPermissionIds(Set<Long> permissionIds) {
+                this.permissionIds = permissionIds;
+                if (permissionIds != null) {
+                        this.permissions = permissionIds.stream().map(SysPermission::new)
+                                        .collect(java.util.stream.Collectors.toSet());
+                }
+        }
 }

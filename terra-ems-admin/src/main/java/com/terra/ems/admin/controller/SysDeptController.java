@@ -42,6 +42,10 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.framework.definition.dto.Pager;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.prepost.PreAuthorize;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
 
 /**
  * 部门管理控制器
@@ -50,7 +54,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @since 2026-01-11
  */
 
-@Tag(name = "部门管理")
+@Tag(name = "系统管理-部门管理")
 @RestController
 @RequestMapping("/system/dept")
 public class SysDeptController extends BaseController<SysDept, Long> {
@@ -77,16 +81,76 @@ public class SysDeptController extends BaseController<SysDept, Long> {
     /**
      * 分页查询部门
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "查询部门列表")
+    @PreAuthorize("hasPerm('system:dept:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, SysDeptQueryParam queryParam) {
         return super.findByPage(pager, buildSpecification(queryParam));
+    }
+
+    @Operation(summary = "查询部门详情")
+    @PreAuthorize("hasPerm('system:dept:query')")
+    @GetMapping("/{id:\\d+}")
+    @Override
+    public Result<SysDept> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 保存或更新部门
+     */
+    @Log(title = "部门管理", businessType = BusinessType.UPDATE)
+    @Operation(summary = "保存部门")
+    @PreAuthorize("hasAnyPerm('system:dept:add', 'system:dept:edit')")
+    @PostMapping
+    @PutMapping
+    @Override
+    public Result<SysDept> saveOrUpdate(@Validated @RequestBody SysDept dept) {
+        return super.saveOrUpdate(dept);
+    }
+
+    /**
+     * 通过ID更新部门
+     */
+    @Operation(summary = "修改部门")
+    @PreAuthorize("hasPerm('system:dept:edit')")
+    @PutMapping("/{id:\\d+}")
+    @Override
+    public Result<SysDept> update(@PathVariable Long id, @RequestBody @Validated SysDept domain) {
+        return super.update(id, domain);
+    }
+
+    /**
+     * 删除部门
+     */
+    @Operation(summary = "删除部门")
+    @PreAuthorize("hasPerm('system:dept:remove')")
+    @Log(title = "部门管理", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id:\\d+}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除部门
+     */
+    @Operation(summary = "批量删除部门")
+    @PreAuthorize("hasPerm('system:dept:remove')")
+    @Log(title = "部门管理", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 
     /**
      * 构建查询规范
      */
     private Specification<SysDept> buildSpecification(SysDeptQueryParam queryParam) {
+        // ... (omitted for brevity, just targeting the delete methods first, but
+        // replace_file_content needs contiguous)
+        // actually I can just do the deletes first.
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -112,12 +176,8 @@ public class SysDeptController extends BaseController<SysDept, Long> {
      *
      * @return 部门树列表结果
      */
-    /**
-     * 查询部门树形结构
-     *
-     * @return 部门树列表结果
-     */
     @Operation(summary = "查询部门树")
+    @PreAuthorize("hasPerm('system:dept:list')")
     @GetMapping("/tree")
     public Result<List<SysDept>> findTree() {
         List<SysDept> allDepts = deptService.findAllWithDetails();
@@ -202,8 +262,9 @@ public class SysDeptController extends BaseController<SysDept, Long> {
      * @param param 查询参数
      * @return 成员列表
      */
-    @Operation(summary = "获取部门成员")
-    @GetMapping("/{id}/members")
+    @Operation(summary = "查询部门成员")
+    @PreAuthorize("hasPerm('system:dept:list')")
+    @GetMapping("/{id:\\d+}/members")
     public Result<Map<String, Object>> getMembers(@PathVariable Long id, Pager pager,
             com.terra.ems.system.param.UserQueryParam param) {
         param.setDeptId(id);
@@ -218,7 +279,9 @@ public class SysDeptController extends BaseController<SysDept, Long> {
      * @return 结果
      */
     @Operation(summary = "添加部门成员")
-    @PostMapping("/{id}/members")
+    @PreAuthorize("hasPerm('system:dept:edit')")
+    @Log(title = "部门管理", businessType = BusinessType.INSERT)
+    @PostMapping("/{id:\\d+}/members")
     public Result<Void> addMembers(@PathVariable Long id, @RequestBody Map<String, Object> params) {
         List<Integer> userIdsInt = (List<Integer>) params.get("userIds");
         if (userIdsInt == null || userIdsInt.isEmpty()) {
@@ -237,6 +300,8 @@ public class SysDeptController extends BaseController<SysDept, Long> {
      * @return 结果
      */
     @Operation(summary = "移除部门成员")
+    @PreAuthorize("hasPerm('system:dept:edit')")
+    @Log(title = "部门管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{id}/members/{userId}")
     public Result<Void> removeMember(@PathVariable Long id, @PathVariable Long userId) {
         deptService.removeMember(id, userId);
@@ -251,7 +316,9 @@ public class SysDeptController extends BaseController<SysDept, Long> {
      * @return 结果
      */
     @Operation(summary = "批量移除部门成员")
-    @DeleteMapping("/{id}/members")
+    @PreAuthorize("hasPerm('system:dept:edit')")
+    @Log(title = "部门管理", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id:\\d+}/members")
     public Result<Void> removeMembers(@PathVariable Long id, @RequestBody List<Long> userIds) {
         deptService.removeMembers(id, userIds);
         return Result.success("移除成功");

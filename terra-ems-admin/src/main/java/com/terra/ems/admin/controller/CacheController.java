@@ -6,6 +6,8 @@ import com.terra.ems.common.domain.Result;
 import com.terra.ems.common.enums.BusinessType;
 import com.terra.ems.common.utils.StringUtils;
 import com.terra.ems.system.domain.SysCache;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -20,6 +22,7 @@ import java.util.*;
  * 
  * @author terra
  */
+@Tag(name = "系统监控-缓存监控")
 @RestController
 @RequestMapping("/monitor/cache")
 public class CacheController {
@@ -38,7 +41,8 @@ public class CacheController {
         caches.add(new SysCache(CacheConstants.PWD_ERR_CNT_KEY, "密码错误次数"));
     }
 
-    @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
+    @Operation(summary = "查询缓存状态")
+    @PreAuthorize("hasPerm('monitor:cache:list')")
     @GetMapping()
     public Result<Map<String, Object>> getInfo() throws Exception {
         Properties info = (Properties) redisTemplate.execute((RedisCallback<Object>) RedisConnection::info);
@@ -71,13 +75,15 @@ public class CacheController {
         return Result.content(result);
     }
 
-    @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
+    @Operation(summary = "查询缓存列表")
+    @PreAuthorize("hasPerm('monitor:cache:list')")
     @GetMapping("/getNames")
     public Result<List<SysCache>> cache() {
         return Result.content(caches);
     }
 
-    @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
+    @Operation(summary = "查询缓存键名列表")
+    @PreAuthorize("hasPerm('monitor:cache:list')")
     @GetMapping("/getKeys/{cacheName}")
     public Result<Set<String>> getCacheKeys(@PathVariable String cacheName) {
         Set<Object> cacheKeys = redisTemplate.keys(cacheName + "*");
@@ -90,7 +96,8 @@ public class CacheController {
         return Result.content(keys);
     }
 
-    @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
+    @Operation(summary = "获取缓存指定键值")
+    @PreAuthorize("hasPerm('monitor:cache:list')")
     @GetMapping("/getValue/{cacheName}/{cacheKey}")
     public Result<SysCache> getCacheValue(@PathVariable String cacheName, @PathVariable String cacheKey) {
         Object cacheValue = redisTemplate.opsForValue().get(cacheKey);
@@ -98,7 +105,8 @@ public class CacheController {
         return Result.content(sysCache);
     }
 
-    @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
+    @Operation(summary = "清理指定缓存")
+    @PreAuthorize("hasPerm('monitor:cache:remove')")
     @Log(title = "缓存监控", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clearCacheName/{cacheName}")
     public Result<Void> clearCacheName(@PathVariable String cacheName) {
@@ -109,7 +117,8 @@ public class CacheController {
         return Result.success();
     }
 
-    @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
+    @Operation(summary = "清理缓存键")
+    @PreAuthorize("hasPerm('monitor:cache:remove')")
     @Log(title = "缓存监控", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clearCacheKey/{cacheKey}")
     public Result<Void> clearCacheKey(@PathVariable String cacheKey) {
@@ -117,7 +126,8 @@ public class CacheController {
         return Result.success();
     }
 
-    @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
+    @Operation(summary = "清空所有缓存")
+    @PreAuthorize("hasPerm('monitor:cache:remove')")
     @Log(title = "缓存监控", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clearCacheAll")
     public Result<Void> clearCacheAll() {

@@ -131,8 +131,44 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
     /**
      * 根据用户名查找用户
      */
+    @Transactional(readOnly = true)
     public SysUser findByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+        SysUser user = userRepository.findByUsername(username).orElse(null);
+        if (user != null) {
+            // 聚合角色代码
+            if (user.getRoles() != null) {
+                user.setRoleCodes(user.getRoles().stream()
+                        .map(SysRole::getCode)
+                        .collect(Collectors.toSet()));
+            }
+
+            // 聚合权限代码
+            Set<String> pCodes = new HashSet<>();
+            // 1. 来自角色的权限
+            if (user.getRoles() != null) {
+                user.getRoles().forEach(role -> {
+                    if (role.getPermissions() != null) {
+                        pCodes.addAll(role.getPermissions().stream()
+                                .map(SysPermission::getCode)
+                                .collect(Collectors.toSet()));
+                    }
+                });
+            }
+            // 2. 来自用户直接绑定的权限
+            if (user.getPermissions() != null) {
+                pCodes.addAll(user.getPermissions().stream()
+                        .map(SysPermission::getCode)
+                        .collect(Collectors.toSet()));
+            }
+
+            // 3. 如果是超级管理员，注入上帝权限码
+            if (user.isAdmin()) {
+                pCodes.add("*:*:*");
+            }
+
+            user.setPermissionCodes(pCodes);
+        }
+        return user;
     }
 
     /**
@@ -217,6 +253,11 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
                 list.add(cb.lessThanOrEqualTo(root.get("createdAt"), param.getEndTime()));
             }
 
+            // 角色过滤
+            if (param.getRoleId() != null) {
+                list.add(cb.equal(root.join("roles").get("id"), param.getRoleId()));
+            }
+
             return cb.and(list.toArray(new Predicate[0]));
         };
     }
@@ -282,18 +323,25 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public SysUser saveOrUpdate(SysUser user) {
+        if (user.getId() != null) {
+            // Update: Keep existing password and superAdmin status if not provided
+            userRepository.findById(user.getId()).ifPresent(existing -> {
+                if (!StringUtils.hasText(user.getPassword())) {
+                    user.setPassword(existing.getPassword());
+                }
+                // 强制保持现有超级管理员状态，不允许通过此接口修改
+                user.setSuperAdmin(existing.getSuperAdmin());
+            });
+        }
+
         if (user.getId() == null) {
+            // 新增用户默认为非超级管理员
+            user.setSuperAdmin(false);
             if (StringUtils.hasText(user.getPassword())) {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
             }
         } else {
-            // Update: Keep existing password if not provided
-            if (!StringUtils.hasText(user.getPassword())) {
-                userRepository.findById(user.getId()).ifPresent(existing -> {
-                    user.setPassword(existing.getPassword());
-                });
-            } else {
-                // If provided (and not empty), encode it
+            if (StringUtils.hasText(user.getPassword())) {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
             }
         }
@@ -326,7 +374,10 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
 
-        // 3. 处理关联绑定
+        // 3. 强制设为非超级管理员
+        user.setSuperAdmin(false);
+
+        // 4. 处理关联绑定
         handleAssociations(user);
 
         return getRepository().save(user);
@@ -411,6 +462,11 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
      */
     private Set<GrantedAuthority> getAuthorities(SysUser user) {
         Set<GrantedAuthority> authorities = new HashSet<>();
+
+        // 如果是超级管理员，赋予上帝通配符权限码
+        if (user.isAdmin()) {
+            authorities.add(new SimpleGrantedAuthority("*:*:*"));
+        }
 
         // 添加角色
         if (user.getRoles() != null) {
@@ -530,5 +586,89 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
         user.setPassword(passwordEncoder.encode(password));
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
+    }
+
+    /**
+     * 为多个用户添加角色
+     *
+     * @param roleId    角色ID
+     * @param memberIds 用户ID列表
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void addRoleToUsers(Long roleId, List<Long> memberIds) {
+        SysRole role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("角色不存在"));
+        List<SysUser> users = userRepository.findAllById(memberIds);
+        for (SysUser user : users) {
+            user.getRoles().add(role);
+            userRepository.save(user);
+        }
+    }
+
+    /**
+     * 从多个用户移除角色
+     *
+     * @param roleId    角色ID
+     * @param memberIds 用户ID列表
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void removeRoleFromUsers(Long roleId, List<Long> memberIds) {
+        SysRole role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("角色不存在"));
+        List<SysUser> users = userRepository.findAllById(memberIds);
+        for (SysUser user : users) {
+            user.getRoles().remove(role);
+            userRepository.save(user);
+        }
+    }
+
+    /**
+     * 更新用户角色
+     *
+     * @param userId  用户ID
+     * @param roleIds 角色ID列表
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void updateRoles(Long userId, Set<Long> roleIds) {
+        SysUser user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
+        if (roleIds == null || roleIds.isEmpty()) {
+            user.setRoles(new HashSet<>());
+        } else {
+            user.setRoles(roleRepository.findByIdIn(roleIds));
+        }
+        user.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(user);
+    }
+
+    /**
+     * 设置用户超级管理员状态
+     *
+     * @param userId  用户ID
+     * @param isSuper 是否为超级管理员
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void updateSuperAdminStatus(Long userId, Boolean isSuper) {
+        SysUser user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
+
+        // 不能修改 admin 原生账号的状态（可选增强：或者允许修改，但 admin 逻辑在 SysUser.isAdmin 已经兜底）
+        if ("admin".equals(user.getUsername())) {
+            throw new RuntimeException("原生管理员账号状态禁止修改");
+        }
+
+        user.setSuperAdmin(isSuper);
+        user.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(user);
+    }
+
+    /**
+     * 统计拥有该角色的用户数量
+     *
+     * @param roleId 角色ID
+     * @return 数量
+     */
+    public Integer countByRoleId(Long roleId) {
+        return userRepository.countByRolesId(roleId);
     }
 }

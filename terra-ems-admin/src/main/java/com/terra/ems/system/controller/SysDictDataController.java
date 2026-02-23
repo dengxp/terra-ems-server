@@ -44,6 +44,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.prepost.PreAuthorize;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +63,7 @@ import java.util.Map;
  * @author dengxueping
  * @since 2026-01-16
  */
-@Tag(name = "字典数据", description = "系统字典数据管理")
+@Tag(name = "系统管理-字典数据", description = "系统字典数据管理")
 @RestController
 @RequestMapping("/system/dict/data")
 @RequiredArgsConstructor
@@ -98,7 +106,44 @@ public class SysDictDataController extends BaseController<SysDictData, Long> {
         return findByPage(pager, spec);
     }
 
-    @Operation(summary = "根据字典类型查询字典数据信息", description = "适配前端 useDict 钩子")
+    /**
+     * 保存或更新字典数据
+     */
+    @Operation(summary = "提交")
+    @PostMapping
+    @PutMapping
+    @Override
+    @Log(title = "字典数据", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('system:dict:add', 'system:dict:edit')")
+    public Result<SysDictData> saveOrUpdate(@Validated @RequestBody SysDictData dictData) {
+        return super.saveOrUpdate(dictData);
+    }
+
+    /**
+     * 删除字典数据
+     */
+    @Operation(summary = "删除")
+    @PreAuthorize("hasPerm('system:dict:remove')")
+    @Log(title = "字典数据", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除字典数据
+     */
+    @Operation(summary = "批量删除")
+    @PreAuthorize("hasPerm('system:dict:remove')")
+    @Log(title = "字典数据", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    @Operation(summary = "按类型查询")
     @GetMapping(value = "/type/{dictType}")
     public Result<List<SysDictData>> dictType(@Parameter(description = "字典类型") @PathVariable String dictType) {
         return Result.content(dictDataService.findByType(dictType));

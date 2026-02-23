@@ -39,6 +39,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +68,43 @@ public class AlarmLimitTypeController extends BaseController<AlarmLimitType, Lon
     private final AlarmLimitTypeService alarmLimitTypeService;
 
     /**
+     * 保存或更新报警限值类型
+     */
+    @Operation(summary = "保存或更新报警限值类型")
+    @PostMapping
+    @PutMapping
+    @Override
+    @Log(title = "报警限值类型", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:alarm-limit-type:add', 'ems:alarm-limit-type:edit')")
+    public Result<AlarmLimitType> saveOrUpdate(@Validated @RequestBody AlarmLimitType alarmLimitType) {
+        return super.saveOrUpdate(alarmLimitType);
+    }
+
+    /**
+     * 删除报警限值类型
+     */
+    @Operation(summary = "删除数据")
+    @PreAuthorize("hasPerm('ems:alarm-limit-type:remove')")
+    @Log(title = "报警限值类型", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除报警限值类型
+     */
+    @Operation(summary = "批量删除数据")
+    @PreAuthorize("hasPerm('ems:alarm-limit-type:remove')")
+    @Log(title = "报警限值类型", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 分页查询报警限值类型
      *
      * @param pager 分页参数
@@ -71,6 +114,7 @@ public class AlarmLimitTypeController extends BaseController<AlarmLimitType, Lon
      */
     @GetMapping
     @Operation(summary = "分页查询")
+    @PreAuthorize("hasPerm('ems:alarm-limit-type:list')")
     public Result<Map<String, Object>> findByPage(
             Pager pager,
             @RequestParam(required = false) String name,

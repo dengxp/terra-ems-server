@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * 知识库文章控制器
@@ -77,6 +78,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
      * @return 保存后的实体
      */
     @Log(title = "知识库", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:knowledge:add', 'ems:knowledge:edit')")
     @Override
     @PostMapping
     @PutMapping
@@ -98,6 +100,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
      */
     @Operation(summary = "更新文章")
     @Log(title = "知识库", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:knowledge:edit')")
     @PutMapping("/{id}")
     @Override
     public Result<KnowledgeArticle> update(@PathVariable Long id, @RequestBody @Validated KnowledgeArticle article) {
@@ -112,6 +115,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
      * @return 操作结果
      */
     @Log(title = "知识库", businessType = BusinessType.DELETE)
+    @PreAuthorize("hasPerm('ems:knowledge:remove')")
     @Operation(summary = "删除文章")
     @DeleteMapping("/{id}")
     public Result<String> delete(@Parameter(description = "文章ID") @PathVariable Long id) {
@@ -142,6 +146,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
      * @return 分页结果
      */
     @Operation(summary = "分页查询")
+    @PreAuthorize("hasPerm('ems:knowledge:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, KnowledgeArticleQueryParam param) {
         Specification<KnowledgeArticle> spec = (root, query, cb) -> {
@@ -228,6 +233,7 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
      */
     @Operation(summary = "更新文章状态")
     @Log(title = "知识库", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:knowledge:edit')")
     @PatchMapping("/{id}/status")
     public Result<Void> updateStatus(
             @Parameter(description = "文章ID") @PathVariable Long id,

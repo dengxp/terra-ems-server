@@ -49,6 +49,8 @@ import org.springframework.data.jpa.domain.Specification;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 成本策略绑定控制器
@@ -73,6 +75,43 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
     }
 
     /**
+     * 保存或更新成本策略绑定
+     */
+    @Operation(summary = "保存或更新成本策略绑定")
+    @PostMapping
+    @PutMapping
+    @Override
+    @Log(title = "费用策略绑定", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:cost-policy-binding:add', 'ems:cost-policy-binding:edit')")
+    public Result<CostPolicyBinding> saveOrUpdate(@Validated @RequestBody CostPolicyBinding binding) {
+        return super.saveOrUpdate(binding);
+    }
+
+    /**
+     * 删除成本策略绑定
+     */
+    @Operation(summary = "删除数据")
+    @PreAuthorize("hasPerm('ems:cost-policy-binding:remove')")
+    @Log(title = "费用策略绑定", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除成本策略绑定
+     */
+    @Operation(summary = "批量删除数据")
+    @PreAuthorize("hasPerm('ems:cost-policy-binding:remove')")
+    @Log(title = "费用策略绑定", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 分页查询成本策略绑定
      *
      * @param pager         分页参数
@@ -83,6 +122,7 @@ public class CostPolicyBindingController extends BaseController<CostPolicyBindin
      */
     @GetMapping
     @Operation(summary = "分页查询")
+    @PreAuthorize("hasPerm('ems:cost-policy-binding:list')")
     public Result<Page<CostPolicyBinding>> findByPage(
             Pager pager,
             @RequestParam(required = false) @Parameter(description = "用能单元ID") Long energyUnitId,

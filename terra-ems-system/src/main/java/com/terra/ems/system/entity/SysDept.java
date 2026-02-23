@@ -31,6 +31,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Formula;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ import java.util.List;
  */
 
 @Data
-@EqualsAndHashCode(callSuper = true, exclude = { "parent", "children" })
+@EqualsAndHashCode(callSuper = true, exclude = { "parent", "children", "manager" })
 @Entity
 @Table(name = "sys_dept", indexes = {
         @Index(name = "idx_sys_dept_parent", columnList = "parent_id"),
@@ -107,6 +108,7 @@ public class SysDept extends BaseEntity {
     @Schema(title = "部门负责人")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
+    @ToString.Exclude
     @JsonIgnoreProperties({ "password", "dept", "roles", "hibernateLazyInitializer", "handler" })
     private SysUser manager;
 

@@ -24,6 +24,7 @@
 package com.terra.ems.admin.controller;
 
 import com.terra.ems.common.domain.Result;
+import com.terra.ems.common.utils.poi.ExcelUtil;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.enums.DataItemStatus;
@@ -44,14 +45,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
@@ -64,11 +59,11 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import com.terra.ems.common.utils.poi.ExcelUtil;
-import jakarta.servlet.http.HttpServletResponse;
+import com.terra.ems.common.annotation.SuperPermission;
 import org.springframework.security.access.prepost.PreAuthorize;
+import java.util.HashSet;
+import java.util.Set;
+
 import java.time.LocalDateTime;
 
 /**
@@ -78,7 +73,7 @@ import java.time.LocalDateTime;
  * @since 2026-01-11
  */
 
-@Tag(name = "系统用户管理", description = "系统用户的CRUD及特定业务接口")
+@Tag(name = "系统管理-用户管理", description = "系统用户的CRUD及特定业务接口")
 @RestController
 @RequestMapping("/system/user")
 public class SysUserController extends BaseController<SysUser, Long> {
@@ -146,6 +141,18 @@ public class SysUserController extends BaseController<SysUser, Long> {
                     predicates.add(cb.equal(root.get("dept").get("id"), deptId));
                 }
             }
+            Object roleIdObj = params.get("roleId");
+            if (roleIdObj != null) {
+                Long roleId = null;
+                if (roleIdObj instanceof Long) {
+                    roleId = (Long) roleIdObj;
+                } else if (roleIdObj instanceof String) {
+                    roleId = Long.valueOf((String) roleIdObj);
+                }
+                if (roleId != null) {
+                    predicates.add(cb.equal(root.join("roles").get("id"), roleId));
+                }
+            }
             if (statusObj != null) {
                 Integer status = null;
                 if (statusObj instanceof Integer) {
@@ -201,10 +208,19 @@ public class SysUserController extends BaseController<SysUser, Long> {
      * @param params 查询参数
      * @return 分页结果
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "查询用户列表")
+    @PreAuthorize("hasPerm('system:user:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, UserQueryParam param) {
         return result(userService.findPage(pager, param));
+    }
+
+    @Operation(summary = "查询用户详情")
+    @PreAuthorize("hasPerm('system:user:query')")
+    @GetMapping("/{id:\\d+}")
+    @Override
+    public Result<SysUser> findById(@PathVariable Long id) {
+        return super.findById(id);
     }
 
     /**
@@ -214,7 +230,8 @@ public class SysUserController extends BaseController<SysUser, Long> {
      * @return 操作结果及实体
      */
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
-    @Operation(summary = "保存或更新用户（标准实体模式）")
+    @Operation(summary = "保存用户")
+    @PreAuthorize("hasAnyPerm('system:user:add', 'system:user:edit')")
     @PostMapping
     @PutMapping
     @Override
@@ -227,13 +244,49 @@ public class SysUserController extends BaseController<SysUser, Long> {
     }
 
     /**
+     * 通过ID更新用户
+     */
+    @Operation(summary = "修改用户")
+    @PreAuthorize("hasPerm('system:user:edit')")
+    @PutMapping("/{id:\\d+}")
+    @Override
+    public Result<SysUser> update(@PathVariable Long id, @RequestBody @Validated SysUser domain) {
+        return super.update(id, domain);
+    }
+
+    /**
+     * 删除用户
+     */
+    @Operation(summary = "删除用户")
+    @PreAuthorize("hasPerm('system:user:remove')")
+    @Log(title = "用户管理", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id:\\d+}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除用户
+     */
+    @Operation(summary = "批量删除用户")
+    @PreAuthorize("hasPerm('system:user:remove')")
+    @Log(title = "用户管理", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 创建用户 (复杂逻辑，支持关联绑定)
      *
      * @param user 用户实体
      * @return 操作结果及实体
      */
     @Log(title = "用户管理", businessType = BusinessType.INSERT)
-    @Operation(summary = "创建用户 (支持关联绑定)")
+    @Operation(summary = "新增用户(带关联)")
+    @PreAuthorize("hasPerm('system:user:add')")
     @PostMapping("/create")
     public Result<SysUser> create(@RequestBody @Validated SysUser user) {
         log.info("[Terra]|- SysUser Controller create: user: {}", user);
@@ -252,6 +305,7 @@ public class SysUserController extends BaseController<SysUser, Long> {
      */
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @Operation(summary = "重置用户密码")
+    @PreAuthorize("hasPerm('system:user:resetPwd')")
     @PostMapping("/resetPwd")
     public Result<Void> resetPwd(@RequestBody Map<String, Object> params) {
         Object userId = params.get("userId");
@@ -261,6 +315,42 @@ public class SysUserController extends BaseController<SysUser, Long> {
         }
         userService.resetPassword(Long.valueOf(userId.toString()), password.toString());
         return Result.success("重置成功");
+    }
+
+    /**
+     * 分配用户角色
+     *
+     * @param id      用户ID
+     * @param roleIds 角色ID集合
+     * @return 操作结果
+     */
+    @Log(title = "用户管理", businessType = BusinessType.UPDATE)
+    @Operation(summary = "分配用户角色")
+    @PreAuthorize("hasPerm('system:user:assignRole')")
+    @PostMapping("/{id:\\d+}/roles")
+    public Result<Void> updateRoles(@PathVariable Long id, @RequestBody List<Long> roleIds) {
+        userService.updateRoles(id, new HashSet<>(roleIds));
+        return Result.success("分配成功");
+    }
+
+    /**
+     * 设置用户超级管理员状态
+     *
+     * @param id     用户ID
+     * @param params 包含 isSuper 的 Map
+     * @return 操作结果
+     */
+    @Log(title = "用户管理", businessType = BusinessType.UPDATE)
+    @Operation(summary = "设置超级管理员")
+    @SuperPermission
+    @PostMapping("/{id:\\d+}/setSuper")
+    public Result<Void> setSuper(@PathVariable Long id, @RequestBody Map<String, Boolean> params) {
+        Boolean isSuper = params.get("isSuper");
+        if (isSuper == null) {
+            return Result.failure("参数错误: isSuper 不能为空");
+        }
+        userService.updateSuperAdminStatus(id, isSuper);
+        return Result.success("设置成功");
     }
 
     /**
@@ -293,8 +383,8 @@ public class SysUserController extends BaseController<SysUser, Long> {
      * 导出用户列表
      */
     @Log(title = "用户管理", businessType = BusinessType.EXPORT)
-    @Operation(summary = "导出用户列表")
-    @PreAuthorize("hasAuthority('system:user:export')")
+    @Operation(summary = "导出用户数据")
+    @PreAuthorize("hasPerm('system:user:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, @RequestParam Map<String, Object> params) {
         log.info("[Terra]|- SysUser Controller export, params: {}", params);
@@ -308,7 +398,7 @@ public class SysUserController extends BaseController<SysUser, Long> {
      * 导出导入模板
      */
     @Operation(summary = "导出导入模板")
-    @PreAuthorize("hasAuthority('system:user:export')")
+    @PreAuthorize("hasPerm('system:user:export')")
     @PostMapping("/exportTemplate")
     public void exportTemplate(HttpServletResponse response) {
         ExcelUtil<SysUser> util = new ExcelUtil<>(SysUser.class);
@@ -320,7 +410,7 @@ public class SysUserController extends BaseController<SysUser, Long> {
      */
     @Log(title = "用户管理", businessType = BusinessType.IMPORT)
     @Operation(summary = "导入用户数据")
-    @PreAuthorize("hasAuthority('system:user:import')")
+    @PreAuthorize("hasPerm('system:user:import')")
     @PostMapping("/importData")
     public Result<Map<String, Object>> importData(MultipartFile file, boolean updateSupport)
             throws Exception {

@@ -33,6 +33,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
+import com.terra.ems.common.annotation.SuperPermission;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,7 +48,7 @@ import com.terra.ems.common.enums.BusinessType;
  * @since 2026-01-11
  */
 
-@Tag(name = "菜单管理")
+@Tag(name = "系统管理-菜单管理")
 @RestController
 @RequestMapping("/system/menu")
 public class SysMenuController extends BaseController<SysMenu, Long> {
@@ -75,10 +76,19 @@ public class SysMenuController extends BaseController<SysMenu, Long> {
      * @return 菜单树列表结果
      */
     @Operation(summary = "查询菜单树")
+    @PreAuthorize("hasPerm('system:menu:list')")
     @GetMapping("/tree")
     public Result<List<Map<String, Object>>> findTree() {
         return result(menuService.findAll(null, org.springframework.data.domain.Sort.by("sortOrder")),
                 SysMenu::getId, SysMenu::getParentId, SysMenu::getName, SysMenu::getSortOrder, null);
+    }
+
+    @Operation(summary = "查询菜单详情")
+    @PreAuthorize("hasPerm('system:menu:query')")
+    @GetMapping("/{id:\\d+}")
+    @Override
+    public Result<SysMenu> findById(@PathVariable Long id) {
+        return super.findById(id);
     }
 
     /**
@@ -88,13 +98,48 @@ public class SysMenuController extends BaseController<SysMenu, Long> {
      * @return 操作结果及实体
      */
     @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
-    @Operation(summary = "保存或更新菜单")
+    @Operation(summary = "保存菜单")
     @PostMapping
     @PutMapping
     @Override
-    @PreAuthorize("hasAnyAuthority('system:menu:add', 'system:menu:edit')")
+    @PreAuthorize("hasAnyPerm('system:menu:add', 'system:menu:edit')")
     public Result<SysMenu> saveOrUpdate(@Validated @RequestBody SysMenu menu) {
         return super.saveOrUpdate(menu);
+    }
+
+    /**
+     * 通过ID更新菜单
+     */
+    @Operation(summary = "修改菜单")
+    @PreAuthorize("hasPerm('system:menu:edit')")
+    @PutMapping("/{id:\\d+}")
+    @Override
+    public Result<SysMenu> update(@PathVariable Long id, @RequestBody @Validated SysMenu domain) {
+        return super.update(id, domain);
+    }
+
+    /**
+     * 删除菜单
+     */
+    @Operation(summary = "删除菜单")
+    @PreAuthorize("hasPerm('system:menu:remove')")
+    @Log(title = "菜单管理", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id:\\d+}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除菜单
+     */
+    @Operation(summary = "批量删除菜单")
+    @PreAuthorize("hasPerm('system:menu:remove')")
+    @Log(title = "菜单管理", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
     }
 
 }

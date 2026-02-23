@@ -68,4 +68,7 @@ public class UserQueryParam {
 
     @Schema(description = "排除部门ID")
     private Long excludeDeptId;
+
+    @Schema(description = "角色ID")
+    private Long roleId;
 }

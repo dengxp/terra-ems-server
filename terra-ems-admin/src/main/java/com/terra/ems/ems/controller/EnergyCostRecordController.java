@@ -54,6 +54,7 @@ import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * 能源成本记录控制器
@@ -78,6 +79,42 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
     }
 
     /**
+     * 保存或更新能源成本记录
+     */
+    @Operation(summary = "保存或更新能源成本记录")
+    @PostMapping
+    @Override
+    @Log(title = "能源费用记录", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:energy-cost-record:add', 'ems:energy-cost-record:edit')")
+    public Result<EnergyCostRecord> saveOrUpdate(@Validated @RequestBody EnergyCostRecord record) {
+        return super.saveOrUpdate(record);
+    }
+
+    /**
+     * 删除能源成本记录
+     */
+    @Operation(summary = "删除数据")
+    @PreAuthorize("hasPerm('ems:energy-cost-record:remove')")
+    @Log(title = "能源费用记录", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除能源成本记录
+     */
+    @Operation(summary = "批量删除数据")
+    @PreAuthorize("hasPerm('ems:energy-cost-record:remove')")
+    @Log(title = "能源费用记录", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 分页查询成本记录
      *
      * @param pager      分页参数
@@ -86,6 +123,7 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
      */
     @GetMapping
     @Operation(summary = "分页查询")
+    @PreAuthorize("hasPerm('ems:energy-cost-record:list')")
     public Result<Page<EnergyCostRecord>> findByPage(Pager pager, EnergyCostRecordQueryParam queryParam) {
         Page<EnergyCostRecord> page = energyCostRecordService.findByPage(buildSpecification(queryParam),
                 pager.getPageable());
@@ -165,6 +203,7 @@ public class EnergyCostRecordController extends BaseController<EnergyCostRecord,
      * @return 更新后的实体
      */
     @Log(title = "能源费用记录", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:energy-cost-record:edit')")
     @PutMapping("/{id}")
     @Operation(summary = "更新成本记录")
     @Override

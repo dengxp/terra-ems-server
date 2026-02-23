@@ -23,6 +23,7 @@
 
 package com.terra.ems.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.terra.ems.framework.jpa.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -72,6 +73,12 @@ public class SysPermission extends BaseEntity {
     @Schema(title = "是否为超级权限")
     @Column(name = "super_permission")
     private Boolean superPermission = false;
+
+    @Schema(title = "所属模块")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "module_id")
+    @JsonIgnoreProperties({ "permissions", "hibernateLazyInitializer", "handler" })
+    private SysModule module;
 
     /**
      * 辅助构造函数

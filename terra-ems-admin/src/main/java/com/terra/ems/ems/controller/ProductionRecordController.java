@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * 产品产量记录控制器
@@ -80,6 +81,7 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
      */
     @Operation(summary = "更新产量记录")
     @Log(title = "生产记录", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:production-record:edit')")
     @PutMapping("/{id}")
     @Override
     public Result<ProductionRecord> update(
@@ -96,6 +98,7 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
      * @return 操作结果
      */
     @Log(title = "生产记录", businessType = BusinessType.DELETE)
+    @PreAuthorize("hasPerm('ems:production-record:remove')")
     @Operation(summary = "删除产量记录")
     @DeleteMapping("/{id}")
     public Result<String> delete(@Parameter(description = "记录ID") @PathVariable Long id) {
@@ -111,6 +114,7 @@ public class ProductionRecordController extends BaseController<ProductionRecord,
      * @return 分页结果
      */
     @Operation(summary = "分页查询")
+    @PreAuthorize("hasPerm('ems:production-record:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, ProductionRecordQueryParam param) {
         return findByPage(pager, buildSpecification(param));

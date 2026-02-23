@@ -78,4 +78,12 @@ public interface SysUserRepository extends BaseRepository<SysUser, Long> {
      * @return 是否存在
      */
     boolean existsByPhone(String phone);
+
+    /**
+     * 统计拥有该角色的用户数量
+     *
+     * @param roleId 角色ID
+     * @return 数量
+     */
+    Integer countByRolesId(Long roleId);
 }

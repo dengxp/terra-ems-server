@@ -35,11 +35,15 @@ import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.springframework.security.access.prepost.PreAuthorize;
+import com.terra.ems.common.annotation.Log;
+import com.terra.ems.common.enums.BusinessType;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
@@ -48,7 +52,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author dengxueping
  * @since 2026-02-10
  */
-@Tag(name = "操作日志")
+@Tag(name = "系统监控-操作日志")
 @RestController
 @RequestMapping("/monitor/operation-log")
 @RequiredArgsConstructor
@@ -61,10 +65,66 @@ public class SysOperationLogController extends BaseController<SysOperationLog, L
         return operationLogService;
     }
 
+    @Operation(summary = "查询操作日志详情")
+    @PreAuthorize("hasPerm('monitor:operlog:query')")
+    @GetMapping("/{id:\\d+}")
+    @Override
+    public Result<SysOperationLog> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 保存或更新操作日志 (禁止)
+     */
+    @Operation(summary = "提交")
+    @PostMapping
+    @PutMapping
+    @Override
+    @PreAuthorize("denyAll()")
+    public Result<SysOperationLog> saveOrUpdate(@Validated @RequestBody SysOperationLog log) {
+        return Result.failure("操作日志不允许修改");
+    }
+
+    /**
+     * 通过ID更新操作日志 (禁止)
+     */
+    @Operation(summary = "更新")
+    @PreAuthorize("denyAll()")
+    @PutMapping("/{id:\\d+}")
+    @Override
+    public Result<SysOperationLog> update(@PathVariable Long id, @RequestBody @Validated SysOperationLog domain) {
+        return Result.failure("操作日志不允许修改");
+    }
+
+    /**
+     * 删除操作日志
+     */
+    @Operation(summary = "删除操作日志")
+    @PreAuthorize("hasPerm('monitor:operlog:remove')")
+    @Log(title = "操作日志", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id:\\d+}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除操作日志
+     */
+    @Operation(summary = "批量删除操作日志")
+    @PreAuthorize("hasPerm('monitor:operlog:remove')")
+    @Log(title = "操作日志", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
     /**
      * 分页查询操作日志
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "查询操作日志列表")
+    @PreAuthorize("hasPerm('monitor:operlog:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,
@@ -92,6 +152,8 @@ public class SysOperationLogController extends BaseController<SysOperationLog, L
     }
 
     @Operation(summary = "清空操作日志")
+    @PreAuthorize("hasPerm('monitor:operlog:remove')")
+    @Log(title = "操作日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
     public Result<Void> clean() {
         operationLogService.cleanOperationLog();

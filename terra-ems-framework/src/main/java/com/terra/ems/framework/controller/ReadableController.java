@@ -63,7 +63,7 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
      */
     @AccessLimited
     @Operation(summary = "查询所有数据", description = "获取该实体的所有数据列表")
-    @GetMapping("/all")
+    // @GetMapping("/all")
     public Result<List<E>> findAll() {
         List<E> list = getReadableService().findAll();
         return Result.success("查询成功", list);
@@ -77,7 +77,7 @@ public abstract class ReadableController<E extends Entity, ID extends Serializab
      */
     @AccessLimited
     @Operation(summary = "按ID查询", description = "获取指定ID的实体详情")
-    @GetMapping("/{id}")
+    // @GetMapping("/{id}")
     public Result<E> findById(
             @Parameter(name = "id", description = "实体ID", in = ParameterIn.PATH) @PathVariable ID id) {
         E domain = getReadableService().findById(id);

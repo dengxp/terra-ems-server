@@ -36,6 +36,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,7 @@ public class AlarmRecordController extends ReadableController<AlarmRecord, Long>
      * 分页查询报警记录
      */
     @Operation(summary = "分页查询报警记录")
+    @PreAuthorize("hasPerm('ems:alarm-record:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, AlarmRecordQueryParam param) {
         return findByPage(pager, buildSpecification(param));
@@ -102,6 +104,7 @@ public class AlarmRecordController extends ReadableController<AlarmRecord, Long>
      */
     @Operation(summary = "处理报警记录")
     @Log(title = "告警记录", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:alarm-record:handle')")
     @PostMapping("/{id}/handle")
     public Result<AlarmRecord> handleAlarm(
             @PathVariable Long id,

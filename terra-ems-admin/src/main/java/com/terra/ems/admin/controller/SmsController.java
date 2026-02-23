@@ -28,6 +28,7 @@ import com.terra.ems.framework.controller.Controller;
 import com.terra.ems.framework.domain.dto.SmsCodeRequest;
 import com.terra.ems.framework.domain.dto.SmsLoginRequest;
 import com.terra.ems.framework.service.SmsService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.terra.ems.system.entity.SysUser;
 import com.terra.ems.system.service.SysUserService;
@@ -58,7 +59,7 @@ import java.util.Map;
  * @author dengxueping
  * @since 2026-01-11
  */
-@Tag(name = "短信服务")
+@Tag(name = "系统管理-短信服务")
 @RestController
 @RequestMapping("/sms")
 public class SmsController extends Controller {
@@ -79,6 +80,7 @@ public class SmsController extends Controller {
      * @param request 短信验证码请求对象
      * @return 操作结果
      */
+    @Operation(summary = "发送短信验证码")
     @PostMapping("/send")
     public Result<Map<String, Object>> sendCode(@Valid @RequestBody SmsCodeRequest request) {
         boolean success = smsService.sendCode(request.phoneNumber());
@@ -96,6 +98,7 @@ public class SmsController extends Controller {
      * @param httpRequest HTTP 请求对象
      * @return 包含 Token 和用户信息的结果
      */
+    @Operation(summary = "手机号登录")
     @PostMapping("/login")
     public Result<Map<String, Object>> loginBySms(@Valid @RequestBody SmsLoginRequest request,
             HttpServletRequest httpRequest) {

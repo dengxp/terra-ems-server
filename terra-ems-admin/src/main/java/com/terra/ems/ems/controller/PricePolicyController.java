@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * 电价策略控制器
@@ -80,6 +81,7 @@ public class PricePolicyController extends BaseController<PricePolicy, Long> {
      * @return 分页结果
      */
     @Operation(summary = "分页查询")
+    @PreAuthorize("hasPerm('ems:price-policy:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, PricePolicyQueryParam param) {
         return findByPage(pager, buildSpecification(param));
@@ -148,6 +150,7 @@ public class PricePolicyController extends BaseController<PricePolicy, Long> {
      */
     @Operation(summary = "修改电价策略状态")
     @Log(title = "价格策略", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:price-policy:edit')")
     @PatchMapping("/{id}/status")
     public Result<PricePolicy> updateStatus(
             @PathVariable Long id,

@@ -34,6 +34,8 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import com.terra.ems.common.constant.ErrorCodes;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -103,6 +105,19 @@ public class GlobalExceptionHandler {
 
         result.message("约束校验失败: " + message);
 
+        response.setStatus(result.getStatus());
+        return result;
+    }
+
+    /**
+     * 处理权限拒绝异常 (Spring Security @PreAuthorize 校验不通过)
+     */
+    @ExceptionHandler({ AccessDeniedException.class, AuthorizationDeniedException.class })
+    public Result<String> handleAccessDeniedException(Exception e, HttpServletRequest request,
+            HttpServletResponse response) {
+        log.warn("[Terra] |- 访问被拒绝: {} -> {}", request.getRequestURI(), e.getMessage());
+        Result<String> result = Result.failure(ErrorCodes.ACCESS_DENIED);
+        result.path(request.getRequestURI());
         response.setStatus(result.getStatus());
         return result;
     }

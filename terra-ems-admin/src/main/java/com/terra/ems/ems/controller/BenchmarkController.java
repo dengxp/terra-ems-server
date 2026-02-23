@@ -46,6 +46,7 @@ import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * 对标值控制器
@@ -70,6 +71,42 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
     }
 
     /**
+     * 保存或更新对标值
+     */
+    @Operation(summary = "保存或更新对标值")
+    @PostMapping
+    @Override
+    @Log(title = "能效基准", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:benchmark:add', 'ems:benchmark:edit')")
+    public Result<Benchmark> saveOrUpdate(@Validated @RequestBody Benchmark benchmark) {
+        return super.saveOrUpdate(benchmark);
+    }
+
+    /**
+     * 删除对标值
+     */
+    @Operation(summary = "删除数据")
+    @PreAuthorize("hasPerm('ems:benchmark:remove')")
+    @Log(title = "能效基准", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除对标值
+     */
+    @Operation(summary = "批量删除数据")
+    @PreAuthorize("hasPerm('ems:benchmark:remove')")
+    @Log(title = "能效基准", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 分页查询对标值
      *
      * @param pager      分页参数
@@ -78,6 +115,7 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
      */
     @GetMapping
     @Operation(summary = "分页查询")
+    @PreAuthorize("hasPerm('ems:benchmark:list')")
     public Result<Page<Benchmark>> findByPage(Pager pager, BenchmarkQueryParam queryParam) {
         Page<Benchmark> page = benchmarkService.findByPage(buildSpecification(queryParam), pager.getPageable());
         return Result.content(page);

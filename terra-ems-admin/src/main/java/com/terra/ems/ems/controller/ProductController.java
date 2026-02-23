@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * 产品管理控制器
@@ -51,6 +52,7 @@ public class ProductController extends BaseController<Product, Long> {
     }
 
     @Operation(summary = "分页查询产品")
+    @PreAuthorize("hasPerm('ems:product:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,
@@ -126,6 +128,7 @@ public class ProductController extends BaseController<Product, Long> {
 
     @Operation(summary = "修改状态")
     @Log(title = "产品管理", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:product:edit')")
     @PatchMapping("/{id}/status")
     public Result<Product> updateStatus(
             @PathVariable Long id,

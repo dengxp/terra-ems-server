@@ -55,7 +55,7 @@ import java.util.Map;
  * @since 2026-01-11
  */
 
-@Tag(name = "岗位管理")
+@Tag(name = "系统管理-岗位管理")
 @RestController
 @RequestMapping("/system/post")
 public class SysPostController extends BaseController<SysPost, Long> {
@@ -77,28 +77,10 @@ public class SysPostController extends BaseController<SysPost, Long> {
     }
 
     /**
-     * 保存或更新岗位信息
-     *
-     * @param post 岗位实体
-     * @return 操作结果及实体
-     */
-    @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
-    @Operation(summary = "保存或更新岗位")
-    @PostMapping
-    @PutMapping
-    @Override
-    @PreAuthorize("hasAnyAuthority('system:post:add', 'system:post:edit')")
-    public Result<SysPost> saveOrUpdate(@Validated @RequestBody SysPost post) {
-        if (!postService.checkCodeUnique(post.getCode(), post.getId())) {
-            return Result.failure("操作岗位'" + post.getName() + "'失败，岗位编码已存在");
-        }
-        return super.saveOrUpdate(post);
-    }
-
-    /**
      * 分页查询岗位
      */
-    @Operation(summary = "分页查询")
+    @Operation(summary = "查询岗位列表")
+    @PreAuthorize("hasPerm('system:post:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(
             Pager pager,
@@ -121,11 +103,73 @@ public class SysPostController extends BaseController<SysPost, Long> {
         return findByPage(pager, spec);
     }
 
+    @Operation(summary = "查询岗位详情")
+    @PreAuthorize("hasPerm('system:post:query')")
+    @GetMapping("/{id:\\d+}")
+    @Override
+    public Result<SysPost> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 保存或更新岗位信息
+     *
+     * @param post 岗位实体
+     * @return 操作结果及实体
+     */
+    @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
+    @Operation(summary = "保存岗位")
+    @PostMapping
+    @PutMapping
+    @Override
+    @PreAuthorize("hasAnyPerm('system:post:add', 'system:post:edit')")
+    public Result<SysPost> saveOrUpdate(@Validated @RequestBody SysPost post) {
+        if (!postService.checkCodeUnique(post.getCode(), post.getId())) {
+            return Result.failure("操作岗位'" + post.getName() + "'失败，岗位编码已存在");
+        }
+        return super.saveOrUpdate(post);
+    }
+
+    /**
+     * 通过ID更新岗位
+     */
+    @Operation(summary = "修改岗位")
+    @PreAuthorize("hasPerm('system:post:edit')")
+    @PutMapping("/{id:\\d+}")
+    @Override
+    public Result<SysPost> update(@PathVariable Long id, @RequestBody @Validated SysPost domain) {
+        return super.update(id, domain);
+    }
+
+    /**
+     * 删除岗位
+     */
+    @Operation(summary = "删除岗位")
+    @PreAuthorize("hasPerm('system:post:remove')")
+    @Log(title = "岗位管理", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id:\\d+}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除岗位
+     */
+    @Operation(summary = "批量删除岗位")
+    @PreAuthorize("hasPerm('system:post:remove')")
+    @Log(title = "岗位管理", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
     /**
      * 导出岗位列表
      */
-    @Operation(summary = "导出岗位列表")
-    @PreAuthorize("hasAuthority('system:post:export')")
+    @Operation(summary = "导出岗位数据")
+    @PreAuthorize("hasPerm('system:post:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysPost post) {
         Specification<SysPost> spec = (root, query, cb) -> {
@@ -146,7 +190,7 @@ public class SysPostController extends BaseController<SysPost, Long> {
         util.exportExcel(response, list, "岗位数据");
     }
 
-    @Operation(summary = "查询岗位选项列表")
+    @Operation(summary = "查询岗位选项")
     @GetMapping("/options")
     public Result<List<Option<Long>>> findOptions() {
         return Result.content(postService.findOptions());

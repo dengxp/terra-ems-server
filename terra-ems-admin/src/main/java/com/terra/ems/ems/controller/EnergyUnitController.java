@@ -39,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 用能单元控制器
@@ -63,9 +65,47 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
     }
 
     /**
+     * 保存或更新用能单元
+     */
+    @Operation(summary = "保存或更新用能单元")
+    @PostMapping
+    @PutMapping
+    @Override
+    @Log(title = "用能单元", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:energy-unit:add', 'ems:energy-unit:edit')")
+    public Result<EnergyUnit> saveOrUpdate(@Validated @RequestBody EnergyUnit energyUnit) {
+        return super.saveOrUpdate(energyUnit);
+    }
+
+    /**
+     * 删除用能单元
+     */
+    @Operation(summary = "删除数据")
+    @PreAuthorize("hasPerm('ems:energy-unit:remove')")
+    @Log(title = "用能单元", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{id}")
+    @Override
+    public Result<String> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 批量删除用能单元
+     */
+    @Operation(summary = "批量删除数据")
+    @PreAuthorize("hasPerm('ems:energy-unit:remove')")
+    @Log(title = "用能单元", businessType = BusinessType.DELETE)
+    @DeleteMapping
+    @Override
+    public Result<String> deleteBatch(@RequestBody List<Long> ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
      * 获取完整树形结构
      */
     @Operation(summary = "获取完整树形结构")
+    @PreAuthorize("hasPerm('ems:energy-unit:list')")
     @GetMapping("/tree")
     public Result<List<Map<String, Object>>> findTree() {
         return result(energyUnitService.findAll(null, org.springframework.data.domain.Sort.by("sortOrder")),
@@ -116,6 +156,7 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
      */
     @Operation(summary = "移动节点（更改父节点）")
     @Log(title = "用能单元", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:energy-unit:edit')")
     @PatchMapping("/{id}/move")
     public Result<EnergyUnit> move(
             @PathVariable Long id,
@@ -128,6 +169,7 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
      */
     @Operation(summary = "修改用能单元状态")
     @Log(title = "用能单元", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasPerm('ems:energy-unit:edit')")
     @PatchMapping("/{id}/status")
     public Result<EnergyUnit> updateStatus(
             @PathVariable Long id,
