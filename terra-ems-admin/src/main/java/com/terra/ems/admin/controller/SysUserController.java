@@ -212,6 +212,10 @@ public class SysUserController extends BaseController<SysUser, Long> {
     @PreAuthorize("hasPerm('system:user:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, UserQueryParam param) {
+        // 如果没有指定排序，则默认按创建时间倒序
+        if (pager.getSortOrders().isEmpty()) {
+            pager.addSortOrder("createdAt", "DESC");
+        }
         return result(userService.findPage(pager, param));
     }
 

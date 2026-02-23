@@ -131,6 +131,12 @@ public class SysLoginLogController extends BaseController<SysLoginLog, Long> {
             @RequestParam(required = false) String userName,
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String ipaddr) {
+
+        // 如果没有指定排序，则默认按访问时间倒序
+        if (pager.getSortOrders().isEmpty()) {
+            pager.addSortOrder("loginTime", "DESC");
+        }
+
         Specification<SysLoginLog> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.hasText(userName)) {

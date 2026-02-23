@@ -81,6 +81,12 @@ public class SysRoleController extends BaseController<SysRole, Long> {
             Pager pager,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String code) {
+
+        // 如果没有指定排序，则默认按创建时间倒序
+        if (pager.getSortOrders().isEmpty()) {
+            pager.addSortOrder("createdAt", "DESC");
+        }
+
         Specification<SysRole> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.hasText(name)) {

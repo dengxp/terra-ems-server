@@ -85,6 +85,10 @@ public class SysDeptController extends BaseController<SysDept, Long> {
     @PreAuthorize("hasPerm('system:dept:list')")
     @GetMapping
     public Result<Map<String, Object>> findByPage(Pager pager, SysDeptQueryParam queryParam) {
+        // 如果没有指定排序，则默认按创建时间倒序
+        if (pager.getSortOrders().isEmpty()) {
+            pager.addSortOrder("createdAt", "DESC");
+        }
         return super.findByPage(pager, buildSpecification(queryParam));
     }
 
@@ -266,6 +270,10 @@ public class SysDeptController extends BaseController<SysDept, Long> {
     @GetMapping("/{id:\\d+}/members")
     public Result<Map<String, Object>> getMembers(@PathVariable Long id, Pager pager,
             com.terra.ems.system.param.UserQueryParam param) {
+        // 如果没有指定排序，则默认按创建时间倒序
+        if (pager.getSortOrders().isEmpty()) {
+            pager.addSortOrder("createdAt", "DESC");
+        }
         param.setDeptId(id);
         return result(sysUserService.findPage(pager, param));
     }

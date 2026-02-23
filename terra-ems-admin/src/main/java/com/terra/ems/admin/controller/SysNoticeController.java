@@ -176,6 +176,11 @@ public class SysNoticeController extends BaseController<SysNotice, Long> {
             @RequestParam(required = false) String status,
             @RequestParam(required = false) Boolean unreadOnly) {
 
+        // 如果没有指定排序，则默认按创建时间倒序
+        if (pager.getSortOrders().isEmpty()) {
+            pager.addSortOrder("createdAt", "DESC");
+        }
+
         Long userId = getCurrentUserId();
 
         Specification<SysNotice> spec = (root, query, cb) -> {
