@@ -120,7 +120,6 @@ public class SysPostController extends BaseController<SysPost, Long> {
     @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
     @Operation(summary = "保存岗位")
     @PostMapping
-    @PutMapping
     @Override
     @PreAuthorize("hasAnyPerm('system:post:add', 'system:post:edit')")
     public Result<SysPost> saveOrUpdate(@Validated @RequestBody SysPost post) {
@@ -163,6 +162,16 @@ public class SysPostController extends BaseController<SysPost, Long> {
     @Override
     public Result<String> deleteBatch(@RequestBody List<Long> ids) {
         return super.deleteBatch(ids);
+    }
+
+    /**
+     * 查询所有岗位
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('system:post:list')")
+    @GetMapping("/all")
+    public Result<List<SysPost>> findAll() {
+        return super.findAll();
     }
 
     /**

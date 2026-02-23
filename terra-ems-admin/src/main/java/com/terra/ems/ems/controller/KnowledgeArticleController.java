@@ -81,7 +81,6 @@ public class KnowledgeArticleController extends BaseController<KnowledgeArticle,
     @PreAuthorize("hasAnyPerm('ems:knowledge:add', 'ems:knowledge:edit')")
     @Override
     @PostMapping
-    @PutMapping
     @Operation(summary = "创建或更新文章")
     public Result<KnowledgeArticle> saveOrUpdate(@RequestBody @Validated KnowledgeArticle article) {
         if (article.getId() == null) {

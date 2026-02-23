@@ -72,7 +72,6 @@ public class AlarmLimitTypeController extends BaseController<AlarmLimitType, Lon
      */
     @Operation(summary = "保存或更新报警限值类型")
     @PostMapping
-    @PutMapping
     @Override
     @Log(title = "报警限值类型", businessType = BusinessType.UPDATE)
     @PreAuthorize("hasAnyPerm('ems:alarm-limit-type:add', 'ems:alarm-limit-type:edit')")
@@ -136,9 +135,28 @@ public class AlarmLimitTypeController extends BaseController<AlarmLimitType, Lon
     }
 
     /**
+     * 根据ID查询报警限值类型
+     */
+    @Operation(summary = "按ID查询")
+    @PreAuthorize("hasPerm('ems:alarm-limit-type:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<AlarmLimitType> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有报警限值类型
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('ems:alarm-limit-type:list')")
+    @GetMapping("/all")
+    public Result<List<AlarmLimitType>> findAll() {
+        return super.findAll();
+    }
+
+    /**
      * 获取业务服务
-     *
-     * @return 业务服务
      */
     @Override
     protected BaseService<AlarmLimitType, Long> getService() {

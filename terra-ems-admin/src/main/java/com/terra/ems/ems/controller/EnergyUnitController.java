@@ -69,7 +69,6 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
      */
     @Operation(summary = "保存或更新用能单元")
     @PostMapping
-    @PutMapping
     @Override
     @Log(title = "用能单元", businessType = BusinessType.UPDATE)
     @PreAuthorize("hasAnyPerm('ems:energy-unit:add', 'ems:energy-unit:edit')")
@@ -177,5 +176,24 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
         return Result.content(energyUnitService.updateStatus(id, status));
     }
 
-    // BaseController 已提供标准 update(via saveOrUpdate), getById, delete
+    /**
+     * 根据ID查询用能单元
+     */
+    @Operation(summary = "按ID查询")
+    @PreAuthorize("hasPerm('ems:energy-unit:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<EnergyUnit> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有用能单元
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('ems:energy-unit:list')")
+    @GetMapping("/all")
+    public Result<List<EnergyUnit>> findAll() {
+        return super.findAll();
+    }
 }

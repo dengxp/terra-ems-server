@@ -118,7 +118,6 @@ public class SysRoleController extends BaseController<SysRole, Long> {
     @Operation(summary = "保存角色")
     @SuperPermission
     @PostMapping
-    @PutMapping
     @Override
     public Result<SysRole> saveOrUpdate(@Validated @RequestBody SysRole role) {
         return super.saveOrUpdate(role);
@@ -157,6 +156,16 @@ public class SysRoleController extends BaseController<SysRole, Long> {
     @Override
     public Result<String> deleteBatch(@RequestBody List<Long> ids) {
         return super.deleteBatch(ids);
+    }
+
+    /**
+     * 查询所有角色
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('system:role:list')")
+    @GetMapping("/all")
+    public Result<List<SysRole>> findAll() {
+        return super.findAll();
     }
 
     /**

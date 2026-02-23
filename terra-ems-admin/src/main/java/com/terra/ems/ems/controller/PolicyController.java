@@ -163,4 +163,25 @@ public class PolicyController extends BaseController<Policy, Long> {
             @RequestParam @Parameter(description = "新状态") DataItemStatus status) {
         return Result.content(policyService.updateStatus(id, status));
     }
+
+    /**
+     * 根据ID查询政策法规
+     */
+    @Operation(summary = "按ID查询")
+    @PreAuthorize("hasPerm('ems:policy:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<Policy> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有政策法规
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('ems:policy:list')")
+    @GetMapping("/all")
+    public Result<List<Policy>> findAll() {
+        return super.findAll();
+    }
 }

@@ -158,4 +158,25 @@ public class PricePolicyController extends BaseController<PricePolicy, Long> {
         PricePolicy updated = pricePolicyService.updateStatus(id, status);
         return Result.content(updated);
     }
+
+    /**
+     * 根据ID查询电价策略
+     */
+    @Operation(summary = "按ID查询")
+    @PreAuthorize("hasPerm('ems:price-policy:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<PricePolicy> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有电价策略
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('ems:price-policy:list')")
+    @GetMapping("/all")
+    public Result<List<PricePolicy>> findAll() {
+        return super.findAll();
+    }
 }

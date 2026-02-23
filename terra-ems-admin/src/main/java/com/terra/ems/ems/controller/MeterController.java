@@ -75,7 +75,6 @@ public class MeterController extends BaseController<Meter, Long> {
      */
     @Operation(summary = "保存或更新计量器具")
     @PostMapping
-    @PutMapping
     @Override
     @Log(title = "计量器具", businessType = BusinessType.UPDATE)
     @PreAuthorize("hasAnyPerm('ems:meter:add', 'ems:meter:edit')")
@@ -134,6 +133,27 @@ public class MeterController extends BaseController<Meter, Long> {
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
+    }
+
+    /**
+     * 根据ID查询计量器具
+     */
+    @Operation(summary = "按ID查询")
+    @PreAuthorize("hasPerm('ems:meter:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<Meter> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有计量器具
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('ems:meter:list')")
+    @GetMapping("/all")
+    public Result<List<Meter>> findAll() {
+        return super.findAll();
     }
 
     @Operation(summary = "更新计量器具")

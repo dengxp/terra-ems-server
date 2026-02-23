@@ -68,7 +68,6 @@ public class AlarmConfigController extends BaseController<AlarmConfig, Long> {
      */
     @Operation(summary = "保存或更新预报警配置")
     @PostMapping
-    @PutMapping
     @Override
     @Log(title = "预报警配置", businessType = BusinessType.UPDATE)
     @PreAuthorize("hasAnyPerm('ems:alarm-config:add', 'ems:alarm-config:edit')")
@@ -111,5 +110,26 @@ public class AlarmConfigController extends BaseController<AlarmConfig, Long> {
     @GetMapping("/meter-point/{meterPointId}")
     public Result<List<AlarmConfig>> findByMeterPoint(@PathVariable Long meterPointId) {
         return Result.content(alarmConfigService.findByMeterPoint(meterPointId));
+    }
+
+    /**
+     * 根据ID查询预报警配置
+     */
+    @Operation(summary = "按ID查询")
+    @PreAuthorize("hasPerm('ems:alarm-config:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<AlarmConfig> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有预报警配置
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('ems:alarm-config:list')")
+    @GetMapping("/all")
+    public Result<List<AlarmConfig>> findAll() {
+        return super.findAll();
     }
 }

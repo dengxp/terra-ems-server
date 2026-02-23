@@ -93,7 +93,6 @@ public class SysNoticeController extends BaseController<SysNotice, Long> {
     @Operation(summary = "保存公告")
     @Override
     @PostMapping
-    @PutMapping
     @Log(title = "通知公告", businessType = BusinessType.UPDATE)
     @PreAuthorize("hasAnyPerm('system:notice:add', 'system:notice:edit')")
     public Result<SysNotice> saveOrUpdate(@Validated @RequestBody SysNotice notice) {
@@ -128,6 +127,16 @@ public class SysNoticeController extends BaseController<SysNotice, Long> {
     @PreAuthorize("hasPerm('system:notice:remove')")
     public Result<String> deleteBatch(@RequestBody List<Long> ids) {
         return super.deleteBatch(ids);
+    }
+
+    /**
+     * 查询所有通知公告
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('system:notice:list')")
+    @GetMapping("/all")
+    public Result<List<SysNotice>> findAll() {
+        return super.findAll();
     }
 
     @Operation(summary = "查询公告详情")

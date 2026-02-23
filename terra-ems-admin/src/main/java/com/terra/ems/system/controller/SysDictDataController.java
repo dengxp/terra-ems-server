@@ -111,7 +111,6 @@ public class SysDictDataController extends BaseController<SysDictData, Long> {
      */
     @Operation(summary = "提交")
     @PostMapping
-    @PutMapping
     @Override
     @Log(title = "字典数据", businessType = BusinessType.UPDATE)
     @PreAuthorize("hasAnyPerm('system:dict:add', 'system:dict:edit')")
@@ -141,6 +140,25 @@ public class SysDictDataController extends BaseController<SysDictData, Long> {
     @Override
     public Result<String> deleteBatch(@RequestBody List<Long> ids) {
         return super.deleteBatch(ids);
+    }
+
+    /**
+     * 根据ID查询字典数据
+     */
+    @Operation(summary = "按ID查询")
+    @GetMapping("/{id}")
+    @Override
+    public Result<SysDictData> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有字典数据
+     */
+    @Operation(summary = "查询所有数据")
+    @GetMapping("/all")
+    public Result<List<SysDictData>> findAll() {
+        return super.findAll();
     }
 
     @Operation(summary = "按类型查询")

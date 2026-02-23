@@ -77,7 +77,6 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
      */
     @Operation(summary = "保存或更新采集点位")
     @PostMapping
-    @PutMapping
     @Override
     @Log(title = "采集点位", businessType = BusinessType.UPDATE)
     @PreAuthorize("hasAnyPerm('ems:meter-point:add', 'ems:meter-point:edit')")
@@ -222,5 +221,26 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
             @PathVariable Long id,
             @RequestBody Set<Long> energyUnitIds) {
         return Result.content(meterPointService.assignEnergyUnits(id, energyUnitIds));
+    }
+
+    /**
+     * 根据ID查询采集点位
+     */
+    @Operation(summary = "按ID查询")
+    @PreAuthorize("hasPerm('ems:meter-point:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<MeterPoint> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有采集点位
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('ems:meter-point:list')")
+    @GetMapping("/all")
+    public Result<List<MeterPoint>> findAll() {
+        return super.findAll();
     }
 }

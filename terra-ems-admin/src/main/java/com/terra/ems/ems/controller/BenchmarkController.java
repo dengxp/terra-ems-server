@@ -245,4 +245,25 @@ public class BenchmarkController extends BaseController<Benchmark, Long> {
             @PathVariable @Parameter(description = "类型") BenchmarkType type) {
         return Result.content(benchmarkService.countByType(type));
     }
+
+    /**
+     * 根据ID查询对标值
+     */
+    @Operation(summary = "按ID查询")
+    @PreAuthorize("hasPerm('ems:benchmark:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<Benchmark> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有对标值
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('ems:benchmark:list')")
+    @GetMapping("/all")
+    public Result<List<Benchmark>> findAll() {
+        return super.findAll();
+    }
 }

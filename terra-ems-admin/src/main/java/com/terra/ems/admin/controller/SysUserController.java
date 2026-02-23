@@ -233,7 +233,6 @@ public class SysUserController extends BaseController<SysUser, Long> {
     @Operation(summary = "保存用户")
     @PreAuthorize("hasAnyPerm('system:user:add', 'system:user:edit')")
     @PostMapping
-    @PutMapping
     @Override
     public Result<SysUser> saveOrUpdate(@RequestBody @Validated SysUser user) {
         Result<SysUser> result = super.saveOrUpdate(user);
@@ -276,6 +275,16 @@ public class SysUserController extends BaseController<SysUser, Long> {
     @Override
     public Result<String> deleteBatch(@RequestBody List<Long> ids) {
         return super.deleteBatch(ids);
+    }
+
+    /**
+     * 查询所有用户
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('system:user:list')")
+    @GetMapping("/all")
+    public Result<List<SysUser>> findAll() {
+        return super.findAll();
     }
 
     /**

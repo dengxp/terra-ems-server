@@ -103,7 +103,6 @@ public class SysDeptController extends BaseController<SysDept, Long> {
     @Operation(summary = "保存部门")
     @PreAuthorize("hasAnyPerm('system:dept:add', 'system:dept:edit')")
     @PostMapping
-    @PutMapping
     @Override
     public Result<SysDept> saveOrUpdate(@Validated @RequestBody SysDept dept) {
         return super.saveOrUpdate(dept);

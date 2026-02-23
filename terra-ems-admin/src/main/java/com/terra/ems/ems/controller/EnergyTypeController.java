@@ -79,7 +79,6 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
      */
     @Operation(summary = "保存或更新能源类型")
     @PostMapping
-    @PutMapping
     @Override
     @Log(title = "能源类型", businessType = BusinessType.UPDATE)
     @PreAuthorize("hasAnyPerm('ems:energy-type:add', 'ems:energy-type:edit')")
@@ -109,6 +108,27 @@ public class EnergyTypeController extends BaseController<EnergyType, Long> {
     @Override
     public Result<String> deleteBatch(@RequestBody List<Long> ids) {
         return super.deleteBatch(ids);
+    }
+
+    /**
+     * 根据ID查询能源类型
+     */
+    @Operation(summary = "按ID查询")
+    @PreAuthorize("hasPerm('ems:energy-type:query')")
+    @GetMapping("/{id}")
+    @Override
+    public Result<EnergyType> findById(@PathVariable Long id) {
+        return super.findById(id);
+    }
+
+    /**
+     * 查询所有能源类型
+     */
+    @Operation(summary = "查询所有数据")
+    @PreAuthorize("hasPerm('ems:energy-type:list')")
+    @GetMapping("/all")
+    public Result<List<EnergyType>> findAll() {
+        return super.findAll();
     }
 
     /**
