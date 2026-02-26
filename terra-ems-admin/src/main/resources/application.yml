@@ -4,14 +4,14 @@ spring:
   
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/terra_ems?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: postgres
-    password: postgres
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/terra_ems?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
   
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
@@ -22,13 +22,14 @@ spring:
   
   data:
     redis:
-      host: localhost
-      port: 6379
-      database: 0
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+      database: ${SPRING_DATA_REDIS_DATABASE:0}
+      password: ${SPRING_DATA_REDIS_PASSWORD:}
       timeout: 3000
   
   session:
-    store-type: redis
+    store-type: ${SPRING_SESSION_STORE_TYPE:redis}
     redis:
       namespace: terra:ems:session
 

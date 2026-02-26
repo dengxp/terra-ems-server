@@ -80,7 +80,7 @@ public class SysUser extends BaseEntity {
         private String realName;
 
         @Schema(title = "头像")
-        @Column(name = "avatar", length = 256)
+        @Column(name = "avatar", columnDefinition = "text")
         private String avatar;
 
         @Schema(title = "邮箱")

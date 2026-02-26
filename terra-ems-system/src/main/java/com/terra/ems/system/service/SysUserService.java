@@ -663,6 +663,68 @@ public class SysUserService extends BaseService<SysUser, Long> implements UserDe
     }
 
     /**
+     * 更新个人资料
+     *
+     * @param user 用户信息
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void updateProfile(SysUser user) {
+        SysUser u = userRepository.findById(user.getId())
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
+
+        // 仅允许修改部分字段
+        if (StringUtils.hasText(user.getRealName())) {
+            u.setRealName(user.getRealName());
+        }
+        if (StringUtils.hasText(user.getEmail())) {
+            u.setEmail(user.getEmail());
+        }
+        if (StringUtils.hasText(user.getPhone())) {
+            // 校验手机号唯一性（排除自己）
+            userRepository.findByPhone(user.getPhone()).ifPresent(existing -> {
+                if (!existing.getId().equals(u.getId())) {
+                    throw new RuntimeException("手机号 [" + user.getPhone() + "] 已被占用");
+                }
+            });
+            u.setPhone(user.getPhone());
+        }
+        if (user.getGender() != null) {
+            u.setGender(user.getGender());
+        }
+        if (StringUtils.hasText(user.getAvatar())) {
+            u.setAvatar(user.getAvatar());
+        }
+
+        u.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(u);
+    }
+
+    /**
+     * 自助修改密码
+     *
+     * @param userId      用户ID
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void updatePassword(Long userId, String oldPassword, String newPassword) {
+        SysUser user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new RuntimeException("旧密码不正确");
+        }
+
+        if (passwordEncoder.matches(newPassword, user.getPassword())) {
+            throw new RuntimeException("新密码不能与旧密码相同");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(user);
+    }
+
+    /**
      * 统计拥有该角色的用户数量
      *
      * @param roleId 角色ID

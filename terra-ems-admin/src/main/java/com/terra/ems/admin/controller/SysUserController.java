@@ -532,4 +532,38 @@ public class SysUserController extends BaseController<SysUser, Long> {
         }
         return Result.content(options);
     }
+
+    /**
+     * 修改个人资料
+     */
+    @Operation(summary = "修改个人资料")
+    @PutMapping("/profile")
+    public Result<Void> updateProfile(@RequestBody SysUser user, Principal principal) {
+        if (principal == null) {
+            return Result.failure("未登录");
+        }
+        SysUser currentUser = userService.findByUsername(principal.getName());
+        user.setId(currentUser.getId());
+        userService.updateProfile(user);
+        return Result.success("修改成功");
+    }
+
+    /**
+     * 修改当前用户密码
+     */
+    @Operation(summary = "修改个人密码")
+    @PutMapping("/updatePwd")
+    public Result<Void> updatePwd(@RequestBody Map<String, String> params, Principal principal) {
+        if (principal == null) {
+            return Result.failure("未登录");
+        }
+        String oldPassword = params.get("oldPassword");
+        String newPassword = params.get("newPassword");
+        if (!StringUtils.hasText(oldPassword) || !StringUtils.hasText(newPassword)) {
+            return Result.failure("旧密码与新密码不能为空");
+        }
+        SysUser currentUser = userService.findByUsername(principal.getName());
+        userService.updatePassword(currentUser.getId(), oldPassword, newPassword);
+        return Result.success("修改成功");
+    }
 }
