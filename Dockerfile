@@ -18,10 +18,9 @@ COPY --from=build /app/terra-ems-admin/target/terra-ems-admin-*.jar app.jar
 
 # Set environment variables with defaults
 ENV SPRING_PROFILES_ACTIVE=prod
-ENV SERVER_PORT=8081
 
-# Expose the port
-EXPOSE 8081
+# Expose standard port for local dev
+EXPOSE 8080
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
