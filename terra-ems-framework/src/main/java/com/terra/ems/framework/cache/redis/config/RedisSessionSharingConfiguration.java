@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.FlushMode;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisIndexedHttpSession;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
@@ -23,7 +24,7 @@ public class RedisSessionSharingConfiguration {
 
     @Configuration(proxyBeanMethods = false)
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-    @EnableRedisIndexedHttpSession(flushMode = FlushMode.IMMEDIATE)
+    @EnableRedisIndexedHttpSession(flushMode = FlushMode.IMMEDIATE, redisNamespace = "terra:ems:session")
     static class TerraRedisHttpSessionConfiguration {
         @Bean
         public CookieSerializer cookieSerializer() {
@@ -33,6 +34,11 @@ public class RedisSessionSharingConfiguration {
             log.trace("[Terra] |- Bean [Cookie Serializer] Auto Configure.");
 
             return cookieSerializer;
+        }
+
+        @Bean
+        public static ConfigureRedisAction configureRedisAction() {
+            return ConfigureRedisAction.NO_OP;
         }
     }
 }

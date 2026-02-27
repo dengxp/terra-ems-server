@@ -56,8 +56,6 @@ import org.springframework.security.web.context.DelegatingSecurityContextReposit
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisIndexedHttpSession;
-import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.web.http.HttpSessionIdResolver;
 
 import java.io.PrintWriter;
@@ -76,7 +74,6 @@ import com.terra.ems.common.constant.Constants;
  */
 @Configuration
 @EnableWebSecurity
-@EnableRedisIndexedHttpSession(redisNamespace = "terra:ems:session")
 public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
@@ -182,11 +179,6 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
-    }
-
-    @Bean
-    public ConfigureRedisAction configureRedisAction() {
-        return ConfigureRedisAction.NO_OP;
     }
 
     @Bean
