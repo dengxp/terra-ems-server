@@ -1,12 +1,12 @@
 # Build stage
-FROM eclipse-temurin:21-jdk-jammy AS build
+FROM maven:3.9.6-eclipse-temurin-21-jammy AS build
 WORKDIR /app
 
 # Copy the pom.xml and source code
 COPY . .
 
 # Build the application
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 # Run stage
 FROM eclipse-temurin:21-jre-jammy
