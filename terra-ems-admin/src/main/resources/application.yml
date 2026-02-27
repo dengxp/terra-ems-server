@@ -32,6 +32,7 @@ spring:
     store-type: ${SPRING_SESSION_STORE_TYPE:redis}
     redis:
       namespace: terra:ems:session
+      configure-action: none
 
 server:
   port: 8081
