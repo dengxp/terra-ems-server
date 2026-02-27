@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 
 # Build the application
-RUN mvn clean package -DskipTests
+RUN mvn clean package -Dmaven.test.skip=true
 
 # Run stage
 FROM eclipse-temurin:21-jre-jammy
