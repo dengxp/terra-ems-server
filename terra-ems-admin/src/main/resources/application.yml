@@ -35,7 +35,7 @@ spring:
       configure-action: none
 
 server:
-  port: ${PORT:8080}
+  port: ${PORT:8081}
   address: 0.0.0.0
   servlet:
     context-path: /api

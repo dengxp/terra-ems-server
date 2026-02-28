@@ -23,4 +23,4 @@ ENV SPRING_PROFILES_ACTIVE=prod
 EXPOSE 8080
 
 # Run the application
-ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT:8080} -jar app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
