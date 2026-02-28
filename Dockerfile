@@ -19,5 +19,5 @@ COPY --from=build /app/terra-ems-admin/target/terra-ems-admin-*.jar app.jar
 # Set environment variables with defaults
 ENV SPRING_PROFILES_ACTIVE=prod
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the application with explicit memory limits for Render free tier (512MB RAM)
+ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-XX:MaxMetaspaceSize=128m", "-jar", "app.jar"]
