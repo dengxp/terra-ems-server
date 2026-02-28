@@ -1,6 +1,8 @@
 spring:
   application:
     name: terra-ems
+  main:
+    lazy-initialization: true
   
   datasource:
     driver-class-name: org.postgresql.Driver
