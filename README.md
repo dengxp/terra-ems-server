@@ -23,7 +23,7 @@ Terra EMS（Terra Energy Management System）是一套面向工业企业的**现
 
 ## 🚀 在线演示
 
-*   **演示地址**：[http://8.148.157.219](http://8.148.157.219)
+*   **演示地址**：[http://ems.vipcti.com](http://ems.vipcti.com)
 *   **账号**：`admin`
 *   **密码**：`admin123`
 
