@@ -1,4 +1,4 @@
-# Terra EMS v3 — 后端服务
+# Terra EMS — 后端服务
 
 <p align="center">
   <strong>🌿 Terra 能源管理系统 — 企业级能源管理与碳排放分析平台</strong>
@@ -7,7 +7,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Java-21-orange?style=flat-square&logo=openjdk" alt="Java 21"/>
   <img src="https://img.shields.io/badge/Spring%20Boot-3.4.4-brightgreen?style=flat-square&logo=springboot" alt="Spring Boot"/>
-  <img src="https://img.shields.io/badge/PostgreSQL-14+-blue?style=flat-square&logo=postgresql" alt="PostgreSQL"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-17-blue?style=flat-square&logo=postgresql" alt="PostgreSQL"/>
   <img src="https://img.shields.io/badge/Redis-6+-red?style=flat-square&logo=redis" alt="Redis"/>
   <img src="https://img.shields.io/badge/Docker-Ready-blue?style=flat-square&logo=docker" alt="Docker"/>
   <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="MIT License"/>
@@ -19,7 +19,27 @@
 
 Terra EMS（Terra Energy Management System）是一套面向工业企业的**现代化能源管理平台**，基于 Spring Boot 3.4 + Spring Data JPA 构建，提供能耗监测、分时电价分析、成本核算、碳排放计量、能效对标、告警预警等核心功能，帮助企业实现能源数字化管理与节能减排目标。
 
-> 📦 前端仓库：[terra-ems-react](https://gitee.com/dengxp/terra-ems-react)
+> 📦 前端仓库：[terra-ems-web](https://github.com/dengxp/terra-ems-web)
+
+---
+
+## ✨ 核心功能
+... (保持中间表格不变) ...
+## 📁 项目结构
+
+```
+terra-ems/
+├── terra-ems-common/       # 通用模块：统一响应 Result、异常码、工具类
+├── terra-ems-framework/    # 框架模块：Security 配置、JPA 基类、Controller 继承体系
+├── terra-ems-system/       # 业务模块：Entity、Repository、Service（系统+业务）
+├── terra-ems-admin/        # 管理模块：启动类、Controller 层、API 接口定义
+├── database/               # 数据库脚本
+└── Dockerfile              # Docker 构建文件
+```
+... (保持中间内容不变) ...
+## 📜 开源协议
+
+[MIT License](LICENSE) — Copyright © 2024-2026 泰若科技（广州）有限公司
 
 ---
 
