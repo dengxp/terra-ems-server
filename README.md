@@ -101,9 +101,13 @@ mvn spring-boot:run
 
 ---
 
-## 🤝 贡献
+## 🤝 贡献与反馈
 
-欢迎提交 Issue 和 Pull Request！
+我们非常欢迎通过 [Issues](https://github.com/dengxp/terra-ems/issues) 提交 Bug 报告、功能建议或使用咨询。
+
+> [!IMPORTANT]
+> **关于代码提交（PR）**：
+> 为确保项目核心架构的一致性及后续商业化规划的稳定性，**目前本项目暂不接受外部代码提交（Pull Requests）**。感谢您的理解，我们欢迎大家以 Issue 的形式参与讨论。
 
 ---
 
