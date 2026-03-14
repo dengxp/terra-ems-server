@@ -21,6 +21,16 @@ Terra EMS（Terra Energy Management System）是一套面向工业企业的**现
 
 > 📦 前端仓库：[terra-ems-web](https://github.com/dengxp/terra-ems-web)
 
+## 🚀 在线演示
+
+*   **演示地址**：[http://8.148.157.219](http://8.148.157.219)
+*   **账号**：`admin`
+*   **密码**：`admin123`
+
+> [!TIP]
+> **不仅是 EMS，更是一个完备的 Web 开发基座**：
+> Terra EMS 的底层架构参考了业界主流标准，其**基础权限管理、字典、配置、日志及自动化的 CRUD Hook 体系**已非常成熟，成熟度不逊于 RuoYi (若依)。您完全可以将其作为通用的 Java Web 快速开发框架使用，基础模块开箱即用。
+
 ---
 
 ## ✨ 核心功能
