@@ -133,6 +133,16 @@ mvn spring-boot:run
 
 应用启动后访问：`http://localhost:8081/api/swagger-ui.html`
 
+### 3. 一键启动 (Docker Compose)
+
+如果您将 `terra-ems` 和 `terra-ems-web` 克隆在同一个父目录下，可以使用以下命令一键启动全套系统：
+
+```bash
+docker-compose up --build
+```
+
+该命令将自动启动 PostgreSQL、Redis、后端服务 (8081) 和前端服务 (80)。
+
 ---
 
 ## 🤝 贡献与反馈
