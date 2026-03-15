@@ -13,6 +13,17 @@
   <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="MIT License"/>
 </p>
 
+### 🏗️ Technical Architecture
+
+```mermaid
+graph TD
+    Client[Web Browser / Postman] <-->|RESTful API / JSON| Admin[terra-ems-admin: API Gateway & Controller]
+    Admin <--> Framework[terra-ems-framework: Security & Base Classes]
+    Admin <--> System[terra-ems-system: Service & Repository Layer]
+    System <--> DB[(PostgreSQL 17)]
+    System <--> Redis[(Redis: Cache & Session)]
+```
+
 <p align="center">
   <a href="./README.zh-CN.md">中文文档</a> | <span>English</span>
 </p>
@@ -118,4 +129,4 @@ We welcome bug reports, feature suggestions, or usage inquiries via [Issues](htt
 
 ## 📜 License
 
-[MIT License](LICENSE) — Copyright © 2024-2026 Terra Technology (Guangzhou) Co., Ltd.
+[MIT License](LICENSE) — Copyright © 2025-2026 Terra Technology (Guangzhou) Co., Ltd.

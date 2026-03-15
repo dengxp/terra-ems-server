@@ -13,6 +13,17 @@
   <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="MIT License"/>
 </p>
 
+### 🏗️ 逻辑架构图
+
+```mermaid
+graph TD
+    Client[浏览器 / 管理端] <-->|RESTful API / JSON| Admin[terra-ems-admin: 控制层与入口]
+    Admin <--> Framework[terra-ems-framework: 安全、基类与核心组件]
+    Admin <--> System[terra-ems-system: 业务逻辑与数据持久化]
+    System <--> DB[(PostgreSQL 17)]
+    System <--> Redis[(Redis: 缓存与 Session)]
+```
+
 ---
 
 ## 📋 项目简介
@@ -123,4 +134,4 @@ mvn spring-boot:run
 
 ## 📜 开源协议
 
-[MIT License](LICENSE) — Copyright © 2024-2026 泰若科技（广州）有限公司
+[MIT License](LICENSE) — Copyright © 2025-2026 泰若科技（广州）有限公司
