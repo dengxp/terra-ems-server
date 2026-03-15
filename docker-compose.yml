@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # Database: PostgreSQL
+  terra-db:
+    image: postgres:17-alpine
+    container_name: terra-db
+    environment:
+      - POSTGRES_DB=terra_ems
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./terra-ems/database:/docker-entrypoint-initdb.d
+      - terra-db-data:/var/lib/postgresql/data
+
+  # Cache: Redis
+  terra-redis:
+    image: redis:7-alpine
+    container_name: terra-redis
+    ports:
+      - "6379:6379"
+
+  # Backend: Terra EMS (Java)
+  terra-ems-server:
+    build: ./terra-ems
+    container_name: terra-ems-server
+    depends_on:
+      - terra-db
+      - terra-redis
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://terra-db:5432/terra_ems
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_DATA_REDIS_HOST=terra-redis
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - "8081:8081"
+
+  # Frontend: Terra EMS Web (React)
+  terra-ems-web:
+    build: ./terra-ems-web
+    container_name: terra-ems-web
+    depends_on:
+      - terra-ems-server
+    ports:
+      - "80:80"
+
+volumes:
+  terra-db-data:

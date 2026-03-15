@@ -26,6 +26,19 @@ graph TD
 
 ---
 
+## 🖼️ 系统截图展示
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dengxp/terra-ems-web/main/docs/images/dashboard_v3.png" width="45%" alt="Dashboard V3 Pro"/>
+  <img src="https://raw.githubusercontent.com/dengxp/terra-ems-web/main/docs/images/branch_analysis.png" width="45%" alt="支路分析"/>
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dengxp/terra-ems-web/main/docs/images/price_policy.png" width="45%" alt="费率配置"/>
+  <img src="https://raw.githubusercontent.com/dengxp/terra-ems-web/main/docs/images/carbon_analysis.png" width="45%" alt="碳排放分析"/>
+</p>
+
+---
+
 ## 📋 项目简介
 
 Terra EMS（Terra Energy Management System）是一套面向工业企业的**现代化能源管理平台**，基于 Spring Boot 3.4 + Spring Data JPA 构建，提供能耗监测、分时电价分析、成本核算、碳排放计量、能效对标、告警预警等核心功能，帮助企业实现能源数字化管理与节能减排目标。

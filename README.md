@@ -30,6 +30,19 @@ graph TD
 
 ---
 
+## 🖼️ System Screenshots
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dengxp/terra-ems-web/main/docs/images/dashboard_v3.png" width="45%" alt="Dashboard V3 Pro"/>
+  <img src="https://raw.githubusercontent.com/dengxp/terra-ems-web/main/docs/images/branch_analysis.png" width="45%" alt="Branch Analysis"/>
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dengxp/terra-ems-web/main/docs/images/price_policy.png" width="45%" alt="Price Policy"/>
+  <img src="https://raw.githubusercontent.com/dengxp/terra-ems-web/main/docs/images/carbon_analysis.png" width="45%" alt="Carbon Analysis"/>
+</p>
+
+---
+
 ## 📋 Introduction
 
 Terra EMS (Terra Energy Management System) is a **modern energy management platform** designed for industrial enterprises. Built with Spring Boot 3.4 and Spring Data JPA, it provides comprehensive features including energy monitoring, TOU (Time-of-Use) electricity analysis, cost accounting, carbon emission measurement, energy benchmarking, and smart alerting.
@@ -92,7 +105,15 @@ terra-ems/
 ├── terra-ems-admin/        # Admin module: Bootloader, Controllers, API definitions
 ├── database/               # SQL scripts
 └── Dockerfile              # Docker build file
+### 3. All-in-One Start (Docker Compose)
+
+If you have both `terra-ems` and `terra-ems-web` cloned in the same parent directory:
+
+```bash
+docker-compose up --build
 ```
+
+This will spin up PostgreSQL, Redis, the Backend (8081), and the Frontend (80) automatically.
 
 ---
 
