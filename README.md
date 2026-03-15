@@ -27,7 +27,7 @@ Terra EMS (Terra Energy Management System) is a **modern energy management platf
 
 ## 🚀 Online Demo
 
-*   **URL**: [http://ems.vipcti.com](http://ems.vipcti.com)
+*   **URL**: [http://terra-ems.com](http://terra-ems.com)
 *   **Username**: `admin`
 *   **Password**: `admin123`
 
