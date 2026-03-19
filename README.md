@@ -1,4 +1,4 @@
-# Terra EMS — Backend Service
+# Terra EMS Server — Backend Service
 
 <p align="center">
   <strong>🌿 Terra Energy Management System — Enterprise-grade Energy Management & Carbon Analysis Platform</strong>
@@ -102,7 +102,7 @@ Terra EMS (Terra Energy Management System) is a **modern energy management platf
 ## 📁 Project Structure
 
 ```
-terra-ems/
+terra-ems-server/
 ├── terra-ems-common/       # Common module: Result, ErrorCodes, Utilities
 ├── terra-ems-framework/    # Framework module: Security, JPA Base, Controller Hierarchy
 ├── terra-ems-system/       # Business module: Entity, Repository, Service (System + Business)
@@ -111,7 +111,7 @@ terra-ems/
 └── Dockerfile              # Docker build file
 ### 3. All-in-One Start (Docker Compose)
 
-If you have both `terra-ems` and `terra-ems-web` cloned in the same parent directory:
+If you have both `terra-ems-server` and `terra-ems-web` cloned in the same parent directory:
 
 ```bash
 docker-compose up --build
@@ -144,7 +144,7 @@ Access Swagger UI: `http://localhost:8081/api/swagger-ui.html`
 
 ## 🤝 Contribution & Feedback
 
-We welcome bug reports, feature suggestions, or usage inquiries via [Issues](https://github.com/dengxp/terra-ems/issues).
+We welcome bug reports, feature suggestions, or usage inquiries via [Issues](https://github.com/dengxp/terra-ems-server/issues).
 
 > [!IMPORTANT]
 > **About Pull Requests (PR)**:

@@ -12,7 +12,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./terra-ems/database:/docker-entrypoint-initdb.d
+      - ./terra-ems-server/database:/docker-entrypoint-initdb.d
       - terra-db-data:/var/lib/postgresql/data
 
   # Cache: Redis
@@ -24,7 +24,7 @@ services:
 
   # Backend: Terra EMS (Java)
   terra-ems-server:
-    build: ./terra-ems
+    build: ./terra-ems-server
     container_name: terra-ems-server
     depends_on:
       - terra-db

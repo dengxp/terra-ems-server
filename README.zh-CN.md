@@ -1,4 +1,4 @@
-# Terra EMS — 后端服务
+# Terra EMS Server — 后端服务
 
 <p align="center">
   <strong>🌿 Terra 能源管理系统 — 企业级能源管理与碳排放分析平台</strong>
@@ -98,7 +98,7 @@ Terra EMS（Terra Energy Management System）是一套面向工业企业的**现
 ## 📁 项目结构
 
 ```
-terra-ems/
+terra-ems-server/
 ├── terra-ems-common/       # 通用模块：统一响应 Result、异常码、工具类
 ├── terra-ems-framework/    # 框架模块：Security 配置、JPA 基类、Controller 继承体系
 ├── terra-ems-system/       # 业务模块：Entity、Repository、Service（系统+业务）
@@ -139,7 +139,7 @@ mvn spring-boot:run
 
 ### 3. 一键启动 (Docker Compose)
 
-如果您将 `terra-ems` 和 `terra-ems-web` 克隆在同一个父目录下，可以使用以下命令一键启动全套系统：
+如果您将 `terra-ems-server` 和 `terra-ems-web` 克隆在同一个父目录下，可以使用以下命令一键启动全套系统：
 
 ```bash
 docker-compose up --build
@@ -151,7 +151,7 @@ docker-compose up --build
 
 ## 🤝 贡献与反馈
 
-我们非常欢迎通过 [Issues](https://github.com/dengxp/terra-ems/issues) 提交 Bug 报告、功能建议或使用咨询。
+我们非常欢迎通过 [Issues](https://github.com/dengxp/terra-ems-server/issues) 提交 Bug 报告、功能建议或使用咨询。
 
 > [!IMPORTANT]
 > **关于代码提交（PR）**：
