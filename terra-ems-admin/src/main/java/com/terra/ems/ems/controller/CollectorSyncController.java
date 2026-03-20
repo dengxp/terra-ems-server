@@ -25,9 +25,9 @@
 package com.terra.ems.ems.controller;
 
 import com.terra.ems.common.domain.Result;
-import com.terra.ems.ems.entity.EnergyData;
-import com.terra.ems.ems.entity.EnergyType;
-import com.terra.ems.ems.entity.MeterPoint;
+import com.terra.ems.ems.entity.*;
+import com.terra.ems.ems.repository.AlarmConfigRepository;
+import com.terra.ems.ems.repository.AlarmRecordRepository;
 import com.terra.ems.ems.repository.EnergyDataRepository;
 import com.terra.ems.ems.repository.MeterPointRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -63,6 +63,8 @@ public class CollectorSyncController {
 
     private final EnergyDataRepository energyDataRepository;
     private final MeterPointRepository meterPointRepository;
+    private final AlarmConfigRepository alarmConfigRepository;
+    private final AlarmRecordRepository alarmRecordRepository;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -203,5 +205,138 @@ public class CollectorSyncController {
         private String name;
         private Long energyTypeId;
         private String pointType;
+    }
+
+    // ============================================================
+    // 告警相关接口
+    // ============================================================
+
+    /**
+     * 获取告警配置（供 collector 加载告警规则）
+     *
+     * 返回所有已启用的告警配置，包含点位编码、限值类型、限值、比较运算符等。
+     */
+    @Operation(summary = "获取告警配置")
+    @GetMapping("/alarm-configs")
+    public Result<List<AlarmConfigItem>> getAlarmConfigs() {
+        List<AlarmConfig> configs = alarmConfigRepository.findAll();
+
+        List<AlarmConfigItem> items = configs.stream()
+                .filter(c -> Boolean.TRUE.equals(c.getIsEnabled()))
+                .filter(c -> c.getMeterPoint() != null && c.getAlarmLimitType() != null)
+                .map(c -> {
+                    AlarmConfigItem item = new AlarmConfigItem();
+                    item.setConfigId(c.getId());
+                    item.setPointCode(c.getMeterPoint().getCode());
+                    item.setLimitValue(c.getLimitValue() != null ? c.getLimitValue().doubleValue() : 0.0);
+                    item.setLimitTypeCode(c.getAlarmLimitType().getLimitCode());
+                    item.setLimitTypeName(c.getAlarmLimitType().getLimitName());
+                    item.setOperator(c.getAlarmLimitType().getComparatorOperator() != null
+                            ? c.getAlarmLimitType().getComparatorOperator() : ">");
+                    item.setAlarmType(c.getAlarmLimitType().getAlarmType() != null
+                            ? c.getAlarmLimitType().getAlarmType() : "ALARM");
+                    return item;
+                })
+                .collect(Collectors.toList());
+
+        return Result.content(items);
+    }
+
+    /**
+     * 接收采集服务推送的告警事件
+     *
+     * 将告警事件写入 ems_alarm_record 表。
+     */
+    @Operation(summary = "接收告警事件推送")
+    @PostMapping("/push-alarm-events")
+    public Result<AlarmPushResult> pushAlarmEvents(@RequestBody List<AlarmEventItem> events) {
+        if (events == null || events.isEmpty()) {
+            return Result.content(new AlarmPushResult(0, 0));
+        }
+
+        log.info("收到采集服务告警事件推送，数量：{}", events.size());
+
+        int recorded = 0;
+        int skipped = 0;
+
+        for (AlarmEventItem event : events) {
+            try {
+                // 只处理触发事件（恢复事件暂只记录日志）
+                if (!"TRIGGERED".equals(event.getEventType())) {
+                    log.info("告警恢复：点位={}, 类型={}", event.getPointCode(), event.getAlarmType());
+                    continue;
+                }
+
+                // 查找对应的 AlarmConfig
+                // 通过 pointCode 找 MeterPoint，再通过 limitTypeCode 找 AlarmConfig
+                Optional<MeterPoint> pointOpt = meterPointRepository.findByCode(event.getPointCode());
+                if (pointOpt.isEmpty()) {
+                    skipped++;
+                    continue;
+                }
+
+                // 查找匹配的 AlarmConfig（按 config_id 直接查）
+                Optional<AlarmConfig> configOpt = alarmConfigRepository.findById(event.getConfigId());
+                if (configOpt.isEmpty()) {
+                    skipped++;
+                    continue;
+                }
+
+                AlarmRecord record = new AlarmRecord();
+                record.setAlarmConfig(configOpt.get());
+                record.setTriggerValue(java.math.BigDecimal.valueOf(event.getCurrentValue()));
+                record.setTriggerTime(LocalDateTime.parse(event.getTimestamp(), DateTimeFormatter.ISO_DATE_TIME));
+                record.setStatus(0); // 未处理
+
+                alarmRecordRepository.save(record);
+                recorded++;
+
+            } catch (Exception e) {
+                log.error("处理告警事件失败：pointCode={}, error={}", event.getPointCode(), e.getMessage());
+                skipped++;
+            }
+        }
+
+        log.info("告警事件处理完成：记录={}, 跳过={}", recorded, skipped);
+        return Result.content(new AlarmPushResult(recorded, skipped));
+    }
+
+    /**
+     * 告警配置项（返回给 collector）
+     */
+    @Data
+    public static class AlarmConfigItem {
+        private Long configId;
+        private String pointCode;
+        private Double limitValue;
+        private String limitTypeCode;
+        private String limitTypeName;
+        private String operator;
+        private String alarmType;
+    }
+
+    /**
+     * 告警事件项（collector 推送）
+     */
+    @Data
+    public static class AlarmEventItem {
+        private Long configId;
+        private String pointCode;
+        private String alarmType;
+        private String level;
+        private Double currentValue;
+        private Double limitValue;
+        private String eventType;
+        private String timestamp;
+        private String message;
+    }
+
+    /**
+     * 告警推送结果
+     */
+    @Data
+    public static class AlarmPushResult {
+        private final int recorded;
+        private final int skipped;
     }
 }
