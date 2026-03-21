@@ -43,7 +43,7 @@ public interface GatewayRepository extends BaseRepository<Gateway, Long> {
 
     Optional<Gateway> findByCode(String code);
 
-    List<Gateway> findByEnergyUnitId(Long energyUnitId);
+    List<Gateway> findByEnergyUnit_Id(Long energyUnitId);
 
     List<Gateway> findByRunStatus(String runStatus);
 }

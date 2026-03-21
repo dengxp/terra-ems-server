@@ -43,7 +43,7 @@ public interface EquipmentRepository extends BaseRepository<Equipment, Long> {
 
     Optional<Equipment> findByCode(String code);
 
-    List<Equipment> findByEnergyUnitId(Long energyUnitId);
+    List<Equipment> findByEnergyUnit_Id(Long energyUnitId);
 
     List<Equipment> findByType(String type);
 }

@@ -52,7 +52,7 @@ public class DataSourceService extends BaseService<DataSource, Long> {
     }
 
     public List<DataSource> findByGatewayId(Long gatewayId) {
-        return dataSourceRepository.findByGatewayId(gatewayId);
+        return dataSourceRepository.findByGateway_Id(gatewayId);
     }
 
     public List<DataSource> findByProtocol(String protocol) {

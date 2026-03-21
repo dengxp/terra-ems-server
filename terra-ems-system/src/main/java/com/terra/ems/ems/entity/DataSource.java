@@ -64,7 +64,7 @@ public class DataSource extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Schema(title = "配置名称", description = "如"配电房 Modbus TCP"、"生产车间 RS485-1口"")
+    @Schema(title = "数据源名称", description = "如: 配电房 Modbus TCP, 生产车间 RS485-1口")
     @Column(name = "name", length = 150, nullable = false)
     private String name;
 

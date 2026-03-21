@@ -57,6 +57,6 @@ public class GatewayService extends BaseService<Gateway, Long> {
     }
 
     public List<Gateway> findByEnergyUnitId(Long energyUnitId) {
-        return gatewayRepository.findByEnergyUnitId(energyUnitId);
+        return gatewayRepository.findByEnergyUnit_Id(energyUnitId);
     }
 }

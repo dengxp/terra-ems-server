@@ -40,7 +40,7 @@ import java.util.List;
 @Repository
 public interface DataSourceRepository extends BaseRepository<DataSource, Long> {
 
-    List<DataSource> findByGatewayId(Long gatewayId);
+    List<DataSource> findByGateway_Id(Long gatewayId);
 
     List<DataSource> findByProtocol(String protocol);
 }

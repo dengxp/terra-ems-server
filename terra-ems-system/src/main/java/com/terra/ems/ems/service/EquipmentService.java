@@ -57,6 +57,6 @@ public class EquipmentService extends BaseService<Equipment, Long> {
     }
 
     public List<Equipment> findByEnergyUnitId(Long energyUnitId) {
-        return equipmentRepository.findByEnergyUnitId(energyUnitId);
+        return equipmentRepository.findByEnergyUnit_Id(energyUnitId);
     }
 }
