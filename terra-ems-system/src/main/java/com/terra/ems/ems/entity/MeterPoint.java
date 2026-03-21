@@ -115,6 +115,10 @@ public class MeterPoint extends BaseEntity {
         @Column(name = "step_max", precision = 15, scale = 4)
         private BigDecimal stepMax;
 
+        @Schema(title = "采集参数", description = "JSON 格式，存储协议特有的计量点级参数（如 Modbus 寄存器地址、DL/T645 数据标识、OPC UA 节点ID等）")
+        @Column(name = "acquisition_params", columnDefinition = "TEXT")
+        private String acquisitionParams;
+
         @Schema(title = "排序")
         @Column(name = "sort_order")
         private Integer sortOrder = 0;

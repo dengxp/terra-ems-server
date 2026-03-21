@@ -141,6 +141,10 @@ public class Meter extends BaseEntity {
         @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
         private Equipment equipment;
 
+        @Schema(title = "通信参数", description = "JSON 格式，存储协议特有的设备级参数（如 Modbus 从站地址、DL/T645 电表地址等）")
+        @Column(name = "comm_params", columnDefinition = "TEXT")
+        private String commParams;
+
         @Schema(title = "状态")
         @Column(name = "status", nullable = false)
         private DataItemStatus status = DataItemStatus.ENABLE;
