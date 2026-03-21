@@ -123,7 +123,13 @@ public class Meter extends BaseEntity {
         @Column(name = "wire_diameter", length = 255)
         private String wireDiameter;
 
-        @Schema(title = "所属通信通道", description = "通过哪个通道采集数据（可选）")
+        @Schema(title = "所属网关", description = "直接关联网关（无通道时使用，可选）")
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "gateway_id")
+        @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+        private Gateway gateway;
+
+        @Schema(title = "所属通信通道", description = "通过哪个通道采集数据（有通道时使用，可选）")
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "comm_channel_id")
         @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
@@ -146,6 +152,21 @@ public class Meter extends BaseEntity {
         // ============================================================================
         // @JsonProperty 桥接模式
         // ============================================================================
+
+        @JsonProperty("gatewayId")
+        public Long getGatewayId() {
+                return gateway != null ? gateway.getId() : null;
+        }
+
+        @JsonProperty("gatewayId")
+        public void setGatewayId(Long gatewayId) {
+                if (gatewayId != null) {
+                        this.gateway = new Gateway();
+                        this.gateway.setId(gatewayId);
+                } else {
+                        this.gateway = null;
+                }
+        }
 
         @JsonProperty("commChannelId")
         public Long getCommChannelId() {
