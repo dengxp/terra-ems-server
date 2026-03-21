@@ -24,6 +24,7 @@
 
 package com.terra.ems.ems.service.siteimport;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -41,6 +42,7 @@ import java.util.Map;
 public class SiteConfigDto {
 
     /** 顶层配置 */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class SiteConfig {
         private SiteInfo site;
@@ -49,6 +51,7 @@ public class SiteConfigDto {
     }
 
     /** 场站基本信息 */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class SiteInfo {
         private String name;
@@ -60,6 +63,7 @@ public class SiteConfigDto {
     }
 
     /** 能源类型 */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class EnergyTypeConfig {
         private String code;
@@ -70,6 +74,7 @@ public class SiteConfigDto {
     }
 
     /** 用能单元（递归） */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class EnergyUnitConfig {
         private String code;
@@ -82,6 +87,7 @@ public class SiteConfigDto {
     }
 
     /** 网关 */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class GatewayConfig {
         private String code;
@@ -94,6 +100,7 @@ public class SiteConfigDto {
     }
 
     /** 数据源 */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class DataSourceConfig {
         private String name;
@@ -103,6 +110,7 @@ public class SiteConfigDto {
     }
 
     /** 用能设备 */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class EquipmentConfig {
         private String code;
@@ -116,6 +124,7 @@ public class SiteConfigDto {
     }
 
     /** 计量器具 */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class MeterConfig {
         private String code;
@@ -133,6 +142,7 @@ public class SiteConfigDto {
     }
 
     /** 计量点 */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class PointConfig {
         private String code;

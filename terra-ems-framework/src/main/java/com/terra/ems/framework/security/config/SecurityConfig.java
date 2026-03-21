@@ -94,7 +94,8 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/error", "/captcha/**", "/system/constant/**",
-                                "/sms/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/websocket/**")
+                                "/sms/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/websocket/**",
+                                "/site-import/**", "/collector/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exception -> exception

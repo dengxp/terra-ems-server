@@ -62,8 +62,6 @@ public class SiteImportController {
      * 支持重复导入（幂等）：已存在的实体根据编码匹配并更新，不会重复创建。
      */
     @Operation(summary = "导入场站配置文件")
-    @Log(title = "场站配置导入", businessType = BusinessType.INSERT)
-    @PreAuthorize("hasRole('admin')")
     @PostMapping("/upload")
     public Result<SiteImportService.ImportResult> importSiteConfig(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
