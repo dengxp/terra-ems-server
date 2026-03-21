@@ -22,25 +22,40 @@
  *
  */
 
-package com.terra.ems.ems.repository;
+package com.terra.ems.ems.service;
 
-import com.terra.ems.ems.entity.AcquisitionConfig;
+import com.terra.ems.ems.entity.DataSource;
+import com.terra.ems.ems.repository.DataSourceRepository;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
-import org.springframework.stereotype.Repository;
+import com.terra.ems.framework.service.BaseService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * 采集配置数据访问层
+ * 数据源服务
  *
  * @author dengxueping
  * @since 2026-03-21
  */
 
-@Repository
-public interface AcquisitionConfigRepository extends BaseRepository<AcquisitionConfig, Long> {
+@Service
+@RequiredArgsConstructor
+public class DataSourceService extends BaseService<DataSource, Long> {
 
-    List<AcquisitionConfig> findByGatewayId(Long gatewayId);
+    private final DataSourceRepository dataSourceRepository;
 
-    List<AcquisitionConfig> findByProtocol(String protocol);
+    @Override
+    public BaseRepository<DataSource, Long> getRepository() {
+        return dataSourceRepository;
+    }
+
+    public List<DataSource> findByGatewayId(Long gatewayId) {
+        return dataSourceRepository.findByGatewayId(gatewayId);
+    }
+
+    public List<DataSource> findByProtocol(String protocol) {
+        return dataSourceRepository.findByProtocol(protocol);
+    }
 }

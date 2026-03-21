@@ -27,8 +27,8 @@ package com.terra.ems.ems.controller;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.common.enums.BusinessType;
-import com.terra.ems.ems.entity.AcquisitionConfig;
-import com.terra.ems.ems.service.AcquisitionConfigService;
+import com.terra.ems.ems.entity.DataSource;
+import com.terra.ems.ems.service.DataSourceService;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,78 +40,78 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 采集配置管理控制器
+ * 数据源管理控制器
  *
  * @author dengxueping
  * @since 2026-03-21
  */
-@Tag(name = "采集配置管理")
+@Tag(name = "数据源管理")
 @RestController
-@RequestMapping("/acquisition-configs")
-public class AcquisitionConfigController extends BaseController<AcquisitionConfig, Long> {
+@RequestMapping("/data-sources")
+public class DataSourceController extends BaseController<DataSource, Long> {
 
-    private final AcquisitionConfigService acquisitionConfigService;
+    private final DataSourceService dataSourceService;
 
-    public AcquisitionConfigController(AcquisitionConfigService acquisitionConfigService) {
-        this.acquisitionConfigService = acquisitionConfigService;
+    public DataSourceController(DataSourceService dataSourceService) {
+        this.dataSourceService = dataSourceService;
     }
 
     @Override
-    protected BaseService<AcquisitionConfig, Long> getService() {
-        return acquisitionConfigService;
+    protected BaseService<DataSource, Long> getService() {
+        return dataSourceService;
     }
 
-    @Operation(summary = "保存或更新采集配置")
+    @Operation(summary = "保存或更新数据源")
     @PostMapping
     @Override
-    @Log(title = "采集配置", businessType = BusinessType.UPDATE)
-    @PreAuthorize("hasAnyPerm('ems:acquisition-config:add', 'ems:acquisition-config:edit')")
-    public Result<AcquisitionConfig> saveOrUpdate(@Validated @RequestBody AcquisitionConfig config) {
+    @Log(title = "数据源", businessType = BusinessType.UPDATE)
+    @PreAuthorize("hasAnyPerm('ems:data-source:add', 'ems:data-source:edit')")
+    public Result<DataSource> saveOrUpdate(@Validated @RequestBody DataSource config) {
         return super.saveOrUpdate(config);
     }
 
-    @Operation(summary = "删除采集配置")
+    @Operation(summary = "删除数据源")
     @DeleteMapping("/{id}")
     @Override
-    @Log(title = "采集配置", businessType = BusinessType.DELETE)
-    @PreAuthorize("hasPerm('ems:acquisition-config:remove')")
+    @Log(title = "数据源", businessType = BusinessType.DELETE)
+    @PreAuthorize("hasPerm('ems:data-source:remove')")
     public Result<String> delete(@PathVariable Long id) {
         return super.delete(id);
     }
 
-    @Operation(summary = "批量删除采集配置")
+    @Operation(summary = "批量删除数据源")
     @DeleteMapping
     @Override
-    @Log(title = "采集配置", businessType = BusinessType.DELETE)
-    @PreAuthorize("hasPerm('ems:acquisition-config:remove')")
+    @Log(title = "数据源", businessType = BusinessType.DELETE)
+    @PreAuthorize("hasPerm('ems:data-source:remove')")
     public Result<String> deleteBatch(@RequestBody List<Long> ids) {
         return super.deleteBatch(ids);
     }
 
     @Operation(summary = "按ID查询")
-    @PreAuthorize("hasPerm('ems:acquisition-config:query')")
+    @PreAuthorize("hasPerm('ems:data-source:query')")
     @GetMapping("/{id}")
     @Override
-    public Result<AcquisitionConfig> findById(@PathVariable Long id) {
+    public Result<DataSource> findById(@PathVariable Long id) {
         return super.findById(id);
     }
 
-    @Operation(summary = "查询所有采集配置")
-    @PreAuthorize("hasPerm('ems:acquisition-config:list')")
+    @Operation(summary = "查询所有数据源")
+    @PreAuthorize("hasPerm('ems:data-source:list')")
     @GetMapping("/all")
-    public Result<List<AcquisitionConfig>> findAll() {
+    public Result<List<DataSource>> findAll() {
         return super.findAll();
     }
 
-    @Operation(summary = "根据网关查询采集配置")
+    @Operation(summary = "根据网关查询数据源")
     @GetMapping("/gateway/{gatewayId}")
-    public Result<List<AcquisitionConfig>> findByGatewayId(@PathVariable Long gatewayId) {
-        return Result.content(acquisitionConfigService.findByGatewayId(gatewayId));
+    public Result<List<DataSource>> findByGatewayId(@PathVariable Long gatewayId) {
+        return Result.content(dataSourceService.findByGatewayId(gatewayId));
     }
 
-    @Operation(summary = "根据协议查询采集配置")
+    @Operation(summary = "根据协议查询数据源")
     @GetMapping("/protocol/{protocol}")
-    public Result<List<AcquisitionConfig>> findByProtocol(@PathVariable String protocol) {
-        return Result.content(acquisitionConfigService.findByProtocol(protocol));
+    public Result<List<DataSource>> findByProtocol(@PathVariable String protocol) {
+        return Result.content(dataSourceService.findByProtocol(protocol));
     }
 }

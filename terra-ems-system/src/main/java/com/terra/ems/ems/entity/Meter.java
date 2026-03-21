@@ -129,11 +129,11 @@ public class Meter extends BaseEntity {
         @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
         private Gateway gateway;
 
-        @Schema(title = "采集配置", description = "通过哪个采集配置采集数据（可选）")
+        @Schema(title = "数据源", description = "通过哪个数据源采集数据（可选）")
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "acquisition_config_id")
+        @JoinColumn(name = "data_source_id")
         @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-        private AcquisitionConfig acquisitionConfig;
+        private DataSource dataSource;
 
         @Schema(title = "所属用能设备", description = "给哪台设备计量（可选，总表无设备）")
         @ManyToOne(fetch = FetchType.LAZY)
@@ -172,18 +172,18 @@ public class Meter extends BaseEntity {
                 }
         }
 
-        @JsonProperty("acquisitionConfigId")
-        public Long getAcquisitionConfigId() {
-                return acquisitionConfig != null ? acquisitionConfig.getId() : null;
+        @JsonProperty("dataSourceId")
+        public Long getDataSourceId() {
+                return dataSource != null ? dataSource.getId() : null;
         }
 
-        @JsonProperty("acquisitionConfigId")
-        public void setAcquisitionConfigId(Long acquisitionConfigId) {
-                if (acquisitionConfigId != null) {
-                        this.acquisitionConfig = new AcquisitionConfig();
-                        this.acquisitionConfig.setId(acquisitionConfigId);
+        @JsonProperty("dataSourceId")
+        public void setDataSourceId(Long dataSourceId) {
+                if (dataSourceId != null) {
+                        this.dataSource = new DataSource();
+                        this.dataSource.setId(dataSourceId);
                 } else {
-                        this.acquisitionConfig = null;
+                        this.dataSource = null;
                 }
         }
 

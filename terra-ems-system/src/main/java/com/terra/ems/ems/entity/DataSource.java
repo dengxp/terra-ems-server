@@ -36,10 +36,10 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 
 /**
- * 采集配置实体
+ * 数据源实体
  *
  * 定义数据采集任务的配置：使用什么协议、连接哪个地址、多久采集一次。
- * 每个采集配置关联一个网关，一个网关可以有多个采集配置。
+ * 每个数据源关联一个网关，一个网关可以有多个数据源。
  * 支持的协议：modbus-tcp, modbus-rtu, mqtt, opc-ua, dlt645, bacnet-ip, http 等。
  *
  * 连接参数使用 JSON 格式存储，不同协议有不同的参数结构，
@@ -52,12 +52,12 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "ems_acquisition_config", indexes = {
-        @Index(name = "idx_acq_config_gateway", columnList = "gateway_id"),
-        @Index(name = "idx_acq_config_protocol", columnList = "protocol")
+@Table(name = "ems_data_source", indexes = {
+        @Index(name = "idx_data_source_gateway", columnList = "gateway_id"),
+        @Index(name = "idx_data_source_protocol", columnList = "protocol")
 })
-@Schema(title = "采集配置")
-public class AcquisitionConfig extends BaseEntity {
+@Schema(title = "数据源")
+public class DataSource extends BaseEntity {
 
     @Schema(title = "ID")
     @Id
