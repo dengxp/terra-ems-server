@@ -32,6 +32,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 /**
@@ -121,9 +123,17 @@ public class Meter extends BaseEntity {
         @Column(name = "wire_diameter", length = 255)
         private String wireDiameter;
 
-        @Schema(title = "网关ID")
-        @Column(name = "gateway_id", length = 200)
-        private String gatewayId;
+        @Schema(title = "所属通信通道", description = "通过哪个通道采集数据（可选）")
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "comm_channel_id")
+        @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+        private CommChannel commChannel;
+
+        @Schema(title = "所属用能设备", description = "给哪台设备计量（可选，总表无设备）")
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "equipment_id")
+        @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+        private Equipment equipment;
 
         @Schema(title = "状态")
         @Column(name = "status", nullable = false)
@@ -132,4 +142,38 @@ public class Meter extends BaseEntity {
         @Schema(title = "备注")
         @Column(name = "remark", length = 500)
         private String remark;
+
+        // ============================================================================
+        // @JsonProperty 桥接模式
+        // ============================================================================
+
+        @JsonProperty("commChannelId")
+        public Long getCommChannelId() {
+                return commChannel != null ? commChannel.getId() : null;
+        }
+
+        @JsonProperty("commChannelId")
+        public void setCommChannelId(Long commChannelId) {
+                if (commChannelId != null) {
+                        this.commChannel = new CommChannel();
+                        this.commChannel.setId(commChannelId);
+                } else {
+                        this.commChannel = null;
+                }
+        }
+
+        @JsonProperty("equipmentId")
+        public Long getEquipmentId() {
+                return equipment != null ? equipment.getId() : null;
+        }
+
+        @JsonProperty("equipmentId")
+        public void setEquipmentId(Long equipmentId) {
+                if (equipmentId != null) {
+                        this.equipment = new Equipment();
+                        this.equipment.setId(equipmentId);
+                } else {
+                        this.equipment = null;
+                }
+        }
 }

@@ -55,7 +55,7 @@ import java.util.Set;
                 @Index(name = "idx_meter_point_meter", columnList = "meter_id"),
                 @Index(name = "idx_meter_point_energy_type", columnList = "energy_type_id")
 })
-@Schema(title = "采集点位")
+@Schema(title = "计量点")
 public class MeterPoint extends BaseEntity {
 
         @Schema(title = "ID")
