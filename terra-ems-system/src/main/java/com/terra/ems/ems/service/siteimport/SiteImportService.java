@@ -148,6 +148,14 @@ public class SiteImportService {
         unit.setName(unitConfig.getName());
         unit.setParent(parent);
         unit.setLevel(level);
+        // 设置用能单元类型
+        if (unitConfig.getType() != null) {
+            try {
+                unit.setUnitType(com.terra.ems.ems.enums.EnergyUnitType.valueOf(unitConfig.getType()));
+            } catch (IllegalArgumentException e) {
+                log.warn("未知的用能单元类型: {}，使用默认值 GENERAL", unitConfig.getType());
+            }
+        }
         unit.setStatus(DataItemStatus.ENABLE);
         unit = energyUnitRepository.save(unit);
         result.energyUnits++;
