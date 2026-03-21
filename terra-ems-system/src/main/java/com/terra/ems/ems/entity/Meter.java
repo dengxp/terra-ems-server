@@ -129,11 +129,11 @@ public class Meter extends BaseEntity {
         @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
         private Gateway gateway;
 
-        @Schema(title = "所属通信通道", description = "通过哪个通道采集数据（有通道时使用，可选）")
+        @Schema(title = "采集配置", description = "通过哪个采集配置采集数据（可选）")
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "comm_channel_id")
+        @JoinColumn(name = "acquisition_config_id")
         @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-        private CommChannel commChannel;
+        private AcquisitionConfig acquisitionConfig;
 
         @Schema(title = "所属用能设备", description = "给哪台设备计量（可选，总表无设备）")
         @ManyToOne(fetch = FetchType.LAZY)
@@ -172,18 +172,18 @@ public class Meter extends BaseEntity {
                 }
         }
 
-        @JsonProperty("commChannelId")
-        public Long getCommChannelId() {
-                return commChannel != null ? commChannel.getId() : null;
+        @JsonProperty("acquisitionConfigId")
+        public Long getAcquisitionConfigId() {
+                return acquisitionConfig != null ? acquisitionConfig.getId() : null;
         }
 
-        @JsonProperty("commChannelId")
-        public void setCommChannelId(Long commChannelId) {
-                if (commChannelId != null) {
-                        this.commChannel = new CommChannel();
-                        this.commChannel.setId(commChannelId);
+        @JsonProperty("acquisitionConfigId")
+        public void setAcquisitionConfigId(Long acquisitionConfigId) {
+                if (acquisitionConfigId != null) {
+                        this.acquisitionConfig = new AcquisitionConfig();
+                        this.acquisitionConfig.setId(acquisitionConfigId);
                 } else {
-                        this.commChannel = null;
+                        this.acquisitionConfig = null;
                 }
         }
 

@@ -22,25 +22,40 @@
  *
  */
 
-package com.terra.ems.ems.repository;
+package com.terra.ems.ems.service;
 
-import com.terra.ems.ems.entity.CommChannel;
+import com.terra.ems.ems.entity.AcquisitionConfig;
+import com.terra.ems.ems.repository.AcquisitionConfigRepository;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
-import org.springframework.stereotype.Repository;
+import com.terra.ems.framework.service.BaseService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * 通信通道数据访问层
+ * 采集配置服务
  *
  * @author dengxueping
  * @since 2026-03-21
  */
 
-@Repository
-public interface CommChannelRepository extends BaseRepository<CommChannel, Long> {
+@Service
+@RequiredArgsConstructor
+public class AcquisitionConfigService extends BaseService<AcquisitionConfig, Long> {
 
-    List<CommChannel> findByGatewayId(Long gatewayId);
+    private final AcquisitionConfigRepository acquisitionConfigRepository;
 
-    List<CommChannel> findByProtocol(String protocol);
+    @Override
+    public BaseRepository<AcquisitionConfig, Long> getRepository() {
+        return acquisitionConfigRepository;
+    }
+
+    public List<AcquisitionConfig> findByGatewayId(Long gatewayId) {
+        return acquisitionConfigRepository.findByGatewayId(gatewayId);
+    }
+
+    public List<AcquisitionConfig> findByProtocol(String protocol) {
+        return acquisitionConfigRepository.findByProtocol(protocol);
+    }
 }

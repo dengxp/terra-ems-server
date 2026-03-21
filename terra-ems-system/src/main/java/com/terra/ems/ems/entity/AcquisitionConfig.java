@@ -33,12 +33,17 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+
 /**
- * 通信通道实体
+ * 采集配置实体
  *
- * 网关上的一个通信接口/通道，定义通信协议和参数。
- * 一个网关可以有多个通道（如多个 RS485 口），
- * 每个通道使用不同的协议和参数连接不同的计量器具。
+ * 定义数据采集任务的配置：使用什么协议、连接哪个地址、多久采集一次。
+ * 每个采集配置关联一个网关，一个网关可以有多个采集配置。
+ * 支持的协议：modbus-tcp, modbus-rtu, mqtt, opc-ua, dlt645, bacnet-ip, http 等。
+ *
+ * 连接参数使用 JSON 格式存储，不同协议有不同的参数结构，
+ * 这样新增协议时无需修改表结构。
  *
  * @author dengxueping
  * @since 2026-03-21
@@ -47,18 +52,19 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "ems_comm_channel", indexes = {
-        @Index(name = "idx_comm_channel_gateway", columnList = "gateway_id")
+@Table(name = "ems_acquisition_config", indexes = {
+        @Index(name = "idx_acq_config_gateway", columnList = "gateway_id"),
+        @Index(name = "idx_acq_config_protocol", columnList = "protocol")
 })
-@Schema(title = "通信通道")
-public class CommChannel extends BaseEntity {
+@Schema(title = "采集配置")
+public class AcquisitionConfig extends BaseEntity {
 
     @Schema(title = "ID")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Schema(title = "通道名称", description = "如 RS485-1口")
+    @Schema(title = "配置名称", description = "如"配电房 Modbus TCP"、"生产车间 RS485-1口"")
     @Column(name = "name", length = 150, nullable = false)
     private String name;
 
@@ -68,37 +74,21 @@ public class CommChannel extends BaseEntity {
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     private Gateway gateway;
 
-    @Schema(title = "通信协议", description = "MODBUS_RTU / MODBUS_TCP / DLT645 / BACNET / OPCUA")
+    @Schema(title = "采集协议", description = "modbus-tcp / modbus-rtu / mqtt / opc-ua / dlt645 / bacnet-ip / http / s7 / ...")
     @Column(name = "protocol", length = 30, nullable = false)
     private String protocol;
 
-    @Schema(title = "波特率", description = "串口通信波特率，如 9600、4800")
-    @Column(name = "baud_rate")
-    private Integer baudRate;
+    @Schema(title = "连接参数", description = "JSON 格式，存储协议特有的连接配置")
+    @Column(name = "connection", columnDefinition = "TEXT")
+    private String connection;
 
-    @Schema(title = "数据位", description = "7 或 8")
-    @Column(name = "data_bits")
-    private Integer dataBits;
-
-    @Schema(title = "停止位", description = "1 或 2")
-    @Column(name = "stop_bits")
-    private Integer stopBits;
-
-    @Schema(title = "校验方式", description = "NONE / ODD / EVEN")
-    @Column(name = "parity", length = 10)
-    private String parity;
-
-    @Schema(title = "端口号", description = "Modbus TCP 端口，如 502")
-    @Column(name = "port")
-    private Integer port;
-
-    @Schema(title = "采集周期(秒)")
+    @Schema(title = "采集周期(秒)", description = "多久采集一次数据")
     @Column(name = "poll_interval_secs")
     private Integer pollIntervalSecs = 15;
 
-    @Schema(title = "通信超时(毫秒)")
-    @Column(name = "timeout_ms")
-    private Integer timeoutMs = 3000;
+    @Schema(title = "最后通信时间")
+    @Column(name = "last_seen_time")
+    private LocalDateTime lastSeenTime;
 
     @Schema(title = "状态")
     @Column(name = "status", nullable = false)
