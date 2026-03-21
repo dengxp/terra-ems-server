@@ -107,9 +107,13 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
     @Operation(summary = "获取完整树形结构")
     @PreAuthorize("hasPerm('ems:energy-unit:list')")
     @GetMapping("/tree")
-    public Result<List<Map<String, Object>>> findTree() {
-        return result(energyUnitService.findAll(null, org.springframework.data.domain.Sort.by("sortOrder")),
-                EnergyUnit::getId, EnergyUnit::getParentId, EnergyUnit::getName, EnergyUnit::getSortOrder, null);
+    public Result<List<EnergyUnit>> findTree() {
+        List<EnergyUnit> all = energyUnitService.findAll(null, org.springframework.data.domain.Sort.by("sortOrder"));
+        // 构建树形结构：筛选根节点，子节点已通过 JPA @OneToMany 自动加载
+        List<EnergyUnit> roots = all.stream()
+                .filter(u -> u.getParent() == null)
+                .toList();
+        return Result.content(roots);
     }
 
     /**
@@ -117,9 +121,12 @@ public class EnergyUnitController extends BaseController<EnergyUnit, Long> {
      */
     @Operation(summary = "获取启用状态的树形结构")
     @GetMapping("/tree/enabled")
-    public Result<List<Map<String, Object>>> findEnabledTree() {
-        return result(energyUnitService.findEnabled(),
-                EnergyUnit::getId, EnergyUnit::getParentId, EnergyUnit::getName, EnergyUnit::getSortOrder, null);
+    public Result<List<EnergyUnit>> findEnabledTree() {
+        List<EnergyUnit> enabled = energyUnitService.findEnabled();
+        List<EnergyUnit> roots = enabled.stream()
+                .filter(u -> u.getParent() == null)
+                .toList();
+        return Result.content(roots);
     }
 
     /**
