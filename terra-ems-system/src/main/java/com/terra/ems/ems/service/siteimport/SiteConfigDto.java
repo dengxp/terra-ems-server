@@ -148,10 +148,12 @@ public class SiteConfigDto {
         private String code;
         private String name;
         private String type;
+        private String measure_type;
         private String category;
         private String unit;
         private String energy_type;
+        private String sim_type;
         private Map<String, Object> acquisition_params;
-        // sim_* 字段在导入时忽略
+        // 其余 sim_* 字段由 @JsonIgnoreProperties(ignoreUnknown=true) 忽略
     }
 }

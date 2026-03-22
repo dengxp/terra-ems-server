@@ -190,6 +190,7 @@ public class MeterPointService extends BaseService<MeterPoint, Long> {
         existing.setCode(meterPoint.getCode());
         existing.setName(meterPoint.getName());
         existing.setPointType(meterPoint.getPointType());
+        existing.setMeasureType(meterPoint.getMeasureType());
         existing.setCategory(meterPoint.getCategory());
         existing.setUnit(meterPoint.getUnit());
         existing.setInitialValue(meterPoint.getInitialValue());

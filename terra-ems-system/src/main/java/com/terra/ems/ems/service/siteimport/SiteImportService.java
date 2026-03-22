@@ -382,6 +382,12 @@ public class SiteImportService {
                 });
         point.setName(pointConfig.getName());
         point.setPointType(pointConfig.getType());
+        // measure_type 优先，sim_type 作为 fallback
+        String mt = pointConfig.getMeasure_type();
+        if (mt == null) {
+            mt = pointConfig.getSim_type();
+        }
+        point.setMeasureType(mt != null ? mt.toUpperCase() : null);
         point.setCategory(pointConfig.getCategory());
         point.setUnit(pointConfig.getUnit());
         point.setMeter(meter);

@@ -75,6 +75,10 @@ public class MeterPoint extends BaseEntity {
         @Column(name = "point_type", length = 20, nullable = false)
         private String pointType;
 
+        @Schema(title = "测量类型", description = "ACCUMULATE=累积量(如电能kWh), INSTANT=瞬时量(如电压V、功率kW)")
+        @Column(name = "measure_type", length = 20)
+        private String measureType;
+
         @Schema(title = "分类", description = "ENERGY=能源类, PRODUCT=产品类, EFFICIENCY=能效类, OPERATION=经营类, OTHER=其他")
         @Column(name = "category", length = 20)
         private String category;

@@ -150,14 +150,14 @@ public class CollectorSyncController {
         List<MeterPoint> points = meterPointRepository.findAll();
 
         List<PointMapping> mappings = points.stream()
-                .filter(p -> p.getEnergyType() != null)
                 .map(p -> {
                     PointMapping mapping = new PointMapping();
                     mapping.setId(p.getId());
                     mapping.setCode(p.getCode());
                     mapping.setName(p.getName());
-                    mapping.setEnergyTypeId(p.getEnergyType().getId());
+                    mapping.setEnergyTypeId(p.getEnergyType() != null ? p.getEnergyType().getId() : null);
                     mapping.setPointType(p.getPointType());
+                    mapping.setMeasureType(p.getMeasureType());
                     return mapping;
                 })
                 .collect(Collectors.toList());
@@ -205,6 +205,7 @@ public class CollectorSyncController {
         private String name;
         private Long energyTypeId;
         private String pointType;
+        private String measureType;
     }
 
     // ============================================================
