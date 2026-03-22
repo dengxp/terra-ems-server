@@ -399,7 +399,8 @@ public class SiteImportService {
             }
         }
 
-        // 关联用能单元（多对多）
+        // 关联用能单元（一对一：一个计量点只关联一个用能单元）
+        point.getEnergyUnits().clear();
         if (energyUnit != null) {
             point.getEnergyUnits().add(energyUnit);
         }
