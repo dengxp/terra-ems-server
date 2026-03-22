@@ -380,12 +380,7 @@ public class SiteImportService {
                     newPoint.setCode(pointConfig.getCode());
                     return newPoint;
                 });
-        // 计量点名称加上用能单元前缀，避免重名
-        String pointName = pointConfig.getName();
-        if (energyUnit != null && pointName != null && !pointName.contains(energyUnit.getName())) {
-            pointName = energyUnit.getName() + "-" + pointName;
-        }
-        point.setName(pointName);
+        point.setName(pointConfig.getName());
         point.setPointType(pointConfig.getType());
         point.setCategory(pointConfig.getCategory());
         point.setUnit(pointConfig.getUnit());
