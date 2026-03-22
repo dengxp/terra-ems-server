@@ -41,9 +41,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.redis.core.StringRedisTemplate;
+
+import java.util.*;
 
 /**
  * 网关管理控制器
@@ -57,9 +58,11 @@ import java.util.Map;
 public class GatewayController extends BaseController<Gateway, Long> {
 
     private final GatewayService gatewayService;
+    private final StringRedisTemplate redisTemplate;
 
-    public GatewayController(GatewayService gatewayService) {
+    public GatewayController(GatewayService gatewayService, StringRedisTemplate redisTemplate) {
         this.gatewayService = gatewayService;
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
@@ -132,5 +135,49 @@ public class GatewayController extends BaseController<Gateway, Long> {
     @GetMapping("/energy-unit/{energyUnitId}")
     public Result<List<Gateway>> findByEnergyUnitId(@PathVariable Long energyUnitId) {
         return Result.content(gatewayService.findByEnergyUnitId(energyUnitId));
+    }
+
+    /**
+     * 查询所有网关的在线状态
+     *
+     * 从 Redis 读取 Collector 写入的网关心跳数据，
+     * key 格式：ems:gateway:{code}:status（300秒过期）
+     * key 存在 = 在线，key 过期/不存在 = 离线
+     *
+     * @return 网关编码 → 在线状态的映射
+     */
+    @Operation(summary = "查询网关在线状态")
+    @GetMapping("/online-status")
+    public Result<Map<String, GatewayOnlineInfo>> getOnlineStatus() {
+        List<Gateway> gateways = gatewayService.findAll();
+        Map<String, GatewayOnlineInfo> result = new LinkedHashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        for (Gateway gw : gateways) {
+            String key = "ems:gateway:" + gw.getCode() + ":status";
+            String value = redisTemplate.opsForValue().get(key);
+
+            GatewayOnlineInfo info = new GatewayOnlineInfo();
+            if (value != null) {
+                info.setOnline(true);
+                try {
+                    var node = mapper.readTree(value);
+                    if (node.has("lastHeartbeat")) {
+                        info.setLastHeartbeat(node.get("lastHeartbeat").asText());
+                    }
+                } catch (Exception ignored) {}
+            } else {
+                info.setOnline(false);
+            }
+            result.put(gw.getCode(), info);
+        }
+
+        return Result.content(result);
+    }
+
+    @lombok.Data
+    public static class GatewayOnlineInfo {
+        private boolean online;
+        private String lastHeartbeat;
     }
 }
