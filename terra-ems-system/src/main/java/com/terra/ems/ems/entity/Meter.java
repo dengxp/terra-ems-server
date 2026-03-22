@@ -75,7 +75,7 @@ public class Meter extends BaseEntity {
 
         @Schema(title = "能源类型")
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "energy_type_id", nullable = false)
+        @JoinColumn(name = "energy_type_id")
         @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
         private EnergyType energyType;
 
