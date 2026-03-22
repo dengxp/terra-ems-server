@@ -36,16 +36,15 @@ import io.swagger.v3.oas.annotations.Operation;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -63,9 +62,11 @@ import org.springframework.validation.annotation.Validated;
 public class MeterPointController extends BaseController<MeterPoint, Long> {
 
     private final MeterPointService meterPointService;
+    private final StringRedisTemplate redisTemplate;
 
-    public MeterPointController(MeterPointService meterPointService) {
+    public MeterPointController(MeterPointService meterPointService, StringRedisTemplate redisTemplate) {
         this.meterPointService = meterPointService;
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
@@ -243,5 +244,44 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
     @GetMapping("/all")
     public Result<List<MeterPoint>> findAll() {
         return super.findAll();
+    }
+
+    /**
+     * 批量查询计量点最新采集值
+     *
+     * 从 Redis 读取 Collector 缓存的最新值
+     * key 格式：ems:point:{code}:latest（600秒过期）
+     */
+    @Operation(summary = "查询计量点最新采集值")
+    @GetMapping("/latest-values")
+    public Result<Map<String, PointLatestValue>> getLatestValues() {
+        List<MeterPoint> points = meterPointService.findAll();
+        Map<String, PointLatestValue> result = new LinkedHashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        for (MeterPoint p : points) {
+            String key = "ems:point:" + p.getCode() + ":latest";
+            String value = redisTemplate.opsForValue().get(key);
+
+            if (value != null) {
+                try {
+                    var node = mapper.readTree(value);
+                    PointLatestValue info = new PointLatestValue();
+                    info.setValue(node.has("value") ? node.get("value").asDouble() : null);
+                    info.setTimestamp(node.has("timestamp") ? node.get("timestamp").asText() : null);
+                    info.setQuality(node.has("quality") ? node.get("quality").asInt() : null);
+                    result.put(p.getCode(), info);
+                } catch (Exception ignored) {}
+            }
+        }
+
+        return Result.content(result);
+    }
+
+    @lombok.Data
+    public static class PointLatestValue {
+        private Double value;
+        private String timestamp;
+        private Integer quality;
     }
 }

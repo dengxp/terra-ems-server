@@ -35,6 +35,8 @@ import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,9 +44,7 @@ import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import com.terra.ems.common.annotation.Log;
 import com.terra.ems.common.enums.BusinessType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -61,9 +61,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 public class MeterController extends BaseController<Meter, Long> {
 
     private final MeterService meterService;
+    private final StringRedisTemplate redisTemplate;
 
-    public MeterController(MeterService meterService) {
+    public MeterController(MeterService meterService, StringRedisTemplate redisTemplate) {
         this.meterService = meterService;
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
@@ -163,8 +165,42 @@ public class MeterController extends BaseController<Meter, Long> {
     @PutMapping("/{id}")
     @Override
     public Result<Meter> update(@PathVariable Long id, @RequestBody @Validated Meter meter) {
-        // 确保ID一致
         meter.setId(id);
         return saveOrUpdate(meter);
+    }
+
+    @Operation(summary = "查询计量器具在线状态")
+    @GetMapping("/online-status")
+    public Result<Map<String, DeviceOnlineInfo>> getOnlineStatus() {
+        List<Meter> meters = meterService.findAll();
+        Map<String, DeviceOnlineInfo> result = new LinkedHashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        for (Meter m : meters) {
+            String key = "ems:device:" + m.getCode() + ":status";
+            String value = redisTemplate.opsForValue().get(key);
+
+            DeviceOnlineInfo info = new DeviceOnlineInfo();
+            if (value != null) {
+                info.setOnline(true);
+                try {
+                    var node = mapper.readTree(value);
+                    if (node.has("lastHeartbeat")) {
+                        info.setLastHeartbeat(node.get("lastHeartbeat").asText());
+                    }
+                } catch (Exception ignored) {}
+            } else {
+                info.setOnline(false);
+            }
+            result.put(m.getCode(), info);
+        }
+
+        return Result.content(result);
+    }
+
+    @lombok.Data
+    public static class DeviceOnlineInfo {
+        private boolean online;
+        private String lastHeartbeat;
     }
 }
