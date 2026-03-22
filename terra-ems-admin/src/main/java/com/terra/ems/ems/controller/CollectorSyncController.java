@@ -158,6 +158,10 @@ public class CollectorSyncController {
                     mapping.setEnergyTypeId(p.getEnergyType() != null ? p.getEnergyType().getId() : null);
                     mapping.setPointType(p.getPointType());
                     mapping.setMeasureType(p.getMeasureType());
+                    mapping.setMinValue(p.getMinValue());
+                    mapping.setMaxValue(p.getMaxValue());
+                    mapping.setStepMin(p.getStepMin());
+                    mapping.setStepMax(p.getStepMax());
                     return mapping;
                 })
                 .collect(Collectors.toList());
@@ -206,6 +210,10 @@ public class CollectorSyncController {
         private Long energyTypeId;
         private String pointType;
         private String measureType;
+        private BigDecimal minValue;
+        private BigDecimal maxValue;
+        private BigDecimal stepMin;
+        private BigDecimal stepMax;
     }
 
     // ============================================================
