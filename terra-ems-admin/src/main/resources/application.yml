@@ -47,7 +47,7 @@ logging:
     com.terra.ems: debug
     org.springframework.security: debug
   file:
-    path: ${LOGGING_FILE_PATH:}
+    name: ${LOGGING_FILE_NAME:}
 
 terra:
   cache:

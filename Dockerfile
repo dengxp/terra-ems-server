@@ -1,23 +1,13 @@
-# Build stage
-FROM maven:3.9.6-eclipse-temurin-21-jammy AS build
-WORKDIR /app
+# Terra EMS Server — 使用本地编译的 jar
+# 先运行 build.sh 再 docker compose up
 
-# Copy the pom.xml and source code
-COPY . .
-
-# Build the application
-RUN mvn clean package -Dmaven.test.skip=true
-
-# Run stage
 FROM eclipse-temurin:21-jre-jammy
+
 WORKDIR /app
+COPY ../build/terra-ems-server.jar app.jar
 
-# Copy the built jar file from the build stage
-# Assuming the main jar is in terra-ems-admin
-COPY --from=build /app/terra-ems-admin/target/terra-ems-admin-*.jar app.jar
+RUN mkdir -p /app/logs
 
-# Set environment variables with defaults
 ENV SPRING_PROFILES_ACTIVE=prod
 
-# Run the application with explicit memory limits for Render free tier (512MB RAM)
-ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-XX:MaxMetaspaceSize=128m", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Xms128m", "-Xmx512m", "-jar", "app.jar"]
