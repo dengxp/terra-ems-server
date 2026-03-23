@@ -92,34 +92,35 @@ public class EnergyStatisticsService {
         TimeRange lastPeriodRange = calculateLastPeriodRange(timeType, dataTime);
 
         // 如果没有指定能源类型，则汇总折标煤，否则按物理量统计
+        // 带降级：当指定 timeType 没有数据时，自动聚合更细粒度数据
         if (energyTypeId == null) {
             // 当期总能耗 (tce)
-            summary.setCurrentTotal(orZero(energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
-                    energyUnitId, timeType, currentRange.start, currentRange.end)));
+            summary.setCurrentTotal(sumStandardCoalWithFallback(
+                    energyUnitId, timeType, currentRange.start, currentRange.end));
 
             // 同期总能耗 (tce)
-            summary.setLastYearTotal(orZero(energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
-                    energyUnitId, timeType, lastYearRange.start, lastYearRange.end)));
+            summary.setLastYearTotal(sumStandardCoalWithFallback(
+                    energyUnitId, timeType, lastYearRange.start, lastYearRange.end));
 
             // 上期总能耗 (tce)
-            summary.setLastPeriodTotal(orZero(energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
-                    energyUnitId, timeType, lastPeriodRange.start, lastPeriodRange.end)));
+            summary.setLastPeriodTotal(sumStandardCoalWithFallback(
+                    energyUnitId, timeType, lastPeriodRange.start, lastPeriodRange.end));
 
             // 趋势数据项 (tce)
             summary.setTrendData(getComprehensiveTrendData(energyUnitId, getSubTimeType(timeType), currentRange.start,
                     currentRange.end));
         } else {
             // 当期总能耗 (物理量)
-            summary.setCurrentTotal(orZero(energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
-                    energyUnitId, energyTypeId, timeType, currentRange.start, currentRange.end)));
+            summary.setCurrentTotal(sumByEnergyTypeWithFallback(
+                    energyUnitId, energyTypeId, timeType, currentRange.start, currentRange.end));
 
             // 同期总能耗 (物理量)
-            summary.setLastYearTotal(orZero(energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
-                    energyUnitId, energyTypeId, timeType, lastYearRange.start, lastYearRange.end)));
+            summary.setLastYearTotal(sumByEnergyTypeWithFallback(
+                    energyUnitId, energyTypeId, timeType, lastYearRange.start, lastYearRange.end));
 
             // 上期总能耗 (物理量)
-            summary.setLastPeriodTotal(orZero(energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
-                    energyUnitId, energyTypeId, timeType, lastPeriodRange.start, lastPeriodRange.end)));
+            summary.setLastPeriodTotal(sumByEnergyTypeWithFallback(
+                    energyUnitId, energyTypeId, timeType, lastPeriodRange.start, lastPeriodRange.end));
 
             // 趋势数据项 (物理量)
             summary.setTrendData(
@@ -134,7 +135,7 @@ public class EnergyStatisticsService {
         summary.setMomRate(calculateChangeRate(summary.getCurrentTotal(), summary.getLastPeriodTotal()));
 
         // 能源类型分布（目前主要针对综合汇总显示）
-        summary.setEnergyTypeDistribution(getEnergyTypeDistribution(
+        summary.setEnergyTypeDistribution(getEnergyTypeDistributionWithFallback(
                 energyUnitId, timeType, currentRange.start, currentRange.end));
 
         return summary;
@@ -187,14 +188,14 @@ public class EnergyStatisticsService {
 
             BigDecimal currentValue, comparisonValue;
             if (energyTypeId == null) {
-                currentValue = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
+                currentValue = sumStandardCoalWithFallback(
                         unit.getId(), timeType, currentRange.start, currentRange.end);
-                comparisonValue = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
+                comparisonValue = sumStandardCoalWithFallback(
                         unit.getId(), timeType, comparisonRange.start, comparisonRange.end);
             } else {
-                currentValue = energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
+                currentValue = sumByEnergyTypeWithFallback(
                         unit.getId(), energyTypeId, timeType, currentRange.start, currentRange.end);
-                comparisonValue = energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
+                comparisonValue = sumByEnergyTypeWithFallback(
                         unit.getId(), energyTypeId, timeType, comparisonRange.start, comparisonRange.end);
             }
 
@@ -221,25 +222,22 @@ public class EnergyStatisticsService {
         TimeRange lastYearRange = calculateTimeRange(timeType, dataTime.minusYears(1));
         TimeRange lastPeriodRange = calculateLastPeriodRange(timeType, dataTime);
 
-        // 当期总能耗 (tce)
-        BigDecimal currentTotal = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
-                energyUnitId, timeType, currentRange.start, currentRange.end);
-        summary.setCurrentTotal(currentTotal != null ? currentTotal : BigDecimal.ZERO);
+        // 当期总能耗 (tce) — 带降级
+        summary.setCurrentTotal(sumStandardCoalWithFallback(
+                energyUnitId, timeType, currentRange.start, currentRange.end));
 
-        // 同期总能耗 (tce)
-        BigDecimal lastYearTotal = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
-                energyUnitId, timeType, lastYearRange.start, lastYearRange.end);
-        summary.setLastYearTotal(lastYearTotal != null ? lastYearTotal : BigDecimal.ZERO);
+        // 同期总能耗 (tce) — 带降级
+        summary.setLastYearTotal(sumStandardCoalWithFallback(
+                energyUnitId, timeType, lastYearRange.start, lastYearRange.end));
 
-        // 上期总能耗 (tce)
-        BigDecimal lastPeriodTotal = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
-                energyUnitId, timeType, lastPeriodRange.start, lastPeriodRange.end);
-        summary.setLastPeriodTotal(lastPeriodTotal != null ? lastPeriodTotal : BigDecimal.ZERO);
+        // 上期总能耗 (tce) — 带降级
+        summary.setLastPeriodTotal(sumStandardCoalWithFallback(
+                energyUnitId, timeType, lastPeriodRange.start, lastPeriodRange.end));
 
         summary.setYoyRate(calculateChangeRate(summary.getCurrentTotal(), summary.getLastYearTotal()));
         summary.setMomRate(calculateChangeRate(summary.getCurrentTotal(), summary.getLastPeriodTotal()));
 
-        summary.setEnergyTypeDistribution(getEnergyTypeDistribution(
+        summary.setEnergyTypeDistribution(getEnergyTypeDistributionWithFallback(
                 energyUnitId, timeType, currentRange.start, currentRange.end));
 
         summary.setTrendData(getComprehensiveTrendData(energyUnitId, getSubTimeType(timeType), currentRange.start,
@@ -255,8 +253,7 @@ public class EnergyStatisticsService {
         List<ComparisonAnalysisDTO> result = new ArrayList<>();
         TimeRange currentRange = calculateTimeRange(timeType, dataTime);
 
-        List<Object[]> data = energyDataRepository.findRankingByParentUnit(
-                parentUnitId, timeType, currentRange.start, currentRange.end);
+        List<Object[]> data = findRankingWithFallback(parentUnitId, timeType, currentRange.start, currentRange.end);
 
         for (Object[] row : data) {
             ComparisonAnalysisDTO dto = new ComparisonAnalysisDTO();
@@ -297,6 +294,24 @@ public class EnergyStatisticsService {
             default:
                 return DateTimeFormatter.ofPattern("yyyy-MM-dd");
         }
+    }
+
+    private List<EnergyTypeDistribution> getEnergyTypeDistributionWithFallback(
+            Long energyUnitId, String timeType, LocalDateTime startTime, LocalDateTime endTime) {
+        for (String tt : getFallbackTimeTypes(timeType)) {
+            List<EnergyTypeDistribution> result = getEnergyTypeDistribution(energyUnitId, tt, startTime, endTime);
+            if (!result.isEmpty()) return result;
+        }
+        return new ArrayList<>();
+    }
+
+    private List<Object[]> findRankingWithFallback(Long parentUnitId, String timeType,
+            LocalDateTime startTime, LocalDateTime endTime) {
+        for (String tt : getFallbackTimeTypes(timeType)) {
+            List<Object[]> data = energyDataRepository.findRankingByParentUnit(parentUnitId, tt, startTime, endTime);
+            if (!data.isEmpty()) return data;
+        }
+        return new ArrayList<>();
     }
 
     private List<EnergyTypeDistribution> getEnergyTypeDistribution(
@@ -435,6 +450,83 @@ public class EnergyStatisticsService {
     }
 
     /**
+     * 获取可降级的时间类型列表
+     * 当指定 timeType 没有数据时，依次尝试更细粒度的数据
+     * 例如：DAY → ["DAY", "HOUR"]，MONTH → ["MONTH", "DAY", "HOUR"]
+     */
+    private List<String> getFallbackTimeTypes(String timeType) {
+        List<String> types = new java.util.ArrayList<>();
+        types.add(timeType);
+        String current = timeType;
+        while (true) {
+            String sub = switch (current) {
+                case "YEAR" -> "MONTH";
+                case "MONTH" -> "DAY";
+                case "DAY" -> "HOUR";
+                default -> null;
+            };
+            if (sub == null) break;
+            types.add(sub);
+            current = sub;
+        }
+        return types;
+    }
+
+    /**
+     * 带降级的汇总查询：先查指定 timeType，没数据则聚合更细粒度
+     */
+    private BigDecimal sumWithFallback(
+            java.util.function.BiFunction<String, String, BigDecimal> queryFn,
+            String timeType, LocalDateTime start, LocalDateTime end) {
+        for (String tt : getFallbackTimeTypes(timeType)) {
+            BigDecimal result = queryFn.apply(tt, tt);
+            if (result != null && result.compareTo(BigDecimal.ZERO) != 0) {
+                return result;
+            }
+        }
+        return BigDecimal.ZERO;
+    }
+
+    /**
+     * 带降级的折标煤汇总
+     */
+    private BigDecimal sumStandardCoalWithFallback(Long energyUnitId, String timeType,
+            LocalDateTime start, LocalDateTime end) {
+        for (String tt : getFallbackTimeTypes(timeType)) {
+            BigDecimal result = sumStandardCoalWithFallback(
+                    energyUnitId, tt, start, end);
+            if (result != null && result.compareTo(BigDecimal.ZERO) != 0) return result;
+        }
+        return BigDecimal.ZERO;
+    }
+
+    /**
+     * 带降级的按能源类型汇总
+     */
+    private BigDecimal sumByEnergyTypeWithFallback(Long energyUnitId, Long energyTypeId,
+            String timeType, LocalDateTime start, LocalDateTime end) {
+        for (String tt : getFallbackTimeTypes(timeType)) {
+            BigDecimal result = sumByEnergyTypeWithFallback(
+                    energyUnitId, energyTypeId, tt, start, end);
+            if (result != null && result.compareTo(BigDecimal.ZERO) != 0) return result;
+        }
+        return BigDecimal.ZERO;
+    }
+
+    /**
+     * 带降级的普通汇总
+     */
+    private BigDecimal sumByUnitWithFallback(Long energyUnitId, String timeType,
+            LocalDateTime start, LocalDateTime end) {
+        for (String tt : getFallbackTimeTypes(timeType)) {
+            BigDecimal result = sumByUnitWithFallback(
+                    energyUnitId, tt, start, end);
+            if (result != null && result.compareTo(BigDecimal.ZERO) != 0) return result;
+        }
+        return BigDecimal.ZERO;
+    }
+
+    /**
      * 获取工序能耗分析
      * 分析各子用能单元（工序）的能耗情况
      *
@@ -468,10 +560,10 @@ public class EnergyStatisticsService {
         for (EnergyUnit unit : childUnits) {
             BigDecimal consumption;
             if (energyTypeId != null) {
-                consumption = energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
+                consumption = sumByEnergyTypeWithFallback(
                         unit.getId(), energyTypeId, timeType, currentRange.start, currentRange.end);
             } else {
-                consumption = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
+                consumption = sumStandardCoalWithFallback(
                         unit.getId(), timeType, currentRange.start, currentRange.end);
             }
             consumption = consumption != null ? consumption : BigDecimal.ZERO;
@@ -599,11 +691,11 @@ public class EnergyStatisticsService {
 
     private BigDecimal sumEnergyConsumption(Long energyUnitId, Long energyTypeId, String timeType, TimeRange range) {
         if (energyTypeId != null) {
-            BigDecimal sum = energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
+            BigDecimal sum = sumByEnergyTypeWithFallback(
                     energyUnitId, energyTypeId, timeType, range.start, range.end);
             return sum != null ? sum : BigDecimal.ZERO;
         } else {
-            BigDecimal sum = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
+            BigDecimal sum = sumStandardCoalWithFallback(
                     energyUnitId, timeType, range.start, range.end);
             return sum != null ? sum : BigDecimal.ZERO;
         }
@@ -734,10 +826,10 @@ public class EnergyStatisticsService {
         for (EnergyUnit branch : branches) {
             BigDecimal consumption;
             if (energyTypeId != null) {
-                consumption = energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
+                consumption = sumByEnergyTypeWithFallback(
                         branch.getId(), energyTypeId, timeType, currentRange.start, currentRange.end);
             } else {
-                consumption = energyDataRepository.sumByEnergyUnitAndTimeRange(
+                consumption = sumByUnitWithFallback(
                         branch.getId(), timeType, currentRange.start, currentRange.end);
             }
             consumption = consumption != null ? consumption : BigDecimal.ZERO;
@@ -815,7 +907,7 @@ public class EnergyStatisticsService {
             dto.setEnergyUnitName(unit.getName());
 
             // 获取实际能耗（折标煤）
-            BigDecimal actualConsumption = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
+            BigDecimal actualConsumption = sumStandardCoalWithFallback(
                     unit.getId(), timeType, currentRange.start, currentRange.end);
             actualConsumption = actualConsumption != null ? actualConsumption : BigDecimal.ZERO;
             dto.setActualConsumption(actualConsumption);
