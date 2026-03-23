@@ -493,7 +493,7 @@ public class EnergyStatisticsService {
     private BigDecimal sumStandardCoalWithFallback(Long energyUnitId, String timeType,
             LocalDateTime start, LocalDateTime end) {
         for (String tt : getFallbackTimeTypes(timeType)) {
-            BigDecimal result = sumStandardCoalWithFallback(
+            BigDecimal result = energyDataRepository.sumStandardCoalByEnergyUnitAndTimeRange(
                     energyUnitId, tt, start, end);
             if (result != null && result.compareTo(BigDecimal.ZERO) != 0) return result;
         }
@@ -506,7 +506,7 @@ public class EnergyStatisticsService {
     private BigDecimal sumByEnergyTypeWithFallback(Long energyUnitId, Long energyTypeId,
             String timeType, LocalDateTime start, LocalDateTime end) {
         for (String tt : getFallbackTimeTypes(timeType)) {
-            BigDecimal result = sumByEnergyTypeWithFallback(
+            BigDecimal result = energyDataRepository.sumByEnergyUnitAndEnergyTypeAndTimeRange(
                     energyUnitId, energyTypeId, tt, start, end);
             if (result != null && result.compareTo(BigDecimal.ZERO) != 0) return result;
         }
@@ -519,7 +519,7 @@ public class EnergyStatisticsService {
     private BigDecimal sumByUnitWithFallback(Long energyUnitId, String timeType,
             LocalDateTime start, LocalDateTime end) {
         for (String tt : getFallbackTimeTypes(timeType)) {
-            BigDecimal result = sumByUnitWithFallback(
+            BigDecimal result = energyDataRepository.sumByEnergyUnitAndTimeRange(
                     energyUnitId, tt, start, end);
             if (result != null && result.compareTo(BigDecimal.ZERO) != 0) return result;
         }
