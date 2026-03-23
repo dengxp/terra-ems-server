@@ -385,7 +385,8 @@ public class EnergyStatisticsService {
 
     private BigDecimal calculateChangeRate(BigDecimal current, BigDecimal comparison) {
         if (comparison == null || comparison.compareTo(BigDecimal.ZERO) == 0) {
-            return BigDecimal.ZERO;
+            // 对比基数为0时无法计算变化率，返回null，前端显示N/A
+            return null;
         }
         return current.subtract(comparison)
                 .multiply(BigDecimal.valueOf(100))
