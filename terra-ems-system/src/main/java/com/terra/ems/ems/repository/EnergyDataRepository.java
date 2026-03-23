@@ -57,6 +57,24 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
                         Long energyTypeId, String timeType, LocalDateTime startTime, LocalDateTime endTime);
 
         /**
+         * 按点位+时间类型+时间范围分组聚合（用于 HOUR→DAY / DAY→MONTH / MONTH→YEAR）
+         * 返回 [meter_point_id, energy_type_id, sum(value)]
+         */
+        @Query("SELECT e.meterPoint.id, e.energyType.id, SUM(e.value) FROM EnergyData e " +
+                        "WHERE e.timeType = :sourceTimeType AND e.dataTime >= :startTime AND e.dataTime < :endTime " +
+                        "GROUP BY e.meterPoint.id, e.energyType.id")
+        List<Object[]> aggregateByTimeRange(
+                        @Param("sourceTimeType") String sourceTimeType,
+                        @Param("startTime") LocalDateTime startTime,
+                        @Param("endTime") LocalDateTime endTime);
+
+        /**
+         * 查找指定点位+时间类型+数据时间的记录（用于幂等 upsert）
+         */
+        java.util.Optional<EnergyData> findByMeterPointIdAndTimeTypeAndDataTime(
+                        Long meterPointId, String timeType, LocalDateTime dataTime);
+
+        /**
          * 查询时间范围内的总能耗
          */
         @Query("SELECT SUM(e.value) FROM EnergyData e WHERE e.meterPoint.id = :pointId " +
