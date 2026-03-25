@@ -13,15 +13,28 @@
   <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="MIT License"/>
 </p>
 
-### 🏗️ Technical Architecture
+### 🏗️ System Architecture
 
 ```mermaid
 graph TD
-    Client[Web Browser / Postman] <-->|RESTful API / JSON| Admin[terra-ems-admin: API Gateway & Controller]
-    Admin <--> Framework[terra-ems-framework: Security & Base Classes]
-    Admin <--> System[terra-ems-system: Service & Repository Layer]
-    System <--> DB[(PostgreSQL 17)]
-    System <--> Redis[(Redis: Cache & Session)]
+    subgraph "Edge"
+        GW[terra-ems-gateway: Rust Collector]
+        Meter[Hardware / Meters] -->|Modbus/DLT645| GW
+    end
+
+    subgraph "Cloud / Center"
+        EMQX{EMQX: MQTT Message Bus}
+        Proc[terra-ems-processor: Rust Processor]
+        Server[terra-ems-server: Java Backend]
+        
+        GW -->|MQTT| EMQX
+        EMQX -->|Subscribe| Proc
+        Proc -->|Ingest| GDB[(GreptimeDB: TSDB)]
+        Proc <-->|API| Server
+        Server <--> DB[(PostgreSQL: Business DB)]
+        Server <--> Redis[(Redis: Cache)]
+        Web[terra-ems-web: React Frontend] <-->|RESTful| Server
+    end
 ```
 
 <p align="center">
@@ -60,8 +73,9 @@ Terra EMS (Terra Energy Management System) is a **modern energy management platf
 *   **Password**: `admin123`
 
 > [!TIP]
-> **More than an EMS - A Robust Web Development Base**:
-> The underlying architecture of Terra EMS follows industry-leading standards. Its **permission management, data dictionary, configuration, logging, and automated CRUD Hook systems** are highly mature. It provides a development experience comparable to RuoYi (若依), and can be used as a general-purpose Java Web rapid development framework.
+> **Key Innovations**:
+> 1. **High-Performance Edge Computing**: Rust-based gateway supporting thousand-level point collection, with disk-level Local Cache to ensure zero data loss during network flips.
+> 2. **Minute-Level Deployment**: Support for YAML site configuration import, enabling one-click initialization of the entire site hierarchy (Site-Gateway-Meter-Point).
 
 ---
 
@@ -70,6 +84,8 @@ Terra EMS (Terra Energy Management System) is a **modern energy management platf
 | Module | Description | Status |
 |:---|:---|:---:|
 | 🔋 **Base Data** | Energy types, Energy units (tree structure), Meters, Sampling points | ✅ |
+| 🚀 **Fast Deploy** | **One-click YAML Site Import**, Auto-initialization | ✅ |
+| 🛡️ **Edge Intel** | **Rust Collector**, Local Cache, Transparent Transmission | ✅ |
 | 📊 **Statistics** | Consumption stats, YoY/MoM analysis, Trend analysis, Ranking, Dashboards | ✅ |
 | ⚡ **Peak & Valley** | TOU pricing policy configuration, peak/valley/flat usage analysis | ✅ |
 | 💰 **Cost Mgmt** | Price policy management, cost binding, cost records & variance analysis | ✅ |
@@ -88,14 +104,13 @@ Terra EMS (Terra Energy Management System) is a **modern energy management platf
 
 | Category | Technology | Version |
 |:---|:---|:---|
-| **Language** | Java | 21 |
-| **Framework** | Spring Boot | 3.4.4 |
-| **ORM** | Spring Data JPA + Hibernate | — |
-| **Database** | PostgreSQL | 17 |
-| **Cache** | Redis + Spring Session | 6+ |
-| **Auth** | Header-Based Token (`X-Terra-Auth-Token`) | — |
-| **Docs** | SpringDoc OpenAPI (Swagger) | — |
-| **Build** | Maven | 3.9+ |
+| **Language** | Java 21 / **Rust 1.82+** | — |
+| **Message Bus** | **EMQX (MQTT 5.0)** | 5.x |
+| **Business DB** | PostgreSQL | 17 |
+| **TSDB** | **GreptimeDB** | 0.9+ |
+| **Cache** | Redis | 6+ |
+| **Backend** | Spring Boot | 3.4.4 |
+| **Frontend** | React + TypeScript + Ant Design Pro | — |
 
 ---
 

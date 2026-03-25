@@ -13,15 +13,28 @@
   <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="MIT License"/>
 </p>
 
-### 🏗️ 逻辑架构图
+### 🏗️ 系统架构图
 
 ```mermaid
 graph TD
-    Client[浏览器 / 管理端] <-->|RESTful API / JSON| Admin[terra-ems-admin: 控制层与入口]
-    Admin <--> Framework[terra-ems-framework: 安全、基类与核心组件]
-    Admin <--> System[terra-ems-system: 业务逻辑与数据持久化]
-    System <--> DB[(PostgreSQL 17)]
-    System <--> Redis[(Redis: 缓存与 Session)]
+    subgraph "边缘端 (Edge)"
+        GW[terra-ems-gateway: Rust 采集网关]
+        Meter[物理设备 / 仪表] -->|Modbus/DLT645| GW
+    end
+
+    subgraph "云端/中心端 (Cloud/Center)"
+        EMQX{EMQX: MQTT 消息总线}
+        Proc[terra-ems-processor: Rust 数据处理器]
+        Server[terra-ems-server: Java 业务中后台]
+        
+        GW -->|MQTT| EMQX
+        EMQX -->|Subscribe| Proc
+        Proc -->|Ingest| GDB[(GreptimeDB: 时序存储)]
+        Proc <-->|API| Server
+        Server <--> DB[(PostgreSQL: 业务存储)]
+        Server <--> Redis[(Redis: 缓存)]
+        Web[terra-ems-web: React 前端] <-->|RESTful| Server
+    end
 ```
 
 ---
@@ -56,16 +69,17 @@ Terra EMS（Terra Energy Management System）是一套面向工业企业的**现
 *   **密码**：`admin123`
 
 > [!TIP]
-> **不仅是 EMS，更是一个完备的 Web 开发基座**：
-> Terra EMS 的底层架构参考了业界主流标准，其**基础权限管理、字典、配置、日志及自动化的 CRUD Hook 体系**已非常成熟，成熟度不逊于 RuoYi (若依)。您完全可以将其作为通用的 Java Web 快速开发框架使用，基础模块开箱即用。
+> **两大核心黑科技**：
+> 1. **高性能边缘计算**：基于 Rust 的边缘网关，支持千量级点位并发采集，内置磁盘级 Local Cache，保障网络波动时数据零丢失。
+> 2. **分钟级场站部署**：支持 YAML 场站配置文件导入，一键完成“场站-网关-设备-点位”的整站层级初始化。
 
 ---
 
 ## ✨ 核心功能
 
-| 模块 | 功能描述 | 状态 |
-|:---|:---|:---:|
 | 🔋 **基础数据** | 能源类型、用能单元（树形结构）、计量器具、采集点位 | ✅ |
+| 🚀 **快速部署** | **场站配置 YAML 一键导入**、整站初始化 | ✅ |
+| 🛡️ **边缘智能** | **Rust 采集网关**、断网补显、协议透明传输 | ✅ |
 | 📊 **统计分析** | 能耗统计、同比环比、趋势分析、排名分析、综合看板 | ✅ |
 | ⚡ **峰谷分析** | 分时电价策略配置、尖峰平谷用电量分析 | ✅ |
 | 💰 **成本管理** | 电价策略管理、成本策略绑定、能源成本记录与偏差分析 | ✅ |
@@ -84,14 +98,13 @@ Terra EMS（Terra Energy Management System）是一套面向工业企业的**现
 
 | 类别 | 技术 | 版本 |
 |:---|:---|:---|
-| **语言** | Java | 21 |
-| **框架** | Spring Boot | 3.4.4 |
-| **ORM** | Spring Data JPA + Hibernate | — |
-| **数据库** | PostgreSQL | 17 |
-| **缓存** | Redis + Spring Session | 6+ |
-| **认证** | Header-Based Token (`X-Terra-Auth-Token`) | — |
-| **工具库** | Lombok / MapStruct / Hutool / Guava | — |
-| **构建** | Maven | 3.9+ |
+| **语言** | Java 21 / **Rust 1.82+** | — |
+| **消息总线** | **EMQX (MQTT 5.0)** | 5.x |
+| **业务数据库** | PostgreSQL | 17 |
+| **时序数据库** | **GreptimeDB** | 0.9+ |
+| **缓存** | Redis | 6+ |
+| **后端框架** | Spring Boot | 3.4.4 |
+| **前端框架** | React + TypeScript + Ant Design Pro | — |
 
 ---
 
