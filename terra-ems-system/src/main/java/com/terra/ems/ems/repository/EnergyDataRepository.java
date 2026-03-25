@@ -89,7 +89,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          * 按用能单元ID查询能耗汇总
          */
         @Query("SELECT SUM(e.value) FROM EnergyData e " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime")
         BigDecimal sumByEnergyUnitAndTimeRange(
@@ -103,7 +103,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          */
         @Query("SELECT SUM(e.value) FROM EnergyData e " +
                         "JOIN e.energyType et " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND et.id = :energyTypeId " +
                         "AND e.timeType = :timeType AND e.dataTime BETWEEN :startTime AND :endTime")
         BigDecimal sumByEnergyUnitAndEnergyTypeAndTimeRange(
@@ -117,7 +117,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          * 查询趋势数据（按时间分组）
          */
         @Query("SELECT e.dataTime, SUM(e.value) FROM EnergyData e " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime " +
                         "GROUP BY e.dataTime ORDER BY e.dataTime")
@@ -132,7 +132,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          */
         @Query("SELECT e.dataTime, SUM(e.value) FROM EnergyData e " +
                         "JOIN e.energyType et " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND et.id = :energyTypeId " +
                         "AND e.timeType = :timeType AND e.dataTime BETWEEN :startTime AND :endTime " +
                         "GROUP BY e.dataTime ORDER BY e.dataTime")
@@ -147,7 +147,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          * 按能源类型分组统计
          */
         @Query("SELECT e.energyType.id, e.energyType.name, SUM(e.value) FROM EnergyData e " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime " +
                         "GROUP BY e.energyType.id, e.energyType.name")
@@ -162,7 +162,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          */
         @Query("SELECT SUM(e.value * et.coefficient) FROM EnergyData e " +
                         "JOIN e.energyType et " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime")
         BigDecimal sumStandardCoalByEnergyUnitAndTimeRange(
@@ -176,7 +176,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          */
         @Query("SELECT eu.id, eu.name, SUM(e.value * et.coefficient) as totalValue FROM EnergyData e " +
                         "JOIN e.energyType et " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.parent.id = :parentId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime " +
                         "GROUP BY eu.id, eu.name " +
@@ -192,7 +192,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          */
         @Query("SELECT SUM(e.value * et.emissionFactor) FROM EnergyData e " +
                         "JOIN e.energyType et " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime")
         BigDecimal sumCarbonEmissionByEnergyUnitAndTimeRange(
@@ -206,7 +206,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          */
         @Query("SELECT eu.id, eu.name, SUM(e.value * et.emissionFactor) as totalValue FROM EnergyData e " +
                         "JOIN e.energyType et " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.parent.id = :parentId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime " +
                         "GROUP BY eu.id, eu.name " +
@@ -222,7 +222,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          */
         @Query("SELECT e.dataTime, SUM(e.value * et.coefficient) FROM EnergyData e " +
                         "JOIN e.energyType et " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime " +
                         "GROUP BY e.dataTime ORDER BY e.dataTime")
@@ -237,7 +237,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          */
         @Query("SELECT et.id, et.name, SUM(e.value * et.coefficient) FROM EnergyData e " +
                         "JOIN e.energyType et " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime " +
                         "GROUP BY et.id, et.name")
@@ -252,7 +252,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          */
         @Query("SELECT e.dataTime, SUM(e.value * et.emissionFactor) FROM EnergyData e " +
                         "JOIN e.energyType et " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime " +
                         "GROUP BY e.dataTime ORDER BY e.dataTime")
@@ -267,7 +267,7 @@ public interface EnergyDataRepository extends JpaRepository<EnergyData, Long> {
          */
         @Query("SELECT et.id, et.name, SUM(e.value * et.emissionFactor) FROM EnergyData e " +
                         "JOIN e.energyType et " +
-                        "JOIN e.meterPoint mp JOIN mp.energyUnits eu " +
+                        "JOIN e.meterPoint mp JOIN mp.meter m JOIN m.energyUnit eu " +
                         "WHERE eu.id = :energyUnitId AND e.timeType = :timeType " +
                         "AND e.dataTime BETWEEN :startTime AND :endTime " +
                         "GROUP BY et.id, et.name")

@@ -42,19 +42,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.security.access.prepost.PreAuthorize;
-import com.terra.ems.common.annotation.Log;
-import com.terra.ems.common.enums.BusinessType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 字典类型控制器

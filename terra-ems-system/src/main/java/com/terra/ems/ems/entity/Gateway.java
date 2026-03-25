@@ -100,6 +100,14 @@ public class Gateway extends BaseEntity {
     @Column(name = "last_heartbeat")
     private LocalDateTime lastHeartbeat;
 
+    @Schema(title = "CPU 使用率 (%)")
+    @Column(name = "cpu_usage")
+    private Double cpuUsage;
+
+    @Schema(title = "内存使用率 (%)")
+    @Column(name = "mem_usage")
+    private Double memUsage;
+
     @Schema(title = "状态")
     @Column(name = "status", nullable = false)
     private DataItemStatus status = DataItemStatus.ENABLE;

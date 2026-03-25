@@ -31,7 +31,6 @@ import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysUser;
-import com.terra.ems.system.mapper.UserMapper;
 import com.terra.ems.system.param.UserQueryParam;
 import com.terra.ems.system.service.SysUserService;
 import com.terra.ems.system.vo.SysUserImportVo;
@@ -53,7 +52,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +61,6 @@ import com.terra.ems.common.enums.BusinessType;
 import com.terra.ems.common.annotation.SuperPermission;
 import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.HashSet;
-import java.util.Set;
 
 import java.time.LocalDateTime;
 
@@ -82,12 +79,10 @@ public class SysUserController extends BaseController<SysUser, Long> {
     private static final Logger log = LoggerFactory.getLogger(SysUserController.class);
 
     private final SysUserService userService;
-    private final UserMapper userMapper;
 
     @Autowired
-    public SysUserController(SysUserService userService, UserMapper userMapper) {
+    public SysUserController(SysUserService userService) {
         this.userService = userService;
-        this.userMapper = userMapper;
     }
 
     /**

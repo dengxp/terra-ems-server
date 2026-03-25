@@ -25,14 +25,12 @@
 package com.terra.ems.ems.controller;
 
 import com.terra.ems.common.domain.Result;
-import com.terra.ems.ems.entity.EnergyData;
-import com.terra.ems.ems.entity.EnergyType;
-import com.terra.ems.ems.entity.EnergyUnit;
-import com.terra.ems.ems.entity.MeterPoint;
+import com.terra.ems.ems.entity.*;
 import com.terra.ems.ems.repository.EnergyDataRepository;
 import com.terra.ems.ems.repository.EnergyTypeRepository;
 import com.terra.ems.ems.repository.EnergyUnitRepository;
 import com.terra.ems.ems.repository.MeterPointRepository;
+import com.terra.ems.ems.repository.MeterRepository;
 import com.terra.ems.framework.enums.DataItemStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -59,6 +57,7 @@ public class DemoDataController {
 
     private final EnergyUnitRepository energyUnitRepository;
     private final MeterPointRepository meterPointRepository;
+    private final MeterRepository meterRepository;
     private final EnergyTypeRepository energyTypeRepository;
     private final EnergyDataRepository energyDataRepository;
 
@@ -95,13 +94,22 @@ public class DemoDataController {
             List<MeterPoint> points = meterPointRepository.findByEnergyUnitId(unit.getId());
             MeterPoint point;
             if (points.isEmpty()) {
+                // 先创建演示 Meter 关联到 EnergyUnit
+                Meter demoMeter = new Meter();
+                demoMeter.setCode("DEMO_METER_" + unit.getCode());
+                demoMeter.setName(unit.getName() + "演示表计");
+                demoMeter.setEnergyType(electricType);
+                demoMeter.setEnergyUnit(unit);
+                demoMeter.setStatus(DataItemStatus.ENABLE);
+                demoMeter = meterRepository.save(demoMeter);
+
                 point = new MeterPoint();
                 point.setCode("DEMO_" + unit.getCode());
                 point.setName(unit.getName() + "演示点位");
                 point.setPointType("COLLECT");
                 point.setEnergyType(electricType);
+                point.setMeter(demoMeter);
                 point.setStatus(DataItemStatus.ENABLE);
-                point.getEnergyUnits().add(unit);
                 point = meterPointRepository.save(point);
             } else {
                 point = points.get(0);

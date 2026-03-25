@@ -47,9 +47,8 @@ import java.util.*;
  * 2. 用能单元树（递归）
  * 3. 网关 → 数据源
  * 4. 用能设备
- * 5. 计量器具
+ * 5. 计量器具（关联用能单元）
  * 6. 计量点
- * 7. 用能单元 ↔ 计量点 多对多关联
  *
  * @author dengxueping
  * @since 2026-03-21
@@ -336,6 +335,7 @@ public class SiteImportService {
         meter.setGateway(gateway);
         meter.setDataSource(dataSource);
         meter.setEquipment(equipment);
+        meter.setEnergyUnit(energyUnit);
         meter.setStatus(DataItemStatus.ENABLE);
 
         // 通信参数 JSON
@@ -359,7 +359,7 @@ public class SiteImportService {
     }
 
     /**
-     * 导入计量点，并建立与用能单元的多对多关联
+     * 导入计量点
      */
     private void importPoint(
             SiteConfigDto.PointConfig pointConfig,
@@ -403,12 +403,6 @@ public class SiteImportService {
             } catch (Exception e) {
                 log.warn("序列化 acquisition_params 失败: {}", e.getMessage());
             }
-        }
-
-        // 关联用能单元（一对一：一个计量点只关联一个用能单元）
-        point.getEnergyUnits().clear();
-        if (energyUnit != null) {
-            point.getEnergyUnits().add(energyUnit);
         }
 
         meterPointRepository.save(point);

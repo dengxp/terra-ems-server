@@ -28,7 +28,6 @@ import com.terra.ems.common.domain.Option;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.definition.dto.Pager;
-import com.terra.ems.framework.service.BaseService;
 import com.terra.ems.system.entity.SysPermission;
 import com.terra.ems.system.service.SysPermissionService;
 import io.swagger.v3.oas.annotations.Operation;

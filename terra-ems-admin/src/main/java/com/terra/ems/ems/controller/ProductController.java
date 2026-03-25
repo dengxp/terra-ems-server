@@ -32,7 +32,6 @@ import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.service.BaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import com.terra.ems.ems.param.ProductQueryParam;
 import com.terra.ems.ems.enums.ProductType;
 import com.terra.ems.framework.definition.dto.Pager;
 import com.terra.ems.common.domain.Result;
@@ -115,29 +114,6 @@ public class ProductController extends BaseController<Product, Long> {
         };
 
         return super.findByPage(pager, spec);
-    }
-
-    private Specification<Product> buildSpecification(ProductQueryParam query) {
-        return (root, q, cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
-
-            if (query != null) {
-                if (StringUtils.hasText(query.getCode())) {
-                    predicates.add(cb.like(root.get("code"), "%" + query.getCode() + "%"));
-                }
-                if (StringUtils.hasText(query.getName())) {
-                    predicates.add(cb.like(root.get("name"), "%" + query.getName() + "%"));
-                }
-                if (StringUtils.hasText(query.getType())) {
-                    predicates.add(cb.equal(root.get("type"), ProductType.fromValue(query.getType())));
-                }
-                if (query.getStatus() != null) {
-                    predicates.add(cb.equal(root.get("status"), DataItemStatus.fromValue(query.getStatus())));
-                }
-            }
-
-            return cb.and(predicates.toArray(new Predicate[0]));
-        };
     }
 
     @Operation(summary = "获取启用的产品列表")

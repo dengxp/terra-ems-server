@@ -25,26 +25,23 @@
 package com.terra.ems.ems.service;
 
 import com.terra.ems.ems.entity.EnergyType;
-import com.terra.ems.ems.entity.EnergyUnit;
 import com.terra.ems.ems.entity.Meter;
 import com.terra.ems.ems.entity.MeterPoint;
 import com.terra.ems.ems.repository.EnergyTypeRepository;
-import com.terra.ems.ems.repository.EnergyUnitRepository;
 import com.terra.ems.ems.repository.MeterPointRepository;
 import com.terra.ems.ems.repository.MeterRepository;
 import com.terra.ems.framework.enums.DataItemStatus;
 import com.terra.ems.framework.jpa.repository.BaseRepository;
 import com.terra.ems.framework.service.BaseService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * 采集点位服务
@@ -54,13 +51,14 @@ import java.util.Set;
  */
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class MeterPointService extends BaseService<MeterPoint, Long> {
 
     private final MeterPointRepository meterPointRepository;
     private final MeterRepository meterRepository;
     private final EnergyTypeRepository energyTypeRepository;
-    private final EnergyUnitRepository energyUnitRepository;
+    private final MqttPublisherService mqttPublisherService;
 
     @Override
     public BaseRepository<MeterPoint, Long> getRepository() {
@@ -81,7 +79,9 @@ public class MeterPointService extends BaseService<MeterPoint, Long> {
         if (existing.isPresent() && !existing.get().getId().equals(meterPoint.getId())) {
             throw new IllegalArgumentException("编码已存在: " + meterPoint.getCode());
         }
-        return meterPointRepository.save(meterPoint);
+        MeterPoint saved = meterPointRepository.save(meterPoint);
+        notifyReload(saved);
+        return saved;
     }
 
     /**
@@ -163,7 +163,9 @@ public class MeterPointService extends BaseService<MeterPoint, Long> {
             meterPoint.setEnergyType(energyType);
         }
 
-        return meterPointRepository.save(meterPoint);
+        MeterPoint saved = meterPointRepository.save(meterPoint);
+        notifyReload(saved);
+        return saved;
     }
 
     /**
@@ -220,7 +222,9 @@ public class MeterPointService extends BaseService<MeterPoint, Long> {
             existing.setEnergyType(null);
         }
 
-        return meterPointRepository.save(existing);
+        MeterPoint saved = meterPointRepository.save(existing);
+        notifyReload(saved);
+        return saved;
     }
 
     /**
@@ -230,10 +234,12 @@ public class MeterPointService extends BaseService<MeterPoint, Long> {
      */
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
-        if (!meterPointRepository.existsById(id)) {
+        MeterPoint existing = meterPointRepository.findById(id).orElse(null);
+        if (existing == null) {
             throw new IllegalArgumentException("采集点位不存在: " + id);
         }
         meterPointRepository.deleteById(id);
+        notifyReload(existing);
     }
 
     /**
@@ -248,35 +254,24 @@ public class MeterPointService extends BaseService<MeterPoint, Long> {
         MeterPoint existing = meterPointRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("采集点位不存在: " + id));
         existing.setStatus(status);
-        return meterPointRepository.save(existing);
+        MeterPoint saved = meterPointRepository.save(existing);
+        notifyReload(saved);
+        return saved;
     }
 
-    /**
-     * 关联用能单元
-     *
-     * @param id            采集点位ID
-     * @param energyUnitIds 用能单元ID集合
-     * @return 更新后的采集点位
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public MeterPoint assignEnergyUnits(Long id, Set<Long> energyUnitIds) {
-        MeterPoint existing = meterPointRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("采集点位不存在: " + id));
-
-        // 清除现有关联
-        existing.getEnergyUnits().clear();
-
-        // 添加新关联
-        if (energyUnitIds != null && !energyUnitIds.isEmpty()) {
-            Set<EnergyUnit> energyUnits = new HashSet<>();
-            for (Long energyUnitId : energyUnitIds) {
-                EnergyUnit energyUnit = energyUnitRepository.findById(energyUnitId)
-                        .orElseThrow(() -> new IllegalArgumentException("用能单元不存在: " + energyUnitId));
-                energyUnits.add(energyUnit);
+    private void notifyReload(MeterPoint point) {
+        try {
+            if (point.getMeter() != null) {
+                Meter meter = point.getMeter();
+                if (meter.getDataSource() != null && meter.getDataSource().getGateway() != null) {
+                    mqttPublisherService.notifyGatewayReload(meter.getDataSource().getGateway().getCode());
+                } else if (meter.getGateway() != null) {
+                    mqttPublisherService.notifyGatewayReload(meter.getGateway().getCode());
+                }
             }
-            existing.setEnergyUnits(energyUnits);
+        } catch (Exception e) {
+            log.warn("Failed to notify collector reload for meter point {}", point.getId(), e);
         }
-
-        return meterPointRepository.save(existing);
     }
+
 }

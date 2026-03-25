@@ -44,7 +44,7 @@ import java.time.LocalDate;
  */
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = { "energyUnit" })
 @Entity
 @Table(name = "ems_meter", uniqueConstraints = {
                 @UniqueConstraint(columnNames = { "code" })
@@ -141,6 +141,12 @@ public class Meter extends BaseEntity {
         @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
         private Equipment equipment;
 
+        @Schema(title = "所属用能单元", description = "计量器具安装在哪个用能单元")
+        @ManyToOne(fetch = FetchType.EAGER)
+        @JoinColumn(name = "energy_unit_id")
+        @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "children", "parent" })
+        private EnergyUnit energyUnit;
+
         @Schema(title = "通信参数", description = "JSON 格式，存储协议特有的设备级参数（如 Modbus 从站地址、DL/T645 电表地址等）")
         @Column(name = "comm_params", columnDefinition = "TEXT")
         private String commParams;
@@ -199,6 +205,21 @@ public class Meter extends BaseEntity {
                         this.equipment.setId(equipmentId);
                 } else {
                         this.equipment = null;
+                }
+        }
+
+        @JsonProperty("energyUnitId")
+        public Long getEnergyUnitId() {
+                return energyUnit != null ? energyUnit.getId() : null;
+        }
+
+        @JsonProperty("energyUnitId")
+        public void setEnergyUnitId(Long energyUnitId) {
+                if (energyUnitId != null) {
+                        this.energyUnit = new EnergyUnit();
+                        this.energyUnit.setId(energyUnitId);
+                } else {
+                        this.energyUnit = null;
                 }
         }
 }

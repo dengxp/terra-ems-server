@@ -110,7 +110,7 @@ public interface MeterPointRepository extends BaseRepository<MeterPoint, Long> {
      * @param energyUnitId 用能单元ID
      * @return 采集点位列表
      */
-    @Query("SELECT mp FROM MeterPoint mp JOIN mp.energyUnits eu WHERE eu.id = :energyUnitId ORDER BY mp.sortOrder ASC")
+    @Query("SELECT mp FROM MeterPoint mp JOIN mp.meter m JOIN m.energyUnit eu WHERE eu.id = :energyUnitId ORDER BY mp.sortOrder ASC")
     List<MeterPoint> findByEnergyUnitId(@Param("energyUnitId") Long energyUnitId);
 
     /**

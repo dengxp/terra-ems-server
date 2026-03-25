@@ -29,6 +29,7 @@ import com.terra.ems.ems.entity.*;
 import com.terra.ems.ems.repository.AlarmConfigRepository;
 import com.terra.ems.ems.repository.AlarmRecordRepository;
 import com.terra.ems.ems.repository.EnergyDataRepository;
+import com.terra.ems.ems.repository.GatewayRepository;
 import com.terra.ems.ems.repository.MeterPointRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -41,14 +42,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * 采集服务数据同步控制器
+ * 数据处理器同步控制器
  *
- * 供 terra-ems-collector（Rust 采集服务）调用，
+ * 供 terra-ems-processor（Rust 云端数据处理器）调用，
  * 将聚合后的能耗数据同步写入 ems_energy_data 表。
  *
  * @author dengxueping
@@ -56,13 +56,14 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestController
-@RequestMapping("/collector")
-@Tag(name = "采集服务数据同步")
+@RequestMapping("/processor")
+@Tag(name = "数据处理器同步接口")
 @RequiredArgsConstructor
-public class CollectorSyncController {
+public class ProcessorSyncController {
 
     private final EnergyDataRepository energyDataRepository;
     private final MeterPointRepository meterPointRepository;
+    private final GatewayRepository gatewayRepository;
     private final AlarmConfigRepository alarmConfigRepository;
     private final AlarmRecordRepository alarmRecordRepository;
 
@@ -71,7 +72,7 @@ public class CollectorSyncController {
     /**
      * 同步能耗聚合数据
      *
-     * 接收 collector 推送的聚合数据，写入 ems_energy_data 表。
+     * 接收 processor 推送的聚合数据，写入 ems_energy_data 表。
      * 使用 UPSERT 语义：同一点位、同一时间、同一时间类型的数据会被更新。
      */
     @Operation(summary = "同步能耗聚合数据")
@@ -81,7 +82,7 @@ public class CollectorSyncController {
             return Result.content(new SyncResult(0, 0, 0));
         }
 
-        log.info("收到采集服务数据同步请求，数据条数：{}", items.size());
+        log.info("收到处理器数据同步请求，数据条数：{}", items.size());
 
         int accepted = 0;
         int updated = 0;
@@ -140,9 +141,35 @@ public class CollectorSyncController {
     }
 
     /**
+     * 同步网关状态和资源指标
+     */
+    @Operation(summary = "同步网关状态和资源指标")
+    @PostMapping("/sync-gateway-status")
+    public Result<String> syncGatewayStatus(@RequestBody SyncGatewayStatusItem item) {
+        if (item == null || item.getCode() == null) {
+            return Result.failure("网关编码不能为空");
+        }
+
+        Optional<Gateway> gatewayOpt = gatewayRepository.findByCode(item.getCode());
+        if (gatewayOpt.isEmpty()) {
+            return Result.failure("网关不存在：" + item.getCode());
+        }
+
+        Gateway gateway = gatewayOpt.get();
+        gateway.setCpuUsage(item.getCpuUsage());
+        gateway.setMemUsage(item.getMemUsage());
+        gateway.setLastHeartbeat(LocalDateTime.now());
+        gateway.setRunStatus(item.getOnline() ? "ONLINE" : "OFFLINE");
+        
+        gatewayRepository.save(gateway);
+
+        return Result.success("网关状态更新成功");
+    }
+
+    /**
      * 获取所有采集点位映射信息
      *
-     * 供 collector 启动时拉取，用于建立 point_code → (meter_point_id, energy_type_id) 映射。
+     * 供 processor 启动时拉取，用于建立 point_code → (meter_point_id, energy_type_id) 映射。
      */
     @Operation(summary = "获取采集点位映射")
     @GetMapping("/point-mappings")
@@ -216,12 +243,24 @@ public class CollectorSyncController {
         private BigDecimal stepMax;
     }
 
+    /**
+     * 网关状态同步项
+     */
+    @Data
+    public static class SyncGatewayStatusItem {
+        private String code;
+        private Double cpuUsage;
+        private Double memUsage;
+        private Boolean online;
+        private String lastHeartbeat;
+    }
+
     // ============================================================
     // 告警相关接口
     // ============================================================
 
     /**
-     * 获取告警配置（供 collector 加载告警规则）
+     * 获取告警配置（供 processor 加载告警规则）
      *
      * 返回所有已启用的告警配置，包含点位编码、限值类型、限值、比较运算符等。
      */
@@ -263,7 +302,7 @@ public class CollectorSyncController {
             return Result.content(new AlarmPushResult(0, 0));
         }
 
-        log.info("收到采集服务告警事件推送，数量：{}", events.size());
+        log.info("收到处理器告警事件推送，数量：{}", events.size());
 
         int recorded = 0;
         int skipped = 0;
@@ -311,7 +350,7 @@ public class CollectorSyncController {
     }
 
     /**
-     * 告警配置项（返回给 collector）
+     * 告警配置项（返回给 processor）
      */
     @Data
     public static class AlarmConfigItem {
@@ -325,7 +364,7 @@ public class CollectorSyncController {
     }
 
     /**
-     * 告警事件项（collector 推送）
+     * 告警事件项（processor 推送）
      */
     @Data
     public static class AlarmEventItem {

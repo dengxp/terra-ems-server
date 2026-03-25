@@ -26,12 +26,10 @@ package com.terra.ems.ems.controller;
 
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.ems.entity.EnergyCostRecord;
-import com.terra.ems.ems.enums.RecordPeriodType;
 import com.terra.ems.ems.param.EnergyCostRecordQueryParam;
 import com.terra.ems.ems.service.EnergyCostRecordService;
 import com.terra.ems.framework.controller.BaseController;
 import com.terra.ems.framework.service.BaseService;
-import java.util.Optional;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

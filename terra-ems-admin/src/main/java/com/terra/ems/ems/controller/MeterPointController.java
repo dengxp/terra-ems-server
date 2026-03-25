@@ -212,18 +212,8 @@ public class MeterPointController extends BaseController<MeterPoint, Long> {
         return Result.content(meterPointService.updateStatus(id, status));
     }
 
-    /**
-     * 关联用能单元
-     */
-    @Operation(summary = "关联用能单元")
-    @Log(title = "计量点", businessType = BusinessType.UPDATE)
-    @PreAuthorize("hasPerm('ems:meter-point:edit')")
-    @PostMapping("/{id}/energy-units")
-    public Result<MeterPoint> assignEnergyUnits(
-            @PathVariable Long id,
-            @RequestBody Set<Long> energyUnitIds) {
-        return Result.content(meterPointService.assignEnergyUnits(id, energyUnitIds));
-    }
+
+
 
     /**
      * 根据ID查询采集点位

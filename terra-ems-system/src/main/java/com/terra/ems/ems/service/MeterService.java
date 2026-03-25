@@ -37,6 +37,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +51,12 @@ import java.util.Optional;
  */
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class MeterService extends BaseService<Meter, Long> {
 
     private final MeterRepository meterRepository;
+    private final MqttPublisherService mqttPublisherService;
 
     @Override
     public BaseRepository<Meter, Long> getRepository() {
@@ -104,7 +107,9 @@ public class MeterService extends BaseService<Meter, Long> {
         if (meterRepository.existsByCode(meter.getCode())) {
             throw new IllegalArgumentException("编码已存在: " + meter.getCode());
         }
-        return meterRepository.save(meter);
+        Meter saved = meterRepository.save(meter);
+        notifyReload(saved);
+        return saved;
     }
 
     /**
@@ -143,7 +148,9 @@ public class MeterService extends BaseService<Meter, Long> {
         existing.setStatus(meter.getStatus());
         existing.setRemark(meter.getRemark());
 
-        return meterRepository.save(existing);
+        Meter saved = meterRepository.save(existing);
+        notifyReload(saved);
+        return saved;
     }
 
     /**
@@ -153,10 +160,12 @@ public class MeterService extends BaseService<Meter, Long> {
      */
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
-        if (!meterRepository.existsById(id)) {
+        Meter existing = meterRepository.findById(id).orElse(null);
+        if (existing == null) {
             throw new IllegalArgumentException("计量器具不存在: " + id);
         }
         meterRepository.deleteById(id);
+        notifyReload(existing);
     }
 
     /**
@@ -166,9 +175,25 @@ public class MeterService extends BaseService<Meter, Long> {
      */
     @Transactional(rollbackFor = Exception.class)
     public void deleteBatch(List<Long> ids) {
-        if (ids == null || ids.isEmpty()) {
+        List<Meter> meters = meterRepository.findAllById(ids);
+        if (meters.isEmpty()) {
             return;
         }
         meterRepository.deleteAllById(ids);
+        for (Meter meter : meters) {
+            notifyReload(meter);
+        }
+    }
+
+    private void notifyReload(Meter meter) {
+        try {
+            if (meter.getDataSource() != null && meter.getDataSource().getGateway() != null) {
+                mqttPublisherService.notifyGatewayReload(meter.getDataSource().getGateway().getCode());
+            } else if (meter.getGateway() != null) {
+                mqttPublisherService.notifyGatewayReload(meter.getGateway().getCode());
+            }
+        } catch (Exception e) {
+            log.warn("Failed to notify collector reload for meter {}", meter.getId(), e);
+        }
     }
 }

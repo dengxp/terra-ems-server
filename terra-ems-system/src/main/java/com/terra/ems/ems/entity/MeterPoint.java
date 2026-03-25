@@ -33,8 +33,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 采集点位实体
@@ -46,7 +44,7 @@ import java.util.Set;
  */
 
 @Data
-@EqualsAndHashCode(callSuper = true, exclude = { "meter", "energyType", "energyUnits" })
+@EqualsAndHashCode(callSuper = true, exclude = { "meter", "energyType" })
 @Entity
 @Table(name = "ems_meter_point", uniqueConstraints = {
                 @UniqueConstraint(columnNames = { "code" })
@@ -135,11 +133,7 @@ public class MeterPoint extends BaseEntity {
         @Column(name = "remark", length = 500)
         private String remark;
 
-        @Schema(title = "关联用能单元", description = "多对多关系")
-        @ManyToMany
-        @JoinTable(name = "ems_energy_unit_point", joinColumns = @JoinColumn(name = "meter_point_id"), inverseJoinColumns = @JoinColumn(name = "energy_unit_id"))
-        @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "children", "parent", "meterPoints" })
-        private Set<EnergyUnit> energyUnits = new HashSet<>();
+
 
         // ============================================================================
         // @JsonProperty 桥接模式 - 用于前端扁平数据与后端实体对象的无缝转换

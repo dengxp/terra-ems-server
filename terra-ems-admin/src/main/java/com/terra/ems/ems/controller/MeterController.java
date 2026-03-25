@@ -131,6 +131,9 @@ public class MeterController extends BaseController<Meter, Long> {
             if (StringUtils.hasText(param.getType())) {
                 predicates.add(cb.equal(root.get("type"), param.getType()));
             }
+            if (param.getEnergyUnitId() != null) {
+                predicates.add(cb.equal(root.get("energyUnit").get("id"), param.getEnergyUnitId()));
+            }
             if (param.getStatus() != null) {
                 predicates.add(cb.equal(root.get("status"), DataItemStatus.fromValue(param.getStatus())));
             }

@@ -28,23 +28,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.terra.ems.common.constant.ErrorCodes;
 import com.terra.ems.common.domain.Result;
 import com.terra.ems.framework.security.filter.JsonAuthenticationFilter;
-import com.terra.ems.framework.security.permission.TerraMethodSecurityExpressionHandler;
 import com.terra.ems.framework.security.session.HeaderSessionIdResolver;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Role;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -95,7 +88,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/error", "/captcha/**", "/system/constant/**",
                                 "/sms/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/websocket/**",
-                                "/site-import/**", "/collector/**")
+                                "/site-import/**", "/collector/**", "/public/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exception -> exception

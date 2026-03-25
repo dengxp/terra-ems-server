@@ -46,6 +46,9 @@ public class MeterQueryParam {
     @Schema(description = "种类")
     private String type;
 
+    @Schema(description = "所属用能单元ID")
+    private Long energyUnitId;
+
     @Schema(description = "状态值 (1:启用, 2:禁用)")
     private Integer status;
 }
