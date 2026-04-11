@@ -15,27 +15,9 @@
 
 ### 🏗️ 系统架构图
 
-```mermaid
-graph TD
-    subgraph "边缘端 (Edge)"
-        GW[terra-ems-gateway: Rust 采集网关]
-        Meter[物理设备 / 仪表] -->|Modbus/DLT645| GW
-    end
-
-    subgraph "云端/中心端 (Cloud/Center)"
-        EMQX{EMQX: MQTT 消息总线}
-        Proc[terra-ems-processor: Rust 数据处理器]
-        Server[terra-ems-server: Java 业务中后台]
-        
-        GW -->|MQTT| EMQX
-        EMQX -->|Subscribe| Proc
-        Proc -->|Ingest| GDB[(GreptimeDB: 时序存储)]
-        Proc <-->|API| Server
-        Server <--> DB[(PostgreSQL: 业务存储)]
-        Server <--> Redis[(Redis: 缓存)]
-        Web[terra-ems-web: React 前端] <-->|RESTful| Server
-    end
-```
+<p align="center">
+  <img src="./docs/assets/terra-ems-architecture.png" alt="Terra EMS System Architecture" />
+</p>
 
 ---
 

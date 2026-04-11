@@ -15,27 +15,9 @@
 
 ### 🏗️ System Architecture
 
-```mermaid
-graph TD
-    subgraph "Edge"
-        GW[terra-ems-gateway: Rust Collector]
-        Meter[Hardware / Meters] -->|Modbus/DLT645| GW
-    end
-
-    subgraph "Cloud / Center"
-        EMQX{EMQX: MQTT Message Bus}
-        Proc[terra-ems-processor: Rust Processor]
-        Server[terra-ems-server: Java Backend]
-        
-        GW -->|MQTT| EMQX
-        EMQX -->|Subscribe| Proc
-        Proc -->|Ingest| GDB[(GreptimeDB: TSDB)]
-        Proc <-->|API| Server
-        Server <--> DB[(PostgreSQL: Business DB)]
-        Server <--> Redis[(Redis: Cache)]
-        Web[terra-ems-web: React Frontend] <-->|RESTful| Server
-    end
-```
+<p align="center">
+  <img src="./docs/assets/terra-ems-architecture.png" alt="Terra EMS System Architecture" />
+</p>
 
 <p align="center">
   <a href="./README.zh-CN.md">中文文档</a> | <span>English</span>
