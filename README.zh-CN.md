@@ -1,7 +1,7 @@
 # Terra EMS Server — 后端服务
 
 <h3 align="center">
-  <img src="./docs/assets/terra-logo-1.png" height="20" style="vertical-align: -4px;" /> Terra 能源管理系统 — 企业级能源管理与碳排放分析平台
+  <img src="./docs/assets/terra-logo-1.png" height="24" align="absmiddle" /> Terra 能源管理系统 — 企业级能源管理与碳排放分析平台
 </h3>
 
 <p align="center">
