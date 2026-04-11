@@ -1,7 +1,7 @@
 # Terra EMS Server — Backend Service
 
 <h3 align="center">
-  <img src="docs/assets/terra-logo-1.png" height="20" style="vertical-align: middle;" /> Terra Energy Management System — Enterprise-grade Energy Management & Carbon Analysis Platform
+  <img src="docs/assets/terra-logo-1.png" height="20" style="vertical-align: -4px;" /> Terra Energy Management System — Enterprise-grade Energy Management & Carbon Analysis Platform
 </h3>
 
 <p align="center">
