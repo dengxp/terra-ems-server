@@ -1,8 +1,8 @@
 # Terra EMS Server — Backend Service
 
-<p align="center">
-  <strong>🌿 Terra Energy Management System — Enterprise-grade Energy Management & Carbon Analysis Platform</strong>
-</p>
+<h3 align="center">
+  <img src="docs/assets/terra-logo-1.png" height="20" style="vertical-align: text-bottom;" /> Terra Energy Management System — Enterprise-grade Energy Management & Carbon Analysis Platform
+</h3>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Java-21-orange?style=flat-square&logo=openjdk" alt="Java 21"/>

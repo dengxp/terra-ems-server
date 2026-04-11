@@ -1,8 +1,8 @@
 # Terra EMS Server — 后端服务
 
-<p align="center">
-  <strong>🌿 Terra 能源管理系统 — 企业级能源管理与碳排放分析平台</strong>
-</p>
+<h3 align="center">
+  <img src="docs/assets/terra-logo-1.png" height="20" style="vertical-align: text-bottom;" /> Terra 能源管理系统 — 企业级能源管理与碳排放分析平台
+</h3>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Java-21-orange?style=flat-square&logo=openjdk" alt="Java 21"/>
