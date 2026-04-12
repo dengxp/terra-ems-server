@@ -1,3 +1,7 @@
+terra:
+  api:
+    secret: ${TERRA_INTERNAL_SECRET:terra-default-secret-2026}
+
 spring:
   application:
     name: terra-ems

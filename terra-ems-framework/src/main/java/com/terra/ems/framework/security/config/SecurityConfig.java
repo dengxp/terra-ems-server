@@ -27,6 +27,7 @@ package com.terra.ems.framework.security.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.terra.ems.common.constant.ErrorCodes;
 import com.terra.ems.common.domain.Result;
+import com.terra.ems.framework.security.filter.InternalApiFilter;
 import com.terra.ems.framework.security.filter.JsonAuthenticationFilter;
 import com.terra.ems.framework.security.session.HeaderSessionIdResolver;
 import jakarta.servlet.http.HttpServletResponse;
@@ -72,10 +73,12 @@ public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
     private final StringRedisTemplate redisTemplate;
+    private final InternalApiFilter internalApiFilter;
 
-    public SecurityConfig(ObjectMapper objectMapper, StringRedisTemplate redisTemplate) {
+    public SecurityConfig(ObjectMapper objectMapper, StringRedisTemplate redisTemplate, InternalApiFilter internalApiFilter) {
         this.objectMapper = objectMapper;
         this.redisTemplate = redisTemplate;
+        this.internalApiFilter = internalApiFilter;
     }
 
     @Bean
@@ -88,7 +91,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/error", "/captcha/**", "/system/constant/**",
                                 "/sms/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/websocket/**",
-                                "/site-import/**", "/collector/**", "/public/**")
+                                "/site-import/**", "/processor/**", "/collector/**", "/public/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exception -> exception
@@ -102,6 +105,7 @@ public class SecurityConfig {
                                 Result.success("登出成功"))))
                 .authenticationProvider(daoAuthenticationProvider)
                 .securityContext(context -> context.securityContextRepository(securityContextRepository()))
+                .addFilterBefore(internalApiFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterAt(jsonAuthenticationFilter(authConfig, securityContextRepository()),
                         UsernamePasswordAuthenticationFilter.class);
 
