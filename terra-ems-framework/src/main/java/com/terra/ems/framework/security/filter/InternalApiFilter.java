@@ -30,18 +30,23 @@ public class InternalApiFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         
         String path = request.getServletPath();
+        String uri = request.getRequestURI();
         
-        // 只拦截以 /processor/ 或 /collector/ 开头的路径
-        if (path.startsWith("/processor/") || path.startsWith("/collector/")) {
+        // 只拦截以 /processor/ 或 /collector/ 开头的路径 (兼容带不带 context-path 的情况)
+        if (path.startsWith("/processor/") || path.startsWith("/collector/") || 
+            uri.contains("/api/processor/") || uri.contains("/api/collector/")) {
+            
             String token = request.getHeader(INTERNAL_TOKEN_HEADER);
             
-            if (StringUtils.hasText(internalSecret) && internalSecret.equals(token)) {
-                // 校验通过，直接放行
+            if (StringUtils.hasText(internalSecret) && token != null && internalSecret.trim().equals(token.trim())) {
+                // 校验通过
                 filterChain.doFilter(request, response);
                 return;
             }
             
-            // 校验失败，返回 401
+            // 校验失败
+            logger.warn(String.format("Internal API Auth Failed: path=%s", path));
+            
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -49,7 +54,6 @@ public class InternalApiFilter extends OncePerRequestFilter {
             return;
         }
 
-        // 非内部接口，交给下一个过滤器（Spring Security）处理
         filterChain.doFilter(request, response);
     }
 }
