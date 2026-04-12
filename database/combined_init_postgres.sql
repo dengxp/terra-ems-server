@@ -17,232 +17,12 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-ALTER TABLE IF EXISTS ONLY public.ems_benchmark DROP CONSTRAINT IF EXISTS fkuimhqqp60r0iotcwwu346jel;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_unit_point DROP CONSTRAINT IF EXISTS fksuy4wdg82ye58frkig3ubp606;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_unit_point DROP CONSTRAINT IF EXISTS fkpuo4y0owrgxop99sru6qqbtdf;
-ALTER TABLE IF EXISTS ONLY public.sys_user_post DROP CONSTRAINT IF EXISTS fkpjx0gi8xwm66cp1w1jvi4hc57;
-ALTER TABLE IF EXISTS ONLY public.sys_user_permission DROP CONSTRAINT IF EXISTS fkoo9oirp69aql5xrde05q948ja;
-ALTER TABLE IF EXISTS ONLY public.sys_role_permission DROP CONSTRAINT IF EXISTS fkomxrs8a388bknvhjokh440waq;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_unit DROP CONSTRAINT IF EXISTS fknlkr4e061x5t6wx2u6broi9sd;
-ALTER TABLE IF EXISTS ONLY public.ems_alarm_config DROP CONSTRAINT IF EXISTS fknguophx1udpdc43j06f6m3wdg;
-ALTER TABLE IF EXISTS ONLY public.sys_user_post DROP CONSTRAINT IF EXISTS fkng2mc7xcmyerevvobtw95bmu9;
-ALTER TABLE IF EXISTS ONLY public.sys_role_dept DROP CONSTRAINT IF EXISTS fkmdoybh4v5t2ooi48m3307n7fx;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_data DROP CONSTRAINT IF EXISTS fkl2rph682la6pe73bnxopxccwn;
-ALTER TABLE IF EXISTS ONLY public.ems_cost_policy_binding DROP CONSTRAINT IF EXISTS fkj65jboyv49b49jsk2v9ibcfn6;
-ALTER TABLE IF EXISTS ONLY public.ems_meter DROP CONSTRAINT IF EXISTS fkimy8spwpso0kru9e6k2kr5t74;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_data DROP CONSTRAINT IF EXISTS fkhxwy6yrxwkmng9culxcvybt25;
-ALTER TABLE IF EXISTS ONLY public.sys_user_role DROP CONSTRAINT IF EXISTS fkhh52n8vd4ny9ff4x9fb8v65qx;
-ALTER TABLE IF EXISTS ONLY public.ems_meter_point DROP CONSTRAINT IF EXISTS fkeoh88jlbidlicytes7sy48uim;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_cost_record DROP CONSTRAINT IF EXISTS fke4enn5gcecv26cv6qqw5v67j4;
-ALTER TABLE IF EXISTS ONLY public.sys_user_permission DROP CONSTRAINT IF EXISTS fke1o35okbrlv0wbsq4o8tw6mbp;
-ALTER TABLE IF EXISTS ONLY public.ems_price_policy DROP CONSTRAINT IF EXISTS fkdm20pwebfqrjy1x2p78lk7s19;
-ALTER TABLE IF EXISTS ONLY public.ems_alarm_record DROP CONSTRAINT IF EXISTS fkde5gs6tyxlc7em2ikb2tjgxh5;
-ALTER TABLE IF EXISTS ONLY public.sys_dept DROP CONSTRAINT IF EXISTS fkd5ou5hch26i1tk6m8jc4fpirw;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_cost_record DROP CONSTRAINT IF EXISTS fkcr8m7fqdmugsugc5aec8ofv9a;
-ALTER TABLE IF EXISTS ONLY public.sys_permission DROP CONSTRAINT IF EXISTS fkbvx60lch0yucxxb6pm8i4s3r5;
-ALTER TABLE IF EXISTS ONLY public.sys_user_role DROP CONSTRAINT IF EXISTS fkb40xxfch70f5qnyfw8yme1n1s;
-ALTER TABLE IF EXISTS ONLY public.sys_user DROP CONSTRAINT IF EXISTS fkb3pkx0wbo6o8i8lj0gxr37v1n;
-ALTER TABLE IF EXISTS ONLY public.ems_price_policy_item DROP CONSTRAINT IF EXISTS fkaujit7a1vuuxapn5k3ki5u3dk;
-ALTER TABLE IF EXISTS ONLY public.ems_alarm_config DROP CONSTRAINT IF EXISTS fk_alarm_config_meter_point;
-ALTER TABLE IF EXISTS ONLY public.ems_meter_point DROP CONSTRAINT IF EXISTS fk9raqe49pu25u5l2657351qs6u;
-ALTER TABLE IF EXISTS ONLY public.sys_role_permission DROP CONSTRAINT IF EXISTS fk9q28ewrhntqeipl1t04kh1be7;
-ALTER TABLE IF EXISTS ONLY public.sys_dept DROP CONSTRAINT IF EXISTS fk8wb8qylwmt7squef8hedew4qe;
-ALTER TABLE IF EXISTS ONLY public.ems_cost_policy_binding DROP CONSTRAINT IF EXISTS fk8o2swh51gx7j0nfgnq5t4ut1p;
-ALTER TABLE IF EXISTS ONLY public.ems_peak_valley_data DROP CONSTRAINT IF EXISTS fk5rnu6abd4lmuhx0qomoybvqs7;
-ALTER TABLE IF EXISTS ONLY public.ems_peak_valley_data DROP CONSTRAINT IF EXISTS fk2xxsklymdmvnetmrqbh4v4qfv;
-ALTER TABLE IF EXISTS ONLY public.sys_menu DROP CONSTRAINT IF EXISTS fk2jrf4gb0gjqi8882gxytpxnhe;
-ALTER TABLE IF EXISTS ONLY public.ems_time_period_price DROP CONSTRAINT IF EXISTS fk2a7o9rx5066t0bxuhqovre0jv;
-DROP INDEX IF EXISTS public.idx_user_role_user_id;
-DROP INDEX IF EXISTS public.idx_user_role_role_id;
-DROP INDEX IF EXISTS public.idx_user_post_user_id;
-DROP INDEX IF EXISTS public.idx_user_post_post_id;
-DROP INDEX IF EXISTS public.idx_user_permission_user_id;
-DROP INDEX IF EXISTS public.idx_user_permission_permission_id;
-DROP INDEX IF EXISTS public.idx_user_notice_user_id;
-DROP INDEX IF EXISTS public.idx_user_notice_notice_id;
-DROP INDEX IF EXISTS public.idx_sys_user_username;
-DROP INDEX IF EXISTS public.idx_sys_user_phone;
-DROP INDEX IF EXISTS public.idx_sys_post_code;
-DROP INDEX IF EXISTS public.idx_sys_oper_log_title;
-DROP INDEX IF EXISTS public.idx_sys_oper_log_time;
-DROP INDEX IF EXISTS public.idx_sys_oper_log_status;
-DROP INDEX IF EXISTS public.idx_sys_menu_parent;
-DROP INDEX IF EXISTS public.idx_sys_login_time;
-DROP INDEX IF EXISTS public.idx_sys_login_status;
-DROP INDEX IF EXISTS public.idx_sys_log_user;
-DROP INDEX IF EXISTS public.idx_sys_log_type;
-DROP INDEX IF EXISTS public.idx_sys_log_time;
-DROP INDEX IF EXISTS public.idx_sys_dept_status;
-DROP INDEX IF EXISTS public.idx_sys_dept_parent;
-DROP INDEX IF EXISTS public.idx_saving_project_status;
-DROP INDEX IF EXISTS public.idx_saving_project_liable;
-DROP INDEX IF EXISTS public.idx_role_perm_role_id;
-DROP INDEX IF EXISTS public.idx_role_perm_permission_id;
-DROP INDEX IF EXISTS public.idx_role_id;
-DROP INDEX IF EXISTS public.idx_role_code;
-DROP INDEX IF EXISTS public.idx_pvd_meter_point;
-DROP INDEX IF EXISTS public.idx_pvd_energy_unit;
-DROP INDEX IF EXISTS public.idx_pvd_data_time;
-DROP INDEX IF EXISTS public.idx_production_product;
-DROP INDEX IF EXISTS public.idx_production_energy_unit;
-DROP INDEX IF EXISTS public.idx_production_date;
-DROP INDEX IF EXISTS public.idx_product_status;
-DROP INDEX IF EXISTS public.idx_product_code;
-DROP INDEX IF EXISTS public.idx_price_policy_item_policy;
-DROP INDEX IF EXISTS public.idx_price_policy_energy_type;
-DROP INDEX IF EXISTS public.idx_price_policy_code;
-DROP INDEX IF EXISTS public.idx_policy_type;
-DROP INDEX IF EXISTS public.idx_policy_issuing_date;
-DROP INDEX IF EXISTS public.idx_permission_id;
-DROP INDEX IF EXISTS public.idx_permission_code;
-DROP INDEX IF EXISTS public.idx_meter_type;
-DROP INDEX IF EXISTS public.idx_meter_point_meter;
-DROP INDEX IF EXISTS public.idx_meter_point_energy_type;
-DROP INDEX IF EXISTS public.idx_meter_point_code;
-DROP INDEX IF EXISTS public.idx_meter_energy_type;
-DROP INDEX IF EXISTS public.idx_meter_code;
-DROP INDEX IF EXISTS public.idx_knowledge_status;
-DROP INDEX IF EXISTS public.idx_knowledge_energy_type;
-DROP INDEX IF EXISTS public.idx_energy_unit_type;
-DROP INDEX IF EXISTS public.idx_energy_unit_parent;
-DROP INDEX IF EXISTS public.idx_energy_unit_code;
-DROP INDEX IF EXISTS public.idx_energy_type_code;
-DROP INDEX IF EXISTS public.idx_energy_type_category;
-DROP INDEX IF EXISTS public.idx_energy_data_type;
-DROP INDEX IF EXISTS public.idx_energy_data_time;
-DROP INDEX IF EXISTS public.idx_energy_data_point;
-DROP INDEX IF EXISTS public.idx_energy_data_composite;
-DROP INDEX IF EXISTS public.idx_ecr_record_date;
-DROP INDEX IF EXISTS public.idx_ecr_period_type;
-DROP INDEX IF EXISTS public.idx_ecr_energy_unit;
-DROP INDEX IF EXISTS public.idx_dict_data_type;
-DROP INDEX IF EXISTS public.idx_cpb_price_policy;
-DROP INDEX IF EXISTS public.idx_cpb_energy_unit;
-DROP INDEX IF EXISTS public.idx_benchmark_type;
-DROP INDEX IF EXISTS public.idx_benchmark_code;
-DROP INDEX IF EXISTS public.idx_alarm_record_time;
-DROP INDEX IF EXISTS public.idx_alarm_record_config;
-DROP INDEX IF EXISTS public.idx_alarm_limit_type_code;
-DROP INDEX IF EXISTS public.idx_alarm_config_meter_point;
-DROP INDEX IF EXISTS public.idx_alarm_config_limit;
-ALTER TABLE IF EXISTS ONLY public.sys_post DROP CONSTRAINT IF EXISTS ukr5b7w4kya2gmxcc1asyns6odk;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_type DROP CONSTRAINT IF EXISTS ukqyk5p9pr4r421rh8un10ddyi6;
-ALTER TABLE IF EXISTS ONLY public.sys_user DROP CONSTRAINT IF EXISTS ukpulp17fvich5aby4m0kc820h6;
-ALTER TABLE IF EXISTS ONLY public.sys_role DROP CONSTRAINT IF EXISTS ukplpigyqwsqfn7mn66npgf9ftp;
-ALTER TABLE IF EXISTS ONLY public.sys_module DROP CONSTRAINT IF EXISTS uknoavfxvjvs053hbvxfixe0gw2;
-ALTER TABLE IF EXISTS ONLY public.ems_price_policy DROP CONSTRAINT IF EXISTS ukks5jbvi22h30gn1g1fysder64;
-ALTER TABLE IF EXISTS ONLY public.ems_meter_point DROP CONSTRAINT IF EXISTS ukjb553gu8ityk06dbghpfbmroy;
-ALTER TABLE IF EXISTS ONLY public.ems_product DROP CONSTRAINT IF EXISTS ukj7ymku309maor470onudrjq3n;
-ALTER TABLE IF EXISTS ONLY public.sys_config DROP CONSTRAINT IF EXISTS ukellx5pgxddrdrfyvtfbgxccvl;
-ALTER TABLE IF EXISTS ONLY public.sys_user_notice DROP CONSTRAINT IF EXISTS uke8tesnqlq4mwewoyko7609fxb;
-ALTER TABLE IF EXISTS ONLY public.ems_alarm_limit_type DROP CONSTRAINT IF EXISTS ukco6bbk2823t0js0qnrd41naxu;
-ALTER TABLE IF EXISTS ONLY public.sys_dict_data DROP CONSTRAINT IF EXISTS uk_dict_data_value_type;
-ALTER TABLE IF EXISTS ONLY public.ems_meter DROP CONSTRAINT IF EXISTS uk5xsxp2n696rrf80766t933ly8;
-ALTER TABLE IF EXISTS ONLY public.ems_benchmark DROP CONSTRAINT IF EXISTS uk541184xedrs6lp0yd95kiplis;
-ALTER TABLE IF EXISTS ONLY public.sys_user DROP CONSTRAINT IF EXISTS uk51bvuyvihefoh4kp5syh2jpi4;
-ALTER TABLE IF EXISTS ONLY public.sys_permission DROP CONSTRAINT IF EXISTS uk2vm98en2ouht0v15fvef2whp4;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_unit DROP CONSTRAINT IF EXISTS uk1dd9o4p4mktlib0tq3gpnl2gu;
-ALTER TABLE IF EXISTS ONLY public.sys_user_role DROP CONSTRAINT IF EXISTS sys_user_role_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_user_post DROP CONSTRAINT IF EXISTS sys_user_post_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_user DROP CONSTRAINT IF EXISTS sys_user_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_user_permission DROP CONSTRAINT IF EXISTS sys_user_permission_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_user_notice DROP CONSTRAINT IF EXISTS sys_user_notice_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_role DROP CONSTRAINT IF EXISTS sys_role_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_role_permission DROP CONSTRAINT IF EXISTS sys_role_permission_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_post DROP CONSTRAINT IF EXISTS sys_post_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_permission DROP CONSTRAINT IF EXISTS sys_permission_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_operation_log DROP CONSTRAINT IF EXISTS sys_operation_log_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_notice DROP CONSTRAINT IF EXISTS sys_notice_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_module DROP CONSTRAINT IF EXISTS sys_module_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_menu DROP CONSTRAINT IF EXISTS sys_menu_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_login_log DROP CONSTRAINT IF EXISTS sys_login_log_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_log DROP CONSTRAINT IF EXISTS sys_log_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_dict_type DROP CONSTRAINT IF EXISTS sys_dict_type_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_dict_data DROP CONSTRAINT IF EXISTS sys_dict_data_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_dept DROP CONSTRAINT IF EXISTS sys_dept_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_config DROP CONSTRAINT IF EXISTS sys_config_pkey;
-ALTER TABLE IF EXISTS ONLY public.sys_dict_type DROP CONSTRAINT IF EXISTS idx_dict_type;
-ALTER TABLE IF EXISTS ONLY public.ems_time_period_price DROP CONSTRAINT IF EXISTS ems_time_period_price_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_production_record DROP CONSTRAINT IF EXISTS ems_production_record_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_product DROP CONSTRAINT IF EXISTS ems_product_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_price_policy DROP CONSTRAINT IF EXISTS ems_price_policy_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_price_policy_item DROP CONSTRAINT IF EXISTS ems_price_policy_item_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_policy DROP CONSTRAINT IF EXISTS ems_policy_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_peak_valley_data DROP CONSTRAINT IF EXISTS ems_peak_valley_data_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_meter_point DROP CONSTRAINT IF EXISTS ems_meter_point_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_meter DROP CONSTRAINT IF EXISTS ems_meter_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_knowledge_article DROP CONSTRAINT IF EXISTS ems_knowledge_article_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_unit_point DROP CONSTRAINT IF EXISTS ems_energy_unit_point_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_unit DROP CONSTRAINT IF EXISTS ems_energy_unit_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_type DROP CONSTRAINT IF EXISTS ems_energy_type_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_saving_project DROP CONSTRAINT IF EXISTS ems_energy_saving_project_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_data DROP CONSTRAINT IF EXISTS ems_energy_data_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_energy_cost_record DROP CONSTRAINT IF EXISTS ems_energy_cost_record_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_cost_policy_binding DROP CONSTRAINT IF EXISTS ems_cost_policy_binding_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_benchmark DROP CONSTRAINT IF EXISTS ems_benchmark_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_alarm_record DROP CONSTRAINT IF EXISTS ems_alarm_record_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_alarm_limit_type DROP CONSTRAINT IF EXISTS ems_alarm_limit_type_pkey;
-ALTER TABLE IF EXISTS ONLY public.ems_alarm_config DROP CONSTRAINT IF EXISTS ems_alarm_config_pkey;
-SELECT pg_catalog.lo_unlink(oid) FROM pg_catalog.pg_largeobject_metadata WHERE oid = '32793';
-SELECT pg_catalog.lo_unlink(oid) FROM pg_catalog.pg_largeobject_metadata WHERE oid = '32794';
-SELECT pg_catalog.lo_unlink(oid) FROM pg_catalog.pg_largeobject_metadata WHERE oid = '32795';
-SELECT pg_catalog.lo_unlink(oid) FROM pg_catalog.pg_largeobject_metadata WHERE oid = '32796';
-SELECT pg_catalog.lo_unlink(oid) FROM pg_catalog.pg_largeobject_metadata WHERE oid = '32797';
-SELECT pg_catalog.lo_unlink(oid) FROM pg_catalog.pg_largeobject_metadata WHERE oid = '32798';
-SELECT pg_catalog.lo_unlink(oid) FROM pg_catalog.pg_largeobject_metadata WHERE oid = '32799';
-SELECT pg_catalog.lo_unlink(oid) FROM pg_catalog.pg_largeobject_metadata WHERE oid = '32839';
-
-ALTER TABLE IF EXISTS public.ems_policy ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.ems_energy_saving_project ALTER COLUMN id DROP DEFAULT;
-DROP TABLE IF EXISTS public.sys_user_role;
-DROP TABLE IF EXISTS public.sys_user_post;
-DROP TABLE IF EXISTS public.sys_user_permission;
-DROP TABLE IF EXISTS public.sys_user_notice;
-DROP TABLE IF EXISTS public.sys_user;
-DROP TABLE IF EXISTS public.sys_role_permission;
-DROP TABLE IF EXISTS public.sys_role_dept;
-DROP TABLE IF EXISTS public.sys_role;
-DROP TABLE IF EXISTS public.sys_post;
-DROP TABLE IF EXISTS public.sys_permission;
-DROP TABLE IF EXISTS public.sys_operation_log;
-DROP TABLE IF EXISTS public.sys_notice;
-DROP TABLE IF EXISTS public.sys_module;
-DROP TABLE IF EXISTS public.sys_menu;
-DROP TABLE IF EXISTS public.sys_login_log;
-DROP TABLE IF EXISTS public.sys_log;
-DROP TABLE IF EXISTS public.sys_dict_type;
-DROP TABLE IF EXISTS public.sys_dict_data;
-DROP TABLE IF EXISTS public.sys_dept;
-DROP TABLE IF EXISTS public.sys_config;
-DROP TABLE IF EXISTS public.ems_time_period_price;
-DROP TABLE IF EXISTS public.ems_production_record;
-DROP TABLE IF EXISTS public.ems_product;
-DROP TABLE IF EXISTS public.ems_price_policy_item;
-DROP TABLE IF EXISTS public.ems_price_policy;
-DROP SEQUENCE IF EXISTS public.ems_policy_id_seq;
-DROP TABLE IF EXISTS public.ems_policy;
-DROP TABLE IF EXISTS public.ems_peak_valley_data;
-DROP TABLE IF EXISTS public.ems_meter_point;
-DROP TABLE IF EXISTS public.ems_meter;
-DROP TABLE IF EXISTS public.ems_knowledge_article;
-DROP TABLE IF EXISTS public.ems_energy_unit_point;
-DROP TABLE IF EXISTS public.ems_energy_unit;
-DROP TABLE IF EXISTS public.ems_energy_type;
-DROP SEQUENCE IF EXISTS public.ems_energy_saving_project_id_seq;
-DROP TABLE IF EXISTS public.ems_energy_saving_project;
-DROP TABLE IF EXISTS public.ems_energy_data;
-DROP TABLE IF EXISTS public.ems_energy_cost_record;
-DROP TABLE IF EXISTS public.ems_cost_policy_binding;
-DROP TABLE IF EXISTS public.ems_benchmark;
-DROP TABLE IF EXISTS public.ems_alarm_record;
-DROP TABLE IF EXISTS public.ems_alarm_limit_type;
-DROP TABLE IF EXISTS public.ems_alarm_config;
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- Name: ems_alarm_config; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_alarm_config; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_alarm_config (
@@ -257,8 +37,10 @@ CREATE TABLE public.ems_alarm_config (
 );
 
 
+ALTER TABLE public.ems_alarm_config OWNER TO postgres;
+
 --
--- Name: ems_alarm_config_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_alarm_config_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_alarm_config ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -272,7 +54,7 @@ ALTER TABLE public.ems_alarm_config ALTER COLUMN id ADD GENERATED BY DEFAULT AS 
 
 
 --
--- Name: ems_alarm_limit_type; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_alarm_limit_type; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_alarm_limit_type (
@@ -287,8 +69,10 @@ CREATE TABLE public.ems_alarm_limit_type (
 );
 
 
+ALTER TABLE public.ems_alarm_limit_type OWNER TO postgres;
+
 --
--- Name: ems_alarm_limit_type_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_alarm_limit_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_alarm_limit_type ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -302,7 +86,7 @@ ALTER TABLE public.ems_alarm_limit_type ALTER COLUMN id ADD GENERATED BY DEFAULT
 
 
 --
--- Name: ems_alarm_record; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_alarm_record; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_alarm_record (
@@ -318,8 +102,10 @@ CREATE TABLE public.ems_alarm_record (
 );
 
 
+ALTER TABLE public.ems_alarm_record OWNER TO postgres;
+
 --
--- Name: ems_alarm_record_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_alarm_record_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_alarm_record ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -333,7 +119,7 @@ ALTER TABLE public.ems_alarm_record ALTER COLUMN id ADD GENERATED BY DEFAULT AS 
 
 
 --
--- Name: ems_benchmark; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_benchmark; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_benchmark (
@@ -355,8 +141,10 @@ CREATE TABLE public.ems_benchmark (
 );
 
 
+ALTER TABLE public.ems_benchmark OWNER TO postgres;
+
 --
--- Name: ems_benchmark_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_benchmark_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_benchmark ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -370,7 +158,7 @@ ALTER TABLE public.ems_benchmark ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDE
 
 
 --
--- Name: ems_cost_policy_binding; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_cost_policy_binding; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_cost_policy_binding (
@@ -387,8 +175,10 @@ CREATE TABLE public.ems_cost_policy_binding (
 );
 
 
+ALTER TABLE public.ems_cost_policy_binding OWNER TO postgres;
+
 --
--- Name: ems_cost_policy_binding_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_cost_policy_binding_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_cost_policy_binding ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -402,7 +192,43 @@ ALTER TABLE public.ems_cost_policy_binding ALTER COLUMN id ADD GENERATED BY DEFA
 
 
 --
--- Name: ems_energy_cost_record; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_data_source; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ems_data_source (
+    id bigint NOT NULL,
+    created_at timestamp(6) without time zone,
+    updated_at timestamp(6) without time zone,
+    connection text,
+    last_seen_time timestamp(6) without time zone,
+    name character varying(150) NOT NULL,
+    poll_interval_secs integer,
+    protocol character varying(30) NOT NULL,
+    remark character varying(500),
+    status smallint NOT NULL,
+    gateway_id bigint NOT NULL,
+    CONSTRAINT ems_data_source_status_check CHECK (((status >= 0) AND (status <= 1)))
+);
+
+
+ALTER TABLE public.ems_data_source OWNER TO postgres;
+
+--
+-- Name: ems_data_source_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.ems_data_source ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.ems_data_source_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: ems_energy_cost_record; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_energy_cost_record (
@@ -425,8 +251,10 @@ CREATE TABLE public.ems_energy_cost_record (
 );
 
 
+ALTER TABLE public.ems_energy_cost_record OWNER TO postgres;
+
 --
--- Name: ems_energy_cost_record_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_energy_cost_record_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_energy_cost_record ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -440,7 +268,7 @@ ALTER TABLE public.ems_energy_cost_record ALTER COLUMN id ADD GENERATED BY DEFAU
 
 
 --
--- Name: ems_energy_data; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_energy_data; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_energy_data (
@@ -454,8 +282,10 @@ CREATE TABLE public.ems_energy_data (
 );
 
 
+ALTER TABLE public.ems_energy_data OWNER TO postgres;
+
 --
--- Name: ems_energy_data_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_energy_data_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_energy_data ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -469,7 +299,7 @@ ALTER TABLE public.ems_energy_data ALTER COLUMN id ADD GENERATED BY DEFAULT AS I
 
 
 --
--- Name: ems_energy_saving_project; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_energy_saving_project; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_energy_saving_project (
@@ -488,8 +318,10 @@ CREATE TABLE public.ems_energy_saving_project (
 );
 
 
+ALTER TABLE public.ems_energy_saving_project OWNER TO postgres;
+
 --
--- Name: ems_energy_saving_project_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_energy_saving_project_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.ems_energy_saving_project_id_seq
@@ -500,15 +332,17 @@ CREATE SEQUENCE public.ems_energy_saving_project_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.ems_energy_saving_project_id_seq OWNER TO postgres;
+
 --
--- Name: ems_energy_saving_project_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: ems_energy_saving_project_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.ems_energy_saving_project_id_seq OWNED BY public.ems_energy_saving_project.id;
 
 
 --
--- Name: ems_energy_type; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_energy_type; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_energy_type (
@@ -532,8 +366,10 @@ CREATE TABLE public.ems_energy_type (
 );
 
 
+ALTER TABLE public.ems_energy_type OWNER TO postgres;
+
 --
--- Name: ems_energy_type_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_energy_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_energy_type ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -547,7 +383,7 @@ ALTER TABLE public.ems_energy_type ALTER COLUMN id ADD GENERATED BY DEFAULT AS I
 
 
 --
--- Name: ems_energy_unit; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_energy_unit; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_energy_unit (
@@ -570,8 +406,10 @@ CREATE TABLE public.ems_energy_unit (
 );
 
 
+ALTER TABLE public.ems_energy_unit OWNER TO postgres;
+
 --
--- Name: ems_energy_unit_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_energy_unit_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_energy_unit ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -585,7 +423,7 @@ ALTER TABLE public.ems_energy_unit ALTER COLUMN id ADD GENERATED BY DEFAULT AS I
 
 
 --
--- Name: ems_energy_unit_point; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_energy_unit_point; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_energy_unit_point (
@@ -594,8 +432,90 @@ CREATE TABLE public.ems_energy_unit_point (
 );
 
 
+ALTER TABLE public.ems_energy_unit_point OWNER TO postgres;
+
 --
--- Name: ems_knowledge_article; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_equipment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ems_equipment (
+    id bigint NOT NULL,
+    created_at timestamp(6) without time zone,
+    updated_at timestamp(6) without time zone,
+    code character varying(50) NOT NULL,
+    location character varying(300),
+    manufacturer character varying(255),
+    model_number character varying(150),
+    name character varying(150) NOT NULL,
+    rated_power numeric(12,2),
+    remark character varying(500),
+    sort_order integer,
+    status smallint NOT NULL,
+    type character varying(50),
+    energy_unit_id bigint,
+    CONSTRAINT ems_equipment_status_check CHECK (((status >= 0) AND (status <= 1)))
+);
+
+
+ALTER TABLE public.ems_equipment OWNER TO postgres;
+
+--
+-- Name: ems_equipment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.ems_equipment ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.ems_equipment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: ems_gateway; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ems_gateway (
+    id bigint NOT NULL,
+    created_at timestamp(6) without time zone,
+    updated_at timestamp(6) without time zone,
+    code character varying(50) NOT NULL,
+    install_location character varying(300),
+    ip_address character varying(50),
+    last_heartbeat timestamp(6) without time zone,
+    manufacturer character varying(255),
+    model character varying(150),
+    name character varying(150) NOT NULL,
+    remark character varying(500),
+    run_status character varying(20),
+    status smallint NOT NULL,
+    energy_unit_id bigint,
+    cpu_usage double precision,
+    mem_usage double precision,
+    CONSTRAINT ems_gateway_status_check CHECK (((status >= 0) AND (status <= 1)))
+);
+
+
+ALTER TABLE public.ems_gateway OWNER TO postgres;
+
+--
+-- Name: ems_gateway_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.ems_gateway ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.ems_gateway_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: ems_knowledge_article; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_knowledge_article (
@@ -615,8 +535,10 @@ CREATE TABLE public.ems_knowledge_article (
 );
 
 
+ALTER TABLE public.ems_knowledge_article OWNER TO postgres;
+
 --
--- Name: ems_knowledge_article_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_knowledge_article_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_knowledge_article ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -630,7 +552,7 @@ ALTER TABLE public.ems_knowledge_article ALTER COLUMN id ADD GENERATED BY DEFAUL
 
 
 --
--- Name: ems_meter; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_meter; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_meter (
@@ -639,7 +561,6 @@ CREATE TABLE public.ems_meter (
     updated_at timestamp(6) without time zone,
     check_cycle integer,
     code character varying(50) NOT NULL,
-    gateway_id character varying(200),
     location character varying(300),
     manufacturer character varying(255),
     max_power character varying(255),
@@ -654,13 +575,20 @@ CREATE TABLE public.ems_meter (
     status smallint NOT NULL,
     type character varying(20) NOT NULL,
     wire_diameter character varying(255),
-    energy_type_id bigint NOT NULL,
+    energy_type_id bigint,
+    comm_params text,
+    data_source_id bigint,
+    equipment_id bigint,
+    gateway_id bigint,
+    energy_unit_id bigint,
     CONSTRAINT ems_meter_status_check CHECK (((status >= 0) AND (status <= 1)))
 );
 
 
+ALTER TABLE public.ems_meter OWNER TO postgres;
+
 --
--- Name: ems_meter_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_meter_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_meter ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -674,7 +602,7 @@ ALTER TABLE public.ems_meter ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTIT
 
 
 --
--- Name: ems_meter_point; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_meter_point; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_meter_point (
@@ -696,12 +624,16 @@ CREATE TABLE public.ems_meter_point (
     unit character varying(20),
     energy_type_id bigint,
     meter_id bigint,
+    acquisition_params text,
+    measure_type character varying(20),
     CONSTRAINT ems_meter_point_status_check CHECK (((status >= 0) AND (status <= 1)))
 );
 
 
+ALTER TABLE public.ems_meter_point OWNER TO postgres;
+
 --
--- Name: ems_meter_point_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_meter_point_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_meter_point ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -715,7 +647,7 @@ ALTER TABLE public.ems_meter_point ALTER COLUMN id ADD GENERATED BY DEFAULT AS I
 
 
 --
--- Name: ems_peak_valley_data; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_peak_valley_data; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_peak_valley_data (
@@ -733,8 +665,10 @@ CREATE TABLE public.ems_peak_valley_data (
 );
 
 
+ALTER TABLE public.ems_peak_valley_data OWNER TO postgres;
+
 --
--- Name: ems_peak_valley_data_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_peak_valley_data_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_peak_valley_data ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -748,7 +682,7 @@ ALTER TABLE public.ems_peak_valley_data ALTER COLUMN id ADD GENERATED BY DEFAULT
 
 
 --
--- Name: ems_policy; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_policy; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_policy (
@@ -766,8 +700,10 @@ CREATE TABLE public.ems_policy (
 );
 
 
+ALTER TABLE public.ems_policy OWNER TO postgres;
+
 --
--- Name: ems_policy_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_policy_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.ems_policy_id_seq
@@ -778,15 +714,17 @@ CREATE SEQUENCE public.ems_policy_id_seq
     CACHE 1;
 
 
+ALTER SEQUENCE public.ems_policy_id_seq OWNER TO postgres;
+
 --
--- Name: ems_policy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: ems_policy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.ems_policy_id_seq OWNED BY public.ems_policy.id;
 
 
 --
--- Name: ems_price_policy; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_price_policy; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_price_policy (
@@ -806,8 +744,10 @@ CREATE TABLE public.ems_price_policy (
 );
 
 
+ALTER TABLE public.ems_price_policy OWNER TO postgres;
+
 --
--- Name: ems_price_policy_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_price_policy_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_price_policy ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -821,7 +761,7 @@ ALTER TABLE public.ems_price_policy ALTER COLUMN id ADD GENERATED BY DEFAULT AS 
 
 
 --
--- Name: ems_price_policy_item; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_price_policy_item; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_price_policy_item (
@@ -839,8 +779,10 @@ CREATE TABLE public.ems_price_policy_item (
 );
 
 
+ALTER TABLE public.ems_price_policy_item OWNER TO postgres;
+
 --
--- Name: ems_price_policy_item_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_price_policy_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_price_policy_item ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -854,7 +796,7 @@ ALTER TABLE public.ems_price_policy_item ALTER COLUMN id ADD GENERATED BY DEFAUL
 
 
 --
--- Name: ems_product; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_product; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_product (
@@ -872,8 +814,10 @@ CREATE TABLE public.ems_product (
 );
 
 
+ALTER TABLE public.ems_product OWNER TO postgres;
+
 --
--- Name: ems_product_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_product_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_product ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -887,7 +831,7 @@ ALTER TABLE public.ems_product ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENT
 
 
 --
--- Name: ems_production_record; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_production_record; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_production_record (
@@ -907,8 +851,10 @@ CREATE TABLE public.ems_production_record (
 );
 
 
+ALTER TABLE public.ems_production_record OWNER TO postgres;
+
 --
--- Name: ems_production_record_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_production_record_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_production_record ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -922,7 +868,7 @@ ALTER TABLE public.ems_production_record ALTER COLUMN id ADD GENERATED BY DEFAUL
 
 
 --
--- Name: ems_time_period_price; Type: TABLE; Schema: public; Owner: -
+-- Name: ems_time_period_price; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.ems_time_period_price (
@@ -943,8 +889,10 @@ CREATE TABLE public.ems_time_period_price (
 );
 
 
+ALTER TABLE public.ems_time_period_price OWNER TO postgres;
+
 --
--- Name: ems_time_period_price_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ems_time_period_price_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.ems_time_period_price ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -958,7 +906,7 @@ ALTER TABLE public.ems_time_period_price ALTER COLUMN id ADD GENERATED BY DEFAUL
 
 
 --
--- Name: sys_config; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_config; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_config (
@@ -973,8 +921,10 @@ CREATE TABLE public.sys_config (
 );
 
 
+ALTER TABLE public.sys_config OWNER TO postgres;
+
 --
--- Name: sys_config_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_config_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_config ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -988,7 +938,7 @@ ALTER TABLE public.sys_config ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTI
 
 
 --
--- Name: sys_dept; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_dept; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_dept (
@@ -1010,8 +960,10 @@ CREATE TABLE public.sys_dept (
 );
 
 
+ALTER TABLE public.sys_dept OWNER TO postgres;
+
 --
--- Name: sys_dept_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_dept_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_dept ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1025,7 +977,7 @@ ALTER TABLE public.sys_dept ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY
 
 
 --
--- Name: sys_dict_data; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_dict_data; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_dict_data (
@@ -1044,8 +996,10 @@ CREATE TABLE public.sys_dict_data (
 );
 
 
+ALTER TABLE public.sys_dict_data OWNER TO postgres;
+
 --
--- Name: sys_dict_data_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_dict_data_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_dict_data ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1059,7 +1013,7 @@ ALTER TABLE public.sys_dict_data ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDE
 
 
 --
--- Name: sys_dict_type; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_dict_type; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_dict_type (
@@ -1073,8 +1027,10 @@ CREATE TABLE public.sys_dict_type (
 );
 
 
+ALTER TABLE public.sys_dict_type OWNER TO postgres;
+
 --
--- Name: sys_dict_type_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_dict_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_dict_type ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1088,7 +1044,7 @@ ALTER TABLE public.sys_dict_type ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDE
 
 
 --
--- Name: sys_log; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_log; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_log (
@@ -1113,8 +1069,10 @@ CREATE TABLE public.sys_log (
 );
 
 
+ALTER TABLE public.sys_log OWNER TO postgres;
+
 --
--- Name: sys_log_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_log ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1128,7 +1086,7 @@ ALTER TABLE public.sys_log ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY 
 
 
 --
--- Name: sys_login_log; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_login_log; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_login_log (
@@ -1146,8 +1104,10 @@ CREATE TABLE public.sys_login_log (
 );
 
 
+ALTER TABLE public.sys_login_log OWNER TO postgres;
+
 --
--- Name: sys_login_log_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_login_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_login_log ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1161,7 +1121,7 @@ ALTER TABLE public.sys_login_log ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDE
 
 
 --
--- Name: sys_menu; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_menu; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_menu (
@@ -1182,8 +1142,10 @@ CREATE TABLE public.sys_menu (
 );
 
 
+ALTER TABLE public.sys_menu OWNER TO postgres;
+
 --
--- Name: sys_menu_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_menu_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_menu ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1197,7 +1159,7 @@ ALTER TABLE public.sys_menu ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY
 
 
 --
--- Name: sys_module; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_module; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_module (
@@ -1210,8 +1172,10 @@ CREATE TABLE public.sys_module (
 );
 
 
+ALTER TABLE public.sys_module OWNER TO postgres;
+
 --
--- Name: sys_module_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_module_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_module ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1225,7 +1189,7 @@ ALTER TABLE public.sys_module ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTI
 
 
 --
--- Name: sys_notice; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_notice; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_notice (
@@ -1241,8 +1205,10 @@ CREATE TABLE public.sys_notice (
 );
 
 
+ALTER TABLE public.sys_notice OWNER TO postgres;
+
 --
--- Name: sys_notice_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_notice_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_notice ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1256,7 +1222,7 @@ ALTER TABLE public.sys_notice ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTI
 
 
 --
--- Name: sys_operation_log; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_operation_log; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_operation_log (
@@ -1288,8 +1254,10 @@ CREATE TABLE public.sys_operation_log (
 );
 
 
+ALTER TABLE public.sys_operation_log OWNER TO postgres;
+
 --
--- Name: sys_operation_log_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_operation_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_operation_log ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1303,7 +1271,7 @@ ALTER TABLE public.sys_operation_log ALTER COLUMN id ADD GENERATED BY DEFAULT AS
 
 
 --
--- Name: sys_permission; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_permission; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_permission (
@@ -1318,8 +1286,10 @@ CREATE TABLE public.sys_permission (
 );
 
 
+ALTER TABLE public.sys_permission OWNER TO postgres;
+
 --
--- Name: sys_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_permission ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1333,7 +1303,7 @@ ALTER TABLE public.sys_permission ALTER COLUMN id ADD GENERATED BY DEFAULT AS ID
 
 
 --
--- Name: sys_post; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_post; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_post (
@@ -1349,8 +1319,10 @@ CREATE TABLE public.sys_post (
 );
 
 
+ALTER TABLE public.sys_post OWNER TO postgres;
+
 --
--- Name: sys_post_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_post_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_post ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1364,7 +1336,7 @@ ALTER TABLE public.sys_post ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY
 
 
 --
--- Name: sys_role; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_role; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_role (
@@ -1383,8 +1355,10 @@ CREATE TABLE public.sys_role (
 );
 
 
+ALTER TABLE public.sys_role OWNER TO postgres;
+
 --
--- Name: sys_role_dept; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_role_dept; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_role_dept (
@@ -1393,8 +1367,10 @@ CREATE TABLE public.sys_role_dept (
 );
 
 
+ALTER TABLE public.sys_role_dept OWNER TO postgres;
+
 --
--- Name: sys_role_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_role_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_role ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1408,7 +1384,7 @@ ALTER TABLE public.sys_role ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY
 
 
 --
--- Name: sys_role_permission; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_role_permission; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_role_permission (
@@ -1417,8 +1393,10 @@ CREATE TABLE public.sys_role_permission (
 );
 
 
+ALTER TABLE public.sys_role_permission OWNER TO postgres;
+
 --
--- Name: sys_user; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_user; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_user (
@@ -1446,8 +1424,10 @@ CREATE TABLE public.sys_user (
 );
 
 
+ALTER TABLE public.sys_user OWNER TO postgres;
+
 --
--- Name: sys_user_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_user ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1461,7 +1441,7 @@ ALTER TABLE public.sys_user ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY
 
 
 --
--- Name: sys_user_notice; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_user_notice; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_user_notice (
@@ -1474,8 +1454,10 @@ CREATE TABLE public.sys_user_notice (
 );
 
 
+ALTER TABLE public.sys_user_notice OWNER TO postgres;
+
 --
--- Name: sys_user_notice_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sys_user_notice_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 ALTER TABLE public.sys_user_notice ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
@@ -1489,7 +1471,7 @@ ALTER TABLE public.sys_user_notice ALTER COLUMN id ADD GENERATED BY DEFAULT AS I
 
 
 --
--- Name: sys_user_permission; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_user_permission; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_user_permission (
@@ -1498,8 +1480,10 @@ CREATE TABLE public.sys_user_permission (
 );
 
 
+ALTER TABLE public.sys_user_permission OWNER TO postgres;
+
 --
--- Name: sys_user_post; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_user_post; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_user_post (
@@ -1508,8 +1492,10 @@ CREATE TABLE public.sys_user_post (
 );
 
 
+ALTER TABLE public.sys_user_post OWNER TO postgres;
+
 --
--- Name: sys_user_role; Type: TABLE; Schema: public; Owner: -
+-- Name: sys_user_role; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sys_user_role (
@@ -1518,22 +1504,24 @@ CREATE TABLE public.sys_user_role (
 );
 
 
+ALTER TABLE public.sys_user_role OWNER TO postgres;
+
 --
--- Name: ems_energy_saving_project id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: ems_energy_saving_project id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_saving_project ALTER COLUMN id SET DEFAULT nextval('public.ems_energy_saving_project_id_seq'::regclass);
 
 
 --
--- Name: ems_policy id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: ems_policy id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_policy ALTER COLUMN id SET DEFAULT nextval('public.ems_policy_id_seq'::regclass);
 
 
 --
--- Name: 32793..32839; Type: BLOB METADATA; Schema: -; Owner: -
+-- Name: 32793..32839; Type: BLOB METADATA; Schema: -; Owner: postgres
 --
 
 SELECT pg_catalog.lo_create('32793');
@@ -1545,1988 +1533,2183 @@ SELECT pg_catalog.lo_create('32798');
 SELECT pg_catalog.lo_create('32799');
 SELECT pg_catalog.lo_create('32839');
 
+ALTER LARGE OBJECT 32793 OWNER TO postgres;
+ALTER LARGE OBJECT 32794 OWNER TO postgres;
+ALTER LARGE OBJECT 32795 OWNER TO postgres;
+ALTER LARGE OBJECT 32796 OWNER TO postgres;
+ALTER LARGE OBJECT 32797 OWNER TO postgres;
+ALTER LARGE OBJECT 32798 OWNER TO postgres;
+ALTER LARGE OBJECT 32799 OWNER TO postgres;
+ALTER LARGE OBJECT 32839 OWNER TO postgres;
+
+--
+-- Data for Name: ems_alarm_config; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_alarm_limit_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_alarm_limit_type (id, created_at, updated_at, alarm_type, color_number, comparator_operator, limit_code, limit_name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_alarm_record; Type: TABLE DATA; Schema: public; Owner: postgres
 --
--- Data for Name: ems_alarm_config; Type: TABLE DATA; Schema: public; Owner: -
+
+COPY public.ems_alarm_record (id, created_at, updated_at, handle_remark, handle_time, status, trigger_time, trigger_value, config_id) FROM stdin;
+\.
+
+
 --
+-- Data for Name: ems_benchmark; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
-INSERT INTO public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) VALUES (21, '2026-01-05 02:38:35.46676', '2026-01-05 02:38:35.46676', true, 1000.0000, 1, '日用电量超过1000kWh时预警', 17);
-INSERT INTO public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) VALUES (22, '2026-01-05 02:38:35.48787', '2026-01-05 02:38:35.48787', true, 1500.0000, 1, '日用电量超过1500kWh时报警', 21);
-INSERT INTO public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) VALUES (23, '2026-01-05 02:38:35.496786', '2026-01-05 02:38:35.496786', true, 500.0000, 3, '瞬时功率超过500kW时预警', 17);
-INSERT INTO public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) VALUES (24, '2026-01-05 02:38:35.520265', '2026-01-05 02:38:35.520265', true, 800.0000, 3, '瞬时功率超过800kW时报警', 21);
-INSERT INTO public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) VALUES (25, '2026-01-05 02:38:35.536415', '2026-01-05 02:38:35.536415', true, 0.9000, 11, '功率因数低于0.9时预警', 18);
-INSERT INTO public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) VALUES (26, '2026-01-05 02:38:35.54798', '2026-01-05 02:38:35.54798', true, 0.8500, 11, '功率因数低于0.85时报警', 22);
-INSERT INTO public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) VALUES (27, '2026-01-05 02:38:35.563494', '2026-01-05 02:38:35.563494', true, 100.0000, 5, 'A相电流超过100A时报警', 23);
-INSERT INTO public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) VALUES (28, '2026-01-05 02:38:35.584133', '2026-01-05 02:38:35.584133', true, 100.0000, 12, '日用水量超过100m³时预警', 17);
-INSERT INTO public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) VALUES (29, '2026-01-05 02:38:35.603059', '2026-01-05 02:38:35.603059', true, 1.0000, 21, '蒸汽压力超过1.0MPa时预警', 17);
-INSERT INTO public.ems_alarm_config (id, created_at, updated_at, is_enabled, limit_value, meter_point_id, remark, limit_type_id) VALUES (30, '2026-01-05 02:38:35.615522', '2026-01-05 02:38:35.615522', true, 0.3000, 21, '蒸汽压力低于0.3MPa时预警', 18);
+COPY public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) FROM stdin;
+\.
 
 
 --
--- Data for Name: ems_alarm_limit_type; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: ems_cost_policy_binding; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.ems_alarm_limit_type (id, created_at, updated_at, alarm_type, color_number, comparator_operator, limit_code, limit_name) VALUES (17, '2026-01-05 02:38:35.445999', '2026-01-05 02:38:35.445999', 'WARNING', '#faad14', '>', 'HI_WARN', '高值预警');
-INSERT INTO public.ems_alarm_limit_type (id, created_at, updated_at, alarm_type, color_number, comparator_operator, limit_code, limit_name) VALUES (18, '2026-01-05 02:38:35.445999', '2026-01-05 02:38:35.445999', 'WARNING', '#1890ff', '<', 'LO_WARN', '低值预警');
-INSERT INTO public.ems_alarm_limit_type (id, created_at, updated_at, alarm_type, color_number, comparator_operator, limit_code, limit_name) VALUES (19, '2026-01-05 02:38:35.445999', '2026-01-05 02:38:35.445999', 'WARNING', '#fa8c16', '>=', 'HH_WARN', '偏高预警');
-INSERT INTO public.ems_alarm_limit_type (id, created_at, updated_at, alarm_type, color_number, comparator_operator, limit_code, limit_name) VALUES (20, '2026-01-05 02:38:35.445999', '2026-01-05 02:38:35.445999', 'WARNING', '#13c2c2', '<=', 'LL_WARN', '偏低预警');
-INSERT INTO public.ems_alarm_limit_type (id, created_at, updated_at, alarm_type, color_number, comparator_operator, limit_code, limit_name) VALUES (21, '2026-01-05 02:38:35.445999', '2026-01-05 02:38:35.445999', 'ALARM', '#ff4d4f', '>', 'HI_HI', '高高报警');
-INSERT INTO public.ems_alarm_limit_type (id, created_at, updated_at, alarm_type, color_number, comparator_operator, limit_code, limit_name) VALUES (22, '2026-01-05 02:38:35.445999', '2026-01-05 02:38:35.445999', 'ALARM', '#f5222d', '<', 'LO_LO', '低低报警');
-INSERT INTO public.ems_alarm_limit_type (id, created_at, updated_at, alarm_type, color_number, comparator_operator, limit_code, limit_name) VALUES (23, '2026-01-05 02:38:35.445999', '2026-01-05 02:38:35.445999', 'ALARM', '#eb2f96', '>=', 'OVER_LIMIT', '超限报警');
-INSERT INTO public.ems_alarm_limit_type (id, created_at, updated_at, alarm_type, color_number, comparator_operator, limit_code, limit_name) VALUES (24, '2026-01-05 02:38:35.445999', '2026-01-05 02:38:35.445999', 'ALARM', '#722ed1', '<=', 'UNDER_LIMIT', '欠限报警');
+COPY public.ems_cost_policy_binding (id, created_at, updated_at, effective_end_date, effective_start_date, remark, status, energy_unit_id, price_policy_id) FROM stdin;
+\.
 
 
 --
--- Data for Name: ems_alarm_record; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: ems_data_source; Type: TABLE DATA; Schema: public; Owner: postgres
 --
-
-INSERT INTO public.ems_alarm_record (id, created_at, updated_at, handle_remark, handle_time, status, trigger_time, trigger_value, config_id) VALUES (1, '2026-01-05 02:38:35.64304', '2026-01-05 02:38:35.64304', '已通知生产部门降低负荷', '2025-12-31 03:08:35.64304', 1, '2025-12-31 02:38:35.64304', 1650.0000, 22);
-INSERT INTO public.ems_alarm_record (id, created_at, updated_at, handle_remark, handle_time, status, trigger_time, trigger_value, config_id) VALUES (2, '2026-01-05 02:38:35.679872', '2026-01-05 02:38:35.679872', '已调整无功补偿装置', '2026-01-02 04:38:35.679872', 1, '2026-01-02 02:38:35.679872', 0.8200, 26);
-INSERT INTO public.ems_alarm_record (id, created_at, updated_at, handle_remark, handle_time, status, trigger_time, trigger_value, config_id) VALUES (3, '2026-01-05 02:38:35.693506', '2026-01-05 02:38:35.693506', '生产高峰期正常波动，继续观察', '2026-01-03 02:53:35.693506', 1, '2026-01-03 02:38:35.693506', 520.0000, 23);
-INSERT INTO public.ems_alarm_record (id, created_at, updated_at, handle_remark, handle_time, status, trigger_time, trigger_value, config_id) VALUES (4, '2026-01-05 02:38:35.70763', '2026-01-05 02:38:35.70763', NULL, NULL, 0, '2026-01-04 02:38:35.70763', 115.0000, 27);
-INSERT INTO public.ems_alarm_record (id, created_at, updated_at, handle_remark, handle_time, status, trigger_time, trigger_value, config_id) VALUES (5, '2026-01-05 02:38:35.720118', '2026-01-05 02:38:35.720118', NULL, NULL, 0, '2026-01-04 20:38:35.720118', 850.0000, 24);
-INSERT INTO public.ems_alarm_record (id, created_at, updated_at, handle_remark, handle_time, status, trigger_time, trigger_value, config_id) VALUES (6, '2026-01-05 02:38:35.737418', '2026-01-05 02:38:35.737418', NULL, NULL, 0, '2026-01-05 00:38:35.737418', 125.0000, 28);
-INSERT INTO public.ems_alarm_record (id, created_at, updated_at, handle_remark, handle_time, status, trigger_time, trigger_value, config_id) VALUES (7, '2026-01-05 02:38:35.7576', '2026-01-05 02:38:35.7576', '设备检修期间，正常现象', '2026-01-01 02:48:35.7576', 2, '2026-01-01 02:38:35.7576', 0.2500, 30);
-
-
---
--- Data for Name: ems_benchmark; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (1, '2026-01-06 15:35:39.295235', '2026-01-06 15:35:39.295235', 'GB-ELEC-001', '先进值', '单位产品电耗限额（水泥）', 'GB 16780-2021', '水泥单位产品综合电耗先进值', 0, 'NATIONAL', 'kWh/t', 75.0000, NULL);
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (2, '2026-01-06 15:35:39.308665', '2026-01-06 15:35:39.308665', 'GB-ELEC-002', '准入值', '单位产品电耗限额（水泥）', 'GB 16780-2021', '水泥单位产品综合电耗准入值', 0, 'NATIONAL', 'kWh/t', 85.0000, NULL);
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (3, '2026-01-06 15:35:39.318657', '2026-01-06 15:35:39.318657', 'GB-ELEC-003', '先进值', '单位产品电耗限额（钢铁）', 'GB 21256-2021', '粗钢综合电耗先进值', 0, 'NATIONAL', 'kWh/t', 450.0000, NULL);
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (4, '2026-01-06 15:35:39.326426', '2026-01-06 15:35:39.326426', 'GB-ELEC-004', '准入值', '单位产品电耗限额（钢铁）', 'GB 21256-2021', '粗钢综合电耗准入值', 0, 'NATIONAL', 'kWh/t', 520.0000, NULL);
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (6, '2026-01-06 15:35:39.341656', '2026-01-06 15:35:39.341656', 'IND-ELEC-002', '2级', '空压机能效限值', 'GB 19153-2019', '空压机2级能效限值', 0, 'INDUSTRY', 'kW/(m³/min)', 7.2000, NULL);
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (7, '2026-01-06 15:35:39.350858', '2026-01-06 15:35:39.350858', 'IND-ELEC-003', '1级', '电动机能效限值', 'GB 18613-2020', '三相异步电动机1级能效限值(典型值)', 0, 'INDUSTRY', '%', 96.2000, NULL);
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (8, '2026-01-06 15:35:39.359692', '2026-01-06 15:35:39.359692', 'ENT-ELEC-001', '目标值', '车间单位产出电耗', NULL, '企业内部目标值', 0, 'ENTERPRISE', 'kWh/万元', 120.0000, NULL);
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (9, '2026-01-06 15:35:39.366133', '2026-01-06 15:35:39.366133', 'ENT-ELEC-002', '目标值', '办公楼单位面积电耗', NULL, '办公楼年度用电目标', 0, 'ENTERPRISE', 'kWh/m²/年', 80.0000, NULL);
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (10, '2026-01-06 15:35:39.376237', '2026-01-06 15:35:39.376237', 'REG-ELEC-001', '先进值', '广东省工业用电限额', 'DB44/T xxx', '广东省地方标准', 0, 'REGIONAL', 'kWh/万元', 95.0000, NULL);
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (11, '2026-02-08 11:30:42.248251', '2026-02-08 11:30:42.248251', 'GB-ELEC-0041', 'ddd', '藞dd', NULL, 'adsfsadf', 0, 'NATIONAL', 'asdfasd', NULL, NULL);
-INSERT INTO public.ems_benchmark (id, created_at, updated_at, code, grade, name, national_num, remark, status, type, unit, value, energy_type_id) VALUES (12, '2026-02-08 11:58:09.756139', '2026-02-08 11:58:09.756139', 'BM_AUTO_1770523089730', NULL, '自动化指标', NULL, NULL, 1, 'NATIONAL', 'kWh', NULL, NULL);
-
-
---
--- Data for Name: ems_cost_policy_binding; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_cost_policy_binding (id, created_at, updated_at, effective_end_date, effective_start_date, remark, status, energy_unit_id, price_policy_id) VALUES (4, '2026-02-09 14:57:23.685592', '2026-02-09 23:12:54.489444', '2027-02-28', '2026-03-01', NULL, 0, 36, 3);
-
-
---
--- Data for Name: ems_energy_cost_record; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_energy_cost_record (id, created_at, updated_at, consumption, cost, flat_consumption, peak_consumption, period_type, power_factor, record_date, remark, sharp_consumption, valley_consumption, energy_type_id, energy_unit_id) VALUES (1, '2026-02-09 23:36:56.239806', '2026-02-09 23:36:56.239806', 100.0000, 1.00, 30.0000, 30.0000, 'DAY', 0.20, '2026-02-09', NULL, 20.0000, 20.0000, 14, 36);
-INSERT INTO public.ems_energy_cost_record (id, created_at, updated_at, consumption, cost, flat_consumption, peak_consumption, period_type, power_factor, record_date, remark, sharp_consumption, valley_consumption, energy_type_id, energy_unit_id) VALUES (2, '2026-02-09 23:37:35.156864', '2026-02-09 23:37:35.156864', 1000.0000, 1.00, 300.0000, 300.0000, 'MONTH', 0.80, '2026-01-09', NULL, 200.0000, 200.0000, 14, 36);
-
-
---
--- Data for Name: ems_energy_data; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (13, NULL, '2024-01-01 00:00:00', 'MONTH', 45680.2500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (14, NULL, '2024-02-01 00:00:00', 'MONTH', 42150.8000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (15, NULL, '2024-03-01 00:00:00', 'MONTH', 48320.1500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (16, NULL, '2024-04-01 00:00:00', 'MONTH', 51240.5000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (17, NULL, '2024-05-01 00:00:00', 'MONTH', 58760.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (18, NULL, '2024-06-01 00:00:00', 'MONTH', 72450.9000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (19, NULL, '2024-07-01 00:00:00', 'MONTH', 85320.4500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (20, NULL, '2024-08-01 00:00:00', 'MONTH', 82150.7000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (21, NULL, '2024-09-01 00:00:00', 'MONTH', 68450.2500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (22, NULL, '2024-10-01 00:00:00', 'MONTH', 54230.8000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (23, NULL, '2024-11-01 00:00:00', 'MONTH', 49870.1500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (24, NULL, '2024-12-01 00:00:00', 'MONTH', 52340.6000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (25, NULL, '2025-01-01 00:00:00', 'MONTH', 49334.6700, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (37, NULL, '2025-12-01 00:00:00', 'DAY', 1785.2500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (38, NULL, '2025-12-02 00:00:00', 'DAY', 1823.4000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (39, NULL, '2025-12-03 00:00:00', 'DAY', 1798.6500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (40, NULL, '2025-12-04 00:00:00', 'DAY', 1856.3000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (41, NULL, '2025-12-05 00:00:00', 'DAY', 1912.1500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (42, NULL, '2025-12-06 00:00:00', 'DAY', 1245.8000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (43, NULL, '2025-12-07 00:00:00', 'DAY', 1189.5500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (44, NULL, '2025-12-08 00:00:00', 'DAY', 1802.4500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (45, NULL, '2025-12-09 00:00:00', 'DAY', 1834.7000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (46, NULL, '2025-12-10 00:00:00', 'DAY', 1867.9500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (47, NULL, '2025-12-11 00:00:00', 'DAY', 1889.2000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (48, NULL, '2025-12-12 00:00:00', 'DAY', 1923.4500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (49, NULL, '2025-12-13 00:00:00', 'DAY', 1278.9000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (50, NULL, '2025-12-14 00:00:00', 'DAY', 1156.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (51, NULL, '2025-12-15 00:00:00', 'DAY', 1845.6000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (52, NULL, '2025-12-16 00:00:00', 'DAY', 1878.8500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (53, NULL, '2025-12-17 00:00:00', 'DAY', 1934.1000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (54, NULL, '2025-12-18 00:00:00', 'DAY', 1956.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (55, NULL, '2025-12-19 00:00:00', 'DAY', 1989.6000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (56, NULL, '2025-12-20 00:00:00', 'DAY', 1312.8500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (57, NULL, '2025-12-21 00:00:00', 'DAY', 1198.1000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (58, NULL, '2025-12-22 00:00:00', 'DAY', 1867.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (59, NULL, '2025-12-23 00:00:00', 'DAY', 1898.6000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (60, NULL, '2025-12-24 00:00:00', 'DAY', 1756.8500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (61, NULL, '2025-12-25 00:00:00', 'DAY', 1423.1000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (62, NULL, '2025-12-26 00:00:00', 'DAY', 1834.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (73, NULL, '2022-01-01 00:00:00', 'YEAR', 612450.5000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (74, NULL, '2023-01-01 00:00:00', 'YEAR', 658920.7500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (75, NULL, '2024-01-01 00:00:00', 'YEAR', 710962.9000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (76, NULL, '2025-01-01 00:00:00', 'YEAR', 767843.1700, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (77, NULL, '2024-01-01 00:00:00', 'MONTH', 1256.8000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (78, NULL, '2024-02-01 00:00:00', 'MONTH', 1178.4500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (79, NULL, '2024-03-01 00:00:00', 'MONTH', 1342.2000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (80, NULL, '2024-04-01 00:00:00', 'MONTH', 1456.9500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (81, NULL, '2024-05-01 00:00:00', 'MONTH', 1623.7000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (82, NULL, '2024-06-01 00:00:00', 'MONTH', 1845.4500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (83, NULL, '2024-07-01 00:00:00', 'MONTH', 2134.2000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (84, NULL, '2024-08-01 00:00:00', 'MONTH', 2078.9500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (85, NULL, '2024-09-01 00:00:00', 'MONTH', 1789.7000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (86, NULL, '2024-10-01 00:00:00', 'MONTH', 1534.4500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (87, NULL, '2024-11-01 00:00:00', 'MONTH', 1345.2000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (88, NULL, '2024-12-01 00:00:00', 'MONTH', 1289.9500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (89, NULL, '2025-01-01 00:00:00', 'MONTH', 1319.6400, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (102, NULL, '2024-01-01 00:00:00', 'MONTH', 45680.2500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (103, NULL, '2024-02-01 00:00:00', 'MONTH', 42150.8000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (104, NULL, '2024-03-01 00:00:00', 'MONTH', 48320.1500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (105, NULL, '2024-04-01 00:00:00', 'MONTH', 51240.5000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (106, NULL, '2024-05-01 00:00:00', 'MONTH', 58760.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (107, NULL, '2024-06-01 00:00:00', 'MONTH', 72450.9000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (108, NULL, '2024-07-01 00:00:00', 'MONTH', 85320.4500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (31, NULL, '2025-07-01 00:00:00', 'MONTH', 993.1962, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (30, NULL, '2025-06-01 00:00:00', 'MONTH', 960.0987, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (29, NULL, '2025-05-01 00:00:00', 'MONTH', 976.2449, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (28, NULL, '2025-04-01 00:00:00', 'MONTH', 972.2932, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (27, NULL, '2025-03-01 00:00:00', 'MONTH', 975.5159, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (26, NULL, '2025-02-01 00:00:00', 'MONTH', 975.0886, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (72, NULL, '2026-01-05 00:00:00', 'DAY', 39.5332, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (71, NULL, '2026-01-04 00:00:00', 'DAY', 34.2308, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (70, NULL, '2026-01-03 00:00:00', 'DAY', 40.4009, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (69, NULL, '2026-01-02 00:00:00', 'DAY', 36.2150, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (68, NULL, '2026-01-01 00:00:00', 'DAY', 35.5168, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (67, NULL, '2025-12-31 00:00:00', 'DAY', 39.1352, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (66, NULL, '2025-12-30 00:00:00', 'DAY', 39.4169, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (65, NULL, '2025-12-29 00:00:00', 'DAY', 35.4173, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (64, NULL, '2025-12-28 00:00:00', 'DAY', 37.8459, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (63, NULL, '2025-12-27 00:00:00', 'DAY', 40.6971, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (99, NULL, '2025-11-01 00:00:00', 'MONTH', 714.9088, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (34, NULL, '2025-10-01 00:00:00', 'MONTH', 965.1984, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (33, NULL, '2025-09-01 00:00:00', 'MONTH', 1016.1289, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (32, NULL, '2025-08-01 00:00:00', 'MONTH', 970.6966, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (98, NULL, '2025-10-01 00:00:00', 'MONTH', 780.5499, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (97, NULL, '2025-09-01 00:00:00', 'MONTH', 726.4559, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (96, NULL, '2025-08-01 00:00:00', 'MONTH', 724.0981, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (95, NULL, '2025-07-01 00:00:00', 'MONTH', 784.3847, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (94, NULL, '2025-06-01 00:00:00', 'MONTH', 764.9472, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (93, NULL, '2025-05-01 00:00:00', 'MONTH', 775.2540, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (92, NULL, '2025-04-01 00:00:00', 'MONTH', 732.1573, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (91, NULL, '2025-03-01 00:00:00', 'MONTH', 811.2812, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (90, NULL, '2025-02-01 00:00:00', 'MONTH', 786.7234, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (35, NULL, '2025-11-01 00:00:00', 'MONTH', 921.8087, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (100, NULL, '2025-12-01 00:00:00', 'MONTH', 737.7613, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (109, NULL, '2024-08-01 00:00:00', 'MONTH', 82150.7000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (110, NULL, '2024-09-01 00:00:00', 'MONTH', 68450.2500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (111, NULL, '2024-10-01 00:00:00', 'MONTH', 54230.8000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (112, NULL, '2024-11-01 00:00:00', 'MONTH', 49870.1500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (113, NULL, '2024-12-01 00:00:00', 'MONTH', 52340.6000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (114, NULL, '2025-01-01 00:00:00', 'MONTH', 49334.6700, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (115, NULL, '2025-02-01 00:00:00', 'MONTH', 45522.8600, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (116, NULL, '2025-03-01 00:00:00', 'MONTH', 52185.7600, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (117, NULL, '2025-04-01 00:00:00', 'MONTH', 55339.7400, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (118, NULL, '2025-05-01 00:00:00', 'MONTH', 63461.1800, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (119, NULL, '2025-06-01 00:00:00', 'MONTH', 78246.9700, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (120, NULL, '2025-07-01 00:00:00', 'MONTH', 92146.0900, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (121, NULL, '2025-08-01 00:00:00', 'MONTH', 88722.7600, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (122, NULL, '2025-09-01 00:00:00', 'MONTH', 73926.2700, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (123, NULL, '2025-10-01 00:00:00', 'MONTH', 58569.2600, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (124, NULL, '2025-11-01 00:00:00', 'MONTH', 53859.7600, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (126, NULL, '2025-12-01 00:00:00', 'DAY', 1785.2500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (127, NULL, '2025-12-02 00:00:00', 'DAY', 1823.4000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (128, NULL, '2025-12-03 00:00:00', 'DAY', 1798.6500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (129, NULL, '2025-12-04 00:00:00', 'DAY', 1856.3000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (130, NULL, '2025-12-05 00:00:00', 'DAY', 1912.1500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (131, NULL, '2025-12-06 00:00:00', 'DAY', 1245.8000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (132, NULL, '2025-12-07 00:00:00', 'DAY', 1189.5500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (133, NULL, '2025-12-08 00:00:00', 'DAY', 1802.4500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (134, NULL, '2025-12-09 00:00:00', 'DAY', 1834.7000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (135, NULL, '2025-12-10 00:00:00', 'DAY', 1867.9500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (136, NULL, '2025-12-11 00:00:00', 'DAY', 1889.2000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (137, NULL, '2025-12-12 00:00:00', 'DAY', 1923.4500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (138, NULL, '2025-12-13 00:00:00', 'DAY', 1278.9000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (139, NULL, '2025-12-14 00:00:00', 'DAY', 1156.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (140, NULL, '2025-12-15 00:00:00', 'DAY', 1845.6000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (141, NULL, '2025-12-16 00:00:00', 'DAY', 1878.8500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (142, NULL, '2025-12-17 00:00:00', 'DAY', 1934.1000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (143, NULL, '2025-12-18 00:00:00', 'DAY', 1956.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (144, NULL, '2025-12-19 00:00:00', 'DAY', 1989.6000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (145, NULL, '2025-12-20 00:00:00', 'DAY', 1312.8500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (146, NULL, '2025-12-21 00:00:00', 'DAY', 1198.1000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (147, NULL, '2025-12-22 00:00:00', 'DAY', 1867.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (148, NULL, '2025-12-23 00:00:00', 'DAY', 1898.6000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (149, NULL, '2025-12-24 00:00:00', 'DAY', 1756.8500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (150, NULL, '2025-12-25 00:00:00', 'DAY', 1423.1000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (151, NULL, '2025-12-26 00:00:00', 'DAY', 1834.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (152, NULL, '2025-12-27 00:00:00', 'DAY', 1289.6000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (153, NULL, '2025-12-28 00:00:00', 'DAY', 1178.8500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (154, NULL, '2025-12-29 00:00:00', 'DAY', 1812.1000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (155, NULL, '2025-12-30 00:00:00', 'DAY', 1845.3500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (156, NULL, '2025-12-31 00:00:00', 'DAY', 1667.8000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (157, NULL, '2026-01-01 00:00:00', 'DAY', 1456.2000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (158, NULL, '2026-01-02 00:00:00', 'DAY', 1789.4500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (159, NULL, '2026-01-03 00:00:00', 'DAY', 1834.7000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (160, NULL, '2026-01-04 00:00:00', 'DAY', 1267.9500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (161, NULL, '2026-01-05 00:00:00', 'DAY', 1198.2000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (162, NULL, '2022-01-01 00:00:00', 'YEAR', 612450.5000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (163, NULL, '2023-01-01 00:00:00', 'YEAR', 658920.7500, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (164, NULL, '2024-01-01 00:00:00', 'YEAR', 710962.9000, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (165, NULL, '2025-01-01 00:00:00', 'YEAR', 767843.1700, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (166, NULL, '2024-01-01 00:00:00', 'MONTH', 1256.8000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (167, NULL, '2024-02-01 00:00:00', 'MONTH', 1178.4500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (168, NULL, '2024-03-01 00:00:00', 'MONTH', 1342.2000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (169, NULL, '2024-04-01 00:00:00', 'MONTH', 1456.9500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (170, NULL, '2024-05-01 00:00:00', 'MONTH', 1623.7000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (171, NULL, '2024-06-01 00:00:00', 'MONTH', 1845.4500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (172, NULL, '2024-07-01 00:00:00', 'MONTH', 2134.2000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (173, NULL, '2024-08-01 00:00:00', 'MONTH', 2078.9500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (174, NULL, '2024-09-01 00:00:00', 'MONTH', 1789.7000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (175, NULL, '2024-10-01 00:00:00', 'MONTH', 1534.4500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (176, NULL, '2024-11-01 00:00:00', 'MONTH', 1345.2000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (177, NULL, '2024-12-01 00:00:00', 'MONTH', 1289.9500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (178, NULL, '2025-01-01 00:00:00', 'MONTH', 1319.6400, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (179, NULL, '2025-02-01 00:00:00', 'MONTH', 1237.3700, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (180, NULL, '2025-03-01 00:00:00', 'MONTH', 1409.3100, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (181, NULL, '2025-04-01 00:00:00', 'MONTH', 1529.8000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (182, NULL, '2025-05-01 00:00:00', 'MONTH', 1704.8900, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (183, NULL, '2025-06-01 00:00:00', 'MONTH', 1937.7200, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (184, NULL, '2025-07-01 00:00:00', 'MONTH', 2240.9100, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (185, NULL, '2025-08-01 00:00:00', 'MONTH', 2182.9000, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (186, NULL, '2025-09-01 00:00:00', 'MONTH', 1879.1900, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (187, NULL, '2025-10-01 00:00:00', 'MONTH', 1611.1700, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (188, NULL, '2025-11-01 00:00:00', 'MONTH', 1412.4600, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (189, NULL, '2025-12-01 00:00:00', 'MONTH', 1354.4500, 9, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (190, NULL, '2024-01-01 00:00:00', 'MONTH', 8956.3000, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (191, NULL, '2024-02-01 00:00:00', 'MONTH', 8234.8500, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (192, NULL, '2024-03-01 00:00:00', 'MONTH', 5678.4000, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (193, NULL, '2024-04-01 00:00:00', 'MONTH', 2345.9500, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (194, NULL, '2024-05-01 00:00:00', 'MONTH', 1234.5000, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (195, NULL, '2024-06-01 00:00:00', 'MONTH', 856.0500, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (196, NULL, '2024-07-01 00:00:00', 'MONTH', 678.6000, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (197, NULL, '2024-08-01 00:00:00', 'MONTH', 712.1500, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (198, NULL, '2024-09-01 00:00:00', 'MONTH', 1456.7000, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (199, NULL, '2024-10-01 00:00:00', 'MONTH', 3567.2500, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (200, NULL, '2024-11-01 00:00:00', 'MONTH', 6789.8000, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (201, NULL, '2024-12-01 00:00:00', 'MONTH', 8123.3500, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (202, NULL, '2025-01-01 00:00:00', 'MONTH', 9404.1200, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (203, NULL, '2025-02-01 00:00:00', 'MONTH', 8646.5900, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (204, NULL, '2025-03-01 00:00:00', 'MONTH', 5962.3200, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (205, NULL, '2025-04-01 00:00:00', 'MONTH', 2463.2500, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (206, NULL, '2025-05-01 00:00:00', 'MONTH', 1296.2300, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (207, NULL, '2025-06-01 00:00:00', 'MONTH', 898.8500, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (208, NULL, '2025-07-01 00:00:00', 'MONTH', 712.5300, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (209, NULL, '2025-08-01 00:00:00', 'MONTH', 747.7600, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (210, NULL, '2025-09-01 00:00:00', 'MONTH', 1529.5400, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (211, NULL, '2025-10-01 00:00:00', 'MONTH', 3745.6100, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (212, NULL, '2025-11-01 00:00:00', 'MONTH', 7129.2900, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (213, NULL, '2025-12-01 00:00:00', 'MONTH', 8529.5200, 3, 14);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (214, NULL, '2024-01-01 00:00:00', 'MONTH', 2456.3000, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (215, NULL, '2024-02-01 00:00:00', 'MONTH', 2234.8500, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (216, NULL, '2024-03-01 00:00:00', 'MONTH', 2078.4000, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (217, NULL, '2024-04-01 00:00:00', 'MONTH', 1845.9500, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (218, NULL, '2024-05-01 00:00:00', 'MONTH', 1634.5000, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (219, NULL, '2024-06-01 00:00:00', 'MONTH', 1456.0500, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (220, NULL, '2024-07-01 00:00:00', 'MONTH', 1278.6000, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (221, NULL, '2024-08-01 00:00:00', 'MONTH', 1312.1500, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (222, NULL, '2024-09-01 00:00:00', 'MONTH', 1556.7000, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (223, NULL, '2024-10-01 00:00:00', 'MONTH', 1867.2500, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (224, NULL, '2024-11-01 00:00:00', 'MONTH', 2189.8000, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (225, NULL, '2024-12-01 00:00:00', 'MONTH', 2423.3500, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (226, NULL, '2025-01-01 00:00:00', 'MONTH', 2579.1200, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (240, '2026-01-25 11:53:45.237818', '2026-01-24 00:00:00', 'DAY', 40.4699, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (125, NULL, '2025-12-01 00:00:00', 'MONTH', 1385.1116, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (242, '2026-01-25 11:53:45.25093', '2026-01-22 00:00:00', 'DAY', 35.1819, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (243, '2026-01-25 11:53:45.258317', '2026-01-21 00:00:00', 'DAY', 33.2091, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (244, '2026-01-25 11:53:45.264072', '2026-01-20 00:00:00', 'DAY', 36.8066, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (245, '2026-01-25 11:53:45.275712', '2026-01-19 00:00:00', 'DAY', 35.0164, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (246, '2026-01-25 11:53:45.281578', '2026-01-18 00:00:00', 'DAY', 35.1495, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (247, '2026-01-25 11:53:45.291432', '2026-01-17 00:00:00', 'DAY', 33.6138, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (248, '2026-01-25 11:53:45.296166', '2026-01-16 00:00:00', 'DAY', 38.7359, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (249, '2026-01-25 11:53:45.314949', '2026-01-15 00:00:00', 'DAY', 31.5590, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (250, '2026-01-25 11:53:45.319956', '2026-01-14 00:00:00', 'DAY', 32.1578, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (251, '2026-01-25 11:53:45.32608', '2026-01-13 00:00:00', 'DAY', 31.0645, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (252, '2026-01-25 11:53:45.329753', '2026-01-12 00:00:00', 'DAY', 31.7201, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (253, '2026-01-25 11:53:45.335992', '2026-01-11 00:00:00', 'DAY', 34.3777, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (254, '2026-01-25 11:53:45.341296', '2026-01-10 00:00:00', 'DAY', 40.5188, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (255, '2026-01-25 11:53:45.345535', '2026-01-09 00:00:00', 'DAY', 37.6426, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (256, '2026-01-25 11:53:45.34952', '2026-01-08 00:00:00', 'DAY', 37.6966, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (257, '2026-01-25 11:53:45.353985', '2026-01-07 00:00:00', 'DAY', 39.2263, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (258, '2026-01-25 11:53:45.359219', '2026-01-06 00:00:00', 'DAY', 35.4066, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (259, '2026-01-25 11:53:45.4116', '2026-01-01 00:00:00', 'YEAR', 11080.4626, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (36, NULL, '2025-12-01 00:00:00', 'MONTH', 984.6715, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (239, '2026-01-25 11:53:45.231338', '2026-01-25 00:00:00', 'DAY', 39.0042, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (260, '2026-01-25 11:53:45.583181', '2026-01-01 00:00:00', 'MONTH', 1297.7682, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (261, '2026-01-25 11:53:45.586834', '2025-12-01 00:00:00', 'MONTH', 1211.6934, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (262, '2026-01-25 11:53:45.590623', '2025-11-01 00:00:00', 'MONTH', 1261.0566, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (263, '2026-01-25 11:53:45.593802', '2025-10-01 00:00:00', 'MONTH', 1242.4401, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (264, '2026-01-25 11:53:45.59696', '2025-09-01 00:00:00', 'MONTH', 1301.4214, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (265, '2026-01-25 11:53:45.600578', '2025-08-01 00:00:00', 'MONTH', 1247.5205, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (266, '2026-01-25 11:53:45.603933', '2025-07-01 00:00:00', 'MONTH', 1208.7617, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (267, '2026-01-25 11:53:45.607127', '2025-06-01 00:00:00', 'MONTH', 1224.6288, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (268, '2026-01-25 11:53:45.609937', '2025-05-01 00:00:00', 'MONTH', 1227.8162, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (269, '2026-01-25 11:53:45.613223', '2025-04-01 00:00:00', 'MONTH', 1249.2799, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (270, '2026-01-25 11:53:45.615909', '2025-03-01 00:00:00', 'MONTH', 1279.2247, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (271, '2026-01-25 11:53:45.618685', '2025-02-01 00:00:00', 'MONTH', 1280.7341, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (272, '2026-01-25 11:53:45.621021', '2026-01-25 00:00:00', 'DAY', 42.9140, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (273, '2026-01-25 11:53:45.623771', '2026-01-24 00:00:00', 'DAY', 48.1492, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (274, '2026-01-25 11:53:45.626585', '2026-01-23 00:00:00', 'DAY', 44.5635, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (275, '2026-01-25 11:53:45.629839', '2026-01-22 00:00:00', 'DAY', 44.8659, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (276, '2026-01-25 11:53:45.632764', '2026-01-21 00:00:00', 'DAY', 40.7565, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (277, '2026-01-25 11:53:45.643142', '2026-01-20 00:00:00', 'DAY', 42.3484, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (278, '2026-01-25 11:53:45.646444', '2026-01-19 00:00:00', 'DAY', 48.1314, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (279, '2026-01-25 11:53:45.650176', '2026-01-18 00:00:00', 'DAY', 47.1695, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (280, '2026-01-25 11:53:45.654137', '2026-01-17 00:00:00', 'DAY', 45.6708, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (281, '2026-01-25 11:53:45.656926', '2026-01-16 00:00:00', 'DAY', 47.8959, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (282, '2026-01-25 11:53:45.659845', '2026-01-15 00:00:00', 'DAY', 41.8486, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (283, '2026-01-25 11:53:45.662543', '2026-01-14 00:00:00', 'DAY', 44.1776, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (284, '2026-01-25 11:53:45.665539', '2026-01-13 00:00:00', 'DAY', 44.7093, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (285, '2026-01-25 11:53:45.668745', '2026-01-12 00:00:00', 'DAY', 46.5693, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (286, '2026-01-25 11:53:45.67148', '2026-01-11 00:00:00', 'DAY', 48.3167, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (287, '2026-01-25 11:53:45.675295', '2026-01-10 00:00:00', 'DAY', 50.1677, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (288, '2026-01-25 11:53:45.67826', '2026-01-09 00:00:00', 'DAY', 43.6649, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (289, '2026-01-25 11:53:45.681183', '2026-01-08 00:00:00', 'DAY', 45.3734, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (290, '2026-01-25 11:53:45.683664', '2026-01-07 00:00:00', 'DAY', 40.6576, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (291, '2026-01-25 11:53:45.68641', '2026-01-06 00:00:00', 'DAY', 43.4904, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (292, '2026-01-25 11:53:45.688993', '2026-01-05 00:00:00', 'DAY', 46.2987, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (293, '2026-01-25 11:53:45.691862', '2026-01-04 00:00:00', 'DAY', 43.4454, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (294, '2026-01-25 11:53:45.694879', '2026-01-03 00:00:00', 'DAY', 44.7031, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (295, '2026-01-25 11:53:45.697594', '2026-01-02 00:00:00', 'DAY', 45.6367, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (296, '2026-01-25 11:53:45.700701', '2026-01-01 00:00:00', 'DAY', 47.1501, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (297, '2026-01-25 11:53:45.704208', '2025-12-31 00:00:00', 'DAY', 46.3394, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (298, '2026-01-25 11:53:45.708325', '2025-12-30 00:00:00', 'DAY', 46.1369, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (299, '2026-01-25 11:53:45.712457', '2025-12-29 00:00:00', 'DAY', 49.7780, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (300, '2026-01-25 11:53:45.716995', '2025-12-28 00:00:00', 'DAY', 40.5274, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (301, '2026-01-25 11:53:45.72074', '2025-12-27 00:00:00', 'DAY', 48.0032, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (302, '2026-01-25 11:53:45.725732', '2026-01-01 00:00:00', 'YEAR', 14939.3684, 14, 26);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (303, '2026-01-25 11:53:45.729645', '2026-01-01 00:00:00', 'MONTH', 1193.9762, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (237, NULL, '2025-12-01 00:00:00', 'MONTH', 1132.1648, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (236, NULL, '2025-11-01 00:00:00', 'MONTH', 1176.2698, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (235, NULL, '2025-10-01 00:00:00', 'MONTH', 1167.5407, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (234, NULL, '2025-09-01 00:00:00', 'MONTH', 1107.2883, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (233, NULL, '2025-08-01 00:00:00', 'MONTH', 1199.1162, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (232, NULL, '2025-07-01 00:00:00', 'MONTH', 1195.5861, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (231, NULL, '2025-06-01 00:00:00', 'MONTH', 1133.7111, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (230, NULL, '2025-05-01 00:00:00', 'MONTH', 1189.8014, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (229, NULL, '2025-04-01 00:00:00', 'MONTH', 1122.7786, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (228, NULL, '2025-03-01 00:00:00', 'MONTH', 1191.7082, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (227, NULL, '2025-02-01 00:00:00', 'MONTH', 1107.2273, 7, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (304, '2026-01-25 11:53:45.755912', '2026-01-25 00:00:00', 'DAY', 38.4641, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (305, '2026-01-25 11:53:45.758212', '2026-01-24 00:00:00', 'DAY', 43.4016, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (306, '2026-01-25 11:53:45.76057', '2026-01-23 00:00:00', 'DAY', 43.7338, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (307, '2026-01-25 11:53:45.762708', '2026-01-22 00:00:00', 'DAY', 46.0836, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (308, '2026-01-25 11:53:45.764775', '2026-01-21 00:00:00', 'DAY', 38.4050, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (309, '2026-01-25 11:53:45.766835', '2026-01-20 00:00:00', 'DAY', 40.6247, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (310, '2026-01-25 11:53:45.768855', '2026-01-19 00:00:00', 'DAY', 43.7643, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (241, '2026-01-25 11:53:45.243008', '2026-01-23 00:00:00', 'DAY', 34.8712, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (311, '2026-01-25 11:53:45.770881', '2026-01-18 00:00:00', 'DAY', 37.4421, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (312, '2026-01-25 11:53:45.773559', '2026-01-17 00:00:00', 'DAY', 42.3659, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (313, '2026-01-25 11:53:45.775668', '2026-01-16 00:00:00', 'DAY', 38.4794, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (314, '2026-01-25 11:53:45.777667', '2026-01-15 00:00:00', 'DAY', 40.0290, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (315, '2026-01-25 11:53:45.779765', '2026-01-14 00:00:00', 'DAY', 38.8470, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (316, '2026-01-25 11:53:45.781794', '2026-01-13 00:00:00', 'DAY', 39.4890, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (317, '2026-01-25 11:53:45.783753', '2026-01-12 00:00:00', 'DAY', 46.1596, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (318, '2026-01-25 11:53:45.785761', '2026-01-11 00:00:00', 'DAY', 39.8656, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (319, '2026-01-25 11:53:45.787746', '2026-01-10 00:00:00', 'DAY', 46.3298, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (320, '2026-01-25 11:53:45.789665', '2026-01-09 00:00:00', 'DAY', 45.4655, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (321, '2026-01-25 11:53:45.791648', '2026-01-08 00:00:00', 'DAY', 45.7851, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (322, '2026-01-25 11:53:45.793669', '2026-01-07 00:00:00', 'DAY', 41.2680, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (323, '2026-01-25 11:53:45.795793', '2026-01-06 00:00:00', 'DAY', 39.0443, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (324, '2026-01-25 11:53:45.797734', '2026-01-05 00:00:00', 'DAY', 41.5795, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (325, '2026-01-25 11:53:45.799952', '2026-01-04 00:00:00', 'DAY', 39.4752, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (326, '2026-01-25 11:53:45.801936', '2026-01-03 00:00:00', 'DAY', 44.3942, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (327, '2026-01-25 11:53:45.80391', '2026-01-02 00:00:00', 'DAY', 44.0532, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (328, '2026-01-25 11:53:45.806237', '2026-01-01 00:00:00', 'DAY', 41.8653, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (329, '2026-01-25 11:53:45.80867', '2025-12-31 00:00:00', 'DAY', 38.7698, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (330, '2026-01-25 11:53:45.810803', '2025-12-30 00:00:00', 'DAY', 37.6326, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (331, '2026-01-25 11:53:45.813006', '2025-12-29 00:00:00', 'DAY', 45.7469, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (332, '2026-01-25 11:53:45.815375', '2025-12-28 00:00:00', 'DAY', 43.5442, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (333, '2026-01-25 11:53:45.817935', '2025-12-27 00:00:00', 'DAY', 41.3892, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (334, '2026-01-25 11:53:45.820291', '2026-01-01 00:00:00', 'YEAR', 13482.3599, 14, 18);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (335, '2026-01-25 11:53:46.003107', '2026-01-01 00:00:00', 'MONTH', 755.5165, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (336, '2026-01-25 11:53:46.026483', '2026-01-25 00:00:00', 'DAY', 23.8650, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (337, '2026-01-25 11:53:46.02949', '2026-01-24 00:00:00', 'DAY', 29.7520, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (338, '2026-01-25 11:53:46.031671', '2026-01-23 00:00:00', 'DAY', 27.1292, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (339, '2026-01-25 11:53:46.033991', '2026-01-22 00:00:00', 'DAY', 27.7954, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (340, '2026-01-25 11:53:46.036841', '2026-01-21 00:00:00', 'DAY', 32.7577, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (341, '2026-01-25 11:53:46.039146', '2026-01-20 00:00:00', 'DAY', 31.4606, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (342, '2026-01-25 11:53:46.041213', '2026-01-19 00:00:00', 'DAY', 25.4570, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (343, '2026-01-25 11:53:46.044276', '2026-01-18 00:00:00', 'DAY', 28.0988, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (344, '2026-01-25 11:53:46.046687', '2026-01-17 00:00:00', 'DAY', 31.4490, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (345, '2026-01-25 11:53:46.049033', '2026-01-16 00:00:00', 'DAY', 24.6761, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (346, '2026-01-25 11:53:46.051316', '2026-01-15 00:00:00', 'DAY', 28.3847, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (347, '2026-01-25 11:53:46.05373', '2026-01-14 00:00:00', 'DAY', 31.9465, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (348, '2026-01-25 11:53:46.055865', '2026-01-13 00:00:00', 'DAY', 27.7874, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (349, '2026-01-25 11:53:46.058068', '2026-01-12 00:00:00', 'DAY', 25.5417, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (350, '2026-01-25 11:53:46.060763', '2026-01-11 00:00:00', 'DAY', 28.9566, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (351, '2026-01-25 11:53:46.063431', '2026-01-10 00:00:00', 'DAY', 25.3294, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (352, '2026-01-25 11:53:46.066097', '2026-01-09 00:00:00', 'DAY', 30.2717, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (353, '2026-01-25 11:53:46.068512', '2026-01-08 00:00:00', 'DAY', 26.4906, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (354, '2026-01-25 11:53:46.070905', '2026-01-07 00:00:00', 'DAY', 28.9901, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (355, '2026-01-25 11:53:46.073188', '2026-01-06 00:00:00', 'DAY', 31.1752, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (356, '2026-01-25 11:53:46.075846', '2026-01-05 00:00:00', 'DAY', 33.5139, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (357, '2026-01-25 11:53:46.078303', '2026-01-04 00:00:00', 'DAY', 29.2193, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (358, '2026-01-25 11:53:46.08073', '2026-01-03 00:00:00', 'DAY', 33.0711, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (359, '2026-01-25 11:53:46.082965', '2026-01-02 00:00:00', 'DAY', 33.1898, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (360, '2026-01-25 11:53:46.085473', '2026-01-01 00:00:00', 'DAY', 32.4590, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (361, '2026-01-25 11:53:46.087647', '2025-12-31 00:00:00', 'DAY', 24.4312, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (362, '2026-01-25 11:53:46.08989', '2025-12-30 00:00:00', 'DAY', 33.3560, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (363, '2026-01-25 11:53:46.092312', '2025-12-29 00:00:00', 'DAY', 27.3254, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (364, '2026-01-25 11:53:46.095116', '2025-12-28 00:00:00', 'DAY', 26.4246, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (365, '2026-01-25 11:53:46.098104', '2025-12-27 00:00:00', 'DAY', 32.6765, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (366, '2026-01-25 11:53:46.100594', '2026-01-01 00:00:00', 'YEAR', 8789.8680, 14, 12);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (367, '2026-01-25 11:53:46.187083', '2026-01-01 00:00:00', 'MONTH', 646.8423, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (368, '2026-01-25 11:53:46.189087', '2025-12-01 00:00:00', 'MONTH', 701.0516, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (369, '2026-01-25 11:53:46.195558', '2025-11-01 00:00:00', 'MONTH', 664.2587, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (370, '2026-01-25 11:53:46.202281', '2025-10-01 00:00:00', 'MONTH', 611.7551, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (371, '2026-01-25 11:53:46.207582', '2025-09-01 00:00:00', 'MONTH', 689.0508, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (372, '2026-01-25 11:53:46.211297', '2025-08-01 00:00:00', 'MONTH', 678.6363, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (373, '2026-01-25 11:53:46.214514', '2025-07-01 00:00:00', 'MONTH', 651.7940, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (374, '2026-01-25 11:53:46.216619', '2025-06-01 00:00:00', 'MONTH', 637.1104, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (375, '2026-01-25 11:53:46.218872', '2025-05-01 00:00:00', 'MONTH', 643.6728, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (376, '2026-01-25 11:53:46.220886', '2025-04-01 00:00:00', 'MONTH', 643.1197, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (377, '2026-01-25 11:53:46.223073', '2025-03-01 00:00:00', 'MONTH', 681.9266, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (378, '2026-01-25 11:53:46.225394', '2025-02-01 00:00:00', 'MONTH', 651.6576, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (379, '2026-01-25 11:53:46.228009', '2026-01-25 00:00:00', 'DAY', 24.5436, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (380, '2026-01-25 11:53:46.23047', '2026-01-24 00:00:00', 'DAY', 28.2155, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (381, '2026-01-25 11:53:46.232956', '2026-01-23 00:00:00', 'DAY', 24.1095, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (382, '2026-01-25 11:53:46.239022', '2026-01-22 00:00:00', 'DAY', 25.1308, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (383, '2026-01-25 11:53:46.241349', '2026-01-21 00:00:00', 'DAY', 28.5382, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (384, '2026-01-25 11:53:46.243696', '2026-01-20 00:00:00', 'DAY', 24.8155, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (385, '2026-01-25 11:53:46.247212', '2026-01-19 00:00:00', 'DAY', 21.7100, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (386, '2026-01-25 11:53:46.249571', '2026-01-18 00:00:00', 'DAY', 29.2350, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (387, '2026-01-25 11:53:46.251942', '2026-01-17 00:00:00', 'DAY', 29.1420, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (388, '2026-01-25 11:53:46.254136', '2026-01-16 00:00:00', 'DAY', 26.2688, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (389, '2026-01-25 11:53:46.256251', '2026-01-15 00:00:00', 'DAY', 29.6687, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (390, '2026-01-25 11:53:46.258663', '2026-01-14 00:00:00', 'DAY', 28.9437, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (391, '2026-01-25 11:53:46.260897', '2026-01-13 00:00:00', 'DAY', 26.1453, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (392, '2026-01-25 11:53:46.263421', '2026-01-12 00:00:00', 'DAY', 28.6587, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (393, '2026-01-25 11:53:46.266051', '2026-01-11 00:00:00', 'DAY', 23.5029, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (394, '2026-01-25 11:53:46.269324', '2026-01-10 00:00:00', 'DAY', 26.4832, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (395, '2026-01-25 11:53:46.271631', '2026-01-09 00:00:00', 'DAY', 22.3620, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (396, '2026-01-25 11:53:46.274204', '2026-01-08 00:00:00', 'DAY', 26.9190, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (397, '2026-01-25 11:53:46.276689', '2026-01-07 00:00:00', 'DAY', 25.6648, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (398, '2026-01-25 11:53:46.279265', '2026-01-06 00:00:00', 'DAY', 21.3356, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (399, '2026-01-25 11:53:46.281644', '2026-01-05 00:00:00', 'DAY', 28.6866, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (400, '2026-01-25 11:53:46.283996', '2026-01-04 00:00:00', 'DAY', 26.7128, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (401, '2026-01-25 11:53:46.28655', '2026-01-03 00:00:00', 'DAY', 29.3817, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (402, '2026-01-25 11:53:46.289816', '2026-01-02 00:00:00', 'DAY', 29.4773, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (403, '2026-01-25 11:53:46.293461', '2026-01-01 00:00:00', 'DAY', 24.6366, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (404, '2026-01-25 11:53:46.296987', '2025-12-31 00:00:00', 'DAY', 23.7599, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (405, '2026-01-25 11:53:46.300519', '2025-12-30 00:00:00', 'DAY', 27.7605, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (406, '2026-01-25 11:53:46.303982', '2025-12-29 00:00:00', 'DAY', 30.0242, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (407, '2026-01-25 11:53:46.307737', '2025-12-28 00:00:00', 'DAY', 25.8240, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (408, '2026-01-25 11:53:46.310337', '2025-12-27 00:00:00', 'DAY', 29.9337, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (409, '2026-01-25 11:53:46.312883', '2026-01-01 00:00:00', 'YEAR', 7237.7060, 14, 27);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (238, '2026-01-25 11:53:45.04652', '2026-01-01 00:00:00', 'MONTH', 942.0385, 14, 1);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (410, '2026-01-25 11:55:28.91173', '2026-01-01 00:00:00', 'MONTH', 921.5647, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (411, '2026-01-25 11:55:28.914959', '2025-12-01 00:00:00', 'MONTH', 861.2445, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (412, '2026-01-25 11:55:28.917978', '2025-11-01 00:00:00', 'MONTH', 919.0966, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (413, '2026-01-25 11:55:28.920461', '2025-10-01 00:00:00', 'MONTH', 893.0653, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (414, '2026-01-25 11:55:28.922685', '2025-09-01 00:00:00', 'MONTH', 857.9892, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (415, '2026-01-25 11:55:28.924501', '2025-08-01 00:00:00', 'MONTH', 886.3281, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (416, '2026-01-25 11:55:28.926261', '2025-07-01 00:00:00', 'MONTH', 854.6902, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (417, '2026-01-25 11:55:28.928167', '2025-06-01 00:00:00', 'MONTH', 862.8440, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (418, '2026-01-25 11:55:28.929965', '2025-05-01 00:00:00', 'MONTH', 925.2806, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (419, '2026-01-25 11:55:28.931723', '2025-04-01 00:00:00', 'MONTH', 897.2749, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (420, '2026-01-25 11:55:28.933448', '2025-03-01 00:00:00', 'MONTH', 838.3578, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (421, '2026-01-25 11:55:28.935237', '2025-02-01 00:00:00', 'MONTH', 881.7041, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (422, '2026-01-25 11:55:28.936974', '2026-01-25 00:00:00', 'DAY', 30.4263, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (423, '2026-01-25 11:55:28.938743', '2026-01-24 00:00:00', 'DAY', 32.2497, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (424, '2026-01-25 11:55:28.94046', '2026-01-23 00:00:00', 'DAY', 28.1068, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (425, '2026-01-25 11:55:28.942221', '2026-01-22 00:00:00', 'DAY', 35.7195, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (426, '2026-01-25 11:55:28.944033', '2026-01-21 00:00:00', 'DAY', 31.1571, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (427, '2026-01-25 11:55:28.946151', '2026-01-20 00:00:00', 'DAY', 33.5558, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (428, '2026-01-25 11:55:28.948122', '2026-01-19 00:00:00', 'DAY', 28.1807, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (429, '2026-01-25 11:55:28.950542', '2026-01-18 00:00:00', 'DAY', 36.7942, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (430, '2026-01-25 11:55:28.952312', '2026-01-17 00:00:00', 'DAY', 30.7597, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (431, '2026-01-25 11:55:28.954109', '2026-01-16 00:00:00', 'DAY', 35.3898, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (432, '2026-01-25 11:55:28.956205', '2026-01-15 00:00:00', 'DAY', 31.0333, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (433, '2026-01-25 11:55:28.958203', '2026-01-14 00:00:00', 'DAY', 32.6652, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (434, '2026-01-25 11:55:28.960326', '2026-01-13 00:00:00', 'DAY', 29.4412, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (435, '2026-01-25 11:55:28.962378', '2026-01-12 00:00:00', 'DAY', 31.8347, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (436, '2026-01-25 11:55:28.965678', '2026-01-11 00:00:00', 'DAY', 27.6347, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (437, '2026-01-25 11:55:28.970115', '2026-01-10 00:00:00', 'DAY', 34.4969, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (438, '2026-01-25 11:55:28.976993', '2026-01-09 00:00:00', 'DAY', 36.2737, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (439, '2026-01-25 11:55:28.983655', '2026-01-08 00:00:00', 'DAY', 35.2561, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (440, '2026-01-25 11:55:28.990026', '2026-01-07 00:00:00', 'DAY', 35.3391, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (441, '2026-01-25 11:55:28.998101', '2026-01-06 00:00:00', 'DAY', 29.3306, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (442, '2026-01-25 11:55:29.006836', '2026-01-05 00:00:00', 'DAY', 33.5587, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (443, '2026-01-25 11:55:29.018589', '2026-01-04 00:00:00', 'DAY', 31.5847, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (444, '2026-01-25 11:55:29.028411', '2026-01-03 00:00:00', 'DAY', 34.7125, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (445, '2026-01-25 11:55:29.039054', '2026-01-02 00:00:00', 'DAY', 30.8439, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (446, '2026-01-25 11:55:29.047692', '2026-01-01 00:00:00', 'DAY', 28.8795, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (447, '2026-01-25 11:55:29.054126', '2025-12-31 00:00:00', 'DAY', 34.6206, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (448, '2026-01-25 11:55:29.063755', '2025-12-30 00:00:00', 'DAY', 31.3056, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (449, '2026-01-25 11:55:29.071443', '2025-12-29 00:00:00', 'DAY', 28.0305, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (450, '2026-01-25 11:55:29.080693', '2025-12-28 00:00:00', 'DAY', 36.5161, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (451, '2026-01-25 11:55:29.090425', '2025-12-27 00:00:00', 'DAY', 30.2759, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (452, '2026-01-25 11:55:29.101107', '2026-01-01 00:00:00', 'YEAR', 10041.3567, 14, 28);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (453, '2026-01-25 11:55:29.121911', '2026-01-01 00:00:00', 'MONTH', 814.2419, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (454, '2026-01-25 11:55:29.127425', '2025-12-01 00:00:00', 'MONTH', 732.7494, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (455, '2026-01-25 11:55:29.133738', '2025-11-01 00:00:00', 'MONTH', 778.6074, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (456, '2026-01-25 11:55:29.139753', '2025-10-01 00:00:00', 'MONTH', 719.0607, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (457, '2026-01-25 11:55:29.148197', '2025-09-01 00:00:00', 'MONTH', 777.3402, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (458, '2026-01-25 11:55:29.154309', '2025-08-01 00:00:00', 'MONTH', 801.6500, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (459, '2026-01-25 11:55:29.158717', '2025-07-01 00:00:00', 'MONTH', 787.3232, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (460, '2026-01-25 11:55:29.162865', '2025-06-01 00:00:00', 'MONTH', 730.2168, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (461, '2026-01-25 11:55:29.166986', '2025-05-01 00:00:00', 'MONTH', 729.7438, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (462, '2026-01-25 11:55:29.172952', '2025-04-01 00:00:00', 'MONTH', 768.1858, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (463, '2026-01-25 11:55:29.177634', '2025-03-01 00:00:00', 'MONTH', 798.0536, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (464, '2026-01-25 11:55:29.183939', '2025-02-01 00:00:00', 'MONTH', 815.4451, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (465, '2026-01-25 11:55:29.190783', '2026-01-25 00:00:00', 'DAY', 26.9605, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (466, '2026-01-25 11:55:29.198231', '2026-01-24 00:00:00', 'DAY', 23.9184, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (467, '2026-01-25 11:55:29.207579', '2026-01-23 00:00:00', 'DAY', 24.5731, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (468, '2026-01-25 11:55:29.213887', '2026-01-22 00:00:00', 'DAY', 30.9268, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (469, '2026-01-25 11:55:29.218443', '2026-01-21 00:00:00', 'DAY', 31.3382, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (470, '2026-01-25 11:55:29.224494', '2026-01-20 00:00:00', 'DAY', 31.0491, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (471, '2026-01-25 11:55:29.230107', '2026-01-19 00:00:00', 'DAY', 31.3897, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (472, '2026-01-25 11:55:29.236943', '2026-01-18 00:00:00', 'DAY', 28.8922, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (473, '2026-01-25 11:55:29.243456', '2026-01-17 00:00:00', 'DAY', 33.1801, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (474, '2026-01-25 11:55:29.249911', '2026-01-16 00:00:00', 'DAY', 30.0015, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (475, '2026-01-25 11:55:29.257413', '2026-01-15 00:00:00', 'DAY', 32.7977, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (476, '2026-01-25 11:55:29.276243', '2026-01-14 00:00:00', 'DAY', 24.9631, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (477, '2026-01-25 11:55:29.287738', '2026-01-13 00:00:00', 'DAY', 25.6150, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (478, '2026-01-25 11:55:29.29193', '2026-01-12 00:00:00', 'DAY', 32.5569, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (479, '2026-01-25 11:55:29.295297', '2026-01-11 00:00:00', 'DAY', 27.1535, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (480, '2026-01-25 11:55:29.298542', '2026-01-10 00:00:00', 'DAY', 32.1862, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (481, '2026-01-25 11:55:29.301345', '2026-01-09 00:00:00', 'DAY', 25.6745, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (482, '2026-01-25 11:55:29.304447', '2026-01-08 00:00:00', 'DAY', 32.8025, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (483, '2026-01-25 11:55:29.30786', '2026-01-07 00:00:00', 'DAY', 24.7506, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (484, '2026-01-25 11:55:29.311459', '2026-01-06 00:00:00', 'DAY', 27.3525, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (485, '2026-01-25 11:55:29.314421', '2026-01-05 00:00:00', 'DAY', 31.4732, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (486, '2026-01-25 11:55:29.319105', '2026-01-04 00:00:00', 'DAY', 26.0375, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (487, '2026-01-25 11:55:29.323269', '2026-01-03 00:00:00', 'DAY', 30.8556, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (488, '2026-01-25 11:55:29.32712', '2026-01-02 00:00:00', 'DAY', 25.5423, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (489, '2026-01-25 11:55:29.331866', '2026-01-01 00:00:00', 'DAY', 25.9874, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (490, '2026-01-25 11:55:29.336461', '2025-12-31 00:00:00', 'DAY', 24.0562, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (491, '2026-01-25 11:55:29.340485', '2025-12-30 00:00:00', 'DAY', 26.5013, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (492, '2026-01-25 11:55:29.343367', '2025-12-29 00:00:00', 'DAY', 27.0917, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (493, '2026-01-25 11:55:29.346078', '2025-12-28 00:00:00', 'DAY', 30.5819, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (494, '2026-01-25 11:55:29.349061', '2025-12-27 00:00:00', 'DAY', 27.5594, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (495, '2026-01-25 11:55:29.351792', '2026-01-01 00:00:00', 'YEAR', 8997.0561, 14, 29);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (496, '2026-01-25 11:55:29.359829', '2026-01-01 00:00:00', 'MONTH', 656.6890, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (497, '2026-01-25 11:55:29.364332', '2025-12-01 00:00:00', 'MONTH', 682.5469, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (498, '2026-01-25 11:55:29.368274', '2025-11-01 00:00:00', 'MONTH', 660.1742, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (499, '2026-01-25 11:55:29.373463', '2025-10-01 00:00:00', 'MONTH', 616.5773, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (500, '2026-01-25 11:55:29.378487', '2025-09-01 00:00:00', 'MONTH', 631.8138, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (501, '2026-01-25 11:55:29.38272', '2025-08-01 00:00:00', 'MONTH', 705.8496, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (502, '2026-01-25 11:55:29.38877', '2025-07-01 00:00:00', 'MONTH', 673.7675, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (503, '2026-01-25 11:55:29.394814', '2025-06-01 00:00:00', 'MONTH', 648.9199, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (504, '2026-01-25 11:55:29.399455', '2025-05-01 00:00:00', 'MONTH', 679.1122, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (505, '2026-01-25 11:55:29.403538', '2025-04-01 00:00:00', 'MONTH', 679.7052, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (506, '2026-01-25 11:55:29.407906', '2025-03-01 00:00:00', 'MONTH', 649.0220, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (507, '2026-01-25 11:55:29.411143', '2025-02-01 00:00:00', 'MONTH', 643.7778, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (508, '2026-01-25 11:55:29.414973', '2026-01-25 00:00:00', 'DAY', 23.6034, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (509, '2026-01-25 11:55:29.419823', '2026-01-24 00:00:00', 'DAY', 22.3675, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (510, '2026-01-25 11:55:29.423948', '2026-01-23 00:00:00', 'DAY', 24.6254, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (511, '2026-01-25 11:55:29.427942', '2026-01-22 00:00:00', 'DAY', 23.4487, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (512, '2026-01-25 11:55:29.433967', '2026-01-21 00:00:00', 'DAY', 22.1861, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (513, '2026-01-25 11:55:29.43993', '2026-01-20 00:00:00', 'DAY', 26.0142, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (514, '2026-01-25 11:55:29.445046', '2026-01-19 00:00:00', 'DAY', 21.9327, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (515, '2026-01-25 11:55:29.44987', '2026-01-18 00:00:00', 'DAY', 27.5101, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (516, '2026-01-25 11:55:29.455334', '2026-01-17 00:00:00', 'DAY', 28.0912, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (517, '2026-01-25 11:55:29.460825', '2026-01-16 00:00:00', 'DAY', 27.8882, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (518, '2026-01-25 11:55:29.465825', '2026-01-15 00:00:00', 'DAY', 26.8453, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (519, '2026-01-25 11:55:29.470678', '2026-01-14 00:00:00', 'DAY', 27.6562, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (520, '2026-01-25 11:55:29.475007', '2026-01-13 00:00:00', 'DAY', 30.1773, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (521, '2026-01-25 11:55:29.477671', '2026-01-12 00:00:00', 'DAY', 20.5329, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (522, '2026-01-25 11:55:29.480536', '2026-01-11 00:00:00', 'DAY', 24.8174, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (523, '2026-01-25 11:55:29.48323', '2026-01-10 00:00:00', 'DAY', 30.2684, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (524, '2026-01-25 11:55:29.486091', '2026-01-09 00:00:00', 'DAY', 27.4967, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (525, '2026-01-25 11:55:29.489365', '2026-01-08 00:00:00', 'DAY', 21.7211, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (526, '2026-01-25 11:55:29.49157', '2026-01-07 00:00:00', 'DAY', 27.4047, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (527, '2026-01-25 11:55:29.493594', '2026-01-06 00:00:00', 'DAY', 21.1510, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (528, '2026-01-25 11:55:29.496565', '2026-01-05 00:00:00', 'DAY', 26.8509, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (529, '2026-01-25 11:55:29.499083', '2026-01-04 00:00:00', 'DAY', 24.7033, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (530, '2026-01-25 11:55:29.501383', '2026-01-03 00:00:00', 'DAY', 22.1395, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (531, '2026-01-25 11:55:29.504886', '2026-01-02 00:00:00', 'DAY', 26.5673, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (532, '2026-01-25 11:55:29.507333', '2026-01-01 00:00:00', 'DAY', 24.8896, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (533, '2026-01-25 11:55:29.509513', '2025-12-31 00:00:00', 'DAY', 25.6749, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (534, '2026-01-25 11:55:29.511648', '2025-12-30 00:00:00', 'DAY', 24.0391, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (535, '2026-01-25 11:55:29.513776', '2025-12-29 00:00:00', 'DAY', 27.9636, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (536, '2026-01-25 11:55:29.516142', '2025-12-28 00:00:00', 'DAY', 25.9379, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (537, '2026-01-25 11:55:29.518098', '2025-12-27 00:00:00', 'DAY', 28.1100, 14, 30);
-INSERT INTO public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) VALUES (538, '2026-01-25 11:55:29.520594', '2026-01-01 00:00:00', 'YEAR', 7432.7076, 14, 30);
-
-
---
--- Data for Name: ems_energy_saving_project; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_energy_saving_project (id, name, plan, implementation_plan, current_work, liable_person, saving_amount, completion_time, status, remark, created_at, updated_at) VALUES (1, '空压系统节能改造', '对现有空压机组进行变频改造，预计年节电15%', '第一阶段：设备评估（1月）
-第二阶段：设备采购（2月）
-第三阶段：安装调试（3月）
-第四阶段：验收运行（4月）', '设备采购阶段，已完成招标', '张工', 50000.00, '2026-04-30', 'IN_PROGRESS', '投资回收期约2年', '2026-01-06 15:06:50.119695', '2026-01-06 15:06:50.119695');
-INSERT INTO public.ems_energy_saving_project (id, name, plan, implementation_plan, current_work, liable_person, saving_amount, completion_time, status, remark, created_at, updated_at) VALUES (2, 'LED照明改造', '将传统照明替换为LED照明，覆盖全厂车间', '第一阶段：调研设计（2周）
-第二阶段：分区实施（4周）
-第三阶段：效果评估（2周）', '已完成全部改造', '李工', 30000.00, '2025-12-31', 'COMPLETED', '年节电约20万度', '2026-01-06 15:06:50.128387', '2026-01-06 15:06:50.128387');
-INSERT INTO public.ems_energy_saving_project (id, name, plan, implementation_plan, current_work, liable_person, saving_amount, completion_time, status, remark, created_at, updated_at) VALUES (3, '烘干炉余热回收222', '利用烘干炉余热进行预热，减少能源消耗', '第一阶段：可行性研究
-第二阶段：方案设计
-第三阶段：设备选型', '可行性研究阶段', '王工公', 80000.00, '2026-06-30', 'PLANNING', '需要专业设计院支持', '2026-01-06 15:06:50.134101', '2026-02-08 10:17:17.632177');
-INSERT INTO public.ems_energy_saving_project (id, name, plan, implementation_plan, current_work, liable_person, saving_amount, completion_time, status, remark, created_at, updated_at) VALUES (6, '电费节约计划', '就是实行梯度用电', '晚上开工，白天休息，', '已经开始', '邓工', 1000000.00, '2026-04-01', 'IN_PROGRESS', '磊', '2026-02-08 10:18:04.76267', '2026-02-08 10:18:17.651653');
-INSERT INTO public.ems_energy_saving_project (id, name, plan, implementation_plan, current_work, liable_person, saving_amount, completion_time, status, remark, created_at, updated_at) VALUES (8, 'AutoTest_1770523145752', NULL, NULL, NULL, '系统管理员', NULL, NULL, 'PLANNING', NULL, '2026-02-08 11:59:05.815064', '2026-02-08 11:59:05.815064');
-
-
---
--- Data for Name: ems_energy_type; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (5, '2026-01-03 14:58:24.060884', NULL, 'OTHER', 'GASOLINE', 1.4714, '#fa8c16', 8.5000, 2.9251, 'CarOutlined', '汽油', '车用汽油', 5, 0, true, 'L');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (6, '2026-01-03 14:58:24.060884', NULL, 'OTHER', 'DIESEL', 1.4571, '#faad14', 7.8000, 3.0959, 'CarOutlined', '柴油', '车用柴油', 6, 0, true, 'L');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (7, '2026-01-03 14:58:24.060884', NULL, 'STEAM', 'STEAM', 0.1286, '#eb2f96', 120.0000, NULL, 'CloudOutlined', '蒸汽', '工业蒸汽', 7, 0, false, 't');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (8, '2026-01-03 14:58:24.060884', NULL, 'STEAM', 'HOT_WATER', 0.0341, '#f5222d', 35.0000, NULL, 'icon-hotwater', '热水', '供暖热水', 8, 0, false, 'GJ');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (9, '2026-01-03 14:58:24.060884', NULL, 'WATER', 'WATER', 0.0857, '#1677ff', 5.1100, NULL, 'icon-water', '自来水', '市政自来水', 9, 0, true, 't');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (10, '2026-01-03 14:58:24.060884', NULL, 'WATER', 'RECLAIMED_WATER', 0.0286, '#36cfc9', 2.5000, NULL, 'icon-water', '中水', '再生水/中水', 10, 0, true, 't');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (11, '2026-01-03 14:58:24.060884', NULL, 'OTHER', 'COMPRESSED_AIR', 0.0040, '#722ed1', 0.1500, NULL, 'icon-air', '压缩空气', '工业压缩空气', 11, 0, false, 'm³');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (12, '2026-01-03 14:58:24.060884', NULL, 'OTHER', 'OXYGEN', 0.0050, '#2f54eb', 3.5000, NULL, 'icon-oxygen', '氧气', '工业氧气', 12, 0, true, 'm³');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (13, '2026-01-03 14:58:24.060884', NULL, 'OTHER', 'NITROGEN', 0.0045, '#597ef7', 2.8000, NULL, 'icon-nitrogen', '氮气', '工业氮气', 13, 0, true, 'm³');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (14, '2026-01-04 15:56:50.580463', NULL, 'ELECTRIC', 'ELECTRIC', 0.1229, '#1890ff', 1.0000, 0.5703, 'ThunderboltOutlined', '电力', '国网电力，等价折标系数', 1, 0, false, 'kWh');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (3, '2026-01-03 14:58:24.060884', '2026-01-18 09:17:51.988515', 'GAS', 'LNG', 1.7572, '#13c2c2', 5.5000, 2.9388, NULL, '液态天然气', '液化天然气LNG', 3, 0, true, 'kg');
-INSERT INTO public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) VALUES (4, '2026-01-03 14:58:24.060884', '2026-01-18 09:18:53.843394', 'OTHER', 'COAL', 0.7143, '#8c8c8c', 800.0000, 2.6930, NULL, '煤炭', '一般烟煤', 4, 0, true, 't');
-
-
---
--- Data for Name: ems_energy_unit; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (35, '2026-01-04 10:27:42.627812', '2026-01-04 10:27:42.627812', 'ZC', 0, '泰若总厂', 'Terra EMS 演示总厂', 1, 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (36, '2026-01-04 10:27:42.677027', '2026-01-04 10:27:42.677027', 'CJ_JMJG', 1, '精密加工车间', '数控加工设备集中区域', 1, 0, 35, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (37, '2026-01-04 10:27:42.689993', '2026-01-04 10:27:42.689993', 'CJ_ZP', 1, '组装车间', '产品组装生产线', 2, 0, 35, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (38, '2026-01-04 10:27:42.697163', '2026-01-04 10:27:42.697163', 'CJ_ZLJC', 1, '质量监测车间', '质检与测试区域', 3, 0, 35, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (39, '2026-01-04 10:27:42.707108', '2026-01-04 10:27:42.707108', 'CJ_HG', 1, '烘干车间', '烘干固化工艺区', 4, 0, 35, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (40, '2026-01-04 10:27:42.717174', '2026-01-04 10:27:42.717174', 'GY_PDS', 1, '高压配电室', '35kV/10kV变电站', 5, 0, 35, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (41, '2026-01-04 10:27:42.734654', '2026-01-04 10:27:42.734654', 'GY_KYZ', 1, '空压站', '压缩空气集中供应站', 6, 0, 35, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (42, '2026-01-04 10:27:42.765299', '2026-01-04 10:27:42.765299', 'FZ_BGL', 1, '办公楼', '行政办公区域', 7, 0, 35, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (43, '2026-01-04 10:27:42.782403', '2026-01-04 10:27:42.782403', 'FZ_ST', 1, '食堂', '员工餐厅', 8, 0, 35, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (44, '2026-01-04 10:27:42.795765', '2026-01-04 10:27:42.795765', 'FZ_SS', 1, '宿舍楼', '员工住宿区', 9, 0, 35, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (46, '2026-01-04 10:27:42.818759', '2026-01-04 10:27:42.818759', 'JMJG_CX2', 2, '2号产线', '精密磨削产线', 2, 0, 36, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (47, '2026-01-04 10:27:42.838281', '2026-01-04 10:27:42.838281', 'JMJG_CX3', 2, '3号产线', '激光切割产线', 3, 0, 36, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (48, '2026-01-04 10:27:42.847247', '2026-01-04 10:27:42.847247', 'JMJG_FZ', 2, '辅助设施', '冷却系统、照明等', 4, 0, 36, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (49, '2026-01-04 10:27:42.864947', '2026-01-04 10:27:42.864947', 'ZP_ZZ1', 2, '总装线1', '主要产品组装', 1, 0, 37, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (50, '2026-01-04 10:27:42.877816', '2026-01-04 10:27:42.877816', 'ZP_ZZ2', 2, '总装线2', '备用组装线', 2, 0, 37, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (51, '2026-01-04 10:27:42.895715', '2026-01-04 10:27:42.895715', 'ZP_CS', 2, '测试工位', '产品功能测试', 3, 0, 37, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (52, '2026-01-04 10:27:42.906362', '2026-01-04 10:27:42.906362', 'ZP_BZ', 2, '包装区', '产品包装', 4, 0, 37, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (53, '2026-01-04 10:27:42.915502', '2026-01-04 10:27:42.915502', 'PDS_1BY', 2, '1号变压器', '1000kVA变压器', 1, 0, 40, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (54, '2026-01-04 10:27:42.929678', '2026-01-04 10:27:42.929678', 'PDS_2BY', 2, '2号变压器', '800kVA变压器', 2, 0, 40, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (55, '2026-01-04 10:27:42.940156', '2026-01-04 10:27:42.940156', 'PDS_DPBG', 2, '低压配电柜', '400V配电系统', 3, 0, 40, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (56, '2026-01-04 10:27:42.950392', '2026-01-04 10:27:42.950392', 'KYZ_1KYJ', 2, '1号空压机', '螺杆式132kW', 1, 0, 41, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (57, '2026-01-04 10:27:42.981843', '2026-01-04 10:27:42.981843', 'KYZ_2KYJ', 2, '2号空压机', '螺杆式90kW', 2, 0, 41, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (58, '2026-01-04 10:27:42.993807', '2026-01-04 10:27:42.993807', 'KYZ_GZJ', 2, '干燥机', '冷干机组', 3, 0, 41, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (59, '2026-01-04 10:27:43.013355', '2026-01-04 10:27:43.013355', 'BGL_1F', 2, '1楼大厅', '前台接待区', 1, 0, 42, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (60, '2026-01-04 10:27:43.033696', '2026-01-04 10:27:43.033696', 'BGL_2F', 2, '2楼办公区', '行政办公', 2, 0, 42, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (61, '2026-01-04 10:27:43.052237', '2026-01-04 10:27:43.052237', 'BGL_3F', 2, '3楼会议室', '多功能会议室', 3, 0, 42, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (62, '2026-01-04 10:27:43.063817', '2026-01-04 10:27:43.063817', 'BGL_JF', 2, '机房', 'IT数据中心', 4, 0, 42, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (66, '2026-01-04 10:27:43.103028', '2026-01-04 10:27:43.103028', '1BY_JLL', 3, '进线柜', '高压进线', 1, 0, 53, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (67, '2026-01-04 10:27:43.11288', '2026-01-04 10:27:43.11288', '1BY_CLL', 3, '出线柜', '低压出线', 2, 0, 53, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (45, '2026-01-04 10:27:42.805877', '2026-01-18 16:29:29.592296', 'JMJG_CX1', 2, '1号产线', 'CNC加工中心产线', 1, 0, 36, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (63, '2026-01-04 10:27:43.075722', '2026-01-18 16:29:29.592821', 'CX1_CNC01', 3, 'CNC-01', '五轴加工中心', 1, 0, 45, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (64, '2026-01-04 10:27:43.086683', '2026-01-18 16:29:29.592929', 'CX1_CNC02', 3, 'CNC-02', '四轴加工中心', 2, 0, 45, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (65, '2026-01-04 10:27:43.096414', '2026-01-18 16:29:29.593022', 'CX1_CNC03', 3, 'CNC-03', '三轴加工中心', 3, 0, 45, NULL, NULL, NULL, NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (70, '2026-01-18 16:13:31.152637', '2026-01-18 16:29:29.594071', 'CXC_CNC04', 3, 'CNC-04', 'CNC04', 4, 0, 45, NULL, NULL, 'GENERAL', NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (71, '2026-01-18 16:14:01.1469', '2026-01-18 16:29:29.594173', 'CXC_CNC05', 3, 'CNC-05', NULL, 4, 0, 45, NULL, NULL, 'GENERAL', NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (73, '2026-01-18 16:30:06.828392', '2026-01-18 16:30:26.948972', 'CXC_CNC-011', 4, 'CNC-011', NULL, 0, 0, 64, NULL, NULL, 'GENERAL', NULL);
-INSERT INTO public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) VALUES (1, '2026-01-25 10:56:07.035814', '2026-01-25 10:56:07.035814', 'EU_001', 0, '总进线柜', NULL, 1, 0, NULL, NULL, NULL, 'GENERAL', NULL);
-
-
---
--- Data for Name: ems_energy_unit_point; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (11, 36);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (1, 36);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (9, 37);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (10, 37);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (1, 37);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (9, 40);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (10, 40);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (11, 40);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (1, 40);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (12, 42);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (13, 42);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (1, 42);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (12, 43);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (14, 43);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (15, 43);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (1, 43);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (18, 39);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (19, 39);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (20, 39);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (21, 39);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (1, 39);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (11, 41);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (1, 41);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (23, 45);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (1, 45);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (11, 53);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (1, 53);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (5, 40);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (5, 65);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (5, 37);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (6, 40);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (6, 65);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (6, 37);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (7, 40);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (7, 37);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (8, 40);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (8, 65);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (8, 37);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (26, 38);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (27, 44);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (28, 46);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (29, 47);
-INSERT INTO public.ems_energy_unit_point (meter_point_id, energy_unit_id) VALUES (30, 48);
-
-
---
--- Data for Name: ems_knowledge_article; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (4, '系统', '行业动态', '全球氢能产业发展趋势分析报告，探讨绿氢在零碳工厂中的应用。', 12, 4, 0, '氢能产业趋势分析', '氢能与未来零碳工厂展望', 330, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (5, '能耗办', '节能案例', '某汽车零件生产基地通过余热回收系统实现综合能耗降低15%的案例。', 8, 5, 0, '余热回收节能案例', '余热回收在汽车制造业的应用', 150, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (6, '管理员', '技术规范', '中水回用系统的计量器具安装位置及数据采集精度要求标准。', 10, 6, 0, '中水回用计量标准', '中水回用系统计量技术要求', 60, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (7, '专家组', '政策法规', '各省市阶梯电价及峰谷平电价政策汇编（2025版）。', NULL, 7, 0, '最新电价政策汇编', '全国峰谷电价政策深度解读', 450, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (8, '技术部', '操作手册', '循环冷却水系统加药量计算方法及水质监测标准步骤。', 9, 8, 0, '循环水日常维护', '循环冷却水水质管理手册', 180, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (9, '管理员', '技术规范', '工业氧气/氮气存储区安全防范及浓度监控报警系统配置规范。', 13, 9, 0, '工业气体安全规范', '氧氮气存储区域监控技术规范', 95, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (10, '能耗办', '节能案例', '煤改气工程后的能效评估对比，分析液态天然气的经济性。', 3, 10, 0, '煤改气能效评估', '液态天然气在替代煤炭中的应用', 220, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (11, '管理员', '技术规范', '中央空调末端设备群控策略优化，实现夏季办公区环境恒温节能。', NULL, 11, 0, '中央空调节能策略', '中央空调末端精细化控制规范', 140, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (12, '技术部', '操作手册', '光伏发电系统清洁频次及逆变器运行状态巡检作业指导书。', NULL, 12, 0, '光伏维护作业指导', '分布式光伏系统运维手册', 175, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (13, '专家组', '政策法规', '重点用能单位能源管理体系建设要求（GB/T 23331-2020）解读。', NULL, 13, 0, '能源管理体系标准', 'ISO 50001/GBT 23331 深度解析', 310, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (14, '能耗办', '节能案例', '电机系统节能改造：变频技术在高压水泵中的应用实测。', 9, 14, 0, '电机变频改造案例', '高压水泵变频节能改造报告', 190, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (15, '管理员', '技术规范', '能源计量器具仪表数据格式化及接口协议（Modbus TCP）通讯规范。', NULL, 15, 0, '数据通讯接口规范', '能源系统数据采集协议标准', 110, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (16, '系统', '行业动态', '碳捕捉技术（CCUS）在水泥行业的示范项目进展及成本分析。', NULL, 16, 0, '碳捕捉技术进展', '水泥行业CCUS项目实践回顾', 80, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (17, '技术部', '操作手册', '厂区柴油发电机组备用动力切换及月度负荷测试操作步骤。', 6, 17, 0, '柴油发电机维护', '备用电源系统定期测试规程', 130, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (18, '专家组', '政策法规', '国家对煤炭消费减量替代的补贴申请流程及材料清单说明。', 4, 18, 0, '煤炭替代补贴政策', '煤炭减量替代专项补贴申报指南', 200, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (19, '管理员', '技术规范', '宿舍区热水系统热泵效率监测及用水定额管理办法。', 8, 19, 0, '热泵热水管理', '热水系统效率提升与定额管理', 55, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (20, '能耗办', '节能案例', '综合楼LED照明改造及智能感应控制系统带来的节能收益。', NULL, 20, 0, '照明节能改造', 'LED照明与智能控制系统应用', 165, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (3, '技术部', '操作手册', '新型超高效蒸汽锅炉的安全操作程序及日常维护保养要点。', 7, 3, 0, '蒸汽锅炉操作手册', '超高效蒸汽锅炉运行规程', 212, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (1, '管理员', '技术规范', '工厂压缩空气系统节能运行技术规范，包括泄漏检测与压力优化。', 11, 1, 0, '压缩空气系统节能规范', '压缩空气系统节能技术指南', 122, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-INSERT INTO public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) VALUES (2, '专家组', '政策法规', '国家关于“十四五”期间工业节能节水的重点任务与考核指标说明。', 9, 2, 0, '十四五工业节能政策', '工业节能节水重点任务解析', 88, '2026-01-31 06:19:39.741834', '2026-01-31 06:19:39.741834');
-
-
---
--- Data for Name: ems_meter; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (4, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 365, 'HW-001', 'GW-002', '锅炉房供热出口', '开封仪表', NULL, '0-9999 GJ', 'DNCG-DN100', '采暖热水总表', '李工', '2023-01-10', '园区采暖热水总计量', 30, '2023-01-01', 0, 'HEAT_METER', NULL, 8);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (5, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 365, 'HW-002', 'GW-003', '办公楼地下室热力站', '开封仪表', NULL, '0-999 GJ', 'DNCG-DN50', '办公楼热水表', '李工', '2023-01-25', NULL, 30, '2023-01-15', 0, 'HEAT_METER', NULL, 8);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (6, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 730, 'WM-001', 'GW-001', '厂区进水总阀门处', '宁波水表', NULL, '0-99999 m³', 'LXLC-50', '生产用水总表', '陈工', '2023-01-10', '全厂生产用水总计量', 60, '2023-01-01', 0, 'WATER_METER', NULL, 9);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (7, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 730, 'WM-002', 'GW-001', '冷却塔泵房', '宁波水表', NULL, '0-9999 m³', 'LXS-25', '冷却塔补水表', '陈工', '2023-04-15', NULL, 60, '2023-04-01', 0, 'WATER_METER', NULL, 9);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (8, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 730, 'WM-003', NULL, '宿舍楼地下室', '宁波水表', NULL, '0-99999 m³', 'LXS-50', '生活区用水表', '陈工', '2022-03-15', '员工宿舍及食堂用水', 60, '2022-03-01', 0, 'WATER_METER', NULL, 9);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (9, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 730, 'RW-001', 'GW-001', '中水处理站出水口', '宁波水表', NULL, '0-99999 m³', 'LXLC-80', '中水回用总表', '陈工', '2023-05-15', '中水回用系统总计量', 60, '2023-05-01', 0, 'WATER_METER', NULL, 10);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (10, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 730, 'RW-002', NULL, '绿化灌溉泵房', '宁波水表', NULL, '0-9999 m³', 'LXS-25', '绿化用中水表', '陈工', '2023-05-20', '厂区绿化用中水', 60, '2023-05-10', 0, 'WATER_METER', NULL, 10);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (11, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 365, 'LNG-001', 'GW-002', 'LNG储罐区', '艾默生', NULL, '0-9999 kg', 'CMF200', 'LNG储罐计量表', '周工', '2023-01-20', 'LNG储罐进料计量', 30, '2023-01-01', 0, 'GAS_METER', NULL, 3);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (12, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 365, 'LNG-002', 'GW-002', 'LNG气化站', '艾默生', NULL, '0-9999 kg', 'CMF100', 'LNG气化站出口表', '周工', '2023-02-15', 'LNG气化后计量', 30, '2023-02-01', 0, 'GAS_METER', NULL, 3);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (13, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 365, 'CA-001', 'GW-001', '空压机房出口', 'CS仪表', NULL, '0-99999 m³', 'VA520-DN80', '压缩空气总表', '王工', '2023-03-10', '全厂压缩空气总供给量', 30, '2023-03-01', 0, 'GAS_METER', NULL, 11);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (14, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 365, 'CA-002', 'GW-001', '一车间进气口', 'CS仪表', NULL, '0-9999 m³', 'VA520-DN50', '一车间压缩空气表', '王工', '2023-03-25', NULL, 30, '2023-03-15', 0, 'GAS_METER', NULL, 11);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (15, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 365, 'CA-003', 'GW-001', '二车间进气口', 'CS仪表', NULL, '0-9999 m³', 'VA520-DN50', '二车间压缩空气表', '王工', '2023-03-25', NULL, 30, '2023-03-15', 0, 'GAS_METER', NULL, 11);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (16, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 365, 'O2-001', 'GW-003', '制氧站出口', '迈捷科', NULL, '0-9999 m³', 'MF5700-DN25', '氧气站总表', '李工', '2023-04-15', '工业氧气总供给计量', 30, '2023-04-01', 0, 'GAS_METER', NULL, 12);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (17, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 365, 'N2-001', 'GW-003', '制氮站出口', '迈捷科', NULL, '0-99999 m³', 'MF5700-DN50', '氮气站总表', '李工', '2023-04-15', '工业氮气总供给计量', 30, '2023-04-01', 0, 'GAS_METER', NULL, 13);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (18, '2026-01-04 05:53:51.883767', '2026-01-04 05:53:51.883767', 365, 'N2-002', 'GW-003', '包装车间进气口', '迈捷科', NULL, '0-9999 m³', 'MF5700-DN25', '包装车间氮气表', '李工', '2023-05-10', '包装充氮用氮气计量', 30, '2023-05-01', 0, 'GAS_METER', NULL, 13);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (19, '2026-01-04 05:53:51.916787', '2026-01-04 05:53:51.916787', 730, 'WM-OLD-001', NULL, '一车间(已更换)', '宁波水表', NULL, '0-9999 m³', 'LXS-15', '旧水表(已更换)', '陈工', '2015-02-01', '2023年6月因精度问题更换', 60, '2015-01-01', 1, 'WATER_METER', NULL, 9);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (20, '2026-01-04 05:53:51.916787', '2026-01-04 05:53:51.916787', 365, 'HM-OLD-001', NULL, '旧厂房(已拆除)', '大连理工', NULL, '0-200 t', 'LWGY-DN40', '旧蒸汽表(已拆除)', '周工', '2016-02-01', '2023年12月随厂房拆除', 30, '2016-01-01', 1, 'HEAT_METER', NULL, 7);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (1, '2026-01-04 05:53:51.883767', '2026-01-18 11:08:17.392337', 365, 'HM-001', NULL, '一车间蒸汽管道入口', '大连理工', NULL, '0-999 t', 'LWGY-DN80', '一车间蒸汽表', '周工', '2023-02-28', '一车间蒸汽用量计量，涡街流量计', 30, '2023-02-01', 0, 'HEAT_METER', NULL, 7);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (2, '2026-01-04 05:53:51.883767', '2026-01-18 11:08:48.761529', 365, 'HM-002', NULL, '烘干车间蒸汽分汽缸', '横河仪器', NULL, '0-9999 t', 'LUGB-DN100', '烘干车间蒸汽表', '周工22', '2023-03-15', NULL, 30, '2023-03-01', 0, 'HEAT_METER', NULL, 7);
-INSERT INTO public.ems_meter (id, created_at, updated_at, check_cycle, code, gateway_id, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id) VALUES (3, '2026-01-04 05:53:51.883767', '2026-01-18 11:39:36.977425', 365, 'HM-003', NULL, '二车间蒸汽管道入口', '横河仪器', NULL, '0-500 t', 'LWGY-DN50', '二车间蒸汽表', '周工', '2023-06-10', '二车间蒸汽用量计量', 30, '2023-06-01', 0, 'HEAT_METER', NULL, 7);
-
-
---
--- Data for Name: ems_meter_point; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (9, '2026-01-04 11:23:46.126356', '2026-01-04 11:23:46.126356', 'ENERGY', 'PT_U_B', NULL, NULL, NULL, 'B相电压', 'COLLECT', NULL, 9, 0, NULL, NULL, 'V', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (10, '2026-01-04 11:23:46.126356', '2026-01-04 11:23:46.126356', 'ENERGY', 'PT_U_C', NULL, NULL, NULL, 'C相电压', 'COLLECT', NULL, 10, 0, NULL, NULL, 'V', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (11, '2026-01-04 11:23:46.126356', '2026-01-04 11:23:46.126356', 'EFFICIENCY', 'PT_PF', NULL, NULL, NULL, '功率因数', 'COLLECT', '综合功率因数', 11, 0, NULL, NULL, '', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (12, '2026-01-04 11:23:46.14288', '2026-01-04 11:23:46.14288', 'ENERGY', 'PT_WATER_TOTAL', 0.0000, NULL, NULL, '用水量', 'COLLECT', '累计用水量', 1, 0, NULL, NULL, 'm³', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (13, '2026-01-04 11:23:46.14288', '2026-01-04 11:23:46.14288', 'ENERGY', 'PT_WATER_FLOW', NULL, NULL, NULL, '瞬时流量', 'COLLECT', '瞬时水流量', 2, 0, NULL, NULL, 'm³/h', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (14, '2026-01-04 11:23:46.150806', '2026-01-04 11:23:46.150806', 'ENERGY', 'PT_GAS_TOTAL', 0.0000, NULL, NULL, '用气量', 'COLLECT', '累计用气量', 1, 0, NULL, NULL, 'm³', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (15, '2026-01-04 11:23:46.150806', '2026-01-04 11:23:46.150806', 'ENERGY', 'PT_GAS_FLOW', NULL, NULL, NULL, '瞬时流量', 'COLLECT', '瞬时气流量', 2, 0, NULL, NULL, 'm³/h', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (16, '2026-01-04 11:23:46.150806', '2026-01-04 11:23:46.150806', 'OTHER', 'PT_GAS_TEMP', NULL, NULL, NULL, '气体温度', 'COLLECT', '温度补偿用', 3, 0, NULL, NULL, '℃', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (17, '2026-01-04 11:23:46.150806', '2026-01-04 11:23:46.150806', 'OTHER', 'PT_GAS_PRESS', NULL, NULL, NULL, '气体压力', 'COLLECT', '压力补偿用', 4, 0, NULL, NULL, 'kPa', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (18, '2026-01-04 11:23:46.160963', '2026-01-04 11:23:46.160963', 'ENERGY', 'PT_STEAM_TOTAL', 0.0000, NULL, NULL, '蒸汽用量', 'COLLECT', '累计蒸汽用量', 1, 0, NULL, NULL, 't', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (19, '2026-01-04 11:23:46.160963', '2026-01-04 11:23:46.160963', 'ENERGY', 'PT_STEAM_FLOW', NULL, NULL, NULL, '瞬时流量', 'COLLECT', '瞬时蒸汽流量', 2, 0, NULL, NULL, 't/h', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (20, '2026-01-04 11:23:46.160963', '2026-01-04 11:23:46.160963', 'OTHER', 'PT_STEAM_TEMP', NULL, NULL, NULL, '蒸汽温度', 'COLLECT', NULL, 3, 0, NULL, NULL, '℃', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (21, '2026-01-04 11:23:46.160963', '2026-01-04 11:23:46.160963', 'OTHER', 'PT_STEAM_PRESS', NULL, NULL, NULL, '蒸汽压力', 'COLLECT', NULL, 4, 0, NULL, NULL, 'MPa', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (22, '2026-01-04 11:23:46.169818', '2026-01-04 11:23:46.169818', 'OPERATION', 'PT_ENERGY_COST', NULL, NULL, NULL, '能源成本', 'CALC', '根据用量和单价计算', 1, 0, NULL, NULL, '元', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (23, '2026-01-04 11:23:46.169818', '2026-01-04 11:23:46.169818', 'EFFICIENCY', 'PT_UNIT_ENERGY', NULL, NULL, NULL, '单位产品能耗', 'CALC', '能耗/产量', 2, 0, NULL, NULL, 'kWh/件', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (24, '2026-01-04 11:23:46.169818', '2026-01-04 11:23:46.169818', 'OTHER', 'PT_CARBON_EMIT', NULL, NULL, NULL, '碳排放量', 'CALC', '根据能耗计算碳排放', 3, 0, NULL, NULL, 'tCO2', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (2, '2026-01-04 11:23:46.126356', '2026-01-18 17:22:17.598209', 'ENERGY', 'PT_EQ_TOTAL', 0.0000, NULL, NULL, '无功电量', 'COLLECT', '正向无功总电量', 2, 0, NULL, NULL, 'kvarh', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (3, '2026-01-04 11:23:46.126356', '2026-01-18 17:31:11.558051', 'PRODUCT', 'PT_P_INST', NULL, NULL, NULL, '瞬时有功功率', 'COLLECT', '瞬时有功功率', 3, 0, NULL, NULL, 'kW', 14, 4);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (4, '2026-01-04 11:23:46.126356', '2026-01-18 18:33:50.030253', 'PRODUCT', 'PT_Q_INST', NULL, NULL, NULL, '瞬时无功功率', 'COLLECT', '瞬时无功功率', 4, 0, NULL, NULL, 'kvar', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (5, '2026-01-04 11:23:46.126356', '2026-01-21 07:21:33.68876', 'ENERGY', 'PT_I_A', NULL, NULL, NULL, 'A相电流', 'COLLECT', NULL, 5, 0, NULL, NULL, 'A', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (6, '2026-01-04 11:23:46.126356', '2026-01-21 07:21:33.750856', 'ENERGY', 'PT_I_B', NULL, NULL, NULL, 'B相电流', 'COLLECT', NULL, 6, 0, NULL, NULL, 'A', NULL, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (7, '2026-01-04 11:23:46.126356', '2026-01-21 07:22:48.694444', 'ENERGY', 'PT_I_C', NULL, NULL, NULL, 'C相电流', 'COLLECT', NULL, 7, 0, NULL, NULL, 'A', 14, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (8, '2026-01-04 11:23:46.126356', '2026-01-21 07:24:15.22749', 'ENERGY', 'PT_U_A', NULL, NULL, NULL, 'A相电压', 'COLLECT', NULL, 8, 0, NULL, NULL, 'V', 14, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (26, '2026-01-25 11:53:45.56597', '2026-01-25 11:53:45.56597', NULL, 'DEMO_CJ_ZLJC', NULL, NULL, NULL, '质量监测车间演示点位', 'COLLECT', NULL, 0, 0, NULL, NULL, NULL, 14, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (27, '2026-01-25 11:53:46.184596', '2026-01-25 11:53:46.184596', NULL, 'DEMO_FZ_SS', NULL, NULL, NULL, '宿舍楼演示点位', 'COLLECT', NULL, 0, 0, NULL, NULL, NULL, 14, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (28, '2026-01-25 11:55:28.907286', '2026-01-25 11:55:28.907286', NULL, 'DEMO_JMJG_CX2', NULL, NULL, NULL, '2号产线演示点位', 'COLLECT', NULL, 0, 0, NULL, NULL, NULL, 14, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (29, '2026-01-25 11:55:29.113287', '2026-01-25 11:55:29.113287', NULL, 'DEMO_JMJG_CX3', NULL, NULL, NULL, '3号产线演示点位', 'COLLECT', NULL, 0, 0, NULL, NULL, NULL, 14, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (30, '2026-01-25 11:55:29.355065', '2026-01-25 11:55:29.355065', NULL, 'DEMO_JMJG_FZ', NULL, NULL, NULL, '辅助设施演示点位', 'COLLECT', NULL, 0, 0, NULL, NULL, NULL, 14, NULL);
-INSERT INTO public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id) VALUES (1, '2026-01-04 11:23:46.126356', '2026-01-04 19:58:07.440038', 'ENERGY', 'PT_EP_TOTAL', 0.0000, NULL, NULL, '有功电量', 'COLLECT', '正向有功总电量', 1, 0, NULL, NULL, 'kWh', NULL, NULL);
-
-
---
--- Data for Name: ems_peak_valley_data; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (29, 15.7500, '2026-01-25 10:56:07.084891', '2025-01-01', 10.5000, 1, 1, 'SHARP', 1.5000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (30, 26.4000, '2026-01-25 10:56:07.084891', '2025-01-01', 22.0000, 1, 1, 'PEAK', 1.2000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (31, 28.0000, '2026-01-25 10:56:07.084891', '2025-01-01', 35.0000, 1, 1, 'FLAT', 0.8000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (32, 7.2000, '2026-01-25 10:56:07.084891', '2025-01-01', 18.0000, 1, 1, 'VALLEY', 0.4000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (33, 16.5000, '2026-01-25 10:56:07.084891', '2025-01-02', 11.0000, 1, 1, 'SHARP', 1.5000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (34, 28.2000, '2026-01-25 10:56:07.084891', '2025-01-02', 23.5000, 1, 1, 'PEAK', 1.2000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (35, 28.8000, '2026-01-25 10:56:07.084891', '2025-01-02', 36.0000, 1, 1, 'FLAT', 0.8000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (36, 7.0000, '2026-01-25 10:56:07.084891', '2025-01-02', 17.5000, 1, 1, 'VALLEY', 0.4000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (37, 18.0000, '2026-01-25 10:56:07.084891', '2025-01-03', 12.0000, 1, 1, 'SHARP', 1.5000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (38, 25.2000, '2026-01-25 10:56:07.084891', '2025-01-03', 21.0000, 1, 1, 'PEAK', 1.2000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (39, 30.4000, '2026-01-25 10:56:07.084891', '2025-01-03', 38.0000, 1, 1, 'FLAT', 0.8000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (40, 8.0000, '2026-01-25 10:56:07.084891', '2025-01-03', 20.0000, 1, 1, 'VALLEY', 0.4000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (41, 14.2500, '2026-01-25 10:56:07.084891', '2025-01-04', 9.5000, 1, 1, 'SHARP', 1.5000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (42, 22.8000, '2026-01-25 10:56:07.084891', '2025-01-04', 19.0000, 1, 1, 'PEAK', 1.2000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (43, 25.6000, '2026-01-25 10:56:07.084891', '2025-01-04', 32.0000, 1, 1, 'FLAT', 0.8000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (44, 10.0000, '2026-01-25 10:56:07.084891', '2025-01-04', 25.0000, 1, 1, 'VALLEY', 0.4000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (45, 12.0000, '2026-01-25 10:56:07.084891', '2025-01-05', 8.0000, 1, 1, 'SHARP', 1.5000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (46, 18.0000, '2026-01-25 10:56:07.084891', '2025-01-05', 15.0000, 1, 1, 'PEAK', 1.2000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (47, 22.4000, '2026-01-25 10:56:07.084891', '2025-01-05', 28.0000, 1, 1, 'FLAT', 0.8000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (48, 12.0000, '2026-01-25 10:56:07.084891', '2025-01-05', 30.0000, 1, 1, 'VALLEY', 0.4000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (49, 19.5000, '2026-01-25 10:56:07.084891', '2025-01-06', 13.0000, 1, 1, 'SHARP', 1.5000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (50, 30.0000, '2026-01-25 10:56:07.084891', '2025-01-06', 25.0000, 1, 1, 'PEAK', 1.2000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (51, 32.0000, '2026-01-25 10:56:07.084891', '2025-01-06', 40.0000, 1, 1, 'FLAT', 0.8000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (52, 6.0000, '2026-01-25 10:56:07.084891', '2025-01-06', 15.0000, 1, 1, 'VALLEY', 0.4000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (53, 21.0000, '2026-01-25 10:56:07.084891', '2025-01-07', 14.0000, 1, 1, 'SHARP', 1.5000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (54, 31.2000, '2026-01-25 10:56:07.084891', '2025-01-07', 26.0000, 1, 1, 'PEAK', 1.2000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (55, 33.6000, '2026-01-25 10:56:07.084891', '2025-01-07', 42.0000, 1, 1, 'FLAT', 0.8000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (56, 5.6000, '2026-01-25 10:56:07.084891', '2025-01-07', 14.0000, 1, 1, 'VALLEY', 0.4000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (57, 15.7500, '2026-01-25 11:04:53.540467', '2025-01-01', 10.5000, 1, 1, 'SHARP', 1.5000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (58, 26.4000, '2026-01-25 11:04:53.540467', '2025-01-01', 22.0000, 1, 1, 'PEAK', 1.2000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (59, 28.0000, '2026-01-25 11:04:53.540467', '2025-01-01', 35.0000, 1, 1, 'FLAT', 0.8000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (60, 7.2000, '2026-01-25 11:04:53.540467', '2025-01-01', 18.0000, 1, 1, 'VALLEY', 0.4000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (61, 15.7500, '2026-01-25 11:09:02.231742', '2025-01-01', 10.5000, 1, 1, 'SHARP', 1.5000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (62, 26.4000, '2026-01-25 11:09:02.231742', '2025-01-01', 22.0000, 1, 1, 'PEAK', 1.2000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (63, 28.0000, '2026-01-25 11:09:02.231742', '2025-01-01', 35.0000, 1, 1, 'FLAT', 0.8000, 'DAY');
-INSERT INTO public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) VALUES (64, 7.2000, '2026-01-25 11:09:02.231742', '2025-01-01', 18.0000, 1, 1, 'VALLEY', 0.4000, 'DAY');
-
-
---
--- Data for Name: ems_policy; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_policy (id, title, type, department, issuing_date, file_url, summary, status, remark, created_at, updated_at) VALUES (1, '中华人民共和国节约能源法', 'NATIONAL', '全国人民代表大会常务委员会', '2018-10-26', 'https://flk.npc.gov.cn/detail2.html?ZmY4MDgwODE2ZjNjYmIzYzAxNmY0MTBhY2YxYjAxNGY%3D', '国家实行节约资源的基本国策，国家实施节约与开发并举、把节约放在首位的能源发展战略，鼓励、支持节能科学技术的研究、开发、示范和推广。', 0, '主要法律依据', '2026-01-06 15:06:50.163917', '2026-01-06 15:06:50.163917');
-INSERT INTO public.ems_policy (id, title, type, department, issuing_date, file_url, summary, status, remark, created_at, updated_at) VALUES (2, '工业节能诊断服务行动计划', 'NATIONAL', '工业和信息化部', '2019-05-27', 'https://www.miit.gov.cn/zwgk/zcwj/wjfb/txy/art/2020/art_d5f4d2e0c3614da2a3e1a6b3f0b2c5d7.html', '推动开展工业节能诊断服务，帮助企业发掘节能潜力，提高能效水平。', 0, '节能诊断参考', '2026-01-06 15:06:50.171668', '2026-01-06 15:06:50.171668');
-INSERT INTO public.ems_policy (id, title, type, department, issuing_date, file_url, summary, status, remark, created_at, updated_at) VALUES (3, '广东省节约能源条例', 'LOCAL', '广东省人民代表大会常务委员会', '2022-11-30', NULL, '本省行政区域内从事和涉及能源生产、经营、消费及其相关活动的单位和个人适用本条例。', 0, '地方性法规', '2026-01-06 15:06:50.177038', '2026-01-06 15:06:50.177038');
-INSERT INTO public.ems_policy (id, title, type, department, issuing_date, file_url, summary, status, remark, created_at, updated_at) VALUES (4, '电机系统节能技术规范', 'INDUSTRY', '国家市场监督管理总局', '2020-06-01', NULL, '规定了电机系统节能的技术要求、检测方法和评价准则。', 0, '技术标准', '2026-01-06 15:06:50.181913', '2026-01-06 15:06:50.181913');
-INSERT INTO public.ems_policy (id, title, type, department, issuing_date, file_url, summary, status, remark, created_at, updated_at) VALUES (5, '重点用能单位能耗在线监测系统技术规范222', 'NATIONAL', '国家发展和改革委员会', '2018-01-01', NULL, '规定了重点用能单位能耗在线监测系统的技术要求、数据采集、传输和应用等内容。222', 0, '能耗监测依据222', '2026-01-06 15:06:50.189309', '2026-02-08 11:00:28.670471');
-
-
---
--- Data for Name: ems_price_policy; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_price_policy (id, created_at, updated_at, code, is_multi_rate, name, remark, sort_order, status, energy_type_id, effective_end_date, effective_start_date) VALUES (3, '2026-01-04 15:57:26.730312', '2026-01-04 15:57:26.730312', 'INDUSTRY_TOU_2024', true, '工业分时电价(2024)', '适用于一般工商业用电，采用尖峰平谷电价', 1, 0, 14, '2024-12-31', '2024-01-01');
-INSERT INTO public.ems_price_policy (id, created_at, updated_at, code, is_multi_rate, name, remark, sort_order, status, energy_type_id, effective_end_date, effective_start_date) VALUES (4, '2026-01-04 15:57:26.746921', '2026-01-04 15:57:26.746921', 'INDUSTRY_TOU_2025', true, '工业分时电价(2025)', '适用于一般工商业用电，2025年度执行标准', 2, 0, 14, NULL, '2025-01-01');
-INSERT INTO public.ems_price_policy (id, created_at, updated_at, code, is_multi_rate, name, remark, sort_order, status, energy_type_id, effective_end_date, effective_start_date) VALUES (5, '2026-01-04 15:57:26.754091', '2026-01-04 15:57:26.754091', 'COMMERCIAL_SINGLE', false, '商业电价', '适用于小型商业用电，统一计价', 3, 0, 14, NULL, '2024-01-01');
-INSERT INTO public.ems_price_policy (id, created_at, updated_at, code, is_multi_rate, name, remark, sort_order, status, energy_type_id, effective_end_date, effective_start_date) VALUES (6, '2026-01-20 07:18:46.697866', '2026-01-20 23:27:07.546212', 'INDUSTRY_TOU_02', true, '工业分时电价（2026）', NULL, 4, 0, 14, '2026-12-31', '2026-01-01');
-
-
---
--- Data for Name: ems_price_policy_item; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (7, '2026-01-04 15:57:26.762893', '2026-01-04 15:57:26.762893', 'SHARP', 1.2500, NULL, 1, 3, '11:00', '09:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (8, '2026-01-04 15:57:26.773513', '2026-01-04 15:57:26.773513', 'PEAK', 0.9500, NULL, 2, 3, '13:00', '11:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (9, '2026-01-04 15:57:26.781369', '2026-01-04 15:57:26.781369', 'FLAT', 0.6500, NULL, 3, 3, '17:00', '13:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (10, '2026-01-04 15:57:26.787921', '2026-01-04 15:57:26.787921', 'VALLEY', 0.3500, NULL, 4, 3, '22:00', '17:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (11, '2026-01-04 15:57:26.801065', '2026-01-04 15:57:26.801065', 'DEEP', 0.2000, NULL, 5, 3, '09:00', '22:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (12, '2026-01-04 15:57:26.811891', '2026-01-04 15:57:26.811891', 'SHARP', 1.3000, NULL, 1, 4, '11:00', '09:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (13, '2026-01-04 15:57:26.820703', '2026-01-04 15:57:26.820703', 'PEAK', 1.0000, NULL, 2, 4, '13:00', '11:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (14, '2026-01-04 15:57:26.843966', '2026-01-04 15:57:26.843966', 'FLAT', 0.7000, NULL, 3, 4, '17:00', '13:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (15, '2026-01-04 15:57:26.861198', '2026-01-04 15:57:26.861198', 'VALLEY', 0.4000, NULL, 4, 4, '22:00', '17:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (16, '2026-01-04 15:57:26.871882', '2026-01-04 15:57:26.871882', 'DEEP', 0.2500, NULL, 5, 4, '09:00', '22:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (17, '2026-01-04 15:57:26.881667', '2026-01-04 15:57:26.881667', 'FLAT', 0.8200, NULL, 1, 5, '23:59', '00:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (28, '2026-01-20 23:27:07.526889', '2026-01-20 23:27:07.526889', 'DEEP', 0.2000, NULL, 1, 6, '07:00', '00:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (29, '2026-01-20 23:27:07.531061', '2026-01-20 23:27:07.531061', 'FLAT', 0.6000, NULL, 2, 6, '09:00', '07:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (30, '2026-01-20 23:27:07.53253', '2026-01-20 23:27:07.53253', 'PEAK', 0.8000, NULL, 3, 6, '11:00', '09:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (31, '2026-01-20 23:27:07.533797', '2026-01-20 23:27:07.533797', 'SHARP', 1.0000, NULL, 4, 6, '13:00', '11:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (32, '2026-01-20 23:27:07.536579', '2026-01-20 23:27:07.536579', 'FLAT', 0.6000, NULL, 5, 6, '17:00', '13:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (33, '2026-01-20 23:27:07.538873', '2026-01-20 23:27:07.538873', 'PEAK', 0.8000, NULL, 6, 6, '19:00', '17:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (34, '2026-01-20 23:27:07.540501', '2026-01-20 23:27:07.540501', 'SHARP', 1.0000, NULL, 7, 6, '21:00', '19:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (35, '2026-01-20 23:27:07.542137', '2026-01-20 23:27:07.542137', 'FLAT', 0.6000, NULL, 8, 6, '23:00', '21:00');
-INSERT INTO public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) VALUES (36, '2026-01-20 23:27:07.543926', '2026-01-20 23:27:07.543926', 'VALLEY', 0.4000, NULL, 9, 6, '24:00', '23:00');
-
-
---
--- Data for Name: ems_product; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) VALUES (11, '2026-01-30 16:11:33.90909', '2026-01-30 16:11:33.90909', 'PROD_JM_001', '精密零件', '主要产品，用于汽车制造', 1, 0, '1', '件');
-INSERT INTO public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) VALUES (12, '2026-01-30 16:11:33.90909', '2026-01-30 16:11:33.90909', 'PROD_JM_002', '传动轴', '高精度传动轴', 2, 0, '1', '件');
-INSERT INTO public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) VALUES (13, '2026-01-30 16:11:33.90909', '2026-01-30 16:11:33.90909', 'PROD_JM_003', '粗钢板', '原材料', 3, 0, '3', '吨');
-INSERT INTO public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) VALUES (14, '2026-01-30 16:11:33.912907', '2026-01-30 16:11:33.912907', 'PROD_ZP_001', '发电机组', '大型柴油发电机组', 4, 0, '1', '台');
-INSERT INTO public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) VALUES (15, '2026-01-30 16:11:33.912907', '2026-01-30 16:11:33.912907', 'PROD_ZP_002', '控制柜', '电气控制柜', 5, 0, '1', '台');
-INSERT INTO public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) VALUES (16, '2026-01-30 16:11:33.912907', '2026-01-30 16:11:33.912907', 'PROD_ZP_003', '水泥', '建筑原材料', 6, 0, '3', '吨');
-INSERT INTO public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) VALUES (17, '2026-01-30 16:11:33.914223', '2026-01-30 16:11:33.914223', 'PROD_HG_001', '烘干件', '经过脱水处理的半成品', 7, 0, '2', 'kg');
-INSERT INTO public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) VALUES (18, '2026-01-30 16:11:33.914223', '2026-01-30 16:11:33.914223', 'PROD_HG_002', '陶瓷胚体', '未烧制的陶瓷半成品', 8, 0, '2', '件');
-INSERT INTO public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) VALUES (19, '2026-01-30 16:11:33.916389', '2026-01-30 16:11:33.916389', 'PROD_COMMON_001', 'CNC加工件', '通用数控加工零件', 9, 0, '1', '件');
-INSERT INTO public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) VALUES (20, '2026-01-30 16:11:33.916389', '2026-01-30 16:11:33.916389', 'PROD_COMMON_002', '包装箱', '产品包装使用', 10, 0, '3', '个');
-
-
---
--- Data for Name: ems_production_record; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (1, '2026-01-30 00:35:48.207835', '2026-01-30 00:35:48.207835', 36, 'DAY', '精密零件', 1250.0000, '2026-01-05 00:00:00', '自动生成测试数据', '件', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (2, '2026-01-30 00:35:48.236641', '2026-01-30 00:35:48.236641', 36, 'DAY', '精密零件', 1320.5000, '2026-01-06 00:00:00', '自动生成测试数据', '件', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (3, '2026-01-30 00:35:48.238007', '2026-01-30 00:35:48.238007', 36, 'DAY', '精密零件', 1180.0000, '2026-01-07 00:00:00', '自动生成测试数据', '件', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (4, '2026-01-30 00:35:48.239422', '2026-01-30 00:35:48.239422', 36, 'DAY', '精密零件', 1405.2000, '2026-01-08 00:00:00', '自动生成测试数据', '件', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (5, '2026-01-30 00:35:48.240476', '2026-01-30 00:35:48.240476', 37, 'DAY', '总装成品', 450.0000, '2026-01-05 00:00:00', '自动生成测试数据', '台', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (6, '2026-01-30 00:35:48.243121', '2026-01-30 00:35:48.243121', 37, 'DAY', '总装成品', 485.0000, '2026-01-06 00:00:00', '自动生成测试数据', '台', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (7, '2026-01-30 00:35:48.244081', '2026-01-30 00:35:48.244081', 37, 'DAY', '总装成品', 420.0000, '2026-01-07 00:00:00', '自动生成测试数据', '台', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (8, '2026-01-30 00:35:48.245049', '2026-01-30 00:35:48.245049', 37, 'DAY', '总装成品', 510.0000, '2026-01-08 00:00:00', '自动生成测试数据', '台', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (9, '2026-01-30 00:35:48.246214', '2026-01-30 00:35:48.246214', 39, 'DAY', '烘干件', 2100.0000, '2026-01-05 00:00:00', '自动生成测试数据', 'kg', '1', '半成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (10, '2026-01-30 00:35:48.248286', '2026-01-30 00:35:48.248286', 39, 'DAY', '烘干件', 2250.0000, '2026-01-06 00:00:00', '自动生成测试数据', 'kg', '1', '半成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (11, '2026-01-30 00:35:48.250558', '2026-01-30 00:35:48.250558', 39, 'DAY', '烘干件', 1980.0000, '2026-01-07 00:00:00', '自动生成测试数据', 'kg', '1', '半成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (12, '2026-01-30 00:35:48.251709', '2026-01-30 00:35:48.251709', 39, 'DAY', '烘干件', 2400.0000, '2026-01-08 00:00:00', '自动生成测试数据', 'kg', '1', '半成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (13, '2026-01-30 00:35:48.252764', '2026-01-30 00:35:48.252764', 36, 'DAY', '粗钢', 85.5000, '2026-01-09 00:00:00', '自动生成测试数据', '吨', '1', '原材料');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (14, '2026-01-30 00:35:48.253544', '2026-01-30 00:35:48.253544', 36, 'DAY', '粗钢', 92.0000, '2026-01-10 00:00:00', '自动生成测试数据', '吨', '1', '原材料');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (15, '2026-01-30 00:35:48.255535', '2026-01-30 00:35:48.255535', 36, 'DAY', '粗钢', 78.5000, '2026-01-11 00:00:00', '自动生成测试数据', '吨', '1', '原材料');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (16, '2026-01-30 00:35:48.256607', '2026-01-30 00:35:48.256607', 37, 'DAY', '水泥', 320.0000, '2026-01-09 00:00:00', '自动生成测试数据', '吨', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (17, '2026-01-30 00:35:48.258186', '2026-01-30 00:35:48.258186', 37, 'DAY', '水泥', 345.5000, '2026-01-10 00:00:00', '自动生成测试数据', '吨', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (18, '2026-01-30 00:35:48.258936', '2026-01-30 00:35:48.258936', 45, 'DAY', 'CNC加工件', 850.0000, '2026-01-05 00:00:00', '自动生成测试数据', '件', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (19, '2026-01-30 00:35:48.260622', '2026-01-30 00:35:48.260622', 45, 'DAY', 'CNC加工件', 910.0000, '2026-01-06 00:00:00', '自动生成测试数据', '件', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (20, '2026-01-30 00:35:48.261418', '2026-01-30 00:35:48.261418', 45, 'DAY', 'CNC加工件', 880.0000, '2026-01-07 00:00:00', '自动生成测试数据', '件', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (21, '2026-01-31 12:46:20.557973', '2026-01-31 12:51:09.196242', 35, 'HOUR', '大AB', 8800.0000, '2026-01-01 16:00:00', NULL, '件', '1', '半成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (22, '2026-02-08 08:43:25.271357', '2026-02-08 08:43:25.271357', 35, 'HOUR', '大宝SOD蜜', 100.0000, '2026-02-08 10:00:00', '100瓶', '瓶', '1', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (23, '2026-02-08 08:44:00.53683', '2026-02-08 08:44:00.53683', 35, 'DAY', '电表', 210.0000, '2026-02-07 00:00:00', NULL, '度', '2', '成品');
-INSERT INTO public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) VALUES (24, '2026-02-08 08:44:39.46096', '2026-02-08 08:44:39.46096', 35, 'MONTH', '这这那', 1100.0000, '2026-01-01 00:00:00', NULL, '顿', '3', '千军万马');
-
-
---
--- Data for Name: ems_time_period_price; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: sys_config; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: sys_dept; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_dept (id, created_at, updated_at, ancestors, code, email, leader, name, phone, sort_order, status, parent_id, manager_id, description) VALUES (100, '2026-02-16 09:22:38.179264', '2026-02-16 09:22:38.179264', '0', 'TERRA', 'admin@terra.com', '张三', '泰若科技', '13800000001', 0, 0, NULL, NULL, NULL);
-INSERT INTO public.sys_dept (id, created_at, updated_at, ancestors, code, email, leader, name, phone, sort_order, status, parent_id, manager_id, description) VALUES (202, '2026-02-19 16:45:04.90434', '2026-02-19 16:45:04.90434', NULL, NULL, NULL, NULL, '研发中心', NULL, 0, 0, 100, 97, '总部研发中心');
-INSERT INTO public.sys_dept (id, created_at, updated_at, ancestors, code, email, leader, name, phone, sort_order, status, parent_id, manager_id, description) VALUES (101, '2026-02-16 09:22:38.179264', '2026-02-19 17:57:30.44432', 'null,100', 'SZ-TERRA', 'sz@terra.com', '李四', '深圳分公司', '13800000002', 1, 1, 100, NULL, NULL);
-INSERT INTO public.sys_dept (id, created_at, updated_at, ancestors, code, email, leader, name, phone, sort_order, status, parent_id, manager_id, description) VALUES (103, '2026-02-16 09:22:38.179264', '2026-02-19 20:19:01.014779', 'null,100,101', 'R&D', 'rd@terra.com', '赵六', '研发部门', '13800000004', 1, 0, 101, 96, '深圳公司研发部门');
-INSERT INTO public.sys_dept (id, created_at, updated_at, ancestors, code, email, leader, name, phone, sort_order, status, parent_id, manager_id, description) VALUES (205, '2026-02-19 20:19:41.451004', '2026-02-19 20:19:41.451004', '0,100', NULL, NULL, NULL, '测试中心', NULL, 0, 0, 100, 97, '全局测试中心');
-
-
---
--- Data for Name: sys_dict_data; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (1, '2026-01-16 23:29:55.931083', NULL, 'Y', '男', NULL, 1, '0', NULL, 'processing', 'SYS_USER_SEX', '0');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (2, '2026-01-16 23:29:55.931083', NULL, 'N', '女', NULL, 2, '0', NULL, 'success', 'SYS_USER_SEX', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (3, '2026-01-16 23:29:55.931083', NULL, 'N', '未知', NULL, 3, '0', NULL, 'default', 'SYS_USER_SEX', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (4, '2026-01-16 23:29:55.934998', NULL, 'Y', '显示', NULL, 1, '0', NULL, 'processing', 'SYS_SHOW_HIDE', '0');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (5, '2026-01-16 23:29:55.934998', NULL, 'N', '隐藏', NULL, 2, '0', NULL, 'error', 'SYS_SHOW_HIDE', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (6, '2026-01-16 23:29:55.935936', NULL, 'Y', '正常', NULL, 1, '0', NULL, 'processing', 'SYS_NORMAL_DISABLE', '0');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (7, '2026-01-16 23:29:55.935936', NULL, 'N', '停用', NULL, 2, '0', NULL, 'error', 'SYS_NORMAL_DISABLE', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (8, '2026-01-16 23:29:55.936777', NULL, 'Y', '正常', NULL, 1, '0', NULL, 'processing', 'SYS_JOB_STATUS', '0');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (9, '2026-01-16 23:29:55.936777', NULL, 'N', '暂停', NULL, 2, '0', NULL, 'error', 'SYS_JOB_STATUS', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (10, '2026-01-16 23:29:55.937818', NULL, 'Y', '默认', NULL, 1, '0', NULL, 'default', 'SYS_JOB_GROUP', 'DEFAULT');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (11, '2026-01-16 23:29:55.937818', NULL, 'N', '系统', NULL, 2, '0', NULL, 'processing', 'SYS_JOB_GROUP', 'SYSTEM');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (12, '2026-01-16 23:29:55.938778', NULL, 'Y', '是', NULL, 1, '0', NULL, 'processing', 'SYS_YES_NO', 'Y');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (13, '2026-01-16 23:29:55.938778', NULL, 'N', '否', NULL, 2, '0', NULL, 'error', 'SYS_YES_NO', 'N');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (14, '2026-01-16 23:29:55.93944', NULL, 'Y', '通知', NULL, 1, '0', NULL, 'warning', 'SYS_NOTICE_TYPE', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (15, '2026-01-16 23:29:55.93944', NULL, 'N', '公告', NULL, 2, '0', NULL, 'success', 'SYS_NOTICE_TYPE', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (16, '2026-01-16 23:29:55.940013', NULL, 'Y', '正常', NULL, 1, '0', NULL, 'processing', 'SYS_NOTICE_STATUS', '0');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (17, '2026-01-16 23:29:55.940013', NULL, 'N', '关闭', NULL, 2, '0', NULL, 'error', 'SYS_NOTICE_STATUS', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (18, '2026-01-16 23:29:55.940641', NULL, 'N', '新增', NULL, 1, '0', NULL, 'success', 'SYS_OPER_TYPE', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (19, '2026-01-16 23:29:55.940641', NULL, 'N', '修改', NULL, 2, '0', NULL, 'processing', 'SYS_OPER_TYPE', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (20, '2026-01-16 23:29:55.940641', NULL, 'N', '删除', NULL, 3, '0', NULL, 'error', 'SYS_OPER_TYPE', '3');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (21, '2026-01-16 23:29:55.940641', NULL, 'N', '授权', NULL, 4, '0', NULL, 'processing', 'SYS_OPER_TYPE', '4');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (22, '2026-01-16 23:29:55.940641', NULL, 'N', '导出', NULL, 5, '0', NULL, 'warning', 'SYS_OPER_TYPE', '5');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (23, '2026-01-16 23:29:55.940641', NULL, 'N', '导入', NULL, 6, '0', NULL, 'warning', 'SYS_OPER_TYPE', '6');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (24, '2026-01-16 23:29:55.940641', NULL, 'N', '强退', NULL, 7, '0', NULL, 'error', 'SYS_OPER_TYPE', '7');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (25, '2026-01-16 23:29:55.940641', NULL, 'N', '生成代码', NULL, 8, '0', NULL, 'warning', 'SYS_OPER_TYPE', '8');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (26, '2026-01-16 23:29:55.940641', NULL, 'N', '清空数据', NULL, 9, '0', NULL, 'error', 'SYS_OPER_TYPE', '9');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (27, '2026-01-16 23:29:55.941242', NULL, 'Y', '成功', NULL, 1, '0', NULL, 'success', 'SYS_COMMON_STATUS', '0');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (28, '2026-01-16 23:29:55.941242', NULL, 'N', '失败', NULL, 2, '0', NULL, 'error', 'SYS_COMMON_STATUS', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (29, '2026-01-16 23:29:55.94178', NULL, 'Y', '是', NULL, 1, '0', NULL, 'processing', 'SYS_IS_DEFAULT', 'Y');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (30, '2026-01-16 23:29:55.94178', NULL, 'N', '否', NULL, 2, '0', NULL, 'default', 'SYS_IS_DEFAULT', 'N');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (31, '2026-01-16 23:29:55.94232', NULL, 'Y', '启用', NULL, 1, '0', NULL, 'success', 'SYS_IS_ENABLE', 'Y');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (32, '2026-01-16 23:29:55.94232', NULL, 'N', '停用', NULL, 2, '0', NULL, 'error', 'SYS_IS_ENABLE', 'N');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (33, '2026-01-16 23:29:55.942869', NULL, 'N', '千瓦时', NULL, 1, '0', NULL, 'default', 'SYS_UNIT', 'kWh');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (34, '2026-01-16 23:29:55.942869', NULL, 'N', '千瓦', NULL, 2, '0', NULL, 'default', 'SYS_UNIT', 'kW');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (35, '2026-01-16 23:29:55.942869', NULL, 'N', '安培', NULL, 3, '0', NULL, 'default', 'SYS_UNIT', 'A');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (36, '2026-01-16 23:29:55.942869', NULL, 'N', '毫安', NULL, 4, '0', NULL, 'default', 'SYS_UNIT', 'mA');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (37, '2026-01-16 23:29:55.942869', NULL, 'N', '伏特', NULL, 5, '0', NULL, 'default', 'SYS_UNIT', 'V');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (38, '2026-01-16 23:29:55.942869', NULL, 'N', '千伏', NULL, 6, '0', NULL, 'default', 'SYS_UNIT', 'kV');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (39, '2026-01-16 23:29:55.942869', NULL, 'N', '千乏', NULL, 7, '0', NULL, 'default', 'SYS_UNIT', 'kVAR');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (40, '2026-01-16 23:29:55.942869', NULL, 'N', '伏安', NULL, 8, '0', NULL, 'default', 'SYS_UNIT', 'VA');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (41, '2026-01-16 23:29:55.942869', NULL, 'N', '赫兹', NULL, 9, '0', NULL, 'default', 'SYS_UNIT', 'Hz');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (42, '2026-01-16 23:29:55.942869', NULL, 'N', '立方米', NULL, 10, '0', NULL, 'default', 'SYS_UNIT', 'm³');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (43, '2026-01-16 23:29:55.942869', NULL, 'N', '立方米/小时', NULL, 11, '0', NULL, 'default', 'SYS_UNIT', 'm³/h');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (44, '2026-01-16 23:29:55.942869', NULL, 'N', '标准立方米', NULL, 12, '0', NULL, 'default', 'SYS_UNIT', 'Nm³');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (45, '2026-01-16 23:29:55.942869', NULL, 'N', '标准立方米/小时', NULL, 13, '0', NULL, 'default', 'SYS_UNIT', 'Nm³/h');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (46, '2026-01-16 23:29:55.942869', NULL, 'N', '吨', NULL, 14, '0', NULL, 'default', 'SYS_UNIT', 't');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (47, '2026-01-16 23:29:55.942869', NULL, 'N', '千克', NULL, 15, '0', NULL, 'default', 'SYS_UNIT', 'kg');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (48, '2026-01-16 23:29:55.942869', NULL, 'N', '吨/小时', NULL, 16, '0', NULL, 'default', 'SYS_UNIT', 't/h');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (49, '2026-01-16 23:29:55.942869', NULL, 'N', '千克/小时', NULL, 17, '0', NULL, 'default', 'SYS_UNIT', 'kg/h');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (50, '2026-01-16 23:29:55.942869', NULL, 'N', '千克/立方米', NULL, 18, '0', NULL, 'default', 'SYS_UNIT', 'kg/m³');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (51, '2026-01-16 23:29:55.942869', NULL, 'N', '兆帕', NULL, 19, '0', NULL, 'default', 'SYS_UNIT', 'MPa');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (52, '2026-01-16 23:29:55.942869', NULL, 'N', '千帕', NULL, 20, '0', NULL, 'default', 'SYS_UNIT', 'kPa');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (53, '2026-01-16 23:29:55.942869', NULL, 'N', '帕', NULL, 21, '0', NULL, 'default', 'SYS_UNIT', 'Pa');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (54, '2026-01-16 23:29:55.942869', NULL, 'N', '摄氏度', NULL, 22, '0', NULL, 'default', 'SYS_UNIT', '℃');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (55, '2026-01-16 23:29:55.942869', NULL, 'N', '华氏度', NULL, 23, '0', NULL, 'default', 'SYS_UNIT', '℉');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (56, '2026-01-16 23:29:55.942869', NULL, 'N', '相对湿度', NULL, 24, '0', NULL, 'default', 'SYS_UNIT', '%RH');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (57, '2026-01-16 23:29:55.942869', NULL, 'N', '百分比', NULL, 25, '0', NULL, 'default', 'SYS_UNIT', '%');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (58, '2026-01-16 23:29:55.942869', NULL, 'N', '元', NULL, 26, '0', NULL, 'default', 'SYS_UNIT', 'RMB');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (59, '2026-01-16 23:29:55.942869', NULL, 'N', '个', NULL, 27, '0', NULL, 'default', 'SYS_UNIT', 'N');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (60, '2026-01-16 23:29:55.942869', NULL, 'N', '小时', NULL, 28, '0', NULL, 'default', 'SYS_UNIT', 'hour');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (61, '2026-01-16 23:29:55.942869', NULL, 'N', '次', NULL, 29, '0', NULL, 'default', 'SYS_UNIT', 'times');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (62, '2026-01-16 23:29:55.942869', NULL, 'N', '吨标准煤', NULL, 30, '0', NULL, 'default', 'SYS_UNIT', 'tce');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (63, '2026-01-16 23:29:55.942869', NULL, 'N', '千克标准煤/吨', NULL, 31, '0', NULL, 'default', 'SYS_UNIT', 'kgce/t');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (64, '2026-01-16 23:29:55.944376', NULL, 'N', '尖', NULL, 1, '0', NULL, 'error', 'ELECTRICITY_PRICE', 'SHARP');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (65, '2026-01-16 23:29:55.944376', NULL, 'N', '峰', NULL, 2, '0', NULL, 'warning', 'ELECTRICITY_PRICE', 'PEAK');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (66, '2026-01-16 23:29:55.944376', NULL, 'N', '平', NULL, 3, '0', NULL, 'success', 'ELECTRICITY_PRICE', 'FLAT');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (67, '2026-01-16 23:29:55.944376', NULL, 'N', '谷', NULL, 4, '0', NULL, 'default', 'ELECTRICITY_PRICE', 'VALLEY');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (68, '2026-01-16 23:29:55.944376', NULL, 'N', '深谷', NULL, 5, '0', NULL, 'processing', 'ELECTRICITY_PRICE', 'DEEP');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (69, '2026-01-16 23:29:55.944868', NULL, 'Y', '能源类指标', NULL, 1, '0', NULL, 'processing', 'INDEX_CATEGORY', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (70, '2026-01-16 23:29:55.944868', NULL, 'N', '产品类指标', NULL, 2, '0', NULL, 'success', 'INDEX_CATEGORY', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (71, '2026-01-16 23:29:55.944868', NULL, 'N', '能效类指标', NULL, 3, '0', NULL, 'warning', 'INDEX_CATEGORY', '3');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (72, '2026-01-16 23:29:55.944868', NULL, 'N', '经营类指标', NULL, 4, '0', NULL, 'default', 'INDEX_CATEGORY', '4');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (73, '2026-01-16 23:29:55.944868', NULL, 'N', '其他', NULL, 5, '0', NULL, 'default', 'INDEX_CATEGORY', '5');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (74, '2026-01-16 23:29:55.945372', NULL, 'Y', '电表', NULL, 1, '0', NULL, 'processing', 'DEVICE_TYPE', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (75, '2026-01-16 23:29:55.945372', NULL, 'N', '水表', NULL, 2, '0', NULL, 'processing', 'DEVICE_TYPE', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (76, '2026-01-16 23:29:55.945372', NULL, 'N', '变频器', NULL, 3, '0', NULL, 'default', 'DEVICE_TYPE', '3');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (77, '2026-01-16 23:29:55.945372', NULL, 'N', '温湿度表', NULL, 4, '0', NULL, 'default', 'DEVICE_TYPE', '4');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (78, '2026-01-16 23:29:55.945372', NULL, 'N', '压力表', NULL, 5, '0', NULL, 'default', 'DEVICE_TYPE', '5');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (79, '2026-01-16 23:29:55.945372', NULL, 'N', '蒸汽表', NULL, 6, '0', NULL, 'default', 'DEVICE_TYPE', '6');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (80, '2026-01-16 23:29:55.945372', NULL, 'N', '氮气表', NULL, 7, '0', NULL, 'default', 'DEVICE_TYPE', '7');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (81, '2026-01-16 23:29:55.945372', NULL, 'N', '天然气表', NULL, 10, '0', NULL, 'default', 'DEVICE_TYPE', '10');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (82, '2026-01-16 23:29:55.947454', NULL, 'N', '使用中', NULL, 1, '0', NULL, 'success', 'METER_STATUS', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (83, '2026-01-16 23:29:55.947454', NULL, 'N', '检修中', NULL, 2, '0', NULL, 'warning', 'METER_STATUS', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (84, '2026-01-16 23:29:55.947454', NULL, 'Y', '备用', NULL, 3, '0', NULL, 'default', 'METER_STATUS', '3');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (85, '2026-01-16 23:29:55.947918', NULL, 'N', '实时数据', NULL, 1, '0', NULL, 'processing', 'DATA_TYPE', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (86, '2026-01-16 23:29:55.947918', NULL, 'N', '阶段数据', NULL, 2, '0', NULL, 'success', 'DATA_TYPE', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (87, '2026-01-16 23:29:55.948373', NULL, 'Y', '公司', NULL, 0, '0', NULL, 'processing', 'NODE_CATEGORY', '0');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (88, '2026-01-16 23:29:55.948373', NULL, 'N', '厂部', NULL, 1, '0', NULL, 'processing', 'NODE_CATEGORY', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (89, '2026-01-16 23:29:55.948373', NULL, 'N', '配电室', NULL, 2, '0', NULL, 'default', 'NODE_CATEGORY', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (90, '2026-01-16 23:29:55.948373', NULL, 'N', '区域', NULL, 3, '0', NULL, 'default', 'NODE_CATEGORY', '3');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (91, '2026-01-16 23:29:55.948373', NULL, 'N', '重点能耗设备', NULL, 4, '0', NULL, 'warning', 'NODE_CATEGORY', '4');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (92, '2026-01-16 23:29:55.948373', NULL, 'N', '设备', NULL, 5, '0', NULL, 'default', 'NODE_CATEGORY', '5');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (93, '2026-01-16 23:29:55.948373', NULL, 'N', '其他', NULL, 9, '0', NULL, 'default', 'NODE_CATEGORY', '9');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (94, '2026-01-16 23:29:55.948842', NULL, 'Y', '一级', NULL, 1, '0', NULL, 'success', 'FACILITY_GRADE', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (95, '2026-01-16 23:29:55.948842', NULL, 'N', '二级', NULL, 2, '0', NULL, 'processing', 'FACILITY_GRADE', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (96, '2026-01-16 23:29:55.948842', NULL, 'N', '三级', NULL, 3, '0', NULL, 'warning', 'FACILITY_GRADE', '3');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (97, '2026-01-16 23:29:55.948842', NULL, 'N', '无', NULL, 4, '0', NULL, 'default', 'FACILITY_GRADE', '4');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (98, '2026-01-16 23:29:55.949343', NULL, 'Y', '空压机', NULL, 1, '0', NULL, 'default', 'FACILITY_TYPE', '0');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (99, '2026-01-16 23:29:55.949343', NULL, 'N', '电机', NULL, 2, '0', NULL, 'default', 'FACILITY_TYPE', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (100, '2026-01-16 23:29:55.949343', NULL, 'N', '风机', NULL, 3, '0', NULL, 'default', 'FACILITY_TYPE', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (101, '2026-01-16 23:29:55.949343', NULL, 'N', '水泵', NULL, 4, '0', NULL, 'default', 'FACILITY_TYPE', '3');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (102, '2026-01-16 23:29:55.949343', NULL, 'N', '变压器', NULL, 5, '0', NULL, 'default', 'FACILITY_TYPE', '4');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (103, '2026-01-16 23:29:55.949343', NULL, 'N', '制冷机', NULL, 6, '0', NULL, 'default', 'FACILITY_TYPE', '5');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (104, '2026-01-16 23:29:55.949343', NULL, 'N', '锅炉', NULL, 7, '0', NULL, 'default', 'FACILITY_TYPE', '6');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (105, '2026-01-16 23:29:55.949343', NULL, 'N', '输送机', NULL, 8, '0', NULL, 'default', 'FACILITY_TYPE', '7');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (106, '2026-01-16 23:29:55.949343', NULL, 'N', '破碎机', NULL, 9, '0', NULL, 'default', 'FACILITY_TYPE', '8');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (107, '2026-01-16 23:29:55.949343', NULL, 'N', '其他', NULL, 10, '0', NULL, 'default', 'FACILITY_TYPE', '99');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (108, '2026-01-16 23:29:55.949937', NULL, 'Y', '指标配置', NULL, 1, '0', NULL, 'processing', 'MODEL_TYPE', 'index');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (109, '2026-01-16 23:29:55.949937', NULL, 'N', '仅节点', NULL, 2, '0', NULL, 'default', 'MODEL_TYPE', 'node');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (110, '2026-01-16 23:29:55.950363', NULL, 'Y', '实时', NULL, 0, '0', NULL, 'processing', 'WARN_TIME_SLOT', 'LIVE');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (111, '2026-01-16 23:29:55.950363', NULL, 'N', '小时', NULL, 1, '0', NULL, 'default', 'WARN_TIME_SLOT', 'HOUR');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (112, '2026-01-16 23:29:55.950363', NULL, 'N', '天', NULL, 2, '0', NULL, 'default', 'WARN_TIME_SLOT', 'DAY');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (113, '2026-01-16 23:29:55.950363', NULL, 'N', '月', NULL, 3, '0', NULL, 'default', 'WARN_TIME_SLOT', 'MONTH');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (114, '2026-01-16 23:29:55.950363', NULL, 'N', '年', NULL, 4, '0', NULL, 'default', 'WARN_TIME_SLOT', 'YEAR');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (115, '2026-01-16 23:29:55.950805', NULL, 'Y', '预警', NULL, 1, '0', NULL, 'warning', 'ALARM_TYPE', 'WARNING');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (116, '2026-01-16 23:29:55.950805', NULL, 'N', '报警', NULL, 2, '0', NULL, 'error', 'ALARM_TYPE', 'ALARM');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (117, '2026-01-16 23:29:55.951615', NULL, 'N', '高', NULL, 1, '0', NULL, 'error', 'ALARM_LEVEL', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (118, '2026-01-16 23:29:55.951615', NULL, 'N', '中', NULL, 2, '0', NULL, 'warning', 'ALARM_LEVEL', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (119, '2026-01-16 23:29:55.951615', NULL, 'Y', '低', NULL, 3, '0', NULL, 'default', 'ALARM_LEVEL', '3');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (120, '2026-01-16 23:29:55.952042', NULL, 'N', '上限', NULL, 1, '0', NULL, 'warning', 'LIMIT_TYPE', '1');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (121, '2026-01-16 23:29:55.952042', NULL, 'N', '下限', NULL, 2, '0', NULL, 'processing', 'LIMIT_TYPE', '2');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (122, '2026-01-16 23:29:55.952456', NULL, 'Y', '月', NULL, 1, '0', NULL, 'default', 'TIME_TYPE', 'MONTH');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (123, '2026-01-16 23:29:55.952456', NULL, 'N', '年', NULL, 2, '0', NULL, 'default', 'TIME_TYPE', 'YEAR');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (124, '2026-01-16 23:29:55.952909', NULL, 'N', '日', NULL, 1, '0', NULL, 'default', 'DATE_TYPE', 'DAY');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (125, '2026-01-16 23:29:55.952909', NULL, 'Y', '月', NULL, 2, '0', NULL, 'default', 'DATE_TYPE', 'MONTH');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (126, '2026-01-16 23:29:55.952909', NULL, 'N', '年', NULL, 3, '0', NULL, 'default', 'DATE_TYPE', 'YEAR');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (127, '2026-01-16 23:29:55.953352', NULL, 'N', '天', NULL, 1, '0', NULL, 'default', 'PERIOD', 'DAY');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (128, '2026-01-16 23:29:55.953352', NULL, 'Y', '月', NULL, 2, '0', NULL, 'default', 'PERIOD', 'MONTH');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (129, '2026-01-16 23:29:55.953352', NULL, 'N', '年', NULL, 3, '0', NULL, 'default', 'PERIOD', 'YEAR');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (130, '2026-01-16 23:29:55.953883', NULL, 'Y', '小时', NULL, 1, '0', NULL, 'default', 'ENTRY_DATA_TIME', 'HOUR');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (131, '2026-01-16 23:29:55.953883', NULL, 'N', '日', NULL, 2, '0', NULL, 'default', 'ENTRY_DATA_TIME', 'DAY');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (132, '2026-01-16 23:29:55.953883', NULL, 'N', '月', NULL, 3, '0', NULL, 'default', 'ENTRY_DATA_TIME', 'MONTH');
-INSERT INTO public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) VALUES (133, '2026-01-16 23:29:55.953883', NULL, 'N', '年', NULL, 4, '0', NULL, 'default', 'ENTRY_DATA_TIME', 'YEAR');
-
-
---
--- Data for Name: sys_dict_type; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (1, '2026-01-16 23:29:55.925112', NULL, '用户性别', '用户性别列表', '0', 'SYS_USER_SEX');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (2, '2026-01-16 23:29:55.925112', NULL, '菜单状态', '菜单状态列表', '0', 'SYS_SHOW_HIDE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (3, '2026-01-16 23:29:55.925112', NULL, '系统开关', '系统开关列表', '0', 'SYS_NORMAL_DISABLE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (4, '2026-01-16 23:29:55.925112', NULL, '任务状态', '任务状态列表', '0', 'SYS_JOB_STATUS');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (5, '2026-01-16 23:29:55.925112', NULL, '任务分组', '任务分组列表', '0', 'SYS_JOB_GROUP');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (6, '2026-01-16 23:29:55.925112', NULL, '系统是否', '系统是否列表', '0', 'SYS_YES_NO');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (7, '2026-01-16 23:29:55.925112', NULL, '通知类型', '通知类型列表', '0', 'SYS_NOTICE_TYPE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (8, '2026-01-16 23:29:55.925112', NULL, '通知状态', '通知状态列表', '0', 'SYS_NOTICE_STATUS');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (9, '2026-01-16 23:29:55.925112', NULL, '操作类型', '操作类型列表', '0', 'SYS_OPER_TYPE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (10, '2026-01-16 23:29:55.925112', NULL, '系统状态', '登录状态列表', '0', 'SYS_COMMON_STATUS');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (11, '2026-01-16 23:29:55.925112', NULL, '单位管理', '单位基础数据', '0', 'SYS_UNIT');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (12, '2026-01-16 23:29:55.925112', NULL, '是否默认', '字典数据是否默认', '0', 'SYS_IS_DEFAULT');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (13, '2026-01-16 23:29:55.925112', NULL, '是否启用', '是否启用开关', '0', 'SYS_IS_ENABLE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (20, '2026-01-16 23:29:55.925112', NULL, '尖峰平谷配置', '电价类别配置', '0', 'ELECTRICITY_PRICE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (21, '2026-01-16 23:29:55.925112', NULL, '指标类型', '系统指标类型', '0', 'INDEX_CATEGORY');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (22, '2026-01-16 23:29:55.925112', NULL, '计量器具类型', '计量器具类型', '0', 'DEVICE_TYPE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (23, '2026-01-16 23:29:55.925112', NULL, '计量器具状态', '计量器具的使用状态', '0', 'METER_STATUS');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (24, '2026-01-16 23:29:55.925112', NULL, '参数数据类型', '标准参数配置数据类型', '0', 'DATA_TYPE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (25, '2026-01-16 23:29:55.925112', NULL, '指标节点类型', '指标节点分类', '0', 'NODE_CATEGORY');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (26, '2026-01-16 23:29:55.925112', NULL, '能耗等级', '设备档案的能耗等级', '0', 'FACILITY_GRADE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (27, '2026-01-16 23:29:55.925112', NULL, '设备类型', '设备档案管理的设备类型', '0', 'FACILITY_TYPE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (28, '2026-01-16 23:29:55.925112', NULL, '应用模型类型', '应用模型类型', '0', 'MODEL_TYPE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (30, '2026-01-16 23:29:55.925112', NULL, '预警报警时段', '预警报警时段类型', '0', 'WARN_TIME_SLOT');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (31, '2026-01-16 23:29:55.925112', NULL, '预警报警类型', '预警报警类型', '0', 'ALARM_TYPE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (32, '2026-01-16 23:29:55.925112', NULL, '报警级别', '报警级别', '0', 'ALARM_LEVEL');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (33, '2026-01-16 23:29:55.925112', NULL, '预报警限值类型', '预报警限值类型', '0', 'LIMIT_TYPE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (40, '2026-01-16 23:29:55.925112', NULL, '统计时间', '统计时间类型', '0', 'TIME_TYPE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (41, '2026-01-16 23:29:55.925112', NULL, '用能统计时间', '用能统计时间类型', '0', 'DATE_TYPE');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (42, '2026-01-16 23:29:55.925112', NULL, '期间', '数据录入期间类型', '0', 'PERIOD');
-INSERT INTO public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) VALUES (43, '2026-01-16 23:29:55.925112', NULL, '阶段数据录入时间', '阶段数据录入时间类型', '0', 'ENTRY_DATA_TIME');
-
-
---
--- Data for Name: sys_log; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: sys_login_log; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (1, '2026-02-10 20:57:31.854348', '2026-02-10 20:57:31.854348', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (2, '2026-02-10 20:57:36.173295', '2026-02-10 20:57:36.173295', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (3, '2026-02-10 23:21:05.5312', '2026-02-10 23:21:05.5312', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (4, '2026-02-10 23:28:27.648384', '2026-02-10 23:28:27.648384', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (5, '2026-02-10 23:28:44.200454', '2026-02-10 23:28:44.200454', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (6, '2026-02-11 09:11:04.326477', '2026-02-11 09:11:04.326477', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (7, '2026-02-11 10:55:32.03887', '2026-02-11 10:55:32.03887', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (8, '2026-02-11 12:45:39.461592', '2026-02-11 12:45:39.461592', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (9, '2026-02-11 14:03:42.084744', '2026-02-11 14:03:42.084744', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (10, '2026-02-11 17:34:12.075413', '2026-02-11 17:34:12.075413', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (11, '2026-02-11 20:52:51.56867', '2026-02-11 20:52:51.56867', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (12, '2026-02-12 09:31:03.506608', '2026-02-12 09:31:03.506608', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码已失效', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (13, '2026-02-12 09:31:19.895', '2026-02-12 09:31:19.895', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (14, '2026-02-15 08:26:50.980441', '2026-02-15 08:26:50.980441', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (15, '2026-02-15 23:48:30.458804', '2026-02-15 23:48:30.458804', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (16, '2026-02-15 23:48:38.686681', '2026-02-15 23:48:38.686681', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (17, '2026-02-16 07:57:56.873234', '2026-02-16 07:57:56.873234', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (18, '2026-02-16 08:28:20.341694', '2026-02-16 08:28:20.341694', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (19, '2026-02-16 09:07:29.495166', '2026-02-16 09:07:29.495166', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (20, '2026-02-16 12:20:53.668887', '2026-02-16 12:20:53.668887', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (21, '2026-02-16 17:04:30.474955', '2026-02-16 17:04:30.474955', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (22, '2026-02-16 18:30:25.35152', '2026-02-16 18:30:25.35152', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (23, '2026-02-16 21:04:40.168835', '2026-02-16 21:04:40.168835', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (24, '2026-02-16 22:50:43.982379', '2026-02-16 22:50:43.982379', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (25, '2026-02-17 08:15:33.68012', '2026-02-17 08:15:33.68012', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (26, '2026-02-17 09:11:02.528752', '2026-02-17 09:11:02.528752', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (27, '2026-02-17 09:11:06.495634', '2026-02-17 09:11:06.495634', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (28, '2026-02-17 10:06:05.832408', '2026-02-17 10:06:05.832408', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (29, '2026-02-17 10:06:10.335206', '2026-02-17 10:06:10.335206', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (30, '2026-02-17 13:25:31.36109', '2026-02-17 13:25:31.36109', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (31, '2026-02-17 16:33:53.648276', '2026-02-17 16:33:53.648276', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (32, '2026-02-17 17:11:04.565389', '2026-02-17 17:11:04.565389', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (33, '2026-02-17 19:20:06.772346', '2026-02-17 19:20:06.772346', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (34, '2026-02-17 20:31:25.453482', '2026-02-17 20:31:25.453482', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (35, '2026-02-17 21:18:40.726846', '2026-02-17 21:18:40.726846', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (36, '2026-02-17 21:18:47.095045', '2026-02-17 21:18:47.095045', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (37, '2026-02-17 21:20:20.56686', '2026-02-17 21:20:20.56686', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (38, '2026-02-17 21:36:06.175448', '2026-02-17 21:36:06.175448', 'Chrome', '127.0.0.1', '内网IP', NULL, '用户名或密码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (39, '2026-02-17 21:36:20.204013', '2026-02-17 21:36:20.204013', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (40, '2026-02-17 21:43:51.238441', '2026-02-17 21:43:51.238441', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'li.hang');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (41, '2026-02-17 21:44:09.264024', '2026-02-17 21:44:09.264024', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (42, '2026-02-17 21:44:14.249747', '2026-02-17 21:44:14.249747', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (43, '2026-02-17 21:59:02.57311', '2026-02-17 21:59:02.57311', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'li.hang');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (44, '2026-02-17 21:59:19.166565', '2026-02-17 21:59:19.166565', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (45, '2026-02-18 09:37:50.577189', '2026-02-18 09:37:50.577189', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码已失效', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (46, '2026-02-18 09:37:59.561647', '2026-02-18 09:37:59.561647', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (47, '2026-02-19 08:36:43.423744', '2026-02-19 08:36:43.423744', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (48, '2026-02-19 09:52:47.282955', '2026-02-19 09:52:47.282955', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (49, '2026-02-19 15:25:19.819972', '2026-02-19 15:25:19.819972', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (50, '2026-02-19 15:29:27.42883', '2026-02-19 15:29:27.42883', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (51, '2026-02-19 19:56:57.618783', '2026-02-19 19:56:57.618783', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码已失效', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (52, '2026-02-19 19:57:03.282453', '2026-02-19 19:57:03.282453', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (53, '2026-02-19 20:38:50.371523', '2026-02-19 20:38:50.371523', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (54, '2026-02-19 20:38:55.625133', '2026-02-19 20:38:55.625133', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (55, '2026-02-19 20:39:01.19193', '2026-02-19 20:39:01.19193', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (56, '2026-02-19 23:14:18.819749', '2026-02-19 23:14:18.819749', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (57, '2026-02-20 08:32:18.847397', '2026-02-20 08:32:18.847397', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (58, '2026-02-20 09:17:01.06448', '2026-02-20 09:17:01.06448', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (59, '2026-02-20 09:17:05.895816', '2026-02-20 09:17:05.895816', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (60, '2026-02-20 09:46:45.614759', '2026-02-20 09:46:45.614759', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (61, '2026-02-20 10:53:49.596902', '2026-02-20 10:53:49.596902', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (62, '2026-02-20 17:38:24.105843', '2026-02-20 17:38:24.105843', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (63, '2026-02-20 17:38:28.874763', '2026-02-20 17:38:28.874763', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (64, '2026-02-20 17:50:03.14754', '2026-02-20 17:50:03.14754', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (65, '2026-02-21 09:07:42.114876', '2026-02-21 09:07:42.114876', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (66, '2026-02-21 13:17:31.904537', '2026-02-21 13:17:31.904537', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (67, '2026-02-21 17:56:39.364655', '2026-02-21 17:56:39.364655', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (68, '2026-02-21 21:33:39.473633', '2026-02-21 21:33:39.473633', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (69, '2026-02-21 22:36:38.099545', '2026-02-21 22:36:38.099545', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (70, '2026-02-21 23:06:48.702298', '2026-02-21 23:06:48.702298', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (71, '2026-02-22 00:17:42.69689', '2026-02-22 00:17:42.69689', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (72, '2026-02-22 00:17:46.712741', '2026-02-22 00:17:46.712741', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (73, '2026-02-22 07:14:22.24298', '2026-02-22 07:14:22.24298', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (74, '2026-02-22 14:27:08.944128', '2026-02-22 14:27:08.944128', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (75, '2026-02-22 14:27:16.658806', '2026-02-22 14:27:16.658806', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (76, '2026-02-23 16:05:34.942705', '2026-02-23 16:05:34.942705', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (77, '2026-02-23 16:14:22.193365', '2026-02-23 16:14:22.193365', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (78, '2026-02-23 16:14:28.406156', '2026-02-23 16:14:28.406156', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (79, '2026-02-23 16:29:45.642084', '2026-02-23 16:29:45.642084', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (80, '2026-02-23 16:35:02.656218', '2026-02-23 16:35:02.656218', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (81, '2026-02-23 16:42:34.277662', '2026-02-23 16:42:34.277662', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (82, '2026-02-23 16:57:18.625398', '2026-02-23 16:57:18.625398', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (83, '2026-02-23 17:02:01.516917', '2026-02-23 17:02:01.516917', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (84, '2026-02-23 17:13:05.425128', '2026-02-23 17:13:05.425128', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (85, '2026-02-23 17:28:06.751839', '2026-02-23 17:28:06.751839', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (86, '2026-02-23 17:28:12.639473', '2026-02-23 17:28:12.639473', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (87, '2026-02-23 22:14:27.132984', '2026-02-23 22:14:27.132984', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (88, '2026-02-24 08:10:55.862512', '2026-02-24 08:10:55.862512', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (89, '2026-02-25 21:25:17.435765', '2026-02-25 21:25:17.435765', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (90, '2026-02-25 23:09:07.847061', '2026-02-25 23:09:07.847061', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (91, '2026-02-25 23:30:00.505054', '2026-02-25 23:30:00.505054', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码已失效', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (92, '2026-02-25 23:30:07.824484', '2026-02-25 23:30:07.824484', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (93, '2026-02-25 23:50:21.006666', '2026-02-25 23:50:21.006666', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (94, '2026-02-26 00:25:38.657948', '2026-02-26 00:25:38.657948', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (95, '2026-02-26 07:12:46.812176', '2026-02-26 07:12:46.812176', 'Chrome', '127.0.0.1', '内网IP', NULL, '验证码错误', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (96, '2026-02-26 07:12:50.89965', '2026-02-26 07:12:50.89965', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (97, '2026-02-26 08:23:45.424514', '2026-02-26 08:23:45.424514', 'Chrome', '127.0.0.1', '内网IP', NULL, '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (98, '2026-02-26 20:59:07.730377', '2026-02-26 20:59:07.730377', 'Chrome', '127.0.0.1', '内网IP', '2026-02-26 20:59:07.728153', '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (99, '2026-02-26 23:16:20.518835', '2026-02-26 23:16:20.518835', 'Chrome', '127.0.0.1', '内网IP', '2026-02-26 23:16:20.510475', '验证码已失效', 'OSX', '1', 'unknown');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (100, '2026-02-26 23:16:24.859472', '2026-02-26 23:16:24.859472', 'Chrome', '127.0.0.1', '内网IP', '2026-02-26 23:16:24.859136', '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (101, '2026-02-26 23:26:59.845761', '2026-02-26 23:26:59.845761', 'Chrome', '127.0.0.1', '内网IP', '2026-02-26 23:26:59.845405', '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (102, '2026-02-26 23:35:29.367526', '2026-02-26 23:35:29.367526', 'Chrome', '127.0.0.1', '内网IP', '2026-02-26 23:35:29.366915', '登录成功', 'OSX', '0', 'admin');
-INSERT INTO public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) VALUES (103, '2026-02-27 06:49:09.146319', '2026-02-27 06:49:09.146319', 'Chrome', '127.0.0.1', '内网IP', '2026-02-27 06:49:09.145763', '登录成功', 'OSX', '0', 'admin');
-
-
---
--- Data for Name: sys_menu; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: sys_module; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (24, '2026-02-21 22:35:43.619292', '2026-02-21 22:35:43.619292', 'MONITOR_CACHE', '缓存监控', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (25, '2026-02-21 22:35:43.632742', '2026-02-21 22:35:43.632742', 'SYSTEM_CONFIG', '参数配置', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (26, '2026-02-21 22:35:43.636869', '2026-02-21 22:35:43.636869', 'SYSTEM_DEPT', '部门管理', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (27, '2026-02-21 22:35:43.640474', '2026-02-21 22:35:43.640474', 'SYSTEM_LOG', '运行日志', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (28, '2026-02-21 22:35:43.642835', '2026-02-21 22:35:43.642835', 'SYSTEM_MENU', '菜单管理', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (29, '2026-02-21 22:35:43.645263', '2026-02-21 22:35:43.645263', 'SYSTEM_MODULE', '业务模块管理', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (30, '2026-02-21 22:35:43.648445', '2026-02-21 22:35:43.648445', 'SYSTEM_NOTICE', '通知公告', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (31, '2026-02-21 22:35:43.651077', '2026-02-21 22:35:43.651077', 'SYSTEM_PERMISSION', '权限管理', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (32, '2026-02-21 22:35:43.653534', '2026-02-21 22:35:43.653534', 'SYSTEM_ROLE', '角色管理', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (33, '2026-02-21 22:35:43.656753', '2026-02-21 22:35:43.656753', 'SYSTEM_USER', '用户管理', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (34, '2026-02-21 22:35:43.669095', '2026-02-21 22:35:43.669095', 'MONITOR_LOGININFOR', '登录日志', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (35, '2026-02-21 22:35:43.673134', '2026-02-21 22:35:43.673134', 'MONITOR_OPERLOG', '操作日志', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (36, '2026-02-21 22:35:43.676376', '2026-02-21 22:35:43.676376', 'EMS_ALARM-CONFIG', '预报警配置', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (37, '2026-02-21 22:35:43.680228', '2026-02-21 22:35:43.680228', 'EMS_ALARM-LIMIT-TYPE', '报警限值类型', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (38, '2026-02-21 22:35:43.684007', '2026-02-21 22:35:43.684007', 'EMS_ALARM-RECORD', '报警历史记录', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (39, '2026-02-21 22:35:43.686949', '2026-02-21 22:35:43.686949', 'EMS_BENCHMARK', '对标值管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (40, '2026-02-21 22:35:43.690151', '2026-02-21 22:35:43.690151', 'EMS_COST-POLICY-BINDING', '成本策略绑定管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (41, '2026-02-21 22:35:43.693161', '2026-02-21 22:35:43.693161', 'EMS_ENERGY-COST-RECORD', '能源成本记录管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (42, '2026-02-21 22:35:43.696889', '2026-02-21 22:35:43.696889', 'EMS_ENERGY-SAVING-PROJECT', '节能项目管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (43, '2026-02-21 22:35:43.700785', '2026-02-21 22:35:43.700785', 'EMS_ENERGY-TYPE', '能源类型管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (44, '2026-02-21 22:35:43.702811', '2026-02-21 22:35:43.702811', 'EMS_ENERGY-UNIT', '用能单元管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (45, '2026-02-21 22:35:43.704462', '2026-02-21 22:35:43.704462', 'EMS_KNOWLEDGE', '知识库管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (46, '2026-02-21 22:35:43.70647', '2026-02-21 22:35:43.70647', 'EMS_METER', '计量器具管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (47, '2026-02-21 22:35:43.708238', '2026-02-21 22:35:43.708238', 'EMS_METER-POINT', '采集点位管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (48, '2026-02-21 22:35:43.710154', '2026-02-21 22:35:43.710154', 'EMS_POLICY', '政策法规管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (49, '2026-02-21 22:35:43.712247', '2026-02-21 22:35:43.712247', 'EMS_PRICE-POLICY', '电价策略管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (50, '2026-02-21 22:35:43.714188', '2026-02-21 22:35:43.714188', 'EMS_PRODUCT', '产品管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (51, '2026-02-21 22:35:43.715557', '2026-02-21 22:35:43.715557', 'EMS_PRODUCTION-RECORD', '产品产量管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (52, '2026-02-21 22:35:43.717087', '2026-02-21 22:35:43.717087', 'EMS_TIME-PERIOD-PRICE', '分时电价配置管理', 20);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (53, '2026-02-21 22:35:43.718694', '2026-02-21 22:35:43.718694', 'SYSTEM_DICT', '字典数据', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (54, '2026-02-21 22:35:59.831286', '2026-02-21 22:35:59.831286', 'SYSTEM_POST', '岗位管理', 10);
-INSERT INTO public.sys_module (id, created_at, updated_at, code, name, sort_order) VALUES (55, '2026-02-23 17:12:31.46745', '2026-02-23 17:12:31.46745', 'EMS_ENERGY-SAVING', '节能项目管理', 20);
-
-
---
--- Data for Name: sys_notice; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_notice (id, created_at, updated_at, notice_content, notice_title, notice_type, remark, status) VALUES (8, '2026-02-19 20:22:07.175657', '2026-02-19 20:22:07.175657', 32839, '关于2025年春节放假安排的通知', '1', '', 0);
-
-
---
--- Data for Name: sys_operation_log; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (11, '2026-02-16 17:15:00.207521', '2026-02-16 17:15:00.207521', 3, 562298, NULL, NULL, '{"timestamp":"2026-02-16 17:04:45","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.ems.controller.EnergyTypeController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '能源类型管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-16 17:14:10.445223', '/api/energy-types/28');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (12, '2026-02-16 23:18:28.630771', '2026-02-16 23:18:28.630771', 1, 47, NULL, '用户名 [曾永利] 已存在', NULL, 'com.terra.ems.admin.controller.SysUserController.create()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', '{"createdAt":null,"updatedAt":null,"id":null,"username":"曾永利","nickname":"lily","avatar":null,"email":"lily@qq.com","phone":null,"dept":null,"status":0,"accountExpireAt":null,"credentialsExpireAt":null,"failLoginCount":0,"lastLoginAt":null,"enabled":true,"credentialsNonExpired":true,"accountNonLocked":true,"accountNonExpired":true,"roles":[],"positions":[12],"deptId":100}', '2026-02-16 23:18:28.587741', '/api/system/user/create');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (13, '2026-02-16 23:21:46.072582', '2026-02-16 23:21:46.072582', 5, 1236, NULL, NULL, NULL, 'com.terra.ems.admin.controller.SysUserController.export()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-16 23:21:46.044627', '/api/system/user/export');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (14, '2026-02-16 23:22:13.273471', '2026-02-16 23:22:13.273471', 3, 74, NULL, NULL, '{"timestamp":"2026-02-16 23:22:13","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-16 23:22:13.253052', '/api/system/user/3');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (15, '2026-02-16 23:22:20.37199', '2026-02-16 23:22:20.37199', 3, 12, NULL, NULL, '{"timestamp":"2026-02-16 23:22:20","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-16 23:22:20.360906', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (16, '2026-02-17 15:45:49.875011', '2026-02-17 15:45:49.875011', 5, 1396, NULL, NULL, NULL, 'com.terra.ems.admin.controller.SysUserController.export()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 15:45:49.855022', '/api/system/user/export');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (17, '2026-02-17 15:46:20.054021', '2026-02-17 15:46:20.054021', 3, 71, NULL, NULL, '{"timestamp":"2026-02-17 15:46:20","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 15:46:20.039273', '/api/system/user/5');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (18, '2026-02-17 15:46:25.72732', '2026-02-17 15:46:25.72732', 3, 15, NULL, NULL, '{"timestamp":"2026-02-17 15:46:25","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 15:46:25.714469', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (19, '2026-02-17 16:25:52.670374', '2026-02-17 16:25:52.670374', 6, 612, NULL, 'Cannot invoke "com.terra.ems.system.entity.SysUser.getUsername()" because "user" is null', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 16:25:52.634852', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (20, '2026-02-17 16:29:54.18425', '2026-02-17 16:29:54.18425', 6, 374, NULL, NULL, '{"timestamp":"2026-02-17 16:29:54","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"恭喜您，数据已全部导入成功！共 0 条，数据如下：","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 16:29:54.156881', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (21, '2026-02-17 16:30:03.964706', '2026-02-17 16:30:03.964706', 6, 31, NULL, NULL, '{"timestamp":"2026-02-17 16:30:03","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"恭喜您，数据已全部导入成功！共 0 条，数据如下：","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 16:30:03.837055', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (22, '2026-02-17 16:34:31.177551', '2026-02-17 16:34:31.177551', 6, 21632, NULL, NULL, '{"timestamp":"2026-02-17 16:34:31","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"恭喜您，数据已全部导入成功！共 0 条，数据如下：","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 16:34:31.152298', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (23, '2026-02-17 16:36:19.536434', '2026-02-17 16:36:19.536434', 6, 34719, NULL, NULL, '{"timestamp":"2026-02-17 16:36:19","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"恭喜您，数据已全部导入成功！共 0 条，数据如下：","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 16:36:19.505508', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (24, '2026-02-17 16:45:08.017735', '2026-02-17 16:45:08.017735', 6, 5121, NULL, NULL, '{"timestamp":"2026-02-17 16:45:07","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"未检测到可导入的有效数据行，请检查文件内容及表头是否正确。","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 16:45:07.994913', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (25, '2026-02-17 16:45:30.936256', '2026-02-17 16:45:30.936256', 6, 34, NULL, NULL, '{"timestamp":"2026-02-17 16:45:30","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"未检测到可导入的有效数据行，请检查文件内容及表头是否正确。","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 16:45:30.919767', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (26, '2026-02-17 16:48:33.874173', '2026-02-17 16:48:33.874173', 6, 29, NULL, NULL, '{"timestamp":"2026-02-17 16:48:33","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"未检测到可导入的有效数据行，请检查文件内容及表头是否正确。","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 16:48:33.849598', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (27, '2026-02-17 16:50:38.1939', '2026-02-17 16:50:38.1939', 6, 33, NULL, 'Cannot invoke "Object.getClass()" because "obj" is null', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 16:50:38.173302', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (28, '2026-02-17 16:56:12.923348', '2026-02-17 16:56:12.923348', 6, 273, NULL, 'null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 16:56:12.889674', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (29, '2026-02-17 17:11:14.311334', '2026-02-17 17:11:14.311334', 6, 60, NULL, 'null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:11:14.276109', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (30, '2026-02-17 17:12:00.199394', '2026-02-17 17:12:00.199394', 6, 17005, NULL, 'null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:12:00.180083', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (31, '2026-02-17 17:13:15.743825', '2026-02-17 17:13:15.743825', 6, 60928, NULL, 'null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:13:15.726499', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (32, '2026-02-17 17:19:48.046145', '2026-02-17 17:19:48.046145', 6, 387996, NULL, 'null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:19:48.013029', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (33, '2026-02-17 17:23:06.403832', '2026-02-17 17:23:06.403832', 6, 178288, NULL, 'null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:23:06.368891', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (34, '2026-02-17 17:27:30.271467', '2026-02-17 17:27:30.271467', 6, 257967, NULL, 'null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:27:30.243002', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (35, '2026-02-17 17:31:51.094961', '2026-02-17 17:31:51.094961', 6, 120042, NULL, 'null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:31:51.074843', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (36, '2026-02-17 17:38:27.94409', '2026-02-17 17:38:27.94409', 6, 389616, NULL, '调用方法 [setGender] 失败', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:38:27.924133', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (37, '2026-02-17 17:56:32.332853', '2026-02-17 17:56:32.332853', 6, 1037519, NULL, '调用方法 [setGender] 失败', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:56:32.27539', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (38, '2026-02-17 17:57:33.435623', '2026-02-17 17:57:33.435623', 6, 298, NULL, '调用方法 [setGender] 失败', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:57:33.405729', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (39, '2026-02-17 17:58:49.316353', '2026-02-17 17:58:49.316353', 6, 333, NULL, '调用方法 [setGender] 失败', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 17:58:49.255616', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (40, '2026-02-17 18:04:59.170133', '2026-02-17 18:04:59.170133', 6, 391, NULL, '很抱歉，导入失败！共 10 条数据格式不正确，错误如下：<br/>1、账号 li.hang 导入失败：部门 [研发部] 在系统中不存在，请先创建该部门<br/>2、账号 chen.xiaoyu 导入失败：部门 [财务部] 在系统中不存在，请先创建该部门<br/>3、账号 wang.zihao 导入失败：部门 [运维中心] 在系统中不存在，请先创建该部门<br/>4、账号 zhang.lin 导入失败：部门 [人事部] 在系统中不存在，请先创建该部门<br/>5、账号 zhao.xu 导入失败：部门 [销售部] 在系统中不存在，请先创建该部门<br/>6、账号 liu.qian 导入失败：部门 [综合部] 在系统中不存在，请先创建该部门<br/>7、账号 zhou.kai 导入失败：部门 [研发部] 在系统中不存在，请先创建该部门<br/>8、账号 wu.meng 导入失败：部门 [质量部] 在系统中不存在，请先创建该部门<br/>9、账号 yang.fan 导入失败：部门 [研发部] 在系统中不存在，请先创建该部门<br/>10、账号 xu.ruo 导入失败：部门 [生产部] 在系统中不存在，请先创建该部门', NULL, 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 18:04:59.143944', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (41, '2026-02-17 19:20:30.64338', '2026-02-17 19:20:30.64338', 6, 2329, NULL, NULL, '{"timestamp":"2026-02-17 19:20:30","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"恭喜您，数据已全部导入成功！共 10 条。","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 19:20:30.629339', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (42, '2026-02-17 19:31:54.573899', '2026-02-17 19:31:54.573899', 3, 83, NULL, NULL, '{"timestamp":"2026-02-17 19:31:54","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 19:31:54.560434', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (43, '2026-02-17 19:32:07.739112', '2026-02-17 19:32:07.739112', 3, 27, NULL, NULL, '{"timestamp":"2026-02-17 19:32:07","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 19:32:07.72611', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (44, '2026-02-17 19:32:20.036244', '2026-02-17 19:32:20.036244', 3, 58, NULL, NULL, '{"timestamp":"2026-02-17 19:32:20","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 19:32:20.021902', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (45, '2026-02-17 19:33:28.134145', '2026-02-17 19:33:28.134145', 6, 1568, NULL, NULL, '{"timestamp":"2026-02-17 19:33:28","error":{"detail":"部分数据导入失败，请下载结果文档查看详情","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"部分数据导入失败，请下载结果文档查看详情","path":null,"data":null,"status":500,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 19:33:28.119429', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (46, '2026-02-17 19:34:07.051945', '2026-02-17 19:34:07.051945', 3, 22, NULL, NULL, '{"timestamp":"2026-02-17 19:34:07","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 19:34:07.038957', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (47, '2026-02-17 19:34:15.617914', '2026-02-17 19:34:15.617914', 3, 29, NULL, NULL, '{"timestamp":"2026-02-17 19:34:15","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 19:34:15.603341', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (48, '2026-02-17 19:34:26.497789', '2026-02-17 19:34:26.497789', 3, 34, NULL, NULL, '{"timestamp":"2026-02-17 19:34:26","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 19:34:26.482568', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (49, '2026-02-17 19:55:10.303969', '2026-02-17 19:55:10.303969', 6, 1476, NULL, NULL, '{"timestamp":"2026-02-17 19:55:10","error":{"detail":"部分数据导入失败，请查看结果文档","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"部分数据导入失败，请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":null,"failureCount":3},"status":500,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 19:55:10.289763', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (50, '2026-02-17 20:03:11.487208', '2026-02-17 20:03:11.487208', 3, 39, NULL, NULL, '{"timestamp":"2026-02-17 20:03:11","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 20:03:11.473291', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (51, '2026-02-17 20:03:20.043345', '2026-02-17 20:03:20.043345', 3, 24, NULL, NULL, '{"timestamp":"2026-02-17 20:03:20","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 20:03:20.030185', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (52, '2026-02-17 20:03:29.783955', '2026-02-17 20:03:29.783955', 3, 42, NULL, NULL, '{"timestamp":"2026-02-17 20:03:29","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 20:03:29.771359', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (53, '2026-02-17 20:03:39.348108', '2026-02-17 20:03:39.348108', 6, 1457, NULL, NULL, '{"timestamp":"2026-02-17 20:03:39","error":{"detail":"部分数据导入失败，请查看结果文档","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"部分数据导入失败，请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":null,"failureCount":3},"status":500,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 20:03:39.337115', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (54, '2026-02-17 20:15:27.038026', '2026-02-17 20:15:27.038026', 3, 21, NULL, NULL, '{"timestamp":"2026-02-17 20:15:27","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 20:15:27.023893', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (55, '2026-02-17 20:15:34.023219', '2026-02-17 20:15:34.023219', 3, 22, NULL, NULL, '{"timestamp":"2026-02-17 20:15:34","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 20:15:34.005549', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (56, '2026-02-17 20:15:40.242146', '2026-02-17 20:15:40.242146', 3, 50, NULL, NULL, '{"timestamp":"2026-02-17 20:15:40","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 20:15:40.228931', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (57, '2026-02-17 20:15:53.902487', '2026-02-17 20:15:53.902487', 6, 1450, NULL, NULL, '{"timestamp":"2026-02-17 20:15:53","error":{"detail":"部分数据导入失败，请查看结果文档","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"部分数据导入失败，请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":null,"failureCount":3},"status":500,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 20:15:53.889591', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (58, '2026-02-17 20:23:02.357156', '2026-02-17 20:23:02.357156', 3, 103, NULL, NULL, '{"timestamp":"2026-02-17 20:23:02","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 20:23:02.326289', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (59, '2026-02-17 20:23:14.297541', '2026-02-17 20:23:14.297541', 6, 2416, NULL, NULL, '{"timestamp":"2026-02-17 20:23:14","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":null,"failureCount":3},"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 20:23:14.282931', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (60, '2026-02-17 20:24:51.660238', '2026-02-17 20:24:51.660238', 3, 77, NULL, NULL, '{"timestamp":"2026-02-17 20:24:51","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 20:24:51.645947', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (61, '2026-02-17 20:31:37.100989', '2026-02-17 20:31:37.100989', 6, 2034, NULL, NULL, '{"timestamp":"2026-02-17 20:31:37","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"2205ec9d-abc2-45c0-9fd5-93548d85ee68_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 20:31:37.074171', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (62, '2026-02-17 20:37:23.686383', '2026-02-17 20:37:23.686383', 3, 103, NULL, NULL, '{"timestamp":"2026-02-17 20:37:23","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 20:37:23.67233', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (63, '2026-02-17 20:37:58.814392', '2026-02-17 20:37:58.814392', 6, 2286, NULL, NULL, '{"timestamp":"2026-02-17 20:37:58","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"ad153a8a-52cf-4f97-8bea-6454127f7f8a_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 20:37:58.799124', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (64, '2026-02-17 21:11:59.108829', '2026-02-17 21:11:59.108829', 3, 117, NULL, NULL, '{"timestamp":"2026-02-17 21:11:59","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 21:11:59.083084', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (65, '2026-02-17 21:12:09.85095', '2026-02-17 21:12:09.85095', 6, 2326, NULL, NULL, '{"timestamp":"2026-02-17 21:12:09","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"ef8fa8a8-5247-42dc-a870-0f63403af4d2_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 21:12:09.83779', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (66, '2026-02-17 21:20:35.528461', '2026-02-17 21:20:35.528461', 3, 84, NULL, NULL, '{"timestamp":"2026-02-17 21:20:35","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 21:20:35.514437', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (67, '2026-02-17 21:20:44.006249', '2026-02-17 21:20:44.006249', 6, 2019, NULL, NULL, '{"timestamp":"2026-02-17 21:20:43","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"05503bf5-3101-4427-9248-964a64099371_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 21:20:43.993012', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (68, '2026-02-17 21:27:51.585442', '2026-02-17 21:27:51.585442', 3, 82, NULL, NULL, '{"timestamp":"2026-02-17 21:27:51","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 21:27:51.558015', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (69, '2026-02-17 21:28:04.912408', '2026-02-17 21:28:04.912408', 6, 2271, NULL, NULL, '{"timestamp":"2026-02-17 21:28:04","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"84648044-759c-48ae-a8ba-1936164380c9_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 21:28:04.899425', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (70, '2026-02-17 21:33:23.568162', '2026-02-17 21:33:23.568162', 3, 87, NULL, NULL, '{"timestamp":"2026-02-17 21:33:23","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 21:33:23.55148', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (71, '2026-02-17 21:33:31.331495', '2026-02-17 21:33:31.331495', 6, 1402, NULL, NULL, '{"timestamp":"2026-02-17 21:33:31","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"40ac0b38-8220-44e6-8a2d-d571e160a854_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 21:33:31.319339', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (72, '2026-02-17 21:42:32.226509', '2026-02-17 21:42:32.226509', 3, 68, NULL, NULL, '{"timestamp":"2026-02-17 21:42:32","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 21:42:32.20314', '/api/system/user');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (73, '2026-02-17 21:42:48.815568', '2026-02-17 21:42:48.815568', 6, 1734, NULL, NULL, '{"timestamp":"2026-02-17 21:42:48","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"e00ceac5-e642-43aa-b0d9-d8bf1108d5f6_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.importData()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', 'false', '2026-02-17 21:42:48.802666', '/api/system/user/importData');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (74, '2026-02-17 21:51:24.611779', '2026-02-17 21:51:24.611779', 2, 34, NULL, NULL, '{"timestamp":"2026-02-17 21:51:24","error":{"detail":"参数错误","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"参数错误","path":null,"data":null,"status":500,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.resetPwd()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '{"password":"SnowMan12#$"}', '2026-02-17 21:51:24.556771', '/api/system/user/resetPwd');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (75, '2026-02-17 21:51:42.989994', '2026-02-17 21:51:42.989994', 2, 3, NULL, NULL, '{"timestamp":"2026-02-17 21:51:42","error":{"detail":"参数错误","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"参数错误","path":null,"data":null,"status":500,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.resetPwd()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '{"password":"SnowMan12#$"}', '2026-02-17 21:51:42.977116', '/api/system/user/resetPwd');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (76, '2026-02-17 21:58:43.004991', '2026-02-17 21:58:43.004991', 2, 198, NULL, NULL, '{"timestamp":"2026-02-17 21:58:42","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"重置成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.resetPwd()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '{"userId":93,"password":"SnowMan12#$"}', '2026-02-17 21:58:42.970682', '/api/system/user/resetPwd');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (77, '2026-02-17 21:59:37.453244', '2026-02-17 21:59:37.453244', 3, 47, NULL, NULL, '{"timestamp":"2026-02-17 21:59:37","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '系统用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 21:59:37.439343', '/api/system/user/94');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (78, '2026-02-17 21:59:41.903456', '2026-02-17 21:59:41.903456', 5, 432, NULL, NULL, NULL, 'com.terra.ems.admin.controller.SysUserController.export()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-17 21:59:41.891966', '/api/system/user/export');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (79, '2026-02-19 10:13:30.100671', '2026-02-19 10:13:30.100671', 3, 74, NULL, 'could not execute statement [ERROR: update or delete on table "sys_post" violates foreign key constraint "fkng2mc7xcmyerevvobtw95bmu9" on table "sys_user_post"
-  详细：Key (id)=(15) is still referenced from table "sys_user_post".] [delete from sys_post where id=?]; SQL [delete from sys_post where id=?]; constraint [fkng2mc7xcmyerevvobtw95bmu9]', NULL, 'com.terra.ems.admin.controller.SysPostController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 1, '岗位管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 10:13:30.08363', '/api/system/post/15');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (80, '2026-02-19 10:13:51.486193', '2026-02-19 10:13:51.486193', 3, 17, NULL, NULL, '{"timestamp":"2026-02-19 10:13:51","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPostController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '岗位管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 10:13:51.473672', '/api/system/post/19');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (81, '2026-02-19 10:15:34.933278', '2026-02-19 10:15:34.933278', 3, 21, NULL, NULL, '{"timestamp":"2026-02-19 10:15:34","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPostController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '岗位管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 10:15:34.919878', '/api/system/post');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (82, '2026-02-19 11:06:48.639408', '2026-02-19 11:06:48.639408', 2, 38, NULL, 'could not execute statement [ERROR: null value in column "name" of relation "sys_dept" violates not-null constraint
-  详细：Failing row contains (103, 2026-02-16 09:22:38.179264, 2026-02-19 11:06:48.594959, null, null, null, null, null, null, 0, 0, 102).] [update sys_dept set ancestors=?,code=?,email=?,leader=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; SQL [update sys_dept set ancestors=?,code=?,email=?,leader=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; constraint [name" of relation "sys_dept]', NULL, 'com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '{"createdAt":null,"updatedAt":null,"id":103,"parent":{"createdAt":null,"updatedAt":null,"id":102,"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"parentId":null},"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"children":[],"parentId":102}', '2026-02-19 11:06:48.622195', '/api/system/dept');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (83, '2026-02-19 16:40:53.903132', '2026-02-19 16:40:53.903132', 3, 75, NULL, 'could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"
-  详细：Key (id)=(104) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]', NULL, 'com.terra.ems.admin.controller.SysDeptController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 16:40:53.881728', '/api/system/dept/104');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (84, '2026-02-19 16:41:01.509153', '2026-02-19 16:41:01.509153', 3, 12, NULL, 'could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"
-  详细：Key (id)=(103) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]', NULL, 'com.terra.ems.admin.controller.SysDeptController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 16:41:01.495666', '/api/system/dept/103');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (85, '2026-02-19 16:41:05.193897', '2026-02-19 16:41:05.193897', 3, 16, NULL, NULL, '{"timestamp":"2026-02-19 16:41:05","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysDeptController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '部门管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 16:41:05.180494', '/api/system/dept/102');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (86, '2026-02-19 16:44:47.312629', '2026-02-19 16:44:47.312629', 3, 16, NULL, NULL, '{"timestamp":"2026-02-19 16:44:47","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysDeptController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '部门管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 16:44:47.299332', '/api/system/dept/201');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (87, '2026-02-19 16:58:29.287951', '2026-02-19 16:58:29.287951', 2, 48, NULL, 'could not execute statement [ERROR: null value in column "name" of relation "sys_dept" violates not-null constraint
-  详细：Failing row contains (101, 2026-02-16 09:22:38.179264, 2026-02-19 16:58:29.26001, null, null, null, null, null, null, 0, 0, 202, null, null).] [update sys_dept set ancestors=?,code=?,description=?,email=?,leader=?,manager_id=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; SQL [update sys_dept set ancestors=?,code=?,description=?,email=?,leader=?,manager_id=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; constraint [name" of relation "sys_dept]', NULL, 'com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '{"createdAt":null,"updatedAt":null,"id":101,"parent":{"createdAt":null,"updatedAt":null,"id":202,"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"manager":null,"description":null,"memberCount":null,"managerId":null,"managerName":null,"parentId":null,"parentName":null},"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"children":[],"manager":null,"description":null,"memberCount":null,"managerId":null,"managerName":null,"parentId":202,"parentName":null}', '2026-02-19 16:58:29.273489', '/api/system/dept');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (88, '2026-02-19 16:58:42.566265', '2026-02-19 16:58:42.566265', 2, 15, NULL, 'could not execute statement [ERROR: null value in column "name" of relation "sys_dept" violates not-null constraint
-  详细：Failing row contains (101, 2026-02-16 09:22:38.179264, 2026-02-19 16:58:42.54882, null, null, null, null, null, null, 0, 0, 202, null, null).] [update sys_dept set ancestors=?,code=?,description=?,email=?,leader=?,manager_id=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; SQL [update sys_dept set ancestors=?,code=?,description=?,email=?,leader=?,manager_id=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; constraint [name" of relation "sys_dept]', NULL, 'com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '{"createdAt":null,"updatedAt":null,"id":101,"parent":{"createdAt":null,"updatedAt":null,"id":202,"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"manager":null,"description":null,"memberCount":null,"managerId":null,"managerName":null,"parentId":null,"parentName":null},"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"children":[],"manager":null,"description":null,"memberCount":null,"managerId":null,"managerName":null,"parentId":202,"parentName":null}', '2026-02-19 16:58:42.553743', '/api/system/dept');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (89, '2026-02-19 17:03:14.173416', '2026-02-19 17:03:14.173416', 2, 91, NULL, 'could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"
-  详细：Key (id)=(103) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]', NULL, 'com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '', '2026-02-19 17:03:14.15608', '/api/system/dept');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (90, '2026-02-19 17:03:22.569766', '2026-02-19 17:03:22.569766', 2, 18, NULL, 'could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"
-  详细：Key (id)=(103) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]', NULL, 'com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '', '2026-02-19 17:03:22.557089', '/api/system/dept');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (91, '2026-02-19 17:03:30.708898', '2026-02-19 17:03:30.708898', 2, 24, NULL, 'could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"
-  详细：Key (id)=(103) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]', NULL, 'com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '', '2026-02-19 17:03:30.695892', '/api/system/dept');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (92, '2026-02-19 17:11:56.811408', '2026-02-19 17:11:56.811408', 2, 54, NULL, 'could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"
-  详细：Key (id)=(103) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]', NULL, 'com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '', '2026-02-19 17:11:56.796366', '/api/system/dept');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (93, '2026-02-19 18:21:42.888556', '2026-02-19 18:21:42.888556', 3, 67, NULL, 'could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"
-  详细：Key (id)=(202) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]', NULL, 'com.terra.ems.admin.controller.SysDeptController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 18:21:42.866122', '/api/system/dept/202');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (94, '2026-02-19 18:26:00.085819', '2026-02-19 18:26:00.085819', 3, 35, NULL, NULL, '{"timestamp":"2026-02-19 18:26:00","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysDeptController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '部门管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 18:26:00.069873', '/api/system/dept/104');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (95, '2026-02-19 19:58:30.673359', '2026-02-19 19:58:30.673359', 3, 28, NULL, NULL, '{"timestamp":"2026-02-19 19:58:30","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysDeptController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '部门管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 19:58:30.655932', '/api/system/dept/203');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (112, '2026-02-21 22:14:33.618821', '2026-02-21 22:14:33.618821', 3, 68, NULL, NULL, '{"timestamp":"2026-02-21 22:14:33","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:14:33.605177', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (113, '2026-02-21 22:14:37.867003', '2026-02-21 22:14:37.867003', 3, 77, NULL, NULL, '{"timestamp":"2026-02-21 22:14:37","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:14:37.854563', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (96, '2026-02-19 19:58:46.391671', '2026-02-19 19:58:46.391671', 2, 20, NULL, '部门不存在', NULL, 'com.terra.ems.admin.controller.SysDeptController.update()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'PUT', 1, '部门管理', '127.0.0.1', '内网IP', 'admin', '203 {"createdAt":null,"updatedAt":null,"id":203,"parent":{"createdAt":null,"updatedAt":null,"id":100,"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"manager":null,"description":null,"memberCount":null,"managerId":null,"managerName":null,"parentId":null,"parentName":null},"name":"技术支撑中心","code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"children":[],"manager":{"createdAt":null,"updatedAt":null,"id":1,"username":null,"realName":null,"avatar":null,"email":null,"phone":null,"gender":2,"employeeNo":null,"remark":null,"status":0,"accountExpireAt":null,"credentialsExpireAt":null,"failLoginCount":0,"lastLoginAt":null,"enabled":true,"accountNonLocked":true,"accountNonExpired":true,"credentialsNonExpired":true,"positions":null,"deptId":null},"description":null,"memberCount":null,"managerId":1,"managerName":null,"parentId":100,"parentName":null}', '2026-02-19 19:58:46.374764', '/api/system/dept/203');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (97, '2026-02-19 20:06:42.026929', '2026-02-19 20:06:42.026929', 3, 16, NULL, NULL, '{"timestamp":"2026-02-19 20:06:42","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysDeptController.delete()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '部门管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-19 20:06:42.008343', '/api/system/dept/204');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (98, '2026-02-21 21:49:01.351876', '2026-02-21 21:49:01.351876', 3, 74, NULL, NULL, '{"timestamp":"2026-02-21 21:49:01","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 21:49:01.333612', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (99, '2026-02-21 21:49:05.970867', '2026-02-21 21:49:05.970867', 3, 35, NULL, NULL, '{"timestamp":"2026-02-21 21:49:05","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 21:49:05.958078', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (100, '2026-02-21 21:49:13.037919', '2026-02-21 21:49:13.037919', 3, 73, NULL, NULL, '{"timestamp":"2026-02-21 21:49:13","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 21:49:13.022662', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (101, '2026-02-21 21:49:18.947948', '2026-02-21 21:49:18.947948', 3, 69, NULL, NULL, '{"timestamp":"2026-02-21 21:49:18","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 21:49:18.93527', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (102, '2026-02-21 21:53:06.580722', '2026-02-21 21:53:06.580722', 3, 71, NULL, NULL, '{"timestamp":"2026-02-21 21:53:06","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 21:53:06.564049', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (103, '2026-02-21 21:53:10.696135', '2026-02-21 21:53:10.696135', 3, 57, NULL, NULL, '{"timestamp":"2026-02-21 21:53:10","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 21:53:10.684433', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (104, '2026-02-21 21:53:14.649545', '2026-02-21 21:53:14.649545', 3, 63, NULL, NULL, '{"timestamp":"2026-02-21 21:53:14","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 21:53:14.63742', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (105, '2026-02-21 21:53:18.988868', '2026-02-21 21:53:18.988868', 3, 48, NULL, NULL, '{"timestamp":"2026-02-21 21:53:18","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 21:53:18.97727', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (106, '2026-02-21 22:13:27.300534', '2026-02-21 22:13:27.300534', 3, 79, NULL, NULL, '{"timestamp":"2026-02-21 22:13:27","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:13:27.281892', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (107, '2026-02-21 22:13:31.619672', '2026-02-21 22:13:31.619672', 3, 79, NULL, NULL, '{"timestamp":"2026-02-21 22:13:31","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:13:31.565508', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (108, '2026-02-21 22:13:35.535009', '2026-02-21 22:13:35.535009', 3, 55, NULL, NULL, '{"timestamp":"2026-02-21 22:13:35","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:13:35.522356', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (109, '2026-02-21 22:13:40.164311', '2026-02-21 22:13:40.164311', 3, 71, NULL, NULL, '{"timestamp":"2026-02-21 22:13:40","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:13:40.149189', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (110, '2026-02-21 22:14:25.243746', '2026-02-21 22:14:25.243746', 3, 48, NULL, NULL, '{"timestamp":"2026-02-21 22:14:25","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:14:25.230982', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (111, '2026-02-21 22:14:29.068907', '2026-02-21 22:14:29.068907', 3, 68, NULL, NULL, '{"timestamp":"2026-02-21 22:14:29","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:14:29.055505', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (114, '2026-02-21 22:14:48.460926', '2026-02-21 22:14:48.460926', 3, 37, NULL, NULL, '{"timestamp":"2026-02-21 22:14:48","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:14:48.448678', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (115, '2026-02-21 22:14:52.087318', '2026-02-21 22:14:52.087318', 3, 62, NULL, NULL, '{"timestamp":"2026-02-21 22:14:52","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:14:52.074776', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (116, '2026-02-21 22:14:55.294709', '2026-02-21 22:14:55.294709', 3, 69, NULL, NULL, '{"timestamp":"2026-02-21 22:14:55","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:14:55.281676', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (117, '2026-02-21 22:14:58.872401', '2026-02-21 22:14:58.872401', 3, 47, NULL, NULL, '{"timestamp":"2026-02-21 22:14:58","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysPermissionController.deleteBatch()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '权限管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-21 22:14:58.858092', '/api/system/permission');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (118, '2026-02-22 07:54:54.464331', '2026-02-22 07:54:54.464331', 2, 202, NULL, NULL, '{"timestamp":"2026-02-22 07:54:54","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"更新权限成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysRoleController.updatePermissions()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '角色管理', '127.0.0.1', '内网IP', 'admin', '1 {"permissionIds":[401,402,403,406,404,405,407,408,410,409,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,437,438,439,436,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,472,471,473,474,475,476,477,478,479,480,431,432,433,434,435]}', '2026-02-22 07:54:54.442891', '/api/system/role/1/permissions');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (119, '2026-02-22 07:55:21.386804', '2026-02-22 07:55:21.386804', 2, 112, NULL, NULL, '{"timestamp":"2026-02-22 07:55:21","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"更新权限成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysRoleController.updatePermissions()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '角色管理', '127.0.0.1', '内网IP', 'admin', '1 {"permissionIds":[401,402,403,406,404,405,407,408,410,409,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,437,438,439,436,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,472,471,473,474,475,476,477,478,479,480,431,432,433,434,435]}', '2026-02-22 07:55:21.37405', '/api/system/role/1/permissions');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (120, '2026-02-22 08:00:53.308657', '2026-02-22 08:00:53.308657', 2, 130, NULL, NULL, '{"timestamp":"2026-02-22 08:00:53","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"更新权限成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysRoleController.updatePermissions()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '角色管理', '127.0.0.1', '内网IP', 'admin', '1 {"permissionIds":[401,402,403,406,404,405,407,408,410,409,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,437,438,439,436,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,472,471,473,474,475,476,477,478,479,480,431,432,433,434,435]}', '2026-02-22 08:00:53.293768', '/api/system/role/1/permissions');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (121, '2026-02-22 08:54:51.815088', '2026-02-22 08:54:51.815088', 2, 190, NULL, NULL, '{"timestamp":"2026-02-22 08:54:51","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"移除成员成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysRoleController.removeMembers()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '角色管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-22 08:54:51.78782', '/api/system/role/1/members');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (122, '2026-02-22 08:54:58.9539', '2026-02-22 08:54:58.9539', 2, 61, NULL, NULL, '{"timestamp":"2026-02-22 08:54:58","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"移除成员成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysRoleController.removeMembers()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '角色管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-22 08:54:58.939993', '/api/system/role/1/members');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (123, '2026-02-22 09:13:18.344138', '2026-02-22 09:13:18.344138', 2, 102, NULL, NULL, '{"timestamp":"2026-02-22 09:13:18","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"添加成员成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysRoleController.addMembers()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '角色管理', '127.0.0.1', '内网IP', 'admin', '1 [96,99]', '2026-02-22 09:13:18.325891', '/api/system/role/1/members');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (124, '2026-02-22 09:20:45.365714', '2026-02-22 09:20:45.365714', 2, 105, NULL, NULL, '{"timestamp":"2026-02-22 09:20:45","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"添加成员成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysRoleController.addMembers()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '角色管理', '127.0.0.1', '内网IP', 'admin', '1 [96,99,95]', '2026-02-22 09:20:45.348859', '/api/system/role/1/members');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (125, '2026-02-22 09:20:52.668318', '2026-02-22 09:20:52.668318', 2, 84, NULL, NULL, '{"timestamp":"2026-02-22 09:20:52","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"移除成员成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysRoleController.removeMembers()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'DELETE', 0, '角色管理', '127.0.0.1', '内网IP', 'admin', '{}', '2026-02-22 09:20:52.655242', '/api/system/role/1/members');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (126, '2026-02-22 09:21:00.33483', '2026-02-22 09:21:00.33483', 2, 162, NULL, NULL, '{"timestamp":"2026-02-22 09:21:00","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"更新权限成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysRoleController.updatePermissions()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '角色管理', '127.0.0.1', '内网IP', 'admin', '1 {"permissionIds":[401,402,403,404,405,406,407,408,410,409,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,437,438,439,436,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480]}', '2026-02-22 09:21:00.32224', '/api/system/role/1/permissions');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (127, '2026-02-23 19:34:02.952417', '2026-02-23 19:34:02.952417', 2, 124, NULL, NULL, '{"timestamp":"2026-02-23 19:34:02","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"设置成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.setSuper()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '97 {"isSuper":true}', '2026-02-23 19:34:02.930911', '/api/system/user/97/setSuper');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (128, '2026-02-25 21:47:46.727513', '2026-02-25 21:47:46.727513', 2, 151, NULL, NULL, '{"timestamp":"2026-02-25 21:47:46","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.updateRoles()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '98 [1]', '2026-02-25 21:47:46.713825', '/api/system/user/98/roles');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (129, '2026-02-25 21:48:08.644572', '2026-02-25 21:48:08.644572', 2, 34, NULL, NULL, '{"timestamp":"2026-02-25 21:48:08","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.updateRoles()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '98 [1]', '2026-02-25 21:48:08.632353', '/api/system/user/98/roles');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (130, '2026-02-25 21:48:14.040957', '2026-02-25 21:48:14.040957', 2, 17, NULL, NULL, '{"timestamp":"2026-02-25 21:48:14","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.updateRoles()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '98 []', '2026-02-25 21:48:14.027432', '/api/system/user/98/roles');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (131, '2026-02-25 21:48:15.47508', '2026-02-25 21:48:15.47508', 2, 30, NULL, NULL, '{"timestamp":"2026-02-25 21:48:15","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.updateRoles()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '98 []', '2026-02-25 21:48:15.460301', '/api/system/user/98/roles');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (132, '2026-02-25 21:48:25.665', '2026-02-25 21:48:25.665', 2, 39, NULL, NULL, '{"timestamp":"2026-02-25 21:48:25","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.updateRoles()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '98 [1]', '2026-02-25 21:48:25.652032', '/api/system/user/98/roles');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (133, '2026-02-25 21:52:08.567401', '2026-02-25 21:52:08.567401', 2, 17, NULL, NULL, '{"timestamp":"2026-02-25 21:52:08","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.updateRoles()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '98 []', '2026-02-25 21:52:08.552665', '/api/system/user/98/roles');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (134, '2026-02-25 21:52:19.708411', '2026-02-25 21:52:19.708411', 2, 48, NULL, NULL, '{"timestamp":"2026-02-25 21:52:19","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.updateRoles()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '95 [1]', '2026-02-25 21:52:19.695853', '/api/system/user/95/roles');
-INSERT INTO public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) VALUES (135, '2026-02-25 21:52:54.944049', '2026-02-25 21:52:54.944049', 2, 48, NULL, NULL, '{"timestamp":"2026-02-25 21:52:54","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}', 'com.terra.ems.admin.controller.SysUserController.updateRoles()', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'POST', 0, '用户管理', '127.0.0.1', '内网IP', 'admin', '93 [1]', '2026-02-25 21:52:54.926993', '/api/system/user/93/roles');
-
-
---
--- Data for Name: sys_permission; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (436, '2026-02-21 22:15:23.346915', '2026-02-22 15:02:17.341362', 'system:role:edit', NULL, '移除角色成员', true, 32);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (441, '2026-02-21 22:15:23.352864', '2026-02-22 20:36:21.267689', 'system:user:remove', NULL, '批量删除用户', false, 33);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (445, '2026-02-21 22:15:23.357741', '2026-02-22 20:36:21.268889', 'system:user:resetPwd', NULL, '重置用户密码', false, 33);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (446, '2026-02-21 22:15:23.359885', '2026-02-22 20:36:21.268953', 'system:user:import', NULL, '导入用户数据', false, 33);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (498, '2026-02-23 18:36:44.0985', '2026-02-23 18:36:44.0985', 'ems:alarm-limit-type:query', NULL, '按ID查询', false, 37);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (403, '2026-02-21 22:15:23.280408', '2026-02-21 22:35:43.766692', 'system:config:edit', NULL, '修改参数', false, 25);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (431, '2026-02-21 22:15:23.34192', '2026-02-21 22:35:59.876603', 'system:post:edit', NULL, '修改岗位', false, 54);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (432, '2026-02-21 22:15:23.342953', '2026-02-21 22:35:59.877533', 'system:post:remove', NULL, '批量删除岗位', false, 54);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (433, '2026-02-21 22:15:23.34392', '2026-02-21 22:35:59.877591', 'system:post:export', NULL, '导出岗位数据', false, 54);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (434, '2026-02-21 22:15:23.344858', '2026-02-21 22:35:59.87764', 'system:post:list', NULL, '查询岗位列表', false, 54);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (435, '2026-02-21 22:15:23.345955', '2026-02-21 22:35:59.877693', 'system:post:query', NULL, '查询岗位详情', false, 54);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (401, '2026-02-21 22:15:23.252631', '2026-02-21 22:35:43.764882', 'monitor:cache:list', NULL, '获取缓存指定键值', false, 24);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (402, '2026-02-21 22:15:23.277666', '2026-02-21 22:35:43.766637', 'monitor:cache:remove', NULL, '清空所有缓存', false, 24);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (405, '2026-02-21 22:15:23.283052', '2026-02-21 22:35:43.766771', 'system:config:list', NULL, '查询参数列表', false, 25);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (408, '2026-02-21 22:15:23.290346', '2026-02-21 22:35:43.766877', 'system:dept:remove', NULL, '批量删除部门', false, 26);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (410, '2026-02-21 22:15:23.298665', '2026-02-21 22:35:43.76695', 'system:dept:query', NULL, '查询部门详情', false, 26);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (411, '2026-02-21 22:15:23.302749', '2026-02-21 22:35:43.766979', 'system:log:remove', NULL, '批量删除', false, 27);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (412, '2026-02-21 22:15:23.306164', '2026-02-21 22:35:43.767007', 'system:log:list', NULL, '分页查询', false, 27);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (413, '2026-02-21 22:15:23.309448', '2026-02-21 22:35:43.767037', 'system:log:query', NULL, '详情', false, 27);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (414, '2026-02-21 22:15:23.312984', '2026-02-21 22:35:43.767074', 'system:menu:edit', NULL, '修改菜单', false, 28);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (416, '2026-02-21 22:15:23.317448', '2026-02-21 22:35:43.767138', 'system:menu:list', NULL, '查询菜单树', false, 28);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (417, '2026-02-21 22:15:23.320433', '2026-02-21 22:35:43.767166', 'system:menu:query', NULL, '查询菜单详情', false, 28);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (418, '2026-02-21 22:15:23.323942', '2026-02-21 22:35:43.76731', 'system:module:edit', NULL, '修改模块', false, 29);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (419, '2026-02-21 22:15:23.325182', '2026-02-21 22:35:43.767356', 'system:module:remove', NULL, '批量删除模块', false, 29);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (420, '2026-02-21 22:15:23.326434', '2026-02-21 22:35:43.767387', 'system:module:list', NULL, '查询模块列表', false, 29);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (421, '2026-02-21 22:15:23.327713', '2026-02-21 22:35:43.767419', 'system:module:query', NULL, '查询模块详情', false, 29);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (422, '2026-02-21 22:15:23.329264', '2026-02-21 22:35:43.767446', 'system:notice:edit', NULL, '修改公告', false, 30);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (423, '2026-02-21 22:15:23.331359', '2026-02-21 22:35:43.767474', 'system:notice:remove', NULL, '批量删除公告', false, 30);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (425, '2026-02-21 22:15:23.33491', '2026-02-21 22:35:43.767529', 'system:notice:query', NULL, '查询公告详情', false, 30);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (426, '2026-02-21 22:15:23.336353', '2026-02-21 22:35:43.767555', 'system:permission:edit', NULL, '修改权限', false, 31);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (429, '2026-02-21 22:15:23.339829', '2026-02-21 22:35:43.767634', 'system:permission:list', NULL, '查询权限列表', false, 31);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (430, '2026-02-21 22:15:23.340844', '2026-02-21 22:35:43.767662', 'system:permission:query', NULL, '查询权限详情', false, 31);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (438, '2026-02-21 22:15:23.349311', '2026-02-21 22:35:43.76774', 'system:role:list', NULL, '查询角色列表', false, 32);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (439, '2026-02-21 22:15:23.350606', '2026-02-21 22:35:43.767767', 'system:role:query', NULL, '查询角色详情', false, 32);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (442, '2026-02-21 22:15:23.353927', '2026-02-21 22:35:43.767864', 'system:user:add', NULL, '新增用户(带关联)', false, 33);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (443, '2026-02-21 22:15:23.355202', '2026-02-21 22:35:43.767891', 'system:user:export', NULL, '导出导入模板', false, 33);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (444, '2026-02-21 22:15:23.356707', '2026-02-21 22:35:43.767923', 'system:user:list', NULL, '查询用户列表', false, 33);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (447, '2026-02-21 22:15:23.360963', '2026-02-21 22:35:43.768005', 'system:user:query', NULL, '查询用户详情', false, 33);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (448, '2026-02-21 22:15:23.362163', '2026-02-21 22:35:43.768041', 'monitor:logininfor:remove', NULL, '批量删除登录日志', false, 34);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (449, '2026-02-21 22:15:23.363531', '2026-02-21 22:35:43.768067', 'monitor:logininfor:list', NULL, '查询登录日志列表', false, 34);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (450, '2026-02-21 22:15:23.364884', '2026-02-21 22:35:43.768092', 'monitor:logininfor:query', NULL, '查询登录日志详情', false, 34);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (451, '2026-02-21 22:15:23.366121', '2026-02-21 22:35:43.768117', 'monitor:operlog:remove', NULL, '批量删除操作日志', false, 35);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (452, '2026-02-21 22:15:23.367194', '2026-02-21 22:35:43.768143', 'monitor:operlog:list', NULL, '查询操作日志列表', false, 35);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (453, '2026-02-21 22:15:23.369268', '2026-02-21 22:35:43.768177', 'monitor:operlog:query', NULL, '查询操作日志详情', false, 35);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (454, '2026-02-21 22:15:23.370293', '2026-02-21 22:35:43.768202', 'ems:alarm-config:remove', NULL, '批量删除数据', false, 36);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (455, '2026-02-21 22:15:23.371307', '2026-02-21 22:35:43.768231', 'ems:alarm-limit-type:remove', NULL, '批量删除数据', false, 37);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (456, '2026-02-21 22:15:23.372246', '2026-02-21 22:35:43.768259', 'ems:alarm-record:handle', NULL, '处理报警记录', false, 38);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (457, '2026-02-21 22:15:23.374271', '2026-02-21 22:35:43.768284', 'ems:benchmark:remove', NULL, '批量删除数据', false, 39);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (458, '2026-02-21 22:15:23.375307', '2026-02-21 22:35:43.768309', 'ems:cost-policy-binding:remove', NULL, '批量删除数据', false, 40);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (459, '2026-02-21 22:15:23.376142', '2026-02-21 22:35:43.768565', 'ems:energy-cost-record:edit', NULL, '更新成本记录', false, 41);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (460, '2026-02-21 22:15:23.376895', '2026-02-21 22:35:43.768612', 'ems:energy-cost-record:remove', NULL, '批量删除数据', false, 41);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (461, '2026-02-21 22:15:23.377692', '2026-02-21 22:35:43.768659', 'ems:energy-saving-project:remove', NULL, '批量删除数据', false, 42);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (462, '2026-02-21 22:15:23.378488', '2026-02-21 22:35:43.768693', 'ems:energy-saving-project:edit', NULL, '更新项目状态', false, 42);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (463, '2026-02-21 22:15:23.379254', '2026-02-21 22:35:43.768722', 'ems:energy-type:remove', NULL, '批量删除数据', false, 43);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (464, '2026-02-21 22:15:23.380222', '2026-02-21 22:35:43.768749', 'ems:energy-type:edit', NULL, '修改能源类型状态', false, 43);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (465, '2026-02-21 22:15:23.381298', '2026-02-21 22:35:43.768783', 'ems:energy-unit:remove', NULL, '批量删除数据', false, 44);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (466, '2026-02-21 22:15:23.382566', '2026-02-21 22:35:43.768809', 'ems:energy-unit:edit', NULL, '修改用能单元状态', false, 44);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (467, '2026-02-21 22:15:23.38346', '2026-02-21 22:35:43.768836', 'ems:knowledge:edit', NULL, '更新文章状态', false, 45);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (468, '2026-02-21 22:15:23.384144', '2026-02-21 22:35:43.768861', 'ems:knowledge:remove', NULL, '删除文章', false, 45);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (469, '2026-02-21 22:15:23.384862', '2026-02-21 22:35:43.768889', 'ems:meter:edit', NULL, '更新计量器具', false, 46);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (470, '2026-02-21 22:15:23.385551', '2026-02-21 22:35:43.768916', 'ems:meter:remove', NULL, '批量删除数据', false, 46);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (471, '2026-02-21 22:15:23.386241', '2026-02-21 22:35:43.76894', 'ems:meter-point:remove', NULL, '批量删除数据', false, 47);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (473, '2026-02-21 22:15:23.387591', '2026-02-21 22:35:43.768989', 'ems:policy:edit', NULL, '更新政策状态', false, 48);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (474, '2026-02-21 22:15:23.388266', '2026-02-21 22:35:43.769012', 'ems:price-policy:edit', NULL, '修改电价策略状态', false, 49);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (475, '2026-02-21 22:15:23.389073', '2026-02-21 22:35:43.769035', 'ems:product:edit', NULL, '修改状态', false, 50);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (476, '2026-02-21 22:15:23.390094', '2026-02-21 22:35:43.769059', 'ems:production-record:edit', NULL, '更新产量记录', false, 51);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (477, '2026-02-21 22:15:23.391351', '2026-02-21 22:35:43.769089', 'ems:production-record:remove', NULL, '删除产量记录', false, 51);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (478, '2026-02-21 22:15:23.392227', '2026-02-21 22:35:43.769114', 'ems:time-period-price:edit', NULL, '修改状态', false, 52);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (499, '2026-02-23 18:50:12.639276', '2026-02-23 18:50:12.639276', 'ems:benchmark:query', NULL, '按ID查询', false, 39);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (500, '2026-02-23 18:50:12.653689', '2026-02-23 18:50:12.653689', 'ems:policy:query', NULL, '按ID查询', false, 48);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (501, '2026-02-23 18:50:12.655148', '2026-02-23 18:50:12.655148', 'ems:energy-unit:query', NULL, '按ID查询', false, 44);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (406, '2026-02-21 22:15:23.285417', '2026-02-23 18:37:11.979856', 'system:config:query', NULL, '查询参数详情', false, 25);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (427, '2026-02-21 22:15:23.337523', '2026-02-22 15:02:17.340891', 'system:permission:remove', NULL, '批量删除权限', true, 31);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (428, '2026-02-21 22:15:23.338702', '2026-02-22 15:02:17.340923', 'system:permission:sync', NULL, '全量同步权限', true, 31);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (437, '2026-02-21 22:15:23.347859', '2026-02-22 15:02:17.340966', 'system:role:remove', NULL, '批量删除角色', true, 32);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (481, '2026-02-22 20:36:21.220555', '2026-02-22 20:36:21.220555', 'system:user:assignRole', NULL, '分配用户角色', false, 33);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (404, '2026-02-21 22:15:23.281716', '2026-02-22 20:36:21.26925', 'system:config:remove', NULL, '批量删除参数', false, 25);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (440, '2026-02-21 22:15:23.35184', '2026-02-22 20:36:21.269288', 'system:user:edit', NULL, '修改用户', false, 33);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (415, '2026-02-21 22:15:23.315351', '2026-02-22 20:36:21.269315', 'system:menu:remove', NULL, '批量删除菜单', false, 28);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (472, '2026-02-21 22:15:23.386921', '2026-02-23 18:37:11.979902', 'ems:meter-point:edit', NULL, '修改采集点位状态', false, 47);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (502, '2026-02-23 18:50:12.656234', '2026-02-23 18:50:12.656234', 'ems:price-policy:query', NULL, '按ID查询', false, 49);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (503, '2026-02-23 18:50:12.657319', '2026-02-23 18:50:12.657319', 'ems:energy-type:query', NULL, '按ID查询', false, 43);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (504, '2026-02-23 18:50:12.658938', '2026-02-23 18:50:12.658938', 'ems:meter:query', NULL, '按ID查询', false, 46);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (505, '2026-02-23 18:50:12.661219', '2026-02-23 18:50:12.661219', 'ems:meter-point:query', NULL, '按ID查询', false, 47);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (506, '2026-02-23 18:50:12.662612', '2026-02-23 18:50:12.662612', 'ems:alarm-config:query', NULL, '按ID查询', false, 36);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (424, '2026-02-21 22:15:23.333072', '2026-02-23 19:20:50.626429', 'system:notice:list', NULL, '查询所有数据', false, 30);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (409, '2026-02-21 22:15:23.291841', '2026-02-26 08:30:01.876906', 'system:dept:list', NULL, '查询部门成员', false, 26);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (479, '2026-02-21 22:15:23.393109', '2026-02-21 22:35:43.769164', 'ems:time-period-price:remove', NULL, '删除分时电价配置', false, 52);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (480, '2026-02-21 22:15:23.394038', '2026-02-21 22:35:43.769585', 'system:dict:remove', NULL, '批量删除', false, 53);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (482, '2026-02-23 17:12:31.478116', '2026-02-23 17:12:31.478116', 'ems:production-record:list', NULL, '分页查询', false, 51);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (483, '2026-02-23 17:12:31.488312', '2026-02-23 17:12:31.488312', 'ems:product:list', NULL, '分页查询产品', false, 50);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (484, '2026-02-23 17:12:31.489892', '2026-02-23 17:12:31.489892', 'ems:benchmark:list', NULL, '分页查询', false, 39);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (485, '2026-02-23 17:12:31.49065', '2026-02-23 17:12:31.49065', 'ems:cost-policy-binding:list', NULL, '分页查询', false, 40);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (486, '2026-02-23 17:12:31.491335', '2026-02-23 17:12:31.491335', 'ems:alarm-record:list', NULL, '分页查询报警记录', false, 38);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (487, '2026-02-23 17:12:31.493039', '2026-02-23 17:12:31.493039', 'ems:alarm-limit-type:list', NULL, '分页查询', false, 37);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (488, '2026-02-23 17:12:31.493918', '2026-02-23 17:12:31.493918', 'ems:policy:list', NULL, '分页查询政策', false, 48);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (489, '2026-02-23 17:12:31.494878', '2026-02-23 17:12:31.494878', 'ems:energy-unit:list', NULL, '获取完整树形结构', false, 44);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (490, '2026-02-23 17:12:31.495772', '2026-02-23 17:12:31.495772', 'ems:price-policy:list', NULL, '分页查询', false, 49);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (491, '2026-02-23 17:12:31.496583', '2026-02-23 17:12:31.496583', 'ems:knowledge:list', NULL, '分页查询', false, 45);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (492, '2026-02-23 17:12:31.497851', '2026-02-23 17:12:31.497851', 'ems:energy-cost-record:list', NULL, '分页查询', false, 41);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (493, '2026-02-23 17:12:31.498999', '2026-02-23 17:12:31.498999', 'ems:energy-type:list', NULL, '分页查询', false, 43);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (494, '2026-02-23 17:12:31.500127', '2026-02-23 17:12:31.500127', 'ems:energy-saving:list', NULL, '分页查询节能项目', false, 55);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (495, '2026-02-23 17:12:31.501042', '2026-02-23 17:12:31.501042', 'ems:meter:list', NULL, '分页查询', false, 46);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (496, '2026-02-23 17:12:31.501907', '2026-02-23 17:12:31.501907', 'ems:meter-point:list', NULL, '分页查询', false, 47);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (497, '2026-02-23 17:12:31.502666', '2026-02-23 17:12:31.502666', 'ems:alarm-config:list', NULL, '根据采集点位查询配置', false, 36);
-INSERT INTO public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) VALUES (407, '2026-02-21 22:15:23.287757', '2026-02-26 08:30:01.871935', 'system:dept:edit', NULL, '批量移除部门成员', false, 26);
-
-
---
--- Data for Name: sys_post; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (1, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'CEO', '董事长', '公司最高负责人', 1, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (2, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'GM', '总经理', '公司日常运营负责人', 2, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (3, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'DGM', '副总经理', '协助总经理工作', 3, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (4, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'HR_M', '人事经理', '人力资源部负责人', 4, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (5, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'HR', '人事专员', '负责招聘、考勤等', 5, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (6, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'FIN_M', '财务经理', '财务部负责人', 6, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (7, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'ACC', '会计', '负责账务处理', 7, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (8, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'CASH', '出纳', '负责现金收支', 8, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (9, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'TECH_D', '技术总监', '负责公司技术战略', 9, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (10, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'DEV_M', '研发经理', '研发团队负责人', 10, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (11, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'DEV', '研发工程师', '负责系统开发', 11, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (12, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'TEST_M', '测试经理', '测试团队负责人', 12, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (13, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'TEST', '测试工程师', '负责系统测试', 13, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (14, '2026-02-10 03:52:43.217879', '2026-02-10 03:52:43.217879', 'OPS_M', '运维经理', '运维团队负责人', 14, 0);
-INSERT INTO public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) VALUES (15, '2026-02-10 03:52:43.217879', '2026-02-19 09:53:20.9041', 'OPS', '运维工程师', '负责系统运维', 22, 1);
-
-
---
--- Data for Name: sys_role; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_role (id, created_at, updated_at, code, member_count, name, permission_count, remark, data_scope, status) VALUES (1, '2026-02-22 07:28:30.743421', '2026-02-22 14:43:07.989641', 'role:sysem:manager', 0, '系统管理员', 0, NULL, 'SELF', 0);
-
-
---
--- Data for Name: sys_role_dept; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: sys_role_permission; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 431);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 432);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 435);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 433);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 434);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 450);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 452);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 427);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 403);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 429);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 426);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 422);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 421);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 458);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 423);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 411);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 453);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 462);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 415);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 461);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 480);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 475);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 404);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 464);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 471);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 436);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 449);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 443);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 467);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 414);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 418);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 410);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 437);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 469);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 445);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 465);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 428);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 470);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 456);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 416);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 463);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 419);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 402);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 472);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 444);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 409);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 448);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 446);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 430);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 460);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 457);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 454);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 474);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 417);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 424);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 440);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 425);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 466);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 405);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 408);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 459);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 473);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 420);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 439);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 401);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 441);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 468);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 455);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 438);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 447);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 442);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 413);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 412);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 406);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 407);
-INSERT INTO public.sys_role_permission (role_id, permission_id) VALUES (1, 451);
-
-
---
--- Data for Name: sys_user; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_user (id, created_at, updated_at, email, nickname, password, phone, status, username, account_expire_at, credentials_expire_at, fail_login_count, last_login_at, avatar, dept_id, employee_no, gender, remark, real_name, super_admin) VALUES (1, '2025-12-20 09:19:46.014369', '2026-02-27 06:49:08.979172', 'snowmandxp@qq.com', '系统管理员', '$2a$10$mYkIwrDLxj04AjOZzv2Nv.TWbT/roKNJ4pHOadd.sUiS3cwq6eNjC', '18922482046', 0, 'admin', NULL, NULL, 0, '2026-02-27 06:49:08.961033', 'https://api.dicebear.com/7.x/notionists/svg?seed=1&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf', NULL, NULL, 0, NULL, '邓雪平', true);
-INSERT INTO public.sys_user (id, created_at, updated_at, email, nickname, password, phone, status, username, account_expire_at, credentials_expire_at, fail_login_count, last_login_at, avatar, dept_id, employee_no, gender, remark, real_name, super_admin) VALUES (99, '2026-02-17 21:42:48.195474', '2026-02-19 20:39:15.727913', 'wum@terra.com', NULL, '$2a$10$A4EvMQGs2OGbvFd4a/p2guCO4YWRxEgIXqs.vAC8y4P6CfjytwChK', '13155667788', 0, 'wu.meng', NULL, NULL, 0, NULL, NULL, 202, NULL, 1, '软件测试员', '吴梦', NULL);
-INSERT INTO public.sys_user (id, created_at, updated_at, email, nickname, password, phone, status, username, account_expire_at, credentials_expire_at, fail_login_count, last_login_at, avatar, dept_id, employee_no, gender, remark, real_name, super_admin) VALUES (96, '2026-02-17 21:42:47.903052', '2026-02-19 20:39:23.741414', 'zhaox@terra.com', NULL, '$2a$10$LopqyBNVfFEyVqFLI2Vs9.y19Vkzkqz/H9BcGOar1y7YPWL07Rjmi', '15022334455', 0, 'zhao.xu', NULL, NULL, 0, NULL, NULL, 205, NULL, 0, '大客户总监', '赵旭', NULL);
-INSERT INTO public.sys_user (id, created_at, updated_at, email, nickname, password, phone, status, username, account_expire_at, credentials_expire_at, fail_login_count, last_login_at, avatar, dept_id, employee_no, gender, remark, real_name, super_admin) VALUES (97, '2026-02-17 21:42:48.002475', '2026-02-23 19:34:02.903015', 'liuq@terra.com', NULL, '$2a$10$ZdHPoSpMYd57.XD42Jemo.02g4OzAK9th.2tzO6HZ1rbGnJdOnxju', '15833445566', 0, 'liu.qian', NULL, NULL, 0, NULL, NULL, 103, NULL, 1, '办公室主任', '刘倩', true);
-INSERT INTO public.sys_user (id, created_at, updated_at, email, nickname, password, phone, status, username, account_expire_at, credentials_expire_at, fail_login_count, last_login_at, avatar, dept_id, employee_no, gender, remark, real_name, super_admin) VALUES (98, '2026-02-17 21:42:48.102911', '2026-02-25 21:52:08.542935', 'zhouk@terra.com', NULL, '$2a$10$d6PYQD/nyzWLs2x1/BpGLeeEL44H4uc2/5stblFxlcRGYF6MwO8jG', '18644556677', 0, 'zhou.kai', NULL, NULL, 0, NULL, NULL, NULL, NULL, 0, '前端小组长', '周凯', NULL);
-INSERT INTO public.sys_user (id, created_at, updated_at, email, nickname, password, phone, status, username, account_expire_at, credentials_expire_at, fail_login_count, last_login_at, avatar, dept_id, employee_no, gender, remark, real_name, super_admin) VALUES (95, '2026-02-17 21:42:47.808667', '2026-02-25 21:52:19.688435', 'zhangl@terra.com', NULL, '$2a$10$IiGDOaJPVsg2MBZO5g5RW.FWCTu4Wyg3ETSTmyywPYqIPfpy6stA.', '13588990011', 0, 'zhang.lin', NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, '招聘专员', '张琳', NULL);
-INSERT INTO public.sys_user (id, created_at, updated_at, email, nickname, password, phone, status, username, account_expire_at, credentials_expire_at, fail_login_count, last_login_at, avatar, dept_id, employee_no, gender, remark, real_name, super_admin) VALUES (93, '2026-02-17 21:42:47.597778', '2026-02-25 21:52:54.918014', 'lih@terra.com', NULL, '$2a$10$vLSLeo9lPuJRJMg3XkTF3eA3Gv40Xxd4Proaz7ta9/avuq7YBkpoS', '13800138001', 1, 'li.hang', NULL, NULL, 0, '2026-02-17 21:59:02.431245', NULL, NULL, NULL, 0, '高级后端开发', '李航', NULL);
-
-
---
--- Data for Name: sys_user_notice; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_user_notice (id, created_at, updated_at, notice_id, read_time, user_id) VALUES (1, '2026-02-11 17:34:29.831007', '2026-02-11 17:34:29.831007', 7, '2026-02-11 17:34:29.82863', 1);
-INSERT INTO public.sys_user_notice (id, created_at, updated_at, notice_id, read_time, user_id) VALUES (2, '2026-02-19 20:22:23.246771', '2026-02-19 20:22:23.246771', 8, '2026-02-19 20:22:23.243125', 1);
-
-
---
--- Data for Name: sys_user_permission; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: sys_user_post; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_user_post (user_id, post_id) VALUES (1, 1);
-INSERT INTO public.sys_user_post (user_id, post_id) VALUES (93, 13);
-INSERT INTO public.sys_user_post (user_id, post_id) VALUES (93, 15);
-
-
---
--- Data for Name: sys_user_role; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.sys_user_role (user_id, role_id) VALUES (99, 1);
-INSERT INTO public.sys_user_role (user_id, role_id) VALUES (95, 1);
-INSERT INTO public.sys_user_role (user_id, role_id) VALUES (93, 1);
-
-
---
--- Name: ems_alarm_config_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+
+COPY public.ems_data_source (id, created_at, updated_at, connection, last_seen_time, name, poll_interval_secs, protocol, remark, status, gateway_id) FROM stdin;
+28	2026-03-22 12:43:38.741477	2026-03-22 12:43:38.741477	{"baudRate":9600,"dataBits":8,"stopBits":1,"parity":"NONE"}	\N	生产车间RS485-1	15	modbus-rtu	\N	0	23
+29	2026-03-22 12:43:38.745857	2026-03-22 12:43:38.745857	{"baudRate":9600,"dataBits":8,"stopBits":1,"parity":"NONE"}	\N	生产车间RS485-2	60	modbus-rtu	\N	0	23
+30	2026-03-22 12:43:38.877725	2026-03-22 12:43:38.877725	{"baudRate":9600,"dataBits":8,"stopBits":1,"parity":"NONE"}	\N	冷库RS485-1	15	modbus-rtu	\N	0	24
+31	2026-03-22 12:43:38.919087	2026-03-22 12:43:38.919087	{"port":502}	\N	Modbus TCP	15	modbus-tcp	\N	0	25
+32	2026-03-22 12:43:38.962657	2026-03-22 12:43:38.962657	{"port":502}	\N	Modbus TCP	15	modbus-tcp	\N	0	26
+33	2026-03-22 12:43:38.977744	2026-03-22 12:43:38.977744	{"port":502}	\N	Modbus TCP	15	modbus-tcp	\N	0	27
+\.
+
+
+--
+-- Data for Name: ems_energy_cost_record; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_energy_cost_record (id, created_at, updated_at, consumption, cost, flat_consumption, peak_consumption, period_type, power_factor, record_date, remark, sharp_consumption, valley_consumption, energy_type_id, energy_unit_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_energy_data; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_energy_data (id, created_at, data_time, time_type, value, energy_type_id, meter_point_id) FROM stdin;
+591	2026-03-22 12:00:47.546566	2026-03-22 11:00:00	HOUR	226.5971	44	195
+592	2026-03-22 12:00:47.548376	2026-03-22 11:00:00	HOUR	0.9442	44	199
+593	2026-03-22 12:00:47.550087	2026-03-22 11:00:00	HOUR	98761.4854	44	224
+594	2026-03-22 12:00:47.552745	2026-03-22 11:00:00	HOUR	45678.9640	46	207
+587	2026-03-22 12:00:47.531932	2026-03-22 11:00:00	HOUR	567896.6185	44	213
+588	2026-03-22 12:00:47.539994	2026-03-22 11:00:00	HOUR	29.1424	44	227
+589	2026-03-22 12:00:47.542511	2026-03-22 11:00:00	HOUR	12340.3977	46	229
+590	2026-03-22 12:00:47.544634	2026-03-22 11:00:00	HOUR	23456.3977	45	200
+582	2026-03-22 12:00:47.52188	2026-03-22 11:00:00	HOUR	306.4542	44	197
+583	2026-03-22 12:00:47.524386	2026-03-22 11:00:00	HOUR	234566.4926	44	203
+584	2026-03-22 12:00:47.526131	2026-03-22 11:00:00	HOUR	50.3932	44	206
+585	2026-03-22 12:00:47.528214	2026-03-22 11:00:00	HOUR	62.8911	44	214
+586	2026-03-22 12:00:47.529923	2026-03-22 11:00:00	HOUR	289673.7541	44	212
+569	2026-03-22 12:00:47.481436	2026-03-22 11:00:00	HOUR	12.0484	44	225
+577	2026-03-22 12:00:47.502503	2026-03-22 11:00:00	HOUR	215.2400	44	198
+578	2026-03-22 12:00:47.510296	2026-03-22 11:00:00	HOUR	16.7768	44	209
+579	2026-03-22 12:00:47.51333	2026-03-22 11:00:00	HOUR	312453.7508	44	210
+570	2026-03-22 12:00:47.484375	2026-03-22 11:00:00	HOUR	225.5208	44	196
+571	2026-03-22 12:00:47.488975	2026-03-22 11:00:00	HOUR	125684.4571	44	201
+572	2026-03-22 12:00:47.492185	2026-03-22 11:00:00	HOUR	34.6834	44	202
+573	2026-03-22 12:00:47.494556	2026-03-22 11:00:00	HOUR	50.4650	44	204
+574	2026-03-22 12:00:47.496767	2026-03-22 11:00:00	HOUR	67892.0218	44	208
+575	2026-03-22 12:00:47.498416	2026-03-22 11:00:00	HOUR	156783.3352	44	226
+576	2026-03-22 12:00:47.500173	2026-03-22 11:00:00	HOUR	34561.2190	44	228
+580	2026-03-22 12:00:47.516804	2026-03-22 11:00:00	HOUR	856258.3825	44	193
+581	2026-03-22 12:00:47.519205	2026-03-22 11:00:00	HOUR	227.4842	44	194
+567	2026-03-22 12:00:47.417191	2026-03-22 11:00:00	HOUR	198326.0506	44	205
+568	2026-03-22 12:00:47.477319	2026-03-22 11:00:00	HOUR	35.9195	44	211
+598	2026-03-22 13:00:47.353455	2026-03-22 12:00:00	HOUR	45683.6000	46	207
+604	2026-03-22 13:00:47.361734	2026-03-22 12:00:00	HOUR	198356.7959	44	205
+605	2026-03-22 13:00:47.363315	2026-03-22 12:00:00	HOUR	36.1468	44	211
+610	2026-03-22 13:00:47.368083	2026-03-22 12:00:00	HOUR	225.5513	44	196
+611	2026-03-22 13:00:47.368914	2026-03-22 12:00:00	HOUR	125707.0683	44	201
+612	2026-03-22 13:00:47.369835	2026-03-22 12:00:00	HOUR	20.4172	44	202
+613	2026-03-22 13:00:47.370694	2026-03-22 12:00:00	HOUR	30.1812	44	204
+614	2026-03-22 13:00:47.372077	2026-03-22 12:00:00	HOUR	67902.5513	44	208
+615	2026-03-22 13:00:47.372996	2026-03-22 12:00:00	HOUR	156806.0927	44	226
+616	2026-03-22 13:00:47.373796	2026-03-22 12:00:00	HOUR	34567.1246	44	228
+606	2026-03-22 13:00:47.364284	2026-03-22 12:00:00	HOUR	567941.5488	44	213
+607	2026-03-22 13:00:47.365254	2026-03-22 12:00:00	HOUR	29.4358	44	227
+608	2026-03-22 13:00:47.366071	2026-03-22 12:00:00	HOUR	12342.2436	46	229
+609	2026-03-22 13:00:47.366902	2026-03-22 12:00:00	HOUR	23458.3147	45	200
+619	2026-03-22 13:00:47.378323	2026-03-22 12:00:00	HOUR	149.2488	44	198
+620	2026-03-22 13:00:47.379462	2026-03-22 12:00:00	HOUR	9.8712	44	209
+621	2026-03-22 13:00:47.38043	2026-03-22 12:00:00	HOUR	312479.3940	44	210
+622	2026-03-22 13:00:47.381677	2026-03-22 12:00:00	HOUR	8.2516	44	225
+637	2026-03-22 14:00:47.3506	2026-03-22 13:00:00	HOUR	225.5320	44	196
+599	2026-03-22 13:00:47.354578	2026-03-22 12:00:00	HOUR	211.8260	44	197
+600	2026-03-22 13:00:47.35575	2026-03-22 12:00:00	HOUR	234600.1885	44	203
+601	2026-03-22 13:00:47.357405	2026-03-22 12:00:00	HOUR	30.4859	44	206
+602	2026-03-22 13:00:47.358827	2026-03-22 12:00:00	HOUR	62.9773	44	214
+603	2026-03-22 13:00:47.360754	2026-03-22 12:00:00	HOUR	289699.4451	44	212
+617	2026-03-22 13:00:47.37458	2026-03-22 12:00:00	HOUR	856398.7942	44	193
+618	2026-03-22 13:00:47.375679	2026-03-22 12:00:00	HOUR	227.4776	44	194
+595	2026-03-22 13:00:47.343998	2026-03-22 12:00:00	HOUR	226.5770	44	195
+596	2026-03-22 13:00:47.351029	2026-03-22 12:00:00	HOUR	0.9438	44	199
+597	2026-03-22 13:00:47.352468	2026-03-22 12:00:00	HOUR	98768.8096	44	224
+643	2026-03-22 14:00:47.356912	2026-03-22 13:00:00	HOUR	34578.6771	44	228
+630	2026-03-22 14:00:47.344567	2026-03-22 13:00:00	HOUR	23462.0985	45	200
+635	2026-03-22 14:00:47.34901	2026-03-22 13:00:00	HOUR	198416.1825	44	205
+640	2026-03-22 14:00:47.353803	2026-03-22 13:00:00	HOUR	47.6460	44	204
+650	2026-03-22 14:00:47.363473	2026-03-22 13:00:00	HOUR	227.5057	44	194
+649	2026-03-22 14:00:47.362572	2026-03-22 13:00:00	HOUR	856671.6314	44	193
+633	2026-03-22 14:00:47.347666	2026-03-22 13:00:00	HOUR	98782.8530	44	224
+638	2026-03-22 14:00:47.351842	2026-03-22 13:00:00	HOUR	125750.4919	44	201
+624	2026-03-22 14:00:47.337454	2026-03-22 13:00:00	HOUR	207.3091	44	198
+625	2026-03-22 14:00:47.338589	2026-03-22 13:00:00	HOUR	15.7551	44	209
+639	2026-03-22 14:00:47.352771	2026-03-22 13:00:00	HOUR	32.5102	44	202
+626	2026-03-22 14:00:47.339415	2026-03-22 13:00:00	HOUR	312523.6981	44	210
+648	2026-03-22 14:00:47.361745	2026-03-22 13:00:00	HOUR	289743.6430	44	212
+636	2026-03-22 14:00:47.349819	2026-03-22 13:00:00	HOUR	35.7141	44	211
+646	2026-03-22 14:00:47.360163	2026-03-22 13:00:00	HOUR	48.1274	44	206
+634	2026-03-22 14:00:47.348376	2026-03-22 13:00:00	HOUR	45692.7358	46	207
+641	2026-03-22 14:00:47.354794	2026-03-22 13:00:00	HOUR	67922.6661	44	208
+644	2026-03-22 14:00:47.358213	2026-03-22 13:00:00	HOUR	289.1646	44	197
+647	2026-03-22 14:00:47.360992	2026-03-22 13:00:00	HOUR	62.8056	44	214
+623	2026-03-22 14:00:47.332289	2026-03-22 13:00:00	HOUR	11.1885	44	225
+645	2026-03-22 14:00:47.35913	2026-03-22 13:00:00	HOUR	234664.4698	44	203
+628	2026-03-22 14:00:47.341466	2026-03-22 13:00:00	HOUR	29.3092	44	227
+627	2026-03-22 14:00:47.340477	2026-03-22 13:00:00	HOUR	568019.1224	44	213
+631	2026-03-22 14:00:47.34581	2026-03-22 13:00:00	HOUR	226.5961	44	195
+642	2026-03-22 14:00:47.355951	2026-03-22 13:00:00	HOUR	156845.2524	44	226
+632	2026-03-22 14:00:47.346863	2026-03-22 13:00:00	HOUR	0.9438	44	199
+629	2026-03-22 14:00:47.342274	2026-03-22 13:00:00	HOUR	12345.9365	46	229
+652	2026-03-22 15:00:47.340857	2026-03-22 14:00:00	HOUR	227.5240	44	194
+654	2026-03-22 15:00:47.343088	2026-03-22 14:00:00	HOUR	15.7691	44	209
+656	2026-03-22 15:00:47.345461	2026-03-22 14:00:00	HOUR	225.5252	44	196
+655	2026-03-22 15:00:47.344105	2026-03-22 14:00:00	HOUR	312567.1992	44	210
+657	2026-03-22 15:00:47.346742	2026-03-22 14:00:00	HOUR	125800.3641	44	201
+658	2026-03-22 15:00:47.347559	2026-03-22 14:00:00	HOUR	32.3203	44	202
+651	2026-03-22 15:00:47.334737	2026-03-22 14:00:00	HOUR	856987.8391	44	193
+663	2026-03-22 15:00:47.352245	2026-03-22 14:00:00	HOUR	198484.3014	44	205
+664	2026-03-22 15:00:47.352932	2026-03-22 14:00:00	HOUR	34.3372	44	211
+665	2026-03-22 15:00:47.353736	2026-03-22 14:00:00	HOUR	226.5963	44	195
+666	2026-03-22 15:00:47.354559	2026-03-22 14:00:00	HOUR	0.9439	44	199
+667	2026-03-22 15:00:47.355489	2026-03-22 14:00:00	HOUR	98798.8283	44	224
+668	2026-03-22 15:00:47.356351	2026-03-22 14:00:00	HOUR	45703.5254	46	207
+670	2026-03-22 15:00:47.358434	2026-03-22 14:00:00	HOUR	290.6077	44	197
+671	2026-03-22 15:00:47.359319	2026-03-22 14:00:00	HOUR	234737.5739	44	203
+672	2026-03-22 15:00:47.360179	2026-03-22 14:00:00	HOUR	48.3799	44	206
+673	2026-03-22 15:00:47.36094	2026-03-22 14:00:00	HOUR	62.8626	44	214
+674	2026-03-22 15:00:47.361698	2026-03-22 14:00:00	HOUR	289787.1542	44	212
+675	2026-03-22 15:00:47.362363	2026-03-22 14:00:00	HOUR	568096.6059	44	213
+676	2026-03-22 15:00:47.363354	2026-03-22 14:00:00	HOUR	28.3956	44	227
+677	2026-03-22 15:00:47.364165	2026-03-22 14:00:00	HOUR	12350.3680	46	229
+678	2026-03-22 15:00:47.364838	2026-03-22 14:00:00	HOUR	23466.5674	45	200
+669	2026-03-22 15:00:47.357493	2026-03-22 14:00:00	HOUR	11.2854	44	225
+653	2026-03-22 15:00:47.342239	2026-03-22 14:00:00	HOUR	208.4074	44	198
+659	2026-03-22 15:00:47.348316	2026-03-22 14:00:00	HOUR	47.9016	44	204
+660	2026-03-22 15:00:47.349133	2026-03-22 14:00:00	HOUR	67945.5120	44	208
+661	2026-03-22 15:00:47.350711	2026-03-22 14:00:00	HOUR	156883.6163	44	226
+662	2026-03-22 15:00:47.351479	2026-03-22 14:00:00	HOUR	34592.1697	44	228
+689	2026-03-22 16:00:47.347968	2026-03-22 15:00:00	HOUR	198552.2127	44	205
+690	2026-03-22 16:00:47.349113	2026-03-22 15:00:00	HOUR	31.3032	44	211
+691	2026-03-22 16:00:47.349788	2026-03-22 15:00:00	HOUR	11.3011	44	225
+692	2026-03-22 16:00:47.350449	2026-03-22 15:00:00	HOUR	226.5780	44	195
+693	2026-03-22 16:00:47.351164	2026-03-22 15:00:00	HOUR	0.9435	44	199
+694	2026-03-22 16:00:47.353193	2026-03-22 15:00:00	HOUR	98814.8862	44	224
+695	2026-03-22 16:00:47.35443	2026-03-22 15:00:00	HOUR	45714.2785	46	207
+682	2026-03-22 16:00:47.342035	2026-03-22 15:00:00	HOUR	225.5530	44	196
+683	2026-03-22 16:00:47.342736	2026-03-22 15:00:00	HOUR	125850.3957	44	201
+684	2026-03-22 16:00:47.343423	2026-03-22 15:00:00	HOUR	32.4070	44	202
+685	2026-03-22 16:00:47.344176	2026-03-22 15:00:00	HOUR	48.3902	44	204
+686	2026-03-22 16:00:47.345072	2026-03-22 15:00:00	HOUR	67968.3120	44	208
+687	2026-03-22 16:00:47.346134	2026-03-22 15:00:00	HOUR	156920.0837	44	226
+724	2026-03-22 17:00:47.357946	2026-03-22 16:00:00	HOUR	67991.1735	44	208
+712	2026-03-22 17:00:47.348908	2026-03-22 16:00:00	HOUR	289868.0120	44	212
+707	2026-03-22 17:00:47.337149	2026-03-22 16:00:00	HOUR	11.2776	44	225
+731	2026-03-22 17:00:47.363436	2026-03-22 16:00:00	HOUR	198620.2442	44	205
+732	2026-03-22 17:00:47.36418	2026-03-22 16:00:00	HOUR	27.7572	44	211
+725	2026-03-22 17:00:47.358754	2026-03-22 16:00:00	HOUR	156953.5987	44	226
+726	2026-03-22 17:00:47.359433	2026-03-22 16:00:00	HOUR	34619.1875	44	228
+688	2026-03-22 16:00:47.347129	2026-03-22 15:00:00	HOUR	34605.6566	44	228
+701	2026-03-22 16:00:47.359601	2026-03-22 15:00:00	HOUR	568174.0946	44	213
+702	2026-03-22 16:00:47.360394	2026-03-22 15:00:00	HOUR	26.3643	44	227
+703	2026-03-22 16:00:47.361468	2026-03-22 15:00:00	HOUR	12354.7993	46	229
+704	2026-03-22 16:00:47.362125	2026-03-22 15:00:00	HOUR	23471.0343	45	200
+705	2026-03-22 16:00:47.362806	2026-03-22 15:00:00	HOUR	857303.8106	44	193
+706	2026-03-22 16:00:47.363427	2026-03-22 15:00:00	HOUR	227.4344	44	194
+696	2026-03-22 16:00:47.355272	2026-03-22 15:00:00	HOUR	289.1771	44	197
+697	2026-03-22 16:00:47.355998	2026-03-22 15:00:00	HOUR	234810.5531	44	203
+698	2026-03-22 16:00:47.356948	2026-03-22 15:00:00	HOUR	48.1839	44	206
+699	2026-03-22 16:00:47.357834	2026-03-22 15:00:00	HOUR	62.9031	44	214
+700	2026-03-22 16:00:47.358727	2026-03-22 15:00:00	HOUR	289828.9596	44	212
+679	2026-03-22 16:00:47.334783	2026-03-22 15:00:00	HOUR	207.7527	44	198
+680	2026-03-22 16:00:47.340203	2026-03-22 15:00:00	HOUR	15.7486	44	209
+681	2026-03-22 16:00:47.341141	2026-03-22 15:00:00	HOUR	312609.0410	44	210
+727	2026-03-22 17:00:47.360167	2026-03-22 16:00:00	HOUR	568251.6199	44	213
+716	2026-03-22 17:00:47.352408	2026-03-22 16:00:00	HOUR	45725.0177	46	207
+713	2026-03-22 17:00:47.349734	2026-03-22 16:00:00	HOUR	226.5715	44	195
+717	2026-03-22 17:00:47.353182	2026-03-22 16:00:00	HOUR	207.0538	44	198
+733	2026-03-22 17:00:47.364879	2026-03-22 16:00:00	HOUR	857619.2780	44	193
+734	2026-03-22 17:00:47.365662	2026-03-22 16:00:00	HOUR	227.4860	44	194
+718	2026-03-22 17:00:47.353846	2026-03-22 16:00:00	HOUR	15.7189	44	209
+719	2026-03-22 17:00:47.354485	2026-03-22 16:00:00	HOUR	312648.1416	44	210
+720	2026-03-22 17:00:47.355276	2026-03-22 16:00:00	HOUR	225.5598	44	196
+728	2026-03-22 17:00:47.361032	2026-03-22 16:00:00	HOUR	23.7447	44	227
+721	2026-03-22 17:00:47.355878	2026-03-22 16:00:00	HOUR	125900.4608	44	201
+708	2026-03-22 17:00:47.34456	2026-03-22 16:00:00	HOUR	289.8050	44	197
+722	2026-03-22 17:00:47.356447	2026-03-22 16:00:00	HOUR	32.4618	44	202
+729	2026-03-22 17:00:47.361909	2026-03-22 16:00:00	HOUR	12359.2268	46	229
+714	2026-03-22 17:00:47.350508	2026-03-22 16:00:00	HOUR	0.9440	44	199
+723	2026-03-22 17:00:47.357094	2026-03-22 16:00:00	HOUR	48.1506	44	204
+709	2026-03-22 17:00:47.346066	2026-03-22 16:00:00	HOUR	234883.6236	44	203
+710	2026-03-22 17:00:47.347061	2026-03-22 16:00:00	HOUR	48.3809	44	206
+730	2026-03-22 17:00:47.362655	2026-03-22 16:00:00	HOUR	23475.5147	45	200
+715	2026-03-22 17:00:47.351218	2026-03-22 16:00:00	HOUR	98830.9159	44	224
+711	2026-03-22 17:00:47.347872	2026-03-22 16:00:00	HOUR	63.1302	44	214
+746	2026-03-22 18:00:47.352188	2026-03-22 17:00:00	HOUR	32.1925	44	202
+745	2026-03-22 18:00:47.351543	2026-03-22 17:00:00	HOUR	125950.4666	44	201
+747	2026-03-22 18:00:47.354736	2026-03-22 17:00:00	HOUR	47.9509	44	204
+741	2026-03-22 18:00:47.348404	2026-03-22 17:00:00	HOUR	48.2225	44	206
+736	2026-03-22 18:00:47.344814	2026-03-22 17:00:00	HOUR	0.9439	44	199
+737	2026-03-22 18:00:47.345652	2026-03-22 17:00:00	HOUR	98846.9027	44	224
+749	2026-03-22 18:00:47.356047	2026-03-22 17:00:00	HOUR	156983.7699	44	226
+739	2026-03-22 18:00:47.347099	2026-03-22 17:00:00	HOUR	290.8005	44	197
+743	2026-03-22 18:00:47.349786	2026-03-22 17:00:00	HOUR	289903.7943	44	212
+750	2026-03-22 18:00:47.356694	2026-03-22 17:00:00	HOUR	34632.7259	44	228
+742	2026-03-22 18:00:47.348931	2026-03-22 17:00:00	HOUR	63.0075	44	214
+738	2026-03-22 18:00:47.346332	2026-03-22 17:00:00	HOUR	45735.7583	46	207
+740	2026-03-22 18:00:47.347811	2026-03-22 17:00:00	HOUR	234956.9053	44	203
+744	2026-03-22 18:00:47.350881	2026-03-22 17:00:00	HOUR	225.5527	44	196
+760	2026-03-22 18:00:47.366119	2026-03-22 17:00:00	HOUR	11.1902	44	225
+751	2026-03-22 18:00:47.357382	2026-03-22 17:00:00	HOUR	857934.8753	44	193
+752	2026-03-22 18:00:47.358519	2026-03-22 17:00:00	HOUR	227.5155	44	194
+761	2026-03-22 18:00:47.366953	2026-03-22 17:00:00	HOUR	198688.4415	44	205
+762	2026-03-22 18:00:47.367671	2026-03-22 17:00:00	HOUR	23.1715	44	211
+771	2026-03-22 19:00:47.351546	2026-03-22 18:00:00	HOUR	6.2710	44	209
+772	2026-03-22 19:00:47.352125	2026-03-22 18:00:00	HOUR	312715.7490	44	210
+767	2026-03-22 19:00:47.348256	2026-03-22 18:00:00	HOUR	858179.9840	44	193
+768	2026-03-22 19:00:47.348975	2026-03-22 18:00:00	HOUR	227.5010	44	194
+808	2026-03-22 20:00:47.364456	2026-03-22 19:00:00	HOUR	12368.9663	46	229
+796	2026-03-22 20:00:47.355646	2026-03-22 19:00:00	HOUR	5.5819	44	225
+777	2026-03-22 19:00:47.355337	2026-03-22 18:00:00	HOUR	198742.1018	44	205
+778	2026-03-22 19:00:47.355911	2026-03-22 18:00:00	HOUR	18.6561	44	211
+779	2026-03-22 19:00:47.356481	2026-03-22 18:00:00	HOUR	225.5521	44	196
+780	2026-03-22 19:00:47.357041	2026-03-22 18:00:00	HOUR	125989.8903	44	201
+781	2026-03-22 19:00:47.3577	2026-03-22 18:00:00	HOUR	12.7723	44	202
+782	2026-03-22 19:00:47.358433	2026-03-22 18:00:00	HOUR	19.2706	44	204
+783	2026-03-22 19:00:47.359136	2026-03-22 18:00:00	HOUR	68032.4751	44	208
+784	2026-03-22 19:00:47.359703	2026-03-22 18:00:00	HOUR	157009.7977	44	226
+785	2026-03-22 19:00:47.36031	2026-03-22 18:00:00	HOUR	34643.1114	44	228
+769	2026-03-22 19:00:47.349994	2026-03-22 18:00:00	HOUR	5.5785	44	225
+763	2026-03-22 19:00:47.339836	2026-03-22 18:00:00	HOUR	226.5948	44	195
+764	2026-03-22 19:00:47.34556	2026-03-22 18:00:00	HOUR	0.9442	44	199
+765	2026-03-22 19:00:47.346546	2026-03-22 18:00:00	HOUR	98859.1058	44	224
+766	2026-03-22 19:00:47.347428	2026-03-22 18:00:00	HOUR	45743.8908	46	207
+773	2026-03-22 19:00:47.352866	2026-03-22 18:00:00	HOUR	568406.4907	44	213
+774	2026-03-22 19:00:47.353477	2026-03-22 18:00:00	HOUR	17.5643	44	227
+748	2026-03-22 18:00:47.355453	2026-03-22 17:00:00	HOUR	68014.0859	44	208
+735	2026-03-22 18:00:47.338609	2026-03-22 17:00:00	HOUR	226.5860	44	195
+756	2026-03-22 18:00:47.361487	2026-03-22 17:00:00	HOUR	568329.0431	44	213
+757	2026-03-22 18:00:47.362134	2026-03-22 17:00:00	HOUR	20.5577	44	227
+758	2026-03-22 18:00:47.362836	2026-03-22 17:00:00	HOUR	12363.6519	46	229
+759	2026-03-22 18:00:47.365285	2026-03-22 17:00:00	HOUR	23479.9791	45	200
+753	2026-03-22 18:00:47.359318	2026-03-22 17:00:00	HOUR	207.6974	44	198
+754	2026-03-22 18:00:47.359952	2026-03-22 17:00:00	HOUR	15.7782	44	209
+755	2026-03-22 18:00:47.360634	2026-03-22 17:00:00	HOUR	312683.8565	44	210
+775	2026-03-22 19:00:47.354152	2026-03-22 18:00:00	HOUR	12366.8970	46	229
+776	2026-03-22 19:00:47.354741	2026-03-22 18:00:00	HOUR	23483.3534	45	200
+786	2026-03-22 19:00:47.36086	2026-03-22 18:00:00	HOUR	164.5390	44	197
+787	2026-03-22 19:00:47.361466	2026-03-22 18:00:00	HOUR	235015.5699	44	203
+788	2026-03-22 19:00:47.362039	2026-03-22 18:00:00	HOUR	19.3128	44	206
+809	2026-03-22 20:00:47.367145	2026-03-22 19:00:00	HOUR	23485.6070	45	200
+817	2026-03-22 20:00:47.372234	2026-03-22 19:00:00	HOUR	858354.4996	44	193
+818	2026-03-22 20:00:47.372796	2026-03-22 19:00:00	HOUR	227.4986	44	194
+789	2026-03-22 19:00:47.362645	2026-03-22 18:00:00	HOUR	63.0656	44	214
+790	2026-03-22 19:00:47.363252	2026-03-22 18:00:00	HOUR	289935.6549	44	212
+770	2026-03-22 19:00:47.35091	2026-03-22 18:00:00	HOUR	112.6151	44	198
+814	2026-03-22 20:00:47.370251	2026-03-22 19:00:00	HOUR	112.9169	44	198
+815	2026-03-22 20:00:47.370786	2026-03-22 19:00:00	HOUR	6.3770	44	209
+816	2026-03-22 20:00:47.371445	2026-03-22 19:00:00	HOUR	312743.7630	44	210
+799	2026-03-22 20:00:47.358606	2026-03-22 19:00:00	HOUR	225.5744	44	196
+791	2026-03-22 20:00:47.344435	2026-03-22 19:00:00	HOUR	164.3330	44	197
+792	2026-03-22 20:00:47.351129	2026-03-22 19:00:00	HOUR	235059.9710	44	203
+793	2026-03-22 20:00:47.352047	2026-03-22 19:00:00	HOUR	19.3295	44	206
+800	2026-03-22 20:00:47.359442	2026-03-22 19:00:00	HOUR	126018.8731	44	201
+801	2026-03-22 20:00:47.360084	2026-03-22 19:00:00	HOUR	13.0436	44	202
+802	2026-03-22 20:00:47.360638	2026-03-22 19:00:00	HOUR	19.1765	44	204
+803	2026-03-22 20:00:47.361235	2026-03-22 19:00:00	HOUR	68046.4673	44	208
+794	2026-03-22 20:00:47.353279	2026-03-22 19:00:00	HOUR	62.9095	44	214
+795	2026-03-22 20:00:47.354427	2026-03-22 19:00:00	HOUR	289963.7914	44	212
+810	2026-03-22 20:00:47.367827	2026-03-22 19:00:00	HOUR	226.5765	44	195
+811	2026-03-22 20:00:47.368552	2026-03-22 19:00:00	HOUR	0.9434	44	199
+797	2026-03-22 20:00:47.35677	2026-03-22 19:00:00	HOUR	198781.3519	44	205
+798	2026-03-22 20:00:47.357814	2026-03-22 19:00:00	HOUR	13.6633	44	211
+812	2026-03-22 20:00:47.369158	2026-03-22 19:00:00	HOUR	98867.5995	44	224
+813	2026-03-22 20:00:47.369707	2026-03-22 19:00:00	HOUR	45749.4204	46	207
+804	2026-03-22 20:00:47.361805	2026-03-22 19:00:00	HOUR	157031.7937	44	226
+805	2026-03-22 20:00:47.362342	2026-03-22 19:00:00	HOUR	34650.3231	44	228
+806	2026-03-22 20:00:47.362867	2026-03-22 19:00:00	HOUR	568483.9921	44	213
+807	2026-03-22 20:00:47.363674	2026-03-22 19:00:00	HOUR	14.2953	44	227
+841	2026-03-22 21:00:47.361389	2026-03-22 20:00:00	HOUR	11.4235	44	227
+833	2026-03-22 21:00:47.356515	2026-03-22 20:00:00	HOUR	68060.4123	44	208
+827	2026-03-22 21:00:47.352072	2026-03-22 20:00:00	HOUR	62.8998	44	214
+828	2026-03-22 21:00:47.35291	2026-03-22 20:00:00	HOUR	289988.2241	44	212
+838	2026-03-22 21:00:47.359718	2026-03-22 20:00:00	HOUR	198820.5782	44	205
+832	2026-03-22 21:00:47.355716	2026-03-22 20:00:00	HOUR	19.0650	44	204
+829	2026-03-22 21:00:47.353537	2026-03-22 20:00:00	HOUR	225.5536	44	196
+840	2026-03-22 21:00:47.360786	2026-03-22 20:00:00	HOUR	568561.5336	44	213
+830	2026-03-22 21:00:47.354168	2026-03-22 20:00:00	HOUR	126047.7876	44	201
+819	2026-03-22 21:00:47.33936	2026-03-22 20:00:00	HOUR	226.6029	44	195
+834	2026-03-22 21:00:47.357175	2026-03-22 20:00:00	HOUR	157049.6754	44	226
+835	2026-03-22 21:00:47.3577	2026-03-22 20:00:00	HOUR	34657.5359	44	228
+824	2026-03-22 21:00:47.349574	2026-03-22 20:00:00	HOUR	163.1646	44	197
+826	2026-03-22 21:00:47.3513	2026-03-22 20:00:00	HOUR	19.3976	44	206
+836	2026-03-22 21:00:47.358359	2026-03-22 20:00:00	HOUR	858528.1850	44	193
+820	2026-03-22 21:00:47.344546	2026-03-22 20:00:00	HOUR	0.9437	44	199
+822	2026-03-22 21:00:47.34702	2026-03-22 20:00:00	HOUR	45754.9414	46	207
+825	2026-03-22 21:00:47.350591	2026-03-22 20:00:00	HOUR	235104.2792	44	203
+839	2026-03-22 21:00:47.360258	2026-03-22 20:00:00	HOUR	9.4550	44	211
+831	2026-03-22 21:00:47.355092	2026-03-22 20:00:00	HOUR	13.0552	44	202
+837	2026-03-22 21:00:47.358954	2026-03-22 20:00:00	HOUR	227.4938	44	194
+847	2026-03-22 22:00:47.341232	2026-03-22 21:00:00	HOUR	3.5975	44	225
+862	2026-03-22 22:00:47.358089	2026-03-22 21:00:00	HOUR	198859.7480	44	205
+863	2026-03-22 22:00:47.358698	2026-03-22 21:00:00	HOUR	5.3469	44	211
+852	2026-03-22 22:00:47.350928	2026-03-22 21:00:00	HOUR	164.4767	44	197
+853	2026-03-22 22:00:47.35204	2026-03-22 21:00:00	HOUR	235148.4950	44	203
+854	2026-03-22 22:00:47.352735	2026-03-22 21:00:00	HOUR	19.1865	44	206
+855	2026-03-22 22:00:47.353372	2026-03-22 21:00:00	HOUR	63.0721	44	214
+856	2026-03-22 22:00:47.353988	2026-03-22 21:00:00	HOUR	290009.1495	44	212
+848	2026-03-22 22:00:47.347244	2026-03-22 21:00:00	HOUR	226.5831	44	195
+849	2026-03-22 22:00:47.3484	2026-03-22 21:00:00	HOUR	0.9442	44	199
+850	2026-03-22 22:00:47.34911	2026-03-22 21:00:00	HOUR	98880.5417	44	224
+851	2026-03-22 22:00:47.350198	2026-03-22 21:00:00	HOUR	45760.4468	46	207
+857	2026-03-22 22:00:47.354569	2026-03-22 21:00:00	HOUR	112.8783	44	198
+899	2026-03-22 23:00:47.370463	2026-03-22 22:00:00	HOUR	62.9876	44	214
+858	2026-03-22 22:00:47.355151	2026-03-22 21:00:00	HOUR	6.3835	44	209
+900	2026-03-22 23:00:47.37115	2026-03-22 22:00:00	HOUR	290027.2652	44	212
+879	2026-03-22 23:00:47.355313	2026-03-22 22:00:00	HOUR	3.5562	44	225
+823	2026-03-22 21:00:47.348591	2026-03-22 20:00:00	HOUR	3.5921	44	225
+842	2026-03-22 21:00:47.361989	2026-03-22 20:00:00	HOUR	12371.0506	46	229
+843	2026-03-22 21:00:47.362801	2026-03-22 20:00:00	HOUR	23487.8639	45	200
+821	2026-03-22 21:00:47.34577	2026-03-22 20:00:00	HOUR	98874.7496	44	224
+844	2026-03-22 21:00:47.363386	2026-03-22 20:00:00	HOUR	113.0723	44	198
+845	2026-03-22 21:00:47.363984	2026-03-22 20:00:00	HOUR	6.3117	44	209
+846	2026-03-22 21:00:47.364731	2026-03-22 20:00:00	HOUR	312767.9519	44	210
+883	2026-03-22 23:00:47.359388	2026-03-22 22:00:00	HOUR	225.5383	44	196
+884	2026-03-22 23:00:47.360211	2026-03-22 22:00:00	HOUR	126100.2065	44	201
+885	2026-03-22 23:00:47.360896	2026-03-22 22:00:00	HOUR	2.7557	44	202
+886	2026-03-22 23:00:47.361553	2026-03-22 22:00:00	HOUR	4.1433	44	204
+887	2026-03-22 23:00:47.36238	2026-03-22 22:00:00	HOUR	68085.8917	44	208
+888	2026-03-22 23:00:47.363066	2026-03-22 22:00:00	HOUR	157075.4889	44	226
+889	2026-03-22 23:00:47.363693	2026-03-22 22:00:00	HOUR	34670.1867	44	228
+880	2026-03-22 23:00:47.35637	2026-03-22 22:00:00	HOUR	63.4142	44	198
+881	2026-03-22 23:00:47.357377	2026-03-22 22:00:00	HOUR	1.3317	44	209
+882	2026-03-22 23:00:47.358342	2026-03-22 22:00:00	HOUR	312806.8555	44	210
+859	2026-03-22 22:00:47.355681	2026-03-22 21:00:00	HOUR	312788.7166	44	210
+860	2026-03-22 22:00:47.356601	2026-03-22 21:00:00	HOUR	858702.3839	44	193
+894	2026-03-22 23:00:47.366783	2026-03-22 22:00:00	HOUR	198891.4780	44	205
+895	2026-03-22 23:00:47.367532	2026-03-22 22:00:00	HOUR	2.6020	44	211
+875	2026-03-22 23:00:47.340794	2026-03-22 22:00:00	HOUR	568716.1842	44	213
+876	2026-03-22 23:00:47.347782	2026-03-22 22:00:00	HOUR	6.7645	44	227
+861	2026-03-22 22:00:47.357267	2026-03-22 21:00:00	HOUR	227.4763	44	194
+871	2026-03-22 22:00:47.362972	2026-03-22 21:00:00	HOUR	568638.8180	44	213
+872	2026-03-22 22:00:47.363544	2026-03-22 21:00:00	HOUR	8.7090	44	227
+873	2026-03-22 22:00:47.364043	2026-03-22 21:00:00	HOUR	12373.1160	46	229
+874	2026-03-22 22:00:47.364593	2026-03-22 21:00:00	HOUR	23490.1294	45	200
+864	2026-03-22 22:00:47.359235	2026-03-22 21:00:00	HOUR	225.5775	44	196
+865	2026-03-22 22:00:47.359746	2026-03-22 21:00:00	HOUR	126076.6660	44	201
+866	2026-03-22 22:00:47.36031	2026-03-22 21:00:00	HOUR	13.0137	44	202
+867	2026-03-22 22:00:47.360802	2026-03-22 21:00:00	HOUR	19.2021	44	204
+868	2026-03-22 22:00:47.361279	2026-03-22 21:00:00	HOUR	68074.3438	44	208
+869	2026-03-22 22:00:47.36177	2026-03-22 21:00:00	HOUR	157064.0793	44	226
+870	2026-03-22 22:00:47.362388	2026-03-22 21:00:00	HOUR	34664.6836	44	228
+877	2026-03-22 23:00:47.349285	2026-03-22 22:00:00	HOUR	12374.5578	46	229
+878	2026-03-22 23:00:47.352359	2026-03-22 22:00:00	HOUR	23491.8176	45	200
+901	2026-03-22 23:00:47.371803	2026-03-22 22:00:00	HOUR	858839.4661	44	193
+902	2026-03-22 23:00:47.372679	2026-03-22 22:00:00	HOUR	227.4848	44	194
+890	2026-03-22 23:00:47.364288	2026-03-22 22:00:00	HOUR	226.5847	44	195
+891	2026-03-22 23:00:47.364839	2026-03-22 22:00:00	HOUR	0.9432	44	199
+892	2026-03-22 23:00:47.36539	2026-03-22 22:00:00	HOUR	98886.3367	44	224
+893	2026-03-22 23:00:47.366034	2026-03-22 22:00:00	HOUR	45764.5558	46	207
+896	2026-03-22 23:00:47.368451	2026-03-22 22:00:00	HOUR	98.1680	44	197
+897	2026-03-22 23:00:47.369102	2026-03-22 22:00:00	HOUR	235185.0569	44	203
+898	2026-03-22 23:00:47.369779	2026-03-22 22:00:00	HOUR	4.1862	44	206
+929	2026-03-23 00:00:47.35244	2026-03-22 23:00:00	HOUR	157085.0792	44	226
+930	2026-03-23 00:00:47.353014	2026-03-22 23:00:00	HOUR	34674.0731	44	228
+911	2026-03-23 00:00:47.341709	2026-03-22 23:00:00	HOUR	98892.1273	44	224
+913	2026-03-23 00:00:47.342978	2026-03-22 23:00:00	HOUR	858939.6800	44	193
+919	2026-03-23 00:00:47.346659	2026-03-22 23:00:00	HOUR	63.4343	44	198
+906	2026-03-23 00:00:47.337196	2026-03-22 23:00:00	HOUR	4.2005	44	206
+927	2026-03-23 00:00:47.351299	2026-03-22 23:00:00	HOUR	4.1367	44	204
+918	2026-03-23 00:00:47.346089	2026-03-22 23:00:00	HOUR	23492.9308	45	200
+920	2026-03-23 00:00:47.347214	2026-03-22 23:00:00	HOUR	1.3443	44	209
+903	2026-03-23 00:00:47.330285	2026-03-22 23:00:00	HOUR	3.5840	44	225
+917	2026-03-23 00:00:47.345582	2026-03-22 23:00:00	HOUR	12375.3979	46	229
+905	2026-03-23 00:00:47.336395	2026-03-22 23:00:00	HOUR	235214.1368	44	203
+910	2026-03-23 00:00:47.340927	2026-03-22 23:00:00	HOUR	0.9440	44	199
+914	2026-03-23 00:00:47.343584	2026-03-22 23:00:00	HOUR	227.4679	44	194
+928	2026-03-23 00:00:47.351891	2026-03-22 23:00:00	HOUR	68095.1719	44	208
+915	2026-03-23 00:00:47.344445	2026-03-22 23:00:00	HOUR	568793.7538	44	213
+921	2026-03-23 00:00:47.347741	2026-03-22 23:00:00	HOUR	312823.5048	44	210
+925	2026-03-23 00:00:47.350153	2026-03-22 23:00:00	HOUR	126118.2035	44	201
+909	2026-03-23 00:00:47.340043	2026-03-22 23:00:00	HOUR	226.5674	44	195
+923	2026-03-23 00:00:47.349037	2026-03-22 23:00:00	HOUR	1.0987	44	211
+907	2026-03-23 00:00:47.337952	2026-03-22 23:00:00	HOUR	62.8445	44	214
+922	2026-03-23 00:00:47.348499	2026-03-22 23:00:00	HOUR	198915.6328	44	205
+904	2026-03-23 00:00:47.335446	2026-03-22 23:00:00	HOUR	98.2377	44	197
+908	2026-03-23 00:00:47.338824	2026-03-22 23:00:00	HOUR	290043.7751	44	212
+924	2026-03-23 00:00:47.349584	2026-03-22 23:00:00	HOUR	225.5420	44	196
+916	2026-03-23 00:00:47.344996	2026-03-22 23:00:00	HOUR	5.8726	44	227
+912	2026-03-23 00:00:47.342406	2026-03-22 23:00:00	HOUR	45767.3119	46	207
+926	2026-03-23 00:00:47.350765	2026-03-22 23:00:00	HOUR	2.7952	44	202
+955	2026-03-23 01:00:47.362918	2026-03-23 00:00:00	HOUR	235243.2300	44	203
+956	2026-03-23 01:00:47.363523	2026-03-23 00:00:00	HOUR	4.1117	44	206
+957	2026-03-23 01:00:47.364123	2026-03-23 00:00:00	HOUR	62.9763	44	214
+958	2026-03-23 01:00:47.364787	2026-03-23 00:00:00	HOUR	290059.6836	44	212
+943	2026-03-23 01:00:47.354405	2026-03-23 00:00:00	HOUR	859039.9297	44	193
+944	2026-03-23 01:00:47.355117	2026-03-23 00:00:00	HOUR	227.4949	44	194
+949	2026-03-23 01:00:47.35832	2026-03-23 00:00:00	HOUR	63.3037	44	198
+950	2026-03-23 01:00:47.359048	2026-03-23 00:00:00	HOUR	1.3416	44	209
+951	2026-03-23 01:00:47.359761	2026-03-23 00:00:00	HOUR	312839.2790	44	210
+959	2026-03-23 01:50:17.378285	2026-03-22 00:00:00	DAY	198650.3938	44	205
+960	2026-03-23 01:50:17.431254	2026-03-22 00:00:00	DAY	21.1670	44	211
+961	2026-03-23 01:50:17.435478	2026-03-22 00:00:00	DAY	152.3877	44	198
+962	2026-03-23 01:50:17.438441	2026-03-22 00:00:00	DAY	10.2644	44	209
+963	2026-03-23 01:50:17.440598	2026-03-22 00:00:00	DAY	312662.4325	44	210
+964	2026-03-23 01:50:17.44434	2026-03-22 00:00:00	DAY	857747.6007	44	193
+965	2026-03-23 01:50:17.448383	2026-03-22 00:00:00	DAY	227.4885	44	194
+966	2026-03-23 01:50:17.450694	2026-03-22 00:00:00	DAY	7.8487	44	225
+967	2026-03-23 01:50:17.452205	2026-03-22 00:00:00	DAY	226.5855	44	195
+968	2026-03-23 01:50:17.454061	2026-03-22 00:00:00	DAY	0.9438	44	199
+969	2026-03-23 01:50:17.458	2026-03-22 00:00:00	DAY	98835.7801	44	224
+970	2026-03-23 01:50:17.459758	2026-03-22 00:00:00	DAY	45728.8036	46	207
+971	2026-03-23 01:50:17.46191	2026-03-22 00:00:00	DAY	216.9811	44	197
+972	2026-03-23 01:50:17.463569	2026-03-22 00:00:00	DAY	234919.0243	44	203
+973	2026-03-23 01:50:17.465043	2026-03-22 00:00:00	DAY	31.3682	44	206
+974	2026-03-23 01:50:17.466395	2026-03-22 00:00:00	DAY	62.9505	44	214
+975	2026-03-23 01:50:17.467985	2026-03-22 00:00:00	DAY	289882.5094	44	212
+976	2026-03-23 01:50:17.469368	2026-03-22 00:00:00	DAY	568331.4943	44	213
+977	2026-03-23 01:50:17.47098	2026-03-22 00:00:00	DAY	19.3522	44	227
+978	2026-03-23 01:50:17.472426	2026-03-22 00:00:00	DAY	12360.5084	46	229
+979	2026-03-23 01:50:17.474624	2026-03-22 00:00:00	DAY	23477.0468	45	200
+980	2026-03-23 01:50:17.476964	2026-03-22 00:00:00	DAY	225.5487	44	196
+981	2026-03-23 01:50:17.47939	2026-03-22 00:00:00	DAY	125922.7178	44	201
+982	2026-03-23 01:50:17.481088	2026-03-22 00:00:00	DAY	21.1099	44	202
+983	2026-03-23 01:50:17.482372	2026-03-22 00:00:00	DAY	31.2061	44	204
+984	2026-03-23 01:50:17.483864	2026-03-22 00:00:00	DAY	68002.3911	44	208
+985	2026-03-23 01:50:17.485223	2026-03-22 00:00:00	DAY	156960.8972	44	226
+986	2026-03-23 01:50:17.486683	2026-03-22 00:00:00	DAY	34624.3596	44	228
+990	2026-03-23 02:00:47.352548	2026-03-23 01:00:00	HOUR	63.0322	44	214
+1003	2026-03-23 02:00:47.376005	2026-03-23 01:00:00	HOUR	4.0736	44	204
+999	2026-03-23 02:00:47.367202	2026-03-23 01:00:00	HOUR	3.5905	44	225
+952	2026-03-23 01:00:47.360851	2026-03-23 00:00:00	HOUR	198939.7668	44	205
+953	2026-03-23 01:00:47.361561	2026-03-23 00:00:00	HOUR	0.7844	44	211
+935	2026-03-23 01:00:47.346965	2026-03-23 00:00:00	HOUR	3.6374	44	225
+936	2026-03-23 01:00:47.348189	2026-03-23 00:00:00	HOUR	225.5547	44	196
+937	2026-03-23 01:00:47.34955	2026-03-23 00:00:00	HOUR	126136.1962	44	201
+938	2026-03-23 01:00:47.350342	2026-03-23 00:00:00	HOUR	2.7732	44	202
+939	2026-03-23 01:00:47.351268	2026-03-23 00:00:00	HOUR	4.2768	44	204
+940	2026-03-23 01:00:47.352164	2026-03-23 00:00:00	HOUR	68104.4269	44	208
+941	2026-03-23 01:00:47.352903	2026-03-23 00:00:00	HOUR	157093.9025	44	226
+942	2026-03-23 01:00:47.353744	2026-03-23 00:00:00	HOUR	34677.9643	44	228
+945	2026-03-23 01:00:47.355889	2026-03-23 00:00:00	HOUR	226.5920	44	195
+946	2026-03-23 01:00:47.356546	2026-03-23 00:00:00	HOUR	0.9440	44	199
+947	2026-03-23 01:00:47.357092	2026-03-23 00:00:00	HOUR	98897.9131	44	224
+948	2026-03-23 01:00:47.357744	2026-03-23 00:00:00	HOUR	45770.0668	46	207
+931	2026-03-23 01:00:47.337604	2026-03-23 00:00:00	HOUR	568871.2192	44	213
+932	2026-03-23 01:00:47.344161	2026-03-23 00:00:00	HOUR	5.6152	44	227
+933	2026-03-23 01:00:47.345103	2026-03-23 00:00:00	HOUR	12376.2374	46	229
+934	2026-03-23 01:00:47.345951	2026-03-23 00:00:00	HOUR	23494.0467	45	200
+954	2026-03-23 01:00:47.362235	2026-03-23 00:00:00	HOUR	98.1910	44	197
+987	2026-03-23 02:00:47.342065	2026-03-23 01:00:00	HOUR	97.6267	44	197
+1004	2026-03-23 02:00:47.377841	2026-03-23 01:00:00	HOUR	68113.6956	44	208
+1008	2026-03-23 02:00:47.385771	2026-03-23 01:00:00	HOUR	5.8224	44	227
+1006	2026-03-23 02:00:47.38173	2026-03-23 01:00:00	HOUR	34681.8823	44	228
+1005	2026-03-23 02:00:47.379838	2026-03-23 01:00:00	HOUR	157102.7725	44	226
+1001	2026-03-23 02:00:47.371625	2026-03-23 01:00:00	HOUR	126154.1863	44	201
+994	2026-03-23 02:00:47.358297	2026-03-23 01:00:00	HOUR	98903.6926	44	224
+991	2026-03-23 02:00:47.354105	2026-03-23 01:00:00	HOUR	290075.4790	44	212
+992	2026-03-23 02:00:47.355612	2026-03-23 01:00:00	HOUR	226.5930	44	195
+1009	2026-03-23 02:00:47.387569	2026-03-23 01:00:00	HOUR	12377.0750	46	229
+1011	2026-03-23 02:00:47.391153	2026-03-23 01:00:00	HOUR	859140.1959	44	193
+995	2026-03-23 02:00:47.359488	2026-03-23 01:00:00	HOUR	45772.8217	46	207
+1007	2026-03-23 02:00:47.383855	2026-03-23 01:00:00	HOUR	568948.7045	44	213
+993	2026-03-23 02:00:47.356937	2026-03-23 01:00:00	HOUR	0.9438	44	199
+1014	2026-03-23 02:00:47.396582	2026-03-23 01:00:00	HOUR	1.2008	44	211
+1002	2026-03-23 02:00:47.373926	2026-03-23 01:00:00	HOUR	2.8336	44	202
+996	2026-03-23 02:00:47.362441	2026-03-23 01:00:00	HOUR	63.2716	44	198
+1010	2026-03-23 02:00:47.389233	2026-03-23 01:00:00	HOUR	23495.1576	45	200
+998	2026-03-23 02:00:47.365137	2026-03-23 01:00:00	HOUR	312855.0905	44	210
+1000	2026-03-23 02:00:47.369674	2026-03-23 01:00:00	HOUR	225.5306	44	196
+1013	2026-03-23 02:00:47.39478	2026-03-23 01:00:00	HOUR	198963.9574	44	205
+989	2026-03-23 02:00:47.350937	2026-03-23 01:00:00	HOUR	4.2843	44	206
+988	2026-03-23 02:00:47.349125	2026-03-23 01:00:00	HOUR	235272.3895	44	203
+1012	2026-03-23 02:00:47.393081	2026-03-23 01:00:00	HOUR	227.4875	44	194
+997	2026-03-23 02:00:47.363894	2026-03-23 01:00:00	HOUR	1.3595	44	209
+1017	2026-03-23 03:00:47.474013	2026-03-23 02:00:00	HOUR	98909.4757	44	224
+1018	2026-03-23 03:00:47.480619	2026-03-23 02:00:00	HOUR	45775.5697	46	207
+1020	2026-03-23 03:00:47.491973	2026-03-23 02:00:00	HOUR	63.4055	44	198
+1015	2026-03-23 03:00:47.356351	2026-03-23 02:00:00	HOUR	226.5774	44	195
+1023	2026-03-23 03:00:47.499897	2026-03-23 02:00:00	HOUR	859240.3132	44	193
+1016	2026-03-23 03:00:47.466314	2026-03-23 02:00:00	HOUR	0.9440	44	199
+1022	2026-03-23 03:00:47.497683	2026-03-23 02:00:00	HOUR	312871.6055	44	210
+1021	2026-03-23 03:00:47.49527	2026-03-23 02:00:00	HOUR	1.3905	44	209
+1024	2026-03-23 03:00:47.501502	2026-03-23 02:00:00	HOUR	227.5324	44	194
+1034	2026-03-23 03:00:47.519632	2026-03-23 02:00:00	HOUR	68122.9785	44	208
+1035	2026-03-23 03:00:47.521614	2026-03-23 02:00:00	HOUR	157112.3631	44	226
+1036	2026-03-23 03:00:47.523391	2026-03-23 02:00:00	HOUR	34685.7696	44	228
+1047	2026-03-23 04:00:52.388358	2026-03-23 03:00:00	HOUR	290038.0786	44	212
+1060	2026-03-23 04:00:52.410467	2026-03-23 03:00:00	HOUR	4.2150	44	204
+1066	2026-03-23 04:00:52.421229	2026-03-23 03:00:00	HOUR	858833.1323	44	193
+1067	2026-03-23 04:00:52.422284	2026-03-23 03:00:00	HOUR	227.4398	44	194
+1057	2026-03-23 04:00:52.40681	2026-03-23 03:00:00	HOUR	225.5529	44	196
+1058	2026-03-23 04:00:52.408259	2026-03-23 03:00:00	HOUR	126106.8584	44	201
+1059	2026-03-23 04:00:52.409459	2026-03-23 03:00:00	HOUR	2.7720	44	202
+1061	2026-03-23 04:00:52.411505	2026-03-23 03:00:00	HOUR	68092.6602	44	208
+1062	2026-03-23 04:00:52.414781	2026-03-23 03:00:00	HOUR	157067.6288	44	226
+1063	2026-03-23 04:00:52.417945	2026-03-23 03:00:00	HOUR	34668.5337	44	228
+1052	2026-03-23 04:00:52.398454	2026-03-23 03:00:00	HOUR	568903.6610	44	213
+1053	2026-03-23 04:00:52.399867	2026-03-23 03:00:00	HOUR	8.8595	44	227
+1054	2026-03-23 04:00:52.401423	2026-03-23 03:00:00	HOUR	12372.4628	46	229
+1037	2026-03-23 03:00:47.525516	2026-03-23 02:00:00	HOUR	198988.1487	44	205
+1038	2026-03-23 03:00:47.527059	2026-03-23 02:00:00	HOUR	2.5350	44	211
+1019	2026-03-23 03:00:47.486693	2026-03-23 02:00:00	HOUR	3.5927	44	225
+1039	2026-03-23 03:00:47.52834	2026-03-23 02:00:00	HOUR	569026.3274	44	213
+1040	2026-03-23 03:00:47.529969	2026-03-23 02:00:00	HOUR	6.8367	44	227
+1041	2026-03-23 03:00:47.531615	2026-03-23 02:00:00	HOUR	12377.9176	46	229
+1042	2026-03-23 03:00:47.533105	2026-03-23 02:00:00	HOUR	23496.2683	45	200
+1025	2026-03-23 03:00:47.503967	2026-03-23 02:00:00	HOUR	97.6476	44	197
+1026	2026-03-23 03:00:47.50681	2026-03-23 02:00:00	HOUR	235301.5497	44	203
+1027	2026-03-23 03:00:47.508297	2026-03-23 02:00:00	HOUR	4.2108	44	206
+1028	2026-03-23 03:00:47.509837	2026-03-23 02:00:00	HOUR	62.8942	44	214
+1029	2026-03-23 03:00:47.511117	2026-03-23 02:00:00	HOUR	290091.9298	44	212
+1030	2026-03-23 03:00:47.512673	2026-03-23 02:00:00	HOUR	225.5315	44	196
+1031	2026-03-23 03:00:47.514363	2026-03-23 02:00:00	HOUR	126172.1501	44	201
+1032	2026-03-23 03:00:47.515751	2026-03-23 02:00:00	HOUR	2.8477	44	202
+1033	2026-03-23 03:00:47.51764	2026-03-23 02:00:00	HOUR	4.1096	44	204
+1055	2026-03-23 04:00:52.403504	2026-03-23 03:00:00	HOUR	23490.6418	45	200
+1068	2026-03-23 04:00:52.423792	2026-03-23 03:00:00	HOUR	63.5588	44	198
+1069	2026-03-23 04:00:52.424914	2026-03-23 03:00:00	HOUR	1.3274	44	209
+1070	2026-03-23 04:00:52.425972	2026-03-23 03:00:00	HOUR	312817.9236	44	210
+1048	2026-03-23 04:00:52.390919	2026-03-23 03:00:00	HOUR	226.5856	44	195
+1049	2026-03-23 04:00:52.392506	2026-03-23 03:00:00	HOUR	0.9435	44	199
+1050	2026-03-23 04:00:52.393816	2026-03-23 03:00:00	HOUR	98889.9127	44	224
+1051	2026-03-23 04:00:52.395383	2026-03-23 03:00:00	HOUR	45761.9868	46	207
+1056	2026-03-23 04:00:52.405401	2026-03-23 03:00:00	HOUR	3.6290	44	225
+1064	2026-03-23 04:00:52.419236	2026-03-23 03:00:00	HOUR	198899.2257	44	205
+1065	2026-03-23 04:00:52.420303	2026-03-23 03:00:00	HOUR	5.4572	44	211
+1083	2026-03-23 05:02:14.811647	2026-03-23 04:00:00	HOUR	45679.4604	46	207
+1091	2026-03-23 05:02:14.818946	2026-03-23 04:00:00	HOUR	234575.4698	44	203
+1100	2026-03-23 05:02:14.827773	2026-03-23 04:00:00	HOUR	125689.5428	44	201
+1071	2026-03-23 05:02:14.792793	2026-03-23 04:00:00	HOUR	567931.0225	44	213
+1043	2026-03-23 04:00:52.347466	2026-03-23 03:00:00	HOUR	98.3630	44	197
+1044	2026-03-23 04:00:52.383114	2026-03-23 03:00:00	HOUR	235204.7043	44	203
+1045	2026-03-23 04:00:52.385264	2026-03-23 03:00:00	HOUR	3.9384	44	206
+1046	2026-03-23 04:00:52.386627	2026-03-23 03:00:00	HOUR	62.9102	44	214
+1072	2026-03-23 05:02:14.799481	2026-03-23 04:00:00	HOUR	189011.0146	44	221
+1101	2026-03-23 05:02:14.828521	2026-03-23 04:00:00	HOUR	2.8026	44	202
+1102	2026-03-23 05:02:14.829317	2026-03-23 04:00:00	HOUR	4.0775	44	204
+1103	2026-03-23 05:02:14.830053	2026-03-23 04:00:00	HOUR	67894.9260	44	208
+1104	2026-03-23 05:02:14.830848	2026-03-23 04:00:00	HOUR	156788.3537	44	226
+1079	2026-03-23 05:02:14.807805	2026-03-23 04:00:00	HOUR	226.5875	44	195
+1084	2026-03-23 05:02:14.812609	2026-03-23 04:00:00	HOUR	856283.1462	44	193
+1085	2026-03-23 05:02:14.813412	2026-03-23 04:00:00	HOUR	227.4903	44	194
+1093	2026-03-23 05:02:14.820563	2026-03-23 04:00:00	HOUR	62.9540	44	214
+1088	2026-03-23 05:02:14.816498	2026-03-23 04:00:00	HOUR	198332.8146	44	205
+1089	2026-03-23 05:02:14.817331	2026-03-23 04:00:00	HOUR	9.4239	44	211
+1086	2026-03-23 05:02:14.814396	2026-03-23 04:00:00	HOUR	0.9542	44	220
+1087	2026-03-23 05:02:14.815612	2026-03-23 04:00:00	HOUR	567801.1325	45	223
+1073	2026-03-23 05:02:14.801156	2026-03-23 04:00:00	HOUR	2.2100	44	222
+1074	2026-03-23 05:02:14.80236	2026-03-23 04:00:00	HOUR	11.1414	44	227
+1075	2026-03-23 05:02:14.803609	2026-03-23 04:00:00	HOUR	12340.4386	46	229
+1095	2026-03-23 05:02:14.822372	2026-03-23 04:00:00	HOUR	63.4441	44	198
+1097	2026-03-23 05:02:14.824165	2026-03-23 04:00:00	HOUR	312461.9332	44	210
+1098	2026-03-23 05:02:14.825021	2026-03-23 04:00:00	HOUR	126.3976	44	218
+1077	2026-03-23 05:02:14.805653	2026-03-23 04:00:00	HOUR	227.5009	44	219
+1078	2026-03-23 05:02:14.806711	2026-03-23 04:00:00	HOUR	3.6067	44	225
+1076	2026-03-23 05:02:14.80462	2026-03-23 04:00:00	HOUR	23456.5879	45	200
+1096	2026-03-23 05:02:14.823284	2026-03-23 04:00:00	HOUR	1.4194	44	209
+1092	2026-03-23 05:02:14.819769	2026-03-23 04:00:00	HOUR	4.0867	44	206
+1094	2026-03-23 05:02:14.821435	2026-03-23 04:00:00	HOUR	289681.8017	44	212
+1081	2026-03-23 05:02:14.809707	2026-03-23 04:00:00	HOUR	3500160.4144	44	217
+1082	2026-03-23 05:02:14.810796	2026-03-23 04:00:00	HOUR	98763.0832	44	224
+1090	2026-03-23 05:02:14.818155	2026-03-23 04:00:00	HOUR	97.9348	44	197
+1099	2026-03-23 05:02:14.826044	2026-03-23 04:00:00	HOUR	225.5295	44	196
+1105	2026-03-23 05:02:14.83167	2026-03-23 04:00:00	HOUR	34562.0753	44	228
+1080	2026-03-23 05:02:14.808772	2026-03-23 04:00:00	HOUR	0.9434	44	199
+1116	2026-03-23 13:04:32.116173	2026-03-23 12:00:00	HOUR	212.7169	44	197
+1115	2026-03-23 13:04:32.113488	2026-03-23 12:00:00	HOUR	293.3811	44	218
+1106	2026-03-23 13:04:32.063537	2026-03-23 12:00:00	HOUR	568025.0862	44	213
+1110	2026-03-23 13:04:32.099951	2026-03-23 12:00:00	HOUR	12342.1470	46	229
+1108	2026-03-23 13:04:32.094777	2026-03-23 12:00:00	HOUR	16.4845	44	222
+1111	2026-03-23 13:04:32.102931	2026-03-23 12:00:00	HOUR	23458.5895	45	200
+1107	2026-03-23 13:04:32.09184	2026-03-23 12:00:00	HOUR	189027.4010	44	221
+1114	2026-03-23 13:04:32.1111	2026-03-23 12:00:00	HOUR	312497.9544	44	210
+1113	2026-03-23 13:04:32.108206	2026-03-23 12:00:00	HOUR	9.8163	44	209
+1125	2026-03-23 13:04:32.148411	2026-03-23 12:00:00	HOUR	227.5323	44	219
+1126	2026-03-23 13:04:32.15197	2026-03-23 12:00:00	HOUR	8.2932	44	225
+1129	2026-03-23 13:04:32.160892	2026-03-23 12:00:00	HOUR	226.6146	44	195
+1130	2026-03-23 13:04:32.163981	2026-03-23 12:00:00	HOUR	0.9446	44	199
+1131	2026-03-23 13:04:32.166817	2026-03-23 12:00:00	HOUR	3500389.2808	44	217
+1132	2026-03-23 13:04:32.169616	2026-03-23 12:00:00	HOUR	98772.1374	44	224
+1133	2026-03-23 13:04:32.171816	2026-03-23 12:00:00	HOUR	45684.3402	46	207
+1127	2026-03-23 13:04:32.154554	2026-03-23 12:00:00	HOUR	198370.6187	44	205
+1128	2026-03-23 13:04:32.157842	2026-03-23 12:00:00	HOUR	36.1028	44	211
+1181	2026-03-23 15:04:32.121835	2026-03-23 14:00:00	HOUR	225.5463	44	196
+1117	2026-03-23 13:04:32.120461	2026-03-23 12:00:00	HOUR	234619.2594	44	203
+1118	2026-03-23 13:04:32.125134	2026-03-23 12:00:00	HOUR	30.3788	44	206
+1119	2026-03-23 13:04:32.128533	2026-03-23 12:00:00	HOUR	63.0319	44	214
+1120	2026-03-23 13:04:32.131718	2026-03-23 12:00:00	HOUR	289717.5248	44	212
+1134	2026-03-23 13:04:32.174456	2026-03-23 12:00:00	HOUR	225.5672	44	196
+1135	2026-03-23 13:04:32.176737	2026-03-23 12:00:00	HOUR	125717.6197	44	201
+1136	2026-03-23 13:04:32.178907	2026-03-23 12:00:00	HOUR	20.4431	44	202
+1137	2026-03-23 13:04:32.181073	2026-03-23 12:00:00	HOUR	30.3021	44	204
+1138	2026-03-23 13:04:32.184017	2026-03-23 12:00:00	HOUR	67908.7957	44	208
+1139	2026-03-23 13:04:32.186234	2026-03-23 12:00:00	HOUR	156816.8316	44	226
+1140	2026-03-23 13:04:32.188673	2026-03-23 12:00:00	HOUR	34568.6561	44	228
+1112	2026-03-23 13:04:32.105259	2026-03-23 12:00:00	HOUR	149.3668	44	198
+1121	2026-03-23 13:04:32.134629	2026-03-23 12:00:00	HOUR	856446.0154	44	193
+1122	2026-03-23 13:04:32.137915	2026-03-23 12:00:00	HOUR	227.4828	44	194
+1123	2026-03-23 13:04:32.141182	2026-03-23 12:00:00	HOUR	0.9546	44	220
+1124	2026-03-23 13:04:32.145262	2026-03-23 12:00:00	HOUR	567802.8832	45	223
+1109	2026-03-23 13:04:32.097257	2026-03-23 12:00:00	HOUR	29.3869	44	227
+1182	2026-03-23 15:04:32.124024	2026-03-23 14:00:00	HOUR	125804.4499	44	201
+1183	2026-03-23 15:04:32.126688	2026-03-23 14:00:00	HOUR	32.3861	44	202
+1184	2026-03-23 15:04:32.12931	2026-03-23 14:00:00	HOUR	48.2037	44	204
+1145	2026-03-23 14:04:32.048994	2026-03-23 13:00:00	HOUR	67925.7822	44	208
+1185	2026-03-23 15:04:32.131784	2026-03-23 14:00:00	HOUR	67948.5932	44	208
+1176	2026-03-23 15:04:32.093461	2026-03-23 14:00:00	HOUR	289.5908	44	197
+1177	2026-03-23 15:04:32.111686	2026-03-23 14:00:00	HOUR	234746.0836	44	203
+1178	2026-03-23 15:04:32.114705	2026-03-23 14:00:00	HOUR	48.2056	44	206
+1179	2026-03-23 15:04:32.118088	2026-03-23 14:00:00	HOUR	62.9885	44	214
+1180	2026-03-23 15:04:32.119905	2026-03-23 14:00:00	HOUR	289797.2000	44	212
+1146	2026-03-23 14:04:32.050405	2026-03-23 13:00:00	HOUR	156848.9847	44	226
+1147	2026-03-23 14:04:32.052117	2026-03-23 13:00:00	HOUR	34578.4555	44	228
+1162	2026-03-23 14:04:32.074996	2026-03-23 13:00:00	HOUR	227.4939	44	219
+1163	2026-03-23 14:04:32.076182	2026-03-23 13:00:00	HOUR	11.2885	44	225
+1168	2026-03-23 14:04:32.084964	2026-03-23 13:00:00	HOUR	198420.8899	44	205
+1170	2026-03-23 14:04:32.089372	2026-03-23 13:00:00	HOUR	568088.6898	44	213
+1169	2026-03-23 14:04:32.086324	2026-03-23 13:00:00	HOUR	35.7169	44	211
+1148	2026-03-23 14:04:32.053166	2026-03-23 13:00:00	HOUR	208.3154	44	198
+1171	2026-03-23 14:04:32.090948	2026-03-23 13:00:00	HOUR	189056.9885	44	221
+1172	2026-03-23 14:04:32.09244	2026-03-23 13:00:00	HOUR	26.2574	44	222
+1173	2026-03-23 14:04:32.094287	2026-03-23 13:00:00	HOUR	29.1027	44	227
+1149	2026-03-23 14:04:32.056786	2026-03-23 13:00:00	HOUR	15.7557	44	209
+1174	2026-03-23 14:04:32.095673	2026-03-23 13:00:00	HOUR	12345.3152	46	229
+1175	2026-03-23 14:04:32.097204	2026-03-23 13:00:00	HOUR	23461.8350	45	200
+1157	2026-03-23 14:04:32.070586	2026-03-23 13:00:00	HOUR	289.7094	44	197
+1158	2026-03-23 14:04:32.071452	2026-03-23 13:00:00	HOUR	234673.3712	44	203
+1159	2026-03-23 14:04:32.072327	2026-03-23 13:00:00	HOUR	48.1921	44	206
+1160	2026-03-23 14:04:32.073094	2026-03-23 13:00:00	HOUR	62.9507	44	214
+1161	2026-03-23 14:04:32.074019	2026-03-23 13:00:00	HOUR	289753.7370	44	212
+1164	2026-03-23 14:04:32.077486	2026-03-23 13:00:00	HOUR	856677.4294	44	193
+1150	2026-03-23 14:04:32.058016	2026-03-23 13:00:00	HOUR	312534.2463	44	210
+1151	2026-03-23 14:04:32.062893	2026-03-23 13:00:00	HOUR	405.6280	44	218
+1165	2026-03-23 14:04:32.078919	2026-03-23 13:00:00	HOUR	227.5207	44	194
+1166	2026-03-23 14:04:32.081189	2026-03-23 13:00:00	HOUR	0.9542	44	220
+1167	2026-03-23 14:04:32.083137	2026-03-23 13:00:00	HOUR	567806.1576	45	223
+1152	2026-03-23 14:04:32.064763	2026-03-23 13:00:00	HOUR	226.5783	44	195
+1153	2026-03-23 14:04:32.066363	2026-03-23 13:00:00	HOUR	0.9430	44	199
+1154	2026-03-23 14:04:32.067369	2026-03-23 13:00:00	HOUR	3500787.4677	44	217
+1141	2026-03-23 14:04:32.032275	2026-03-23 13:00:00	HOUR	225.5506	44	196
+1155	2026-03-23 14:04:32.068384	2026-03-23 13:00:00	HOUR	98783.9739	44	224
+1156	2026-03-23 14:04:32.069489	2026-03-23 13:00:00	HOUR	45692.1199	46	207
+1142	2026-03-23 14:04:32.043872	2026-03-23 13:00:00	HOUR	125754.4496	44	201
+1143	2026-03-23 14:04:32.045793	2026-03-23 13:00:00	HOUR	32.4760	44	202
+1144	2026-03-23 14:04:32.047392	2026-03-23 13:00:00	HOUR	47.9020	44	204
+1202	2026-03-23 15:04:32.155392	2026-03-23 14:00:00	HOUR	856992.9484	44	193
+1203	2026-03-23 15:04:32.156441	2026-03-23 14:00:00	HOUR	227.5073	44	194
+1204	2026-03-23 15:04:32.157584	2026-03-23 14:00:00	HOUR	0.9549	44	220
+1205	2026-03-23 15:04:32.159182	2026-03-23 14:00:00	HOUR	567810.6348	45	223
+1194	2026-03-23 15:04:32.144933	2026-03-23 14:00:00	HOUR	208.3679	44	198
+1195	2026-03-23 15:04:32.146768	2026-03-23 14:00:00	HOUR	15.8161	44	209
+1196	2026-03-23 15:04:32.148189	2026-03-23 14:00:00	HOUR	312577.7750	44	210
+1197	2026-03-23 15:04:32.149318	2026-03-23 14:00:00	HOUR	406.6321	44	218
+1186	2026-03-23 15:04:32.133593	2026-03-23 14:00:00	HOUR	156887.2614	44	226
+1187	2026-03-23 15:04:32.135494	2026-03-23 14:00:00	HOUR	34591.9707	44	228
+1206	2026-03-23 15:04:32.16026	2026-03-23 14:00:00	HOUR	226.6390	44	195
+1207	2026-03-23 15:04:32.161284	2026-03-23 14:00:00	HOUR	0.9437	44	199
+1208	2026-03-23 15:04:32.162316	2026-03-23 14:00:00	HOUR	3501330.8396	44	217
+1209	2026-03-23 15:04:32.163616	2026-03-23 14:00:00	HOUR	98799.9604	44	224
+1210	2026-03-23 15:04:32.164837	2026-03-23 14:00:00	HOUR	45702.8760	46	207
+1198	2026-03-23 15:04:32.150877	2026-03-23 14:00:00	HOUR	198489.0358	44	205
+1199	2026-03-23 15:04:32.152033	2026-03-23 14:00:00	HOUR	34.4178	44	211
+1188	2026-03-23 15:04:32.137791	2026-03-23 14:00:00	HOUR	568166.1122	44	213
+1189	2026-03-23 15:04:32.139002	2026-03-23 14:00:00	HOUR	189097.6313	44	221
+1190	2026-03-23 15:04:32.14019	2026-03-23 14:00:00	HOUR	26.1654	44	222
+1191	2026-03-23 15:04:32.141569	2026-03-23 14:00:00	HOUR	28.3031	44	227
+1192	2026-03-23 15:04:32.142773	2026-03-23 14:00:00	HOUR	12349.7664	46	229
+1193	2026-03-23 15:04:32.143793	2026-03-23 14:00:00	HOUR	23466.3101	45	200
+1200	2026-03-23 15:04:32.153203	2026-03-23 14:00:00	HOUR	227.5124	44	219
+1201	2026-03-23 15:04:32.154269	2026-03-23 14:00:00	HOUR	11.4307	44	225
+1211	2026-03-24 01:00:00.091423	2026-03-23 00:00:00	DAY	1232.0388	44	218
+1212	2026-03-24 01:00:00.115059	2026-03-23 00:00:00	DAY	1804.3633	44	196
+1213	2026-03-24 01:00:00.117942	2026-03-23 00:00:00	DAY	2319215.4345	44	212
+1214	2026-03-24 01:00:00.119949	2026-03-23 00:00:00	DAY	187819.4369	45	200
+1215	2026-03-24 01:00:00.121868	2026-03-23 00:00:00	DAY	99.3343	44	202
+1216	2026-03-24 01:00:00.123809	2026-03-23 00:00:00	DAY	503.7380	44	214
+1217	2026-03-24 01:00:00.126276	2026-03-23 00:00:00	DAY	2271220.8081	45	223
+1218	2026-03-24 01:00:00.12814	2026-03-23 00:00:00	DAY	883.0338	44	198
+1219	2026-03-24 01:00:00.130829	2026-03-23 00:00:00	DAY	756193.0354	44	221
+1220	2026-03-24 01:00:00.132575	2026-03-23 00:00:00	DAY	790720.1490	44	224
+1221	2026-03-24 01:00:00.135573	2026-03-23 00:00:00	DAY	277015.3075	44	228
+1222	2026-03-24 01:00:00.139401	2026-03-23 00:00:00	DAY	71.1173	44	222
+1223	2026-03-24 01:00:00.141682	2026-03-23 00:00:00	DAY	48.2265	44	209
+1224	2026-03-24 01:00:00.144039	2026-03-23 00:00:00	DAY	6862653.1105	44	193
+1225	2026-03-24 01:00:00.145584	2026-03-23 00:00:00	DAY	1007535.4530	44	201
+1226	2026-03-24 01:00:00.146853	2026-03-23 00:00:00	DAY	125.0679	44	227
+1227	2026-03-24 01:00:00.148066	2026-03-23 00:00:00	DAY	1255718.0983	44	226
+1228	2026-03-24 01:00:00.149336	2026-03-23 00:00:00	DAY	544111.8583	44	208
+1229	2026-03-24 01:00:00.150512	2026-03-23 00:00:00	DAY	125.6388	44	211
+1230	2026-03-24 01:00:00.151826	2026-03-23 00:00:00	DAY	1819.9557	44	194
+1231	2026-03-24 01:00:00.153248	2026-03-23 00:00:00	DAY	1281.7802	44	197
+1232	2026-03-24 01:00:00.155777	2026-03-23 00:00:00	DAY	7.5500	44	199
+1233	2026-03-24 01:00:00.157647	2026-03-23 00:00:00	DAY	910.0395	44	219
+1234	2026-03-24 01:00:00.160237	2026-03-23 00:00:00	DAY	2501455.8075	44	210
+1235	2026-03-24 01:00:00.162519	2026-03-23 00:00:00	DAY	49.0687	44	225
+1236	2026-03-24 01:00:00.16478	2026-03-23 00:00:00	DAY	147.4084	44	206
+1237	2026-03-24 01:00:00.166357	2026-03-23 00:00:00	DAY	1589404.4576	44	205
+1238	2026-03-24 01:00:00.168049	2026-03-23 00:00:00	DAY	1879636.0575	44	203
+1239	2026-03-24 01:00:00.169693	2026-03-23 00:00:00	DAY	365839.2415	46	207
+1240	2026-03-24 01:00:00.171065	2026-03-23 00:00:00	DAY	147.1603	44	204
+1241	2026-03-24 01:00:00.172411	2026-03-23 00:00:00	DAY	98881.3600	46	229
+1242	2026-03-24 01:00:00.173751	2026-03-23 00:00:00	DAY	3.8179	44	220
+1243	2026-03-24 01:00:00.175049	2026-03-23 00:00:00	DAY	4547960.8228	44	213
+1244	2026-03-24 01:00:00.176342	2026-03-23 00:00:00	DAY	14002668.0025	44	217
+1245	2026-03-24 01:00:00.177647	2026-03-23 00:00:00	DAY	1812.7674	44	195
+1246	2026-04-07 05:26:31.78614	2026-03-01 00:00:00	MONTH	146.8058	44	211
+1247	2026-04-07 05:26:31.83971	2026-03-01 00:00:00	MONTH	2047.4442	44	194
+1248	2026-04-07 05:26:31.842031	2026-03-01 00:00:00	MONTH	1232.0388	44	218
+1249	2026-04-07 05:26:31.843816	2026-03-01 00:00:00	MONTH	2029.9120	44	196
+1250	2026-04-07 05:26:31.849175	2026-03-01 00:00:00	MONTH	2609097.9439	44	212
+1251	2026-04-07 05:26:31.851675	2026-03-01 00:00:00	MONTH	211296.4837	45	200
+1252	2026-04-07 05:26:31.854464	2026-03-01 00:00:00	MONTH	1498.7613	44	197
+1253	2026-04-07 05:26:31.856427	2026-03-01 00:00:00	MONTH	8.4938	44	199
+1254	2026-04-07 05:26:31.858318	2026-03-01 00:00:00	MONTH	910.0395	44	219
+1255	2026-04-07 05:26:31.859632	2026-03-01 00:00:00	MONTH	120.4442	44	202
+1256	2026-04-07 05:26:31.861278	2026-03-01 00:00:00	MONTH	566.6885	44	214
+1257	2026-04-07 05:26:31.863553	2026-03-01 00:00:00	MONTH	2814118.2400	44	210
+1258	2026-04-07 05:26:31.864938	2026-03-01 00:00:00	MONTH	56.9174	44	225
+1259	2026-04-07 05:26:31.867021	2026-03-01 00:00:00	MONTH	2271220.8081	45	223
+1260	2026-04-07 05:26:31.868539	2026-03-01 00:00:00	MONTH	178.7766	44	206
+1261	2026-04-07 05:26:31.8698	2026-03-01 00:00:00	MONTH	1035.4215	44	198
+1262	2026-04-07 05:26:31.871051	2026-03-01 00:00:00	MONTH	1788054.8514	44	205
+1263	2026-04-07 05:26:31.872385	2026-03-01 00:00:00	MONTH	756193.0354	44	221
+1264	2026-04-07 05:26:31.873678	2026-03-01 00:00:00	MONTH	889555.9291	44	224
+1265	2026-04-07 05:26:31.875191	2026-03-01 00:00:00	MONTH	311639.6671	44	228
+1266	2026-04-07 05:26:31.876402	2026-03-01 00:00:00	MONTH	2114555.0818	44	203
+1267	2026-04-07 05:26:31.877685	2026-03-01 00:00:00	MONTH	71.1173	44	222
+1268	2026-04-07 05:26:31.878761	2026-03-01 00:00:00	MONTH	178.3664	44	204
+1269	2026-04-07 05:26:31.880099	2026-03-01 00:00:00	MONTH	411568.0451	46	207
+1270	2026-04-07 05:26:31.881876	2026-03-01 00:00:00	MONTH	111241.8684	46	229
+1271	2026-04-07 05:26:31.883439	2026-03-01 00:00:00	MONTH	3.8179	44	220
+1272	2026-04-07 05:26:31.885045	2026-03-01 00:00:00	MONTH	5116292.3171	44	213
+1273	2026-04-07 05:26:31.886276	2026-03-01 00:00:00	MONTH	7720400.7112	44	193
+1274	2026-04-07 05:26:31.887299	2026-03-01 00:00:00	MONTH	58.4909	44	209
+1275	2026-04-07 05:26:31.888507	2026-03-01 00:00:00	MONTH	14002668.0025	44	217
+1276	2026-04-07 05:26:31.889663	2026-03-01 00:00:00	MONTH	1133458.1708	44	201
+1277	2026-04-07 05:26:31.890835	2026-03-01 00:00:00	MONTH	144.4201	44	227
+1278	2026-04-07 05:26:31.892182	2026-03-01 00:00:00	MONTH	2039.3529	44	195
+1279	2026-04-07 05:26:31.893755	2026-03-01 00:00:00	MONTH	1412678.9955	44	226
+1280	2026-04-07 05:26:31.895528	2026-03-01 00:00:00	MONTH	612114.2494	44	208
+\.
+
+
+--
+-- Data for Name: ems_energy_saving_project; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_energy_saving_project (id, name, plan, implementation_plan, current_work, liable_person, saving_amount, completion_time, status, remark, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_energy_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_energy_type (id, created_at, updated_at, category, code, coefficient, color, default_price, emission_factor, icon, name, remark, sort_order, status, storable, unit) FROM stdin;
+44	2026-03-22 12:43:38.698189	2026-03-22 12:43:38.698189	\N	ELECTRIC	0.1229	\N	\N	0.5703	\N	电力	\N	0	0	f	kWh
+45	2026-03-22 12:43:38.712331	2026-03-22 12:43:38.712331	\N	WATER	0.0857	\N	\N	0.0000	\N	水	\N	0	0	f	m³
+46	2026-03-22 12:43:38.715393	2026-03-22 12:43:38.715393	\N	GAS	1.3300	\N	\N	2.1622	\N	天然气	\N	0	0	f	m³
+\.
+
+
+--
+-- Data for Name: ems_energy_unit; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_energy_unit (id, created_at, updated_at, code, level, name, remark, sort_order, status, parent_id, rated_current, rated_power, unit_type, voltage_level) FROM stdin;
+128	2026-03-22 12:43:38.720199	2026-03-22 12:43:38.720199	HW-ROOT	0	华味食品	\N	0	0	\N	\N	\N	GENERAL	\N
+129	2026-03-22 12:43:38.727231	2026-03-22 12:43:38.727231	HW-SC	1	生产车间	\N	0	0	128	\N	\N	GENERAL	\N
+130	2026-03-22 12:43:38.790741	2026-03-22 12:43:38.790741	HW-SC-PL	2	配料工段	\N	0	0	129	\N	\N	PROCESS	\N
+131	2026-03-22 12:43:38.809021	2026-03-22 12:43:38.809021	HW-SC-HB	2	烘焙工段	\N	0	0	129	\N	\N	PROCESS	\N
+132	2026-03-22 12:43:38.858367	2026-03-22 12:43:38.858367	HW-SC-BZ	2	包装工段	\N	0	0	129	\N	\N	PROCESS	\N
+133	2026-03-22 12:43:38.873463	2026-03-22 12:43:38.873463	HW-LK	1	冷库	\N	0	0	128	\N	\N	GENERAL	\N
+134	2026-03-22 12:43:38.915129	2026-03-22 12:43:38.915129	HW-PDR	1	配电房	\N	0	0	128	\N	\N	GENERAL	\N
+135	2026-03-22 12:43:38.936175	2026-03-22 12:43:38.936175	HW-GY	1	公用设施	\N	0	0	128	\N	\N	GENERAL	\N
+136	2026-03-22 12:43:38.957805	2026-03-22 12:43:38.957805	HW-GY-KY	2	空压站	\N	0	0	135	\N	\N	GENERAL	\N
+137	2026-03-22 12:43:38.974805	2026-03-22 12:43:38.974805	HW-GY-SS	2	给水站	\N	0	0	135	\N	\N	GENERAL	\N
+138	2026-03-22 12:43:38.984673	2026-03-22 12:43:38.984673	HW-OFC	1	办公楼	\N	0	0	128	\N	\N	GENERAL	\N
+139	2026-03-22 12:43:39.003711	2026-03-22 12:43:39.003711	HW-ST	1	食堂	\N	0	0	128	\N	\N	GENERAL	\N
+\.
+
+
+--
+-- Data for Name: ems_energy_unit_point; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_energy_unit_point (meter_point_id, energy_unit_id) FROM stdin;
+193	129
+194	129
+195	129
+196	129
+197	129
+198	129
+199	129
+200	129
+201	130
+202	130
+203	131
+204	131
+205	131
+206	131
+207	131
+208	132
+209	132
+210	133
+211	133
+212	133
+213	133
+214	133
+215	133
+216	133
+217	134
+218	134
+219	134
+220	134
+221	136
+222	136
+223	137
+224	138
+225	138
+226	138
+227	138
+228	139
+229	139
+\.
+
+
+--
+-- Data for Name: ems_equipment; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_equipment (id, created_at, updated_at, code, location, manufacturer, model_number, name, rated_power, remark, sort_order, status, type, energy_unit_id) FROM stdin;
+39	2026-03-22 12:43:38.794335	2026-03-22 12:43:38.794335	EQ-MIXER-01	配料间	广州银鹰	银鹰 HMJ-50	搅拌机	37.00	\N	0	0	搅拌设备	130
+40	2026-03-22 12:43:38.811866	2026-03-22 12:43:38.811866	EQ-OVEN-01	烘焙间	无锡新麦	新麦 SM-710E	1号烤箱	55.00	\N	0	0	烘焙设备	131
+41	2026-03-22 12:43:38.824874	2026-03-22 12:43:38.824874	EQ-OVEN-02	烘焙间	无锡新麦	新麦 SM-710E	2号烤箱	55.00	\N	0	0	烘焙设备	131
+42	2026-03-22 12:43:38.862291	2026-03-22 12:43:38.862291	EQ-PACK-01	包装间	佛山博宇	博宇 BZ-400	自动包装线	18.00	\N	0	0	包装设备	132
+43	2026-03-22 12:43:38.880069	2026-03-22 12:43:38.880069	EQ-COMP-01	冷库机房	比泽尔	比泽尔 4HE-18Y	1号冷冻压缩机	37.00	\N	0	0	制冷设备	133
+44	2026-03-22 12:43:38.891186	2026-03-22 12:43:38.891186	EQ-COMP-02	冷库机房	比泽尔	比泽尔 4HE-18Y	2号冷冻压缩机	37.00	\N	0	0	制冷设备	133
+45	2026-03-22 12:43:38.965279	2026-03-22 12:43:38.965279	EQ-COMP-AIR-01	空压站	阿特拉斯·科普柯	阿特拉斯 GA30	螺杆空压机	30.00	\N	0	0	空压设备	136
+\.
+
+
+--
+-- Data for Name: ems_gateway; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_gateway (id, created_at, updated_at, code, install_location, ip_address, last_heartbeat, manufacturer, model, name, remark, run_status, status, energy_unit_id, cpu_usage, mem_usage) FROM stdin;
+23	2026-03-22 12:43:38.731801	2026-03-22 12:43:38.731801	GW-001	生产车间配电柜旁	192.168.1.10	\N	映翰通	映翰通 IR915	生产车间网关	\N	UNKNOWN	0	129	\N	\N
+24	2026-03-22 12:43:38.876498	2026-03-22 12:43:38.876498	GW-002	冷库控制室		\N	有人物联网	有人 USR-G786	冷库网关	\N	UNKNOWN	0	133	\N	\N
+25	2026-03-22 12:43:38.91807	2026-03-22 12:43:38.91807	GW-PDR	配电房	192.168.1.100	\N	有人物联网	有人 USR-TCP232	配电房串口服务器	\N	UNKNOWN	0	134	\N	\N
+26	2026-03-22 12:43:38.961558	2026-03-22 12:43:38.961558	GW-KY	空压站	192.168.1.101	\N	有人物联网	有人 USR-TCP232	空压站串口服务器	\N	UNKNOWN	0	136	\N	\N
+27	2026-03-22 12:43:38.976881	2026-03-22 12:43:38.976881	GW-SS	厂区进水总管旁	192.168.1.102	\N	有人物联网	有人 USR-TCP232	给水站串口服务器	\N	UNKNOWN	0	137	\N	\N
+\.
+
+
+--
+-- Data for Name: ems_knowledge_article; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_knowledge_article (id, author, category, content, energy_type_id, sort_order, status, summary, title, view_count, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_meter; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_meter (id, created_at, updated_at, check_cycle, code, location, manufacturer, max_power, measure_range, model_number, name, person_charge, putrun_time, remark, reminder_cycle, start_time, status, type, wire_diameter, energy_type_id, comm_params, data_source_id, equipment_id, gateway_id, energy_unit_id) FROM stdin;
+101	2026-03-22 12:43:38.750943	2026-03-22 12:43:38.750943	\N	MTR-ACR220-001	生产车间总配电柜	安科瑞	\N	\N	安科瑞 ACR220EL	生产车间总电表	\N	\N	\N	\N	\N	0	多功能电力仪表	\N	44	\N	28	\N	23	129
+102	2026-03-22 12:43:38.777962	2026-03-22 12:43:38.777962	\N	MTR-WATER-001	车间进水管	宁波水表	\N	\N	宁水 LXLC-50	生产车间水表	\N	\N	\N	\N	\N	0	远传水表	\N	45	\N	29	\N	23	129
+103	2026-03-22 12:43:38.799194	2026-03-22 12:43:38.799194	\N	MTR-ACR120-001	配料间配电箱	安科瑞	\N	\N	安科瑞 ACR120EL	搅拌机电表	\N	\N	\N	\N	\N	0	电力仪表	\N	44	\N	28	39	23	130
+104	2026-03-22 12:43:38.814643	2026-03-22 12:43:38.814643	\N	MTR-ACR120-002	烘焙间配电箱	安科瑞	\N	\N	安科瑞 ACR120EL	1号烤箱电表	\N	\N	\N	\N	\N	0	电力仪表	\N	44	\N	28	40	23	131
+105	2026-03-22 12:43:38.830585	2026-03-22 12:43:38.830585	\N	MTR-ACR120-003	烘焙间配电箱	安科瑞	\N	\N	安科瑞 ACR120EL	2号烤箱电表	\N	\N	\N	\N	\N	0	电力仪表	\N	44	\N	28	41	23	131
+106	2026-03-22 12:43:38.848347	2026-03-22 12:43:38.848347	\N	MTR-GAS-001	烘焙间燃气管道	金卡智能	\N	\N	金卡 IC-G16	烘焙工段天然气表	\N	\N	\N	\N	\N	0	燃气表	\N	46	\N	29	\N	23	131
+107	2026-03-22 12:43:38.864863	2026-03-22 12:43:38.864863	\N	MTR-ACR120-004	包装间配电箱	安科瑞	\N	\N	安科瑞 ACR120EL	包装线电表	\N	\N	\N	\N	\N	0	电力仪表	\N	44	\N	28	42	23	132
+108	2026-03-22 12:43:38.88302	2026-03-22 12:43:38.88302	\N	MTR-ACR120-005	冷库配电柜	安科瑞	\N	\N	安科瑞 ACR120EL	1号压缩机电表	\N	\N	\N	\N	\N	0	电力仪表	\N	44	\N	30	43	24	133
+109	2026-03-22 12:43:38.893499	2026-03-22 12:43:38.893499	\N	MTR-ACR120-006	冷库配电柜	安科瑞	\N	\N	安科瑞 ACR120EL	2号压缩机电表	\N	\N	\N	\N	\N	0	电力仪表	\N	44	\N	30	44	24	133
+110	2026-03-22 12:43:38.898051	2026-03-22 12:43:38.898051	\N	MTR-ACR220-002	冷库配电柜	安科瑞	\N	\N	安科瑞 ACR220EL	冷库总电表	\N	\N	\N	\N	\N	0	多功能电力仪表	\N	44	\N	30	\N	24	133
+111	2026-03-22 12:43:38.905097	2026-03-22 12:43:38.905097	\N	MTR-TEMP-001	冷库内部	海康威视	\N	\N	海康 DS-1	冷库温度传感器	\N	\N	\N	\N	\N	0	温湿度传感器	\N	\N	\N	30	\N	24	133
+112	2026-03-22 12:43:38.920975	2026-03-22 12:43:38.920975	\N	MTR-PD194-001	10kV 高压配电柜	正泰电器	\N	\N	正泰 PD194E-9S4	高压进线总表	\N	\N	\N	\N	\N	0	多功能电力仪表	\N	44	{"slaveId":1}	31	\N	25	134
+113	2026-03-22 12:43:38.96741	2026-03-22 12:43:38.96741	\N	MTR-ACR120-007	空压站配电箱	威胜集团	\N	\N	威胜 DSSD331	空压机电表	\N	\N	\N	\N	\N	0	电力仪表	\N	44	{"slaveId":1}	32	45	26	136
+114	2026-03-22 12:43:38.979779	2026-03-22 12:43:38.979779	\N	MTR-WATER-010	厂区进水总管	宁波水表	\N	\N	宁水 LXLC-80	全厂总水表	\N	\N	\N	\N	\N	0	远传水表	\N	45	{"slaveId":1}	33	\N	27	137
+115	2026-03-22 12:43:38.986619	2026-03-22 12:43:38.986619	\N	MTR-BMS-001	办公楼配电间	\N	\N	\N	物业系统内置	办公楼总电表	\N	\N	\N	\N	\N	0	电力仪表	\N	44	\N	\N	\N	\N	138
+116	2026-03-22 12:43:38.996123	2026-03-22 12:43:38.996123	\N	MTR-BMS-002	办公楼空调机房	\N	\N	\N	物业系统内置	中央空调电表	\N	\N	\N	\N	\N	0	电力仪表	\N	44	\N	\N	\N	\N	138
+117	2026-03-22 12:43:39.005538	2026-03-22 12:43:39.005538	\N	MTR-BMS-003	食堂配电箱	\N	\N	\N	物业系统内置	食堂电表	\N	\N	\N	\N	\N	0	电力仪表	\N	44	\N	\N	\N	\N	139
+118	2026-03-22 12:43:39.009188	2026-03-22 12:43:39.009188	\N	MTR-BMS-GAS-001	食堂燃气管道	\N	\N	\N	物业系统内置	食堂天然气表	\N	\N	\N	\N	\N	0	燃气表	\N	46	\N	\N	\N	\N	139
+\.
+
+
+--
+-- Data for Name: ems_meter_point; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_meter_point (id, created_at, updated_at, category, code, initial_value, max_value, min_value, name, point_type, remark, sort_order, status, step_max, step_min, unit, energy_type_id, meter_id, acquisition_params, measure_type) FROM stdin;
+193	2026-03-22 12:43:38.758129	2026-03-22 12:43:38.758129	ENERGY	HW-E-001	\N	\N	\N	车间总表正向有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	101	\N	\N
+194	2026-03-22 12:43:38.763402	2026-03-22 12:43:38.763402	OPERATION	HW-E-002	\N	\N	\N	车间总表A相电压	COLLECT	\N	0	0	\N	\N	V	44	101	\N	\N
+195	2026-03-22 12:43:38.765379	2026-03-22 12:43:38.765379	OPERATION	HW-E-003	\N	\N	\N	车间总表B相电压	COLLECT	\N	0	0	\N	\N	V	44	101	\N	\N
+196	2026-03-22 12:43:38.767691	2026-03-22 12:43:38.767691	OPERATION	HW-E-004	\N	\N	\N	车间总表C相电压	COLLECT	\N	0	0	\N	\N	V	44	101	\N	\N
+197	2026-03-22 12:43:38.770135	2026-03-22 12:43:38.770135	OPERATION	HW-E-005	\N	\N	\N	车间总表A相电流	COLLECT	\N	0	0	\N	\N	A	44	101	\N	\N
+198	2026-03-22 12:43:38.773034	2026-03-22 12:43:38.773034	ENERGY	HW-E-006	\N	\N	\N	车间总表有功功率	COLLECT	\N	0	0	\N	\N	kW	44	101	\N	\N
+199	2026-03-22 12:43:38.775701	2026-03-22 12:43:38.775701	OPERATION	HW-E-007	\N	\N	\N	车间总表功率因数	COLLECT	\N	0	0	\N	\N		44	101	\N	\N
+200	2026-03-22 12:43:38.780109	2026-03-22 12:43:38.780109	ENERGY	HW-W-001	\N	\N	\N	车间用水量	COLLECT	\N	0	0	\N	\N	m³	45	102	\N	\N
+201	2026-03-22 12:43:38.802261	2026-03-22 12:43:38.802261	ENERGY	HW-E-010	\N	\N	\N	搅拌机有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	103	\N	\N
+202	2026-03-22 12:43:38.804879	2026-03-22 12:43:38.804879	ENERGY	HW-E-011	\N	\N	\N	搅拌机功率	COLLECT	\N	0	0	\N	\N	kW	44	103	\N	\N
+203	2026-03-22 12:43:38.817236	2026-03-22 12:43:38.817236	ENERGY	HW-E-020	\N	\N	\N	1号烤箱有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	104	\N	\N
+204	2026-03-22 12:43:38.819912	2026-03-22 12:43:38.819912	ENERGY	HW-E-021	\N	\N	\N	1号烤箱功率	COLLECT	\N	0	0	\N	\N	kW	44	104	\N	\N
+205	2026-03-22 12:43:38.835674	2026-03-22 12:43:38.835674	ENERGY	HW-E-022	\N	\N	\N	2号烤箱有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	105	\N	\N
+206	2026-03-22 12:43:38.842609	2026-03-22 12:43:38.842609	ENERGY	HW-E-023	\N	\N	\N	2号烤箱功率	COLLECT	\N	0	0	\N	\N	kW	44	105	\N	\N
+207	2026-03-22 12:43:38.852228	2026-03-22 12:43:38.852228	ENERGY	HW-G-001	\N	\N	\N	天然气用量	COLLECT	\N	0	0	\N	\N	m³	46	106	\N	\N
+208	2026-03-22 12:43:38.867304	2026-03-22 12:43:38.867304	ENERGY	HW-E-030	\N	\N	\N	包装线有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	107	\N	\N
+209	2026-03-22 12:43:38.869342	2026-03-22 12:43:38.869342	ENERGY	HW-E-031	\N	\N	\N	包装线功率	COLLECT	\N	0	0	\N	\N	kW	44	107	\N	\N
+210	2026-03-22 12:43:38.886542	2026-03-22 12:43:38.886542	ENERGY	HW-E-042	\N	\N	\N	1号压缩机电能	COLLECT	\N	0	0	\N	\N	kWh	44	108	\N	\N
+211	2026-03-22 12:43:38.888805	2026-03-22 12:43:38.888805	ENERGY	HW-E-043	\N	\N	\N	1号压缩机功率	COLLECT	\N	0	0	\N	\N	kW	44	108	\N	\N
+212	2026-03-22 12:43:38.895852	2026-03-22 12:43:38.895852	ENERGY	HW-E-044	\N	\N	\N	2号压缩机电能	COLLECT	\N	0	0	\N	\N	kWh	44	109	\N	\N
+213	2026-03-22 12:43:38.900197	2026-03-22 12:43:38.900197	ENERGY	HW-E-040	\N	\N	\N	冷库总有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	110	\N	\N
+214	2026-03-22 12:43:38.903014	2026-03-22 12:43:38.903014	ENERGY	HW-E-041	\N	\N	\N	冷库总功率	COLLECT	\N	0	0	\N	\N	kW	44	110	\N	\N
+215	2026-03-22 12:43:38.9075	2026-03-22 12:43:38.9075	OPERATION	HW-T-001	\N	\N	\N	冷冻库温度	COLLECT	\N	0	0	\N	\N	℃	\N	111	\N	\N
+216	2026-03-22 12:43:38.909686	2026-03-22 12:43:38.909686	OPERATION	HW-T-002	\N	\N	\N	冷藏库温度	COLLECT	\N	0	0	\N	\N	℃	\N	111	\N	\N
+217	2026-03-22 12:43:38.924779	2026-03-22 12:43:38.924779	ENERGY	HW-E-050	\N	\N	\N	全厂总有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	112	{"address":0,"functionCode":3,"dataType":"float32","byteOrder":"big_endian","scale":1.0,"offset":0.0}	\N
+218	2026-03-22 12:43:38.928013	2026-03-22 12:43:38.928013	ENERGY	HW-E-051	\N	\N	\N	全厂总有功功率	COLLECT	\N	0	0	\N	\N	kW	44	112	{"address":2,"functionCode":3,"dataType":"float32","byteOrder":"big_endian","scale":1.0,"offset":0.0}	\N
+219	2026-03-22 12:43:38.930242	2026-03-22 12:43:38.930242	OPERATION	HW-E-052	\N	\N	\N	高压进线A相电压	COLLECT	\N	0	0	\N	\N	V	44	112	{"address":4,"functionCode":3,"dataType":"float32","byteOrder":"big_endian","scale":1.0,"offset":0.0}	\N
+220	2026-03-22 12:43:38.932526	2026-03-22 12:43:38.932526	OPERATION	HW-E-053	\N	\N	\N	高压进线功率因数	COLLECT	\N	0	0	\N	\N		44	112	{"address":6,"functionCode":3,"dataType":"float32","byteOrder":"big_endian","scale":1.0,"offset":0.0}	\N
+221	2026-03-22 12:43:38.969396	2026-03-22 12:43:38.969396	ENERGY	HW-E-060	\N	\N	\N	空压机有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	113	{"address":0,"functionCode":3,"dataType":"float32","byteOrder":"big_endian","scale":1.0,"offset":0.0}	\N
+222	2026-03-22 12:43:38.971919	2026-03-22 12:43:38.971919	ENERGY	HW-E-061	\N	\N	\N	空压机功率	COLLECT	\N	0	0	\N	\N	kW	44	113	{"address":2,"functionCode":3,"dataType":"float32","byteOrder":"big_endian","scale":1.0,"offset":0.0}	\N
+223	2026-03-22 12:43:38.981829	2026-03-22 12:43:38.981829	ENERGY	HW-W-010	\N	\N	\N	全厂总用水量	COLLECT	\N	0	0	\N	\N	m³	45	114	{"address":0,"functionCode":3,"dataType":"uint32","byteOrder":"big_endian","scale":0.01,"offset":0.0}	\N
+224	2026-03-22 12:43:38.988388	2026-03-22 12:43:38.988388	ENERGY	HW-E-070	\N	\N	\N	办公楼有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	115	\N	\N
+225	2026-03-22 12:43:38.990169	2026-03-22 12:43:38.990169	ENERGY	HW-E-071	\N	\N	\N	办公楼功率	COLLECT	\N	0	0	\N	\N	kW	44	115	\N	\N
+226	2026-03-22 12:43:38.998108	2026-03-22 12:43:38.998108	ENERGY	HW-E-072	\N	\N	\N	空调有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	116	\N	\N
+227	2026-03-22 12:43:39.000118	2026-03-22 12:43:39.000118	ENERGY	HW-E-073	\N	\N	\N	空调功率	COLLECT	\N	0	0	\N	\N	kW	44	116	\N	\N
+228	2026-03-22 12:43:39.007383	2026-03-22 12:43:39.007383	ENERGY	HW-E-080	\N	\N	\N	食堂有功电能	COLLECT	\N	0	0	\N	\N	kWh	44	117	\N	\N
+229	2026-03-22 12:43:39.011072	2026-03-22 12:43:39.011072	ENERGY	HW-G-010	\N	\N	\N	食堂天然气用量	COLLECT	\N	0	0	\N	\N	m³	46	118	\N	\N
+\.
+
+
+--
+-- Data for Name: ems_peak_valley_data; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_peak_valley_data (id, cost, created_at, data_time, electricity, energy_unit_id, meter_point_id, period_type, price, time_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_policy; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_policy (id, title, type, department, issuing_date, file_url, summary, status, remark, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_price_policy; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_price_policy (id, created_at, updated_at, code, is_multi_rate, name, remark, sort_order, status, energy_type_id, effective_end_date, effective_start_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_price_policy_item; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_price_policy_item (id, created_at, updated_at, period_type, price, remark, sort_order, policy_id, end_time, start_time) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_product; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_product (id, created_at, updated_at, code, name, remark, sort_order, status, type, unit) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_production_record; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_production_record (id, created_at, updated_at, energy_unit_id, granularity, product_name, quantity, record_date, remark, unit, data_type, product_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ems_time_period_price; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ems_time_period_price (id, created_at, updated_at, end_time, period_name, period_type, price, price_policy_id, remark, sort_order, start_time, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: sys_config; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_config (id, created_at, updated_at, config_key, config_name, config_type, config_value, remark) FROM stdin;
+\.
+
+
+--
+-- Data for Name: sys_dept; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_dept (id, created_at, updated_at, ancestors, code, email, leader, name, phone, sort_order, status, parent_id, manager_id, description) FROM stdin;
+100	2026-02-16 09:22:38.179264	2026-02-16 09:22:38.179264	0	TERRA	admin@terra.com	张三	泰若科技	13800000001	0	0	\N	\N	\N
+202	2026-02-19 16:45:04.90434	2026-02-19 16:45:04.90434	\N	\N	\N	\N	研发中心	\N	0	0	100	97	总部研发中心
+101	2026-02-16 09:22:38.179264	2026-02-19 17:57:30.44432	null,100	SZ-TERRA	sz@terra.com	李四	深圳分公司	13800000002	1	1	100	\N	\N
+103	2026-02-16 09:22:38.179264	2026-02-19 20:19:01.014779	null,100,101	R&D	rd@terra.com	赵六	研发部门	13800000004	1	0	101	96	深圳公司研发部门
+205	2026-02-19 20:19:41.451004	2026-02-19 20:19:41.451004	0,100	\N	\N	\N	测试中心	\N	0	0	100	97	全局测试中心
+\.
+
+
+--
+-- Data for Name: sys_dict_data; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_dict_data (id, created_at, updated_at, is_default, label, remark, sort_order, status, tag_color, tag_type, type_code, value) FROM stdin;
+1	2026-01-16 23:29:55.931083	\N	Y	男	\N	1	0	\N	processing	SYS_USER_SEX	0
+2	2026-01-16 23:29:55.931083	\N	N	女	\N	2	0	\N	success	SYS_USER_SEX	1
+3	2026-01-16 23:29:55.931083	\N	N	未知	\N	3	0	\N	default	SYS_USER_SEX	2
+4	2026-01-16 23:29:55.934998	\N	Y	显示	\N	1	0	\N	processing	SYS_SHOW_HIDE	0
+5	2026-01-16 23:29:55.934998	\N	N	隐藏	\N	2	0	\N	error	SYS_SHOW_HIDE	1
+6	2026-01-16 23:29:55.935936	\N	Y	正常	\N	1	0	\N	processing	SYS_NORMAL_DISABLE	0
+7	2026-01-16 23:29:55.935936	\N	N	停用	\N	2	0	\N	error	SYS_NORMAL_DISABLE	1
+8	2026-01-16 23:29:55.936777	\N	Y	正常	\N	1	0	\N	processing	SYS_JOB_STATUS	0
+9	2026-01-16 23:29:55.936777	\N	N	暂停	\N	2	0	\N	error	SYS_JOB_STATUS	1
+10	2026-01-16 23:29:55.937818	\N	Y	默认	\N	1	0	\N	default	SYS_JOB_GROUP	DEFAULT
+11	2026-01-16 23:29:55.937818	\N	N	系统	\N	2	0	\N	processing	SYS_JOB_GROUP	SYSTEM
+12	2026-01-16 23:29:55.938778	\N	Y	是	\N	1	0	\N	processing	SYS_YES_NO	Y
+13	2026-01-16 23:29:55.938778	\N	N	否	\N	2	0	\N	error	SYS_YES_NO	N
+14	2026-01-16 23:29:55.93944	\N	Y	通知	\N	1	0	\N	warning	SYS_NOTICE_TYPE	1
+15	2026-01-16 23:29:55.93944	\N	N	公告	\N	2	0	\N	success	SYS_NOTICE_TYPE	2
+16	2026-01-16 23:29:55.940013	\N	Y	正常	\N	1	0	\N	processing	SYS_NOTICE_STATUS	0
+17	2026-01-16 23:29:55.940013	\N	N	关闭	\N	2	0	\N	error	SYS_NOTICE_STATUS	1
+18	2026-01-16 23:29:55.940641	\N	N	新增	\N	1	0	\N	success	SYS_OPER_TYPE	1
+19	2026-01-16 23:29:55.940641	\N	N	修改	\N	2	0	\N	processing	SYS_OPER_TYPE	2
+20	2026-01-16 23:29:55.940641	\N	N	删除	\N	3	0	\N	error	SYS_OPER_TYPE	3
+21	2026-01-16 23:29:55.940641	\N	N	授权	\N	4	0	\N	processing	SYS_OPER_TYPE	4
+22	2026-01-16 23:29:55.940641	\N	N	导出	\N	5	0	\N	warning	SYS_OPER_TYPE	5
+23	2026-01-16 23:29:55.940641	\N	N	导入	\N	6	0	\N	warning	SYS_OPER_TYPE	6
+24	2026-01-16 23:29:55.940641	\N	N	强退	\N	7	0	\N	error	SYS_OPER_TYPE	7
+25	2026-01-16 23:29:55.940641	\N	N	生成代码	\N	8	0	\N	warning	SYS_OPER_TYPE	8
+26	2026-01-16 23:29:55.940641	\N	N	清空数据	\N	9	0	\N	error	SYS_OPER_TYPE	9
+27	2026-01-16 23:29:55.941242	\N	Y	成功	\N	1	0	\N	success	SYS_COMMON_STATUS	0
+28	2026-01-16 23:29:55.941242	\N	N	失败	\N	2	0	\N	error	SYS_COMMON_STATUS	1
+29	2026-01-16 23:29:55.94178	\N	Y	是	\N	1	0	\N	processing	SYS_IS_DEFAULT	Y
+30	2026-01-16 23:29:55.94178	\N	N	否	\N	2	0	\N	default	SYS_IS_DEFAULT	N
+31	2026-01-16 23:29:55.94232	\N	Y	启用	\N	1	0	\N	success	SYS_IS_ENABLE	Y
+32	2026-01-16 23:29:55.94232	\N	N	停用	\N	2	0	\N	error	SYS_IS_ENABLE	N
+33	2026-01-16 23:29:55.942869	\N	N	千瓦时	\N	1	0	\N	default	SYS_UNIT	kWh
+34	2026-01-16 23:29:55.942869	\N	N	千瓦	\N	2	0	\N	default	SYS_UNIT	kW
+35	2026-01-16 23:29:55.942869	\N	N	安培	\N	3	0	\N	default	SYS_UNIT	A
+36	2026-01-16 23:29:55.942869	\N	N	毫安	\N	4	0	\N	default	SYS_UNIT	mA
+37	2026-01-16 23:29:55.942869	\N	N	伏特	\N	5	0	\N	default	SYS_UNIT	V
+38	2026-01-16 23:29:55.942869	\N	N	千伏	\N	6	0	\N	default	SYS_UNIT	kV
+39	2026-01-16 23:29:55.942869	\N	N	千乏	\N	7	0	\N	default	SYS_UNIT	kVAR
+40	2026-01-16 23:29:55.942869	\N	N	伏安	\N	8	0	\N	default	SYS_UNIT	VA
+41	2026-01-16 23:29:55.942869	\N	N	赫兹	\N	9	0	\N	default	SYS_UNIT	Hz
+42	2026-01-16 23:29:55.942869	\N	N	立方米	\N	10	0	\N	default	SYS_UNIT	m³
+43	2026-01-16 23:29:55.942869	\N	N	立方米/小时	\N	11	0	\N	default	SYS_UNIT	m³/h
+44	2026-01-16 23:29:55.942869	\N	N	标准立方米	\N	12	0	\N	default	SYS_UNIT	Nm³
+45	2026-01-16 23:29:55.942869	\N	N	标准立方米/小时	\N	13	0	\N	default	SYS_UNIT	Nm³/h
+46	2026-01-16 23:29:55.942869	\N	N	吨	\N	14	0	\N	default	SYS_UNIT	t
+47	2026-01-16 23:29:55.942869	\N	N	千克	\N	15	0	\N	default	SYS_UNIT	kg
+48	2026-01-16 23:29:55.942869	\N	N	吨/小时	\N	16	0	\N	default	SYS_UNIT	t/h
+49	2026-01-16 23:29:55.942869	\N	N	千克/小时	\N	17	0	\N	default	SYS_UNIT	kg/h
+50	2026-01-16 23:29:55.942869	\N	N	千克/立方米	\N	18	0	\N	default	SYS_UNIT	kg/m³
+51	2026-01-16 23:29:55.942869	\N	N	兆帕	\N	19	0	\N	default	SYS_UNIT	MPa
+52	2026-01-16 23:29:55.942869	\N	N	千帕	\N	20	0	\N	default	SYS_UNIT	kPa
+53	2026-01-16 23:29:55.942869	\N	N	帕	\N	21	0	\N	default	SYS_UNIT	Pa
+54	2026-01-16 23:29:55.942869	\N	N	摄氏度	\N	22	0	\N	default	SYS_UNIT	℃
+55	2026-01-16 23:29:55.942869	\N	N	华氏度	\N	23	0	\N	default	SYS_UNIT	℉
+56	2026-01-16 23:29:55.942869	\N	N	相对湿度	\N	24	0	\N	default	SYS_UNIT	%RH
+57	2026-01-16 23:29:55.942869	\N	N	百分比	\N	25	0	\N	default	SYS_UNIT	%
+58	2026-01-16 23:29:55.942869	\N	N	元	\N	26	0	\N	default	SYS_UNIT	RMB
+59	2026-01-16 23:29:55.942869	\N	N	个	\N	27	0	\N	default	SYS_UNIT	N
+60	2026-01-16 23:29:55.942869	\N	N	小时	\N	28	0	\N	default	SYS_UNIT	hour
+61	2026-01-16 23:29:55.942869	\N	N	次	\N	29	0	\N	default	SYS_UNIT	times
+62	2026-01-16 23:29:55.942869	\N	N	吨标准煤	\N	30	0	\N	default	SYS_UNIT	tce
+63	2026-01-16 23:29:55.942869	\N	N	千克标准煤/吨	\N	31	0	\N	default	SYS_UNIT	kgce/t
+64	2026-01-16 23:29:55.944376	\N	N	尖	\N	1	0	\N	error	ELECTRICITY_PRICE	SHARP
+65	2026-01-16 23:29:55.944376	\N	N	峰	\N	2	0	\N	warning	ELECTRICITY_PRICE	PEAK
+66	2026-01-16 23:29:55.944376	\N	N	平	\N	3	0	\N	success	ELECTRICITY_PRICE	FLAT
+67	2026-01-16 23:29:55.944376	\N	N	谷	\N	4	0	\N	default	ELECTRICITY_PRICE	VALLEY
+68	2026-01-16 23:29:55.944376	\N	N	深谷	\N	5	0	\N	processing	ELECTRICITY_PRICE	DEEP
+69	2026-01-16 23:29:55.944868	\N	Y	能源类指标	\N	1	0	\N	processing	INDEX_CATEGORY	1
+70	2026-01-16 23:29:55.944868	\N	N	产品类指标	\N	2	0	\N	success	INDEX_CATEGORY	2
+71	2026-01-16 23:29:55.944868	\N	N	能效类指标	\N	3	0	\N	warning	INDEX_CATEGORY	3
+72	2026-01-16 23:29:55.944868	\N	N	经营类指标	\N	4	0	\N	default	INDEX_CATEGORY	4
+73	2026-01-16 23:29:55.944868	\N	N	其他	\N	5	0	\N	default	INDEX_CATEGORY	5
+74	2026-01-16 23:29:55.945372	\N	Y	电表	\N	1	0	\N	processing	DEVICE_TYPE	1
+75	2026-01-16 23:29:55.945372	\N	N	水表	\N	2	0	\N	processing	DEVICE_TYPE	2
+76	2026-01-16 23:29:55.945372	\N	N	变频器	\N	3	0	\N	default	DEVICE_TYPE	3
+77	2026-01-16 23:29:55.945372	\N	N	温湿度表	\N	4	0	\N	default	DEVICE_TYPE	4
+78	2026-01-16 23:29:55.945372	\N	N	压力表	\N	5	0	\N	default	DEVICE_TYPE	5
+79	2026-01-16 23:29:55.945372	\N	N	蒸汽表	\N	6	0	\N	default	DEVICE_TYPE	6
+80	2026-01-16 23:29:55.945372	\N	N	氮气表	\N	7	0	\N	default	DEVICE_TYPE	7
+81	2026-01-16 23:29:55.945372	\N	N	天然气表	\N	10	0	\N	default	DEVICE_TYPE	10
+82	2026-01-16 23:29:55.947454	\N	N	使用中	\N	1	0	\N	success	METER_STATUS	1
+83	2026-01-16 23:29:55.947454	\N	N	检修中	\N	2	0	\N	warning	METER_STATUS	2
+84	2026-01-16 23:29:55.947454	\N	Y	备用	\N	3	0	\N	default	METER_STATUS	3
+85	2026-01-16 23:29:55.947918	\N	N	实时数据	\N	1	0	\N	processing	DATA_TYPE	1
+86	2026-01-16 23:29:55.947918	\N	N	阶段数据	\N	2	0	\N	success	DATA_TYPE	2
+87	2026-01-16 23:29:55.948373	\N	Y	公司	\N	0	0	\N	processing	NODE_CATEGORY	0
+88	2026-01-16 23:29:55.948373	\N	N	厂部	\N	1	0	\N	processing	NODE_CATEGORY	1
+89	2026-01-16 23:29:55.948373	\N	N	配电室	\N	2	0	\N	default	NODE_CATEGORY	2
+90	2026-01-16 23:29:55.948373	\N	N	区域	\N	3	0	\N	default	NODE_CATEGORY	3
+91	2026-01-16 23:29:55.948373	\N	N	重点能耗设备	\N	4	0	\N	warning	NODE_CATEGORY	4
+92	2026-01-16 23:29:55.948373	\N	N	设备	\N	5	0	\N	default	NODE_CATEGORY	5
+93	2026-01-16 23:29:55.948373	\N	N	其他	\N	9	0	\N	default	NODE_CATEGORY	9
+94	2026-01-16 23:29:55.948842	\N	Y	一级	\N	1	0	\N	success	FACILITY_GRADE	1
+95	2026-01-16 23:29:55.948842	\N	N	二级	\N	2	0	\N	processing	FACILITY_GRADE	2
+96	2026-01-16 23:29:55.948842	\N	N	三级	\N	3	0	\N	warning	FACILITY_GRADE	3
+97	2026-01-16 23:29:55.948842	\N	N	无	\N	4	0	\N	default	FACILITY_GRADE	4
+98	2026-01-16 23:29:55.949343	\N	Y	空压机	\N	1	0	\N	default	FACILITY_TYPE	0
+99	2026-01-16 23:29:55.949343	\N	N	电机	\N	2	0	\N	default	FACILITY_TYPE	1
+100	2026-01-16 23:29:55.949343	\N	N	风机	\N	3	0	\N	default	FACILITY_TYPE	2
+101	2026-01-16 23:29:55.949343	\N	N	水泵	\N	4	0	\N	default	FACILITY_TYPE	3
+102	2026-01-16 23:29:55.949343	\N	N	变压器	\N	5	0	\N	default	FACILITY_TYPE	4
+103	2026-01-16 23:29:55.949343	\N	N	制冷机	\N	6	0	\N	default	FACILITY_TYPE	5
+104	2026-01-16 23:29:55.949343	\N	N	锅炉	\N	7	0	\N	default	FACILITY_TYPE	6
+105	2026-01-16 23:29:55.949343	\N	N	输送机	\N	8	0	\N	default	FACILITY_TYPE	7
+106	2026-01-16 23:29:55.949343	\N	N	破碎机	\N	9	0	\N	default	FACILITY_TYPE	8
+107	2026-01-16 23:29:55.949343	\N	N	其他	\N	10	0	\N	default	FACILITY_TYPE	99
+108	2026-01-16 23:29:55.949937	\N	Y	指标配置	\N	1	0	\N	processing	MODEL_TYPE	index
+109	2026-01-16 23:29:55.949937	\N	N	仅节点	\N	2	0	\N	default	MODEL_TYPE	node
+110	2026-01-16 23:29:55.950363	\N	Y	实时	\N	0	0	\N	processing	WARN_TIME_SLOT	LIVE
+111	2026-01-16 23:29:55.950363	\N	N	小时	\N	1	0	\N	default	WARN_TIME_SLOT	HOUR
+112	2026-01-16 23:29:55.950363	\N	N	天	\N	2	0	\N	default	WARN_TIME_SLOT	DAY
+113	2026-01-16 23:29:55.950363	\N	N	月	\N	3	0	\N	default	WARN_TIME_SLOT	MONTH
+114	2026-01-16 23:29:55.950363	\N	N	年	\N	4	0	\N	default	WARN_TIME_SLOT	YEAR
+115	2026-01-16 23:29:55.950805	\N	Y	预警	\N	1	0	\N	warning	ALARM_TYPE	WARNING
+116	2026-01-16 23:29:55.950805	\N	N	报警	\N	2	0	\N	error	ALARM_TYPE	ALARM
+117	2026-01-16 23:29:55.951615	\N	N	高	\N	1	0	\N	error	ALARM_LEVEL	1
+118	2026-01-16 23:29:55.951615	\N	N	中	\N	2	0	\N	warning	ALARM_LEVEL	2
+119	2026-01-16 23:29:55.951615	\N	Y	低	\N	3	0	\N	default	ALARM_LEVEL	3
+120	2026-01-16 23:29:55.952042	\N	N	上限	\N	1	0	\N	warning	LIMIT_TYPE	1
+121	2026-01-16 23:29:55.952042	\N	N	下限	\N	2	0	\N	processing	LIMIT_TYPE	2
+122	2026-01-16 23:29:55.952456	\N	Y	月	\N	1	0	\N	default	TIME_TYPE	MONTH
+123	2026-01-16 23:29:55.952456	\N	N	年	\N	2	0	\N	default	TIME_TYPE	YEAR
+124	2026-01-16 23:29:55.952909	\N	N	日	\N	1	0	\N	default	DATE_TYPE	DAY
+125	2026-01-16 23:29:55.952909	\N	Y	月	\N	2	0	\N	default	DATE_TYPE	MONTH
+126	2026-01-16 23:29:55.952909	\N	N	年	\N	3	0	\N	default	DATE_TYPE	YEAR
+127	2026-01-16 23:29:55.953352	\N	N	天	\N	1	0	\N	default	PERIOD	DAY
+128	2026-01-16 23:29:55.953352	\N	Y	月	\N	2	0	\N	default	PERIOD	MONTH
+129	2026-01-16 23:29:55.953352	\N	N	年	\N	3	0	\N	default	PERIOD	YEAR
+130	2026-01-16 23:29:55.953883	\N	Y	小时	\N	1	0	\N	default	ENTRY_DATA_TIME	HOUR
+131	2026-01-16 23:29:55.953883	\N	N	日	\N	2	0	\N	default	ENTRY_DATA_TIME	DAY
+132	2026-01-16 23:29:55.953883	\N	N	月	\N	3	0	\N	default	ENTRY_DATA_TIME	MONTH
+133	2026-01-16 23:29:55.953883	\N	N	年	\N	4	0	\N	default	ENTRY_DATA_TIME	YEAR
+\.
+
+
+--
+-- Data for Name: sys_dict_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_dict_type (id, created_at, updated_at, name, remark, status, type) FROM stdin;
+1	2026-01-16 23:29:55.925112	\N	用户性别	用户性别列表	0	SYS_USER_SEX
+2	2026-01-16 23:29:55.925112	\N	菜单状态	菜单状态列表	0	SYS_SHOW_HIDE
+3	2026-01-16 23:29:55.925112	\N	系统开关	系统开关列表	0	SYS_NORMAL_DISABLE
+4	2026-01-16 23:29:55.925112	\N	任务状态	任务状态列表	0	SYS_JOB_STATUS
+5	2026-01-16 23:29:55.925112	\N	任务分组	任务分组列表	0	SYS_JOB_GROUP
+6	2026-01-16 23:29:55.925112	\N	系统是否	系统是否列表	0	SYS_YES_NO
+7	2026-01-16 23:29:55.925112	\N	通知类型	通知类型列表	0	SYS_NOTICE_TYPE
+8	2026-01-16 23:29:55.925112	\N	通知状态	通知状态列表	0	SYS_NOTICE_STATUS
+9	2026-01-16 23:29:55.925112	\N	操作类型	操作类型列表	0	SYS_OPER_TYPE
+10	2026-01-16 23:29:55.925112	\N	系统状态	登录状态列表	0	SYS_COMMON_STATUS
+11	2026-01-16 23:29:55.925112	\N	单位管理	单位基础数据	0	SYS_UNIT
+12	2026-01-16 23:29:55.925112	\N	是否默认	字典数据是否默认	0	SYS_IS_DEFAULT
+13	2026-01-16 23:29:55.925112	\N	是否启用	是否启用开关	0	SYS_IS_ENABLE
+20	2026-01-16 23:29:55.925112	\N	尖峰平谷配置	电价类别配置	0	ELECTRICITY_PRICE
+21	2026-01-16 23:29:55.925112	\N	指标类型	系统指标类型	0	INDEX_CATEGORY
+22	2026-01-16 23:29:55.925112	\N	计量器具类型	计量器具类型	0	DEVICE_TYPE
+23	2026-01-16 23:29:55.925112	\N	计量器具状态	计量器具的使用状态	0	METER_STATUS
+24	2026-01-16 23:29:55.925112	\N	参数数据类型	标准参数配置数据类型	0	DATA_TYPE
+25	2026-01-16 23:29:55.925112	\N	指标节点类型	指标节点分类	0	NODE_CATEGORY
+26	2026-01-16 23:29:55.925112	\N	能耗等级	设备档案的能耗等级	0	FACILITY_GRADE
+27	2026-01-16 23:29:55.925112	\N	设备类型	设备档案管理的设备类型	0	FACILITY_TYPE
+28	2026-01-16 23:29:55.925112	\N	应用模型类型	应用模型类型	0	MODEL_TYPE
+30	2026-01-16 23:29:55.925112	\N	预警报警时段	预警报警时段类型	0	WARN_TIME_SLOT
+31	2026-01-16 23:29:55.925112	\N	预警报警类型	预警报警类型	0	ALARM_TYPE
+32	2026-01-16 23:29:55.925112	\N	报警级别	报警级别	0	ALARM_LEVEL
+33	2026-01-16 23:29:55.925112	\N	预报警限值类型	预报警限值类型	0	LIMIT_TYPE
+40	2026-01-16 23:29:55.925112	\N	统计时间	统计时间类型	0	TIME_TYPE
+41	2026-01-16 23:29:55.925112	\N	用能统计时间	用能统计时间类型	0	DATE_TYPE
+42	2026-01-16 23:29:55.925112	\N	期间	数据录入期间类型	0	PERIOD
+43	2026-01-16 23:29:55.925112	\N	阶段数据录入时间	阶段数据录入时间类型	0	ENTRY_DATA_TIME
+\.
+
+
+--
+-- Data for Name: sys_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, ip, location, log_type, method, param, request_method, result, status, title, url, username) FROM stdin;
+\.
+
+
+--
+-- Data for Name: sys_login_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_login_log (id, created_at, updated_at, browser, ipaddr, login_location, login_time, msg, os, status, user_name) FROM stdin;
+1	2026-02-10 20:57:31.854348	2026-02-10 20:57:31.854348	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+2	2026-02-10 20:57:36.173295	2026-02-10 20:57:36.173295	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+3	2026-02-10 23:21:05.5312	2026-02-10 23:21:05.5312	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+4	2026-02-10 23:28:27.648384	2026-02-10 23:28:27.648384	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+5	2026-02-10 23:28:44.200454	2026-02-10 23:28:44.200454	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+6	2026-02-11 09:11:04.326477	2026-02-11 09:11:04.326477	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+7	2026-02-11 10:55:32.03887	2026-02-11 10:55:32.03887	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+8	2026-02-11 12:45:39.461592	2026-02-11 12:45:39.461592	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+9	2026-02-11 14:03:42.084744	2026-02-11 14:03:42.084744	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+10	2026-02-11 17:34:12.075413	2026-02-11 17:34:12.075413	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+11	2026-02-11 20:52:51.56867	2026-02-11 20:52:51.56867	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+12	2026-02-12 09:31:03.506608	2026-02-12 09:31:03.506608	Chrome	127.0.0.1	内网IP	\N	验证码已失效	OSX	1	unknown
+13	2026-02-12 09:31:19.895	2026-02-12 09:31:19.895	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+14	2026-02-15 08:26:50.980441	2026-02-15 08:26:50.980441	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+15	2026-02-15 23:48:30.458804	2026-02-15 23:48:30.458804	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+16	2026-02-15 23:48:38.686681	2026-02-15 23:48:38.686681	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+17	2026-02-16 07:57:56.873234	2026-02-16 07:57:56.873234	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+18	2026-02-16 08:28:20.341694	2026-02-16 08:28:20.341694	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+19	2026-02-16 09:07:29.495166	2026-02-16 09:07:29.495166	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+20	2026-02-16 12:20:53.668887	2026-02-16 12:20:53.668887	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+21	2026-02-16 17:04:30.474955	2026-02-16 17:04:30.474955	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+22	2026-02-16 18:30:25.35152	2026-02-16 18:30:25.35152	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+23	2026-02-16 21:04:40.168835	2026-02-16 21:04:40.168835	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+24	2026-02-16 22:50:43.982379	2026-02-16 22:50:43.982379	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+25	2026-02-17 08:15:33.68012	2026-02-17 08:15:33.68012	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+26	2026-02-17 09:11:02.528752	2026-02-17 09:11:02.528752	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+27	2026-02-17 09:11:06.495634	2026-02-17 09:11:06.495634	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+28	2026-02-17 10:06:05.832408	2026-02-17 10:06:05.832408	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+29	2026-02-17 10:06:10.335206	2026-02-17 10:06:10.335206	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+30	2026-02-17 13:25:31.36109	2026-02-17 13:25:31.36109	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+31	2026-02-17 16:33:53.648276	2026-02-17 16:33:53.648276	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+32	2026-02-17 17:11:04.565389	2026-02-17 17:11:04.565389	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+33	2026-02-17 19:20:06.772346	2026-02-17 19:20:06.772346	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+34	2026-02-17 20:31:25.453482	2026-02-17 20:31:25.453482	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+35	2026-02-17 21:18:40.726846	2026-02-17 21:18:40.726846	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+36	2026-02-17 21:18:47.095045	2026-02-17 21:18:47.095045	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+37	2026-02-17 21:20:20.56686	2026-02-17 21:20:20.56686	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+38	2026-02-17 21:36:06.175448	2026-02-17 21:36:06.175448	Chrome	127.0.0.1	内网IP	\N	用户名或密码错误	OSX	1	unknown
+39	2026-02-17 21:36:20.204013	2026-02-17 21:36:20.204013	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+40	2026-02-17 21:43:51.238441	2026-02-17 21:43:51.238441	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	li.hang
+41	2026-02-17 21:44:09.264024	2026-02-17 21:44:09.264024	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+42	2026-02-17 21:44:14.249747	2026-02-17 21:44:14.249747	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+43	2026-02-17 21:59:02.57311	2026-02-17 21:59:02.57311	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	li.hang
+44	2026-02-17 21:59:19.166565	2026-02-17 21:59:19.166565	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+45	2026-02-18 09:37:50.577189	2026-02-18 09:37:50.577189	Chrome	127.0.0.1	内网IP	\N	验证码已失效	OSX	1	unknown
+46	2026-02-18 09:37:59.561647	2026-02-18 09:37:59.561647	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+47	2026-02-19 08:36:43.423744	2026-02-19 08:36:43.423744	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+48	2026-02-19 09:52:47.282955	2026-02-19 09:52:47.282955	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+49	2026-02-19 15:25:19.819972	2026-02-19 15:25:19.819972	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+50	2026-02-19 15:29:27.42883	2026-02-19 15:29:27.42883	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+51	2026-02-19 19:56:57.618783	2026-02-19 19:56:57.618783	Chrome	127.0.0.1	内网IP	\N	验证码已失效	OSX	1	unknown
+52	2026-02-19 19:57:03.282453	2026-02-19 19:57:03.282453	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+53	2026-02-19 20:38:50.371523	2026-02-19 20:38:50.371523	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+54	2026-02-19 20:38:55.625133	2026-02-19 20:38:55.625133	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+55	2026-02-19 20:39:01.19193	2026-02-19 20:39:01.19193	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+56	2026-02-19 23:14:18.819749	2026-02-19 23:14:18.819749	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+57	2026-02-20 08:32:18.847397	2026-02-20 08:32:18.847397	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+58	2026-02-20 09:17:01.06448	2026-02-20 09:17:01.06448	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+59	2026-02-20 09:17:05.895816	2026-02-20 09:17:05.895816	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+60	2026-02-20 09:46:45.614759	2026-02-20 09:46:45.614759	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+61	2026-02-20 10:53:49.596902	2026-02-20 10:53:49.596902	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+62	2026-02-20 17:38:24.105843	2026-02-20 17:38:24.105843	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+63	2026-02-20 17:38:28.874763	2026-02-20 17:38:28.874763	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+64	2026-02-20 17:50:03.14754	2026-02-20 17:50:03.14754	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+65	2026-02-21 09:07:42.114876	2026-02-21 09:07:42.114876	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+66	2026-02-21 13:17:31.904537	2026-02-21 13:17:31.904537	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+67	2026-02-21 17:56:39.364655	2026-02-21 17:56:39.364655	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+68	2026-02-21 21:33:39.473633	2026-02-21 21:33:39.473633	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+69	2026-02-21 22:36:38.099545	2026-02-21 22:36:38.099545	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+70	2026-02-21 23:06:48.702298	2026-02-21 23:06:48.702298	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+71	2026-02-22 00:17:42.69689	2026-02-22 00:17:42.69689	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+72	2026-02-22 00:17:46.712741	2026-02-22 00:17:46.712741	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+73	2026-02-22 07:14:22.24298	2026-02-22 07:14:22.24298	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+74	2026-02-22 14:27:08.944128	2026-02-22 14:27:08.944128	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+75	2026-02-22 14:27:16.658806	2026-02-22 14:27:16.658806	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+76	2026-02-23 16:05:34.942705	2026-02-23 16:05:34.942705	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+77	2026-02-23 16:14:22.193365	2026-02-23 16:14:22.193365	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+78	2026-02-23 16:14:28.406156	2026-02-23 16:14:28.406156	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+79	2026-02-23 16:29:45.642084	2026-02-23 16:29:45.642084	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+80	2026-02-23 16:35:02.656218	2026-02-23 16:35:02.656218	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+81	2026-02-23 16:42:34.277662	2026-02-23 16:42:34.277662	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+82	2026-02-23 16:57:18.625398	2026-02-23 16:57:18.625398	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+83	2026-02-23 17:02:01.516917	2026-02-23 17:02:01.516917	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+84	2026-02-23 17:13:05.425128	2026-02-23 17:13:05.425128	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+85	2026-02-23 17:28:06.751839	2026-02-23 17:28:06.751839	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+86	2026-02-23 17:28:12.639473	2026-02-23 17:28:12.639473	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+87	2026-02-23 22:14:27.132984	2026-02-23 22:14:27.132984	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+88	2026-02-24 08:10:55.862512	2026-02-24 08:10:55.862512	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+89	2026-02-25 21:25:17.435765	2026-02-25 21:25:17.435765	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+90	2026-02-25 23:09:07.847061	2026-02-25 23:09:07.847061	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+91	2026-02-25 23:30:00.505054	2026-02-25 23:30:00.505054	Chrome	127.0.0.1	内网IP	\N	验证码已失效	OSX	1	unknown
+92	2026-02-25 23:30:07.824484	2026-02-25 23:30:07.824484	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+93	2026-02-25 23:50:21.006666	2026-02-25 23:50:21.006666	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+94	2026-02-26 00:25:38.657948	2026-02-26 00:25:38.657948	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+95	2026-02-26 07:12:46.812176	2026-02-26 07:12:46.812176	Chrome	127.0.0.1	内网IP	\N	验证码错误	OSX	1	unknown
+96	2026-02-26 07:12:50.89965	2026-02-26 07:12:50.89965	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+97	2026-02-26 08:23:45.424514	2026-02-26 08:23:45.424514	Chrome	127.0.0.1	内网IP	\N	登录成功	OSX	0	admin
+98	2026-02-26 20:59:07.730377	2026-02-26 20:59:07.730377	Chrome	127.0.0.1	内网IP	2026-02-26 20:59:07.728153	登录成功	OSX	0	admin
+99	2026-02-26 23:16:20.518835	2026-02-26 23:16:20.518835	Chrome	127.0.0.1	内网IP	2026-02-26 23:16:20.510475	验证码已失效	OSX	1	unknown
+100	2026-02-26 23:16:24.859472	2026-02-26 23:16:24.859472	Chrome	127.0.0.1	内网IP	2026-02-26 23:16:24.859136	登录成功	OSX	0	admin
+101	2026-02-26 23:26:59.845761	2026-02-26 23:26:59.845761	Chrome	127.0.0.1	内网IP	2026-02-26 23:26:59.845405	登录成功	OSX	0	admin
+102	2026-02-26 23:35:29.367526	2026-02-26 23:35:29.367526	Chrome	127.0.0.1	内网IP	2026-02-26 23:35:29.366915	登录成功	OSX	0	admin
+103	2026-02-27 06:49:09.146319	2026-02-27 06:49:09.146319	Chrome	127.0.0.1	内网IP	2026-02-27 06:49:09.145763	登录成功	OSX	0	admin
+104	2026-03-01 20:32:11.203241	2026-03-01 20:32:11.203241	Chrome	127.0.0.1	内网IP	2026-03-01 20:32:11.201947	登录成功	OSX	0	admin
+105	2026-03-01 20:33:58.038097	2026-03-01 20:33:58.038097	Chrome	127.0.0.1	内网IP	2026-03-01 20:33:58.037797	登录成功	OSX	0	admin
+106	2026-03-01 21:44:59.146492	2026-03-01 21:44:59.146492	Chrome	127.0.0.1	内网IP	2026-03-01 21:44:59.136975	验证码错误	OSX	1	unknown
+107	2026-03-01 21:45:08.47521	2026-03-01 21:45:08.47521	Chrome	127.0.0.1	内网IP	2026-03-01 21:45:08.474915	登录成功	OSX	0	admin
+108	2026-03-01 21:45:15.978793	2026-03-01 21:45:15.978793	Chrome	127.0.0.1	内网IP	2026-03-01 21:45:15.978483	登录成功	OSX	0	admin
+109	2026-03-01 21:51:23.40037	2026-03-01 21:51:23.40037	Unknown	127.0.0.1	内网IP	2026-03-01 21:51:23.391697	验证码已失效	Unknown	1	unknown
+110	2026-03-01 21:53:23.498859	2026-03-01 21:53:23.498859	Chrome	127.0.0.1	内网IP	2026-03-01 21:53:23.498489	登录成功	OSX	0	admin
+111	2026-03-01 21:54:11.121697	2026-03-01 21:54:11.121697	Chrome	127.0.0.1	内网IP	2026-03-01 21:54:11.121439	登录成功	OSX	0	admin
+112	2026-03-02 23:29:45.644659	2026-03-02 23:29:45.644659	Chrome	127.0.0.1	内网IP	2026-03-02 23:29:45.643623	用户名或密码错误	OSX	1	unknown
+113	2026-03-02 23:36:32.739701	2026-03-02 23:36:32.739701	Chrome	127.0.0.1	内网IP	2026-03-02 23:36:32.73669	用户名或密码错误	OSX	1	unknown
+114	2026-03-02 23:50:36.627627	2026-03-02 23:50:36.627627	Chrome	127.0.0.1	内网IP	2026-03-02 23:50:36.619738	验证码已失效	OSX	1	unknown
+115	2026-03-02 23:50:45.936747	2026-03-02 23:50:45.936747	Chrome	127.0.0.1	内网IP	2026-03-02 23:50:45.936338	登录成功	OSX	0	admin
+116	2026-03-03 07:01:07.232051	2026-03-03 07:01:07.232051	Chrome	127.0.0.1	内网IP	2026-03-03 07:01:07.225093	验证码错误	OSX	1	unknown
+117	2026-03-03 07:01:35.068847	2026-03-03 07:01:35.068847	Chrome	127.0.0.1	内网IP	2026-03-03 07:01:35.068181	登录成功	OSX	0	admin
+118	2026-03-03 07:32:19.492342	2026-03-03 07:32:19.492342	Chrome	127.0.0.1	内网IP	2026-03-03 07:32:19.491883	登录成功	OSX	0	admin
+119	2026-03-03 20:40:22.937882	2026-03-03 20:40:22.937882	Chrome	127.0.0.1	内网IP	2026-03-03 20:40:22.93722	登录成功	OSX	0	admin
+120	2026-03-03 21:02:27.15322	2026-03-03 21:02:27.15322	Chrome	127.0.0.1	内网IP	2026-03-03 21:02:27.141109	验证码已失效	OSX	1	unknown
+121	2026-03-03 21:02:35.868933	2026-03-03 21:02:35.868933	Chrome	127.0.0.1	内网IP	2026-03-03 21:02:35.868593	登录成功	OSX	0	admin
+122	2026-03-03 21:33:45.798199	2026-03-03 21:33:45.798199	Chrome	127.0.0.1	内网IP	2026-03-03 21:33:45.779951	验证码已失效	OSX	1	unknown
+123	2026-03-03 21:33:50.914275	2026-03-03 21:33:50.914275	Chrome	127.0.0.1	内网IP	2026-03-03 21:33:50.913787	登录成功	OSX	0	admin
+124	2026-03-03 21:34:59.950514	2026-03-03 21:34:59.950514	Chrome	127.0.0.1	内网IP	2026-03-03 21:34:59.94655	验证码已失效	OSX	1	unknown
+125	2026-03-03 21:37:30.71228	2026-03-03 21:37:30.71228	Chrome	127.0.0.1	内网IP	2026-03-03 21:37:30.701698	验证码已失效	OSX	1	unknown
+126	2026-03-03 21:39:13.010904	2026-03-03 21:39:13.010904	Chrome	127.0.0.1	内网IP	2026-03-03 21:39:13.009763	用户名或密码错误	OSX	1	unknown
+127	2026-03-03 21:43:53.878265	2026-03-03 21:43:53.878265	Chrome	127.0.0.1	内网IP	2026-03-03 21:43:53.866508	验证码已失效	OSX	1	unknown
+128	2026-03-14 19:10:25.436524	2026-03-14 19:10:25.436524	Chrome	127.0.0.1	内网IP	2026-03-14 19:10:25.427714	验证码错误	OSX	1	unknown
+129	2026-03-14 19:10:29.699327	2026-03-14 19:10:29.699327	Chrome	127.0.0.1	内网IP	2026-03-14 19:10:29.699039	登录成功	OSX	0	admin
+130	2026-03-14 20:04:00.997682	2026-03-14 20:04:00.997682	Chrome	127.0.0.1	内网IP	2026-03-14 20:04:00.995959	登录成功	OSX	0	admin
+131	2026-03-14 20:10:46.373781	2026-03-14 20:10:46.373781	Chrome	127.0.0.1	内网IP	2026-03-14 20:10:46.370908	登录成功	OSX	0	admin
+132	2026-03-20 21:46:35.066299	2026-03-20 21:46:35.066299	Chrome	127.0.0.1	内网IP	2026-03-20 21:46:35.06452	登录成功	OSX	0	admin
+133	2026-03-21 21:56:35.138	2026-03-21 21:56:35.138	Chrome	127.0.0.1	内网IP	2026-03-21 21:56:35.135155	登录成功	OSX	0	admin
+134	2026-03-21 21:59:56.132137	2026-03-21 21:59:56.132137	Unknown	127.0.0.1	内网IP	2026-03-21 21:59:56.122723	验证码不能为空	Unknown	1	unknown
+135	2026-03-21 22:00:15.144767	2026-03-21 22:00:15.144767	Unknown	127.0.0.1	内网IP	2026-03-21 22:00:15.142763	验证码不能为空	Unknown	1	unknown
+136	2026-03-22 06:34:47.457517	2026-03-22 06:34:47.457517	Chrome	127.0.0.1	内网IP	2026-03-22 06:34:47.453112	登录成功	OSX	0	admin
+137	2026-03-22 08:03:39.518465	2026-03-22 08:03:39.518465	Chrome	127.0.0.1	内网IP	2026-03-22 08:03:39.502932	验证码错误	OSX	1	unknown
+138	2026-03-22 08:03:44.072884	2026-03-22 08:03:44.072884	Chrome	127.0.0.1	内网IP	2026-03-22 08:03:44.07259	登录成功	OSX	0	admin
+139	2026-03-22 09:01:39.982423	2026-03-22 09:01:39.982423	Chrome	127.0.0.1	内网IP	2026-03-22 09:01:39.972105	登录成功	OSX	0	admin
+140	2026-03-22 11:55:07.331961	2026-03-22 11:55:07.331961	Chrome	127.0.0.1	内网IP	2026-03-22 11:55:07.318541	验证码错误	OSX	1	unknown
+141	2026-03-22 11:55:11.728075	2026-03-22 11:55:11.728075	Chrome	127.0.0.1	内网IP	2026-03-22 11:55:11.727743	登录成功	OSX	0	admin
+142	2026-03-22 12:44:32.607191	2026-03-22 12:44:32.607191	Chrome	127.0.0.1	内网IP	2026-03-22 12:44:32.605899	登录成功	OSX	0	admin
+143	2026-03-22 16:52:16.177456	2026-03-22 16:52:16.177456	Chrome	127.0.0.1	内网IP	2026-03-22 16:52:16.16764	登录成功	OSX	0	admin
+144	2026-03-22 10:31:01.122089	2026-03-22 10:31:01.122089	Chrome	192.168.65.1	内网IP	2026-03-22 10:31:01.120219	登录成功	OSX	0	admin
+145	2026-03-23 12:21:52.674676	2026-03-23 12:21:52.674676	Chrome	192.168.65.1	内网IP	2026-03-23 12:21:52.672015	登录成功	OSX	0	admin
+146	2026-03-23 13:15:58.437213	2026-03-23 13:15:58.437213	Chrome	192.168.65.1	内网IP	2026-03-23 13:15:58.434954	登录成功	OSX	0	admin
+147	2026-03-23 15:02:13.544677	2026-03-23 15:02:13.544677	Chrome	192.168.65.1	内网IP	2026-03-23 15:02:13.541963	登录成功	OSX	0	admin
+148	2026-03-24 00:21:45.730193	2026-03-24 00:21:45.730193	Chrome	127.0.0.1	内网IP	2026-03-24 00:21:45.728485	登录成功	OSX	0	admin
+149	2026-03-25 13:45:56.84635	2026-03-25 13:45:56.84635	Chrome	192.168.65.1	内网IP	2026-03-25 13:45:56.843009	登录成功	OSX	0	admin
+150	2026-03-25 15:26:06.70596	2026-03-25 15:26:06.70596	Chrome	192.168.65.1	内网IP	2026-03-25 15:26:06.698907	登录成功	OSX	0	admin
+151	2026-03-28 08:30:43.391602	2026-03-28 08:30:43.391602	Chrome	192.168.65.1	内网IP	2026-03-28 08:30:43.293163	验证码错误	OSX	1	unknown
+152	2026-03-28 08:30:53.333819	2026-03-28 08:30:53.333819	Chrome	192.168.65.1	内网IP	2026-03-28 08:30:53.332828	登录成功	OSX	0	admin
+153	2026-03-28 13:18:41.610159	2026-03-28 13:18:41.610159	Chrome	192.168.65.1	内网IP	2026-03-28 13:18:41.605143	登录成功	OSX	0	admin
+154	2026-04-11 00:40:52.477114	2026-04-11 00:40:52.477114	Chrome	192.168.65.1	内网IP	2026-04-11 00:40:52.474126	登录成功	OSX	0	admin
+155	2026-04-11 01:41:14.418738	2026-04-11 01:41:14.418738	Chrome	192.168.65.1	内网IP	2026-04-11 01:41:14.4123	验证码错误	OSX	1	unknown
+156	2026-04-11 01:41:20.693492	2026-04-11 01:41:20.693492	Chrome	192.168.65.1	内网IP	2026-04-11 01:41:20.692758	登录成功	OSX	0	admin
+157	2026-04-11 10:10:04.947889	2026-04-11 10:10:04.947889	Chrome	192.168.65.1	内网IP	2026-04-11 10:10:04.942124	登录成功	OSX	0	admin
+158	2026-04-12 07:34:22.231591	2026-04-12 07:34:22.231591	Chrome	192.168.65.1	内网IP	2026-04-12 07:34:22.140747	验证码错误	OSX	1	unknown
+\.
+
+
+--
+-- Data for Name: sys_menu; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_menu (id, created_at, updated_at, component, icon, menu_type, name, path, permission_code, sort_order, status, visible, parent_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: sys_module; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_module (id, created_at, updated_at, code, name, sort_order) FROM stdin;
+24	2026-02-21 22:35:43.619292	2026-02-21 22:35:43.619292	MONITOR_CACHE	缓存监控	20
+25	2026-02-21 22:35:43.632742	2026-02-21 22:35:43.632742	SYSTEM_CONFIG	参数配置	10
+26	2026-02-21 22:35:43.636869	2026-02-21 22:35:43.636869	SYSTEM_DEPT	部门管理	10
+27	2026-02-21 22:35:43.640474	2026-02-21 22:35:43.640474	SYSTEM_LOG	运行日志	10
+28	2026-02-21 22:35:43.642835	2026-02-21 22:35:43.642835	SYSTEM_MENU	菜单管理	10
+29	2026-02-21 22:35:43.645263	2026-02-21 22:35:43.645263	SYSTEM_MODULE	业务模块管理	10
+30	2026-02-21 22:35:43.648445	2026-02-21 22:35:43.648445	SYSTEM_NOTICE	通知公告	10
+31	2026-02-21 22:35:43.651077	2026-02-21 22:35:43.651077	SYSTEM_PERMISSION	权限管理	10
+32	2026-02-21 22:35:43.653534	2026-02-21 22:35:43.653534	SYSTEM_ROLE	角色管理	10
+33	2026-02-21 22:35:43.656753	2026-02-21 22:35:43.656753	SYSTEM_USER	用户管理	10
+34	2026-02-21 22:35:43.669095	2026-02-21 22:35:43.669095	MONITOR_LOGININFOR	登录日志	20
+35	2026-02-21 22:35:43.673134	2026-02-21 22:35:43.673134	MONITOR_OPERLOG	操作日志	20
+36	2026-02-21 22:35:43.676376	2026-02-21 22:35:43.676376	EMS_ALARM-CONFIG	预报警配置	20
+37	2026-02-21 22:35:43.680228	2026-02-21 22:35:43.680228	EMS_ALARM-LIMIT-TYPE	报警限值类型	20
+38	2026-02-21 22:35:43.684007	2026-02-21 22:35:43.684007	EMS_ALARM-RECORD	报警历史记录	20
+39	2026-02-21 22:35:43.686949	2026-02-21 22:35:43.686949	EMS_BENCHMARK	对标值管理	20
+40	2026-02-21 22:35:43.690151	2026-02-21 22:35:43.690151	EMS_COST-POLICY-BINDING	成本策略绑定管理	20
+41	2026-02-21 22:35:43.693161	2026-02-21 22:35:43.693161	EMS_ENERGY-COST-RECORD	能源成本记录管理	20
+42	2026-02-21 22:35:43.696889	2026-02-21 22:35:43.696889	EMS_ENERGY-SAVING-PROJECT	节能项目管理	20
+43	2026-02-21 22:35:43.700785	2026-02-21 22:35:43.700785	EMS_ENERGY-TYPE	能源类型管理	20
+44	2026-02-21 22:35:43.702811	2026-02-21 22:35:43.702811	EMS_ENERGY-UNIT	用能单元管理	20
+45	2026-02-21 22:35:43.704462	2026-02-21 22:35:43.704462	EMS_KNOWLEDGE	知识库管理	20
+46	2026-02-21 22:35:43.70647	2026-02-21 22:35:43.70647	EMS_METER	计量器具管理	20
+47	2026-02-21 22:35:43.708238	2026-02-21 22:35:43.708238	EMS_METER-POINT	采集点位管理	20
+48	2026-02-21 22:35:43.710154	2026-02-21 22:35:43.710154	EMS_POLICY	政策法规管理	20
+49	2026-02-21 22:35:43.712247	2026-02-21 22:35:43.712247	EMS_PRICE-POLICY	电价策略管理	20
+50	2026-02-21 22:35:43.714188	2026-02-21 22:35:43.714188	EMS_PRODUCT	产品管理	20
+51	2026-02-21 22:35:43.715557	2026-02-21 22:35:43.715557	EMS_PRODUCTION-RECORD	产品产量管理	20
+52	2026-02-21 22:35:43.717087	2026-02-21 22:35:43.717087	EMS_TIME-PERIOD-PRICE	分时电价配置管理	20
+53	2026-02-21 22:35:43.718694	2026-02-21 22:35:43.718694	SYSTEM_DICT	字典数据	10
+54	2026-02-21 22:35:59.831286	2026-02-21 22:35:59.831286	SYSTEM_POST	岗位管理	10
+55	2026-02-23 17:12:31.46745	2026-02-23 17:12:31.46745	EMS_ENERGY-SAVING	节能项目管理	20
+56	2026-03-21 21:55:11.637457	2026-03-21 21:55:11.637457	EMS_DATA-SOURCE	数据源管理	20
+57	2026-03-21 21:55:11.658063	2026-03-21 21:55:11.658063	EMS_EQUIPMENT	用能设备管理	20
+58	2026-03-21 21:55:11.659846	2026-03-21 21:55:11.659846	EMS_GATEWAY	网关管理	20
+\.
+
+
+--
+-- Data for Name: sys_notice; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_notice (id, created_at, updated_at, notice_content, notice_title, notice_type, remark, status) FROM stdin;
+8	2026-02-19 20:22:07.175657	2026-02-19 20:22:07.175657	32839	关于2025年春节放假安排的通知	1		0
+\.
+
+
+--
+-- Data for Name: sys_operation_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_operation_log (id, created_at, updated_at, business_type, cost_time, dept_name, error_msg, json_result, method, oper_ip, oper_location, oper_name, oper_param, oper_time, oper_url, operator_type, request_method, status, title, operation_ip, operation_location, operation_name, operation_param, operation_time, operation_url) FROM stdin;
+11	2026-02-16 17:15:00.207521	2026-02-16 17:15:00.207521	3	562298	\N	\N	{"timestamp":"2026-02-16 17:04:45","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.ems.controller.EnergyTypeController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	0	能源类型管理	127.0.0.1	内网IP	admin	{}	2026-02-16 17:14:10.445223	/api/energy-types/28
+12	2026-02-16 23:18:28.630771	2026-02-16 23:18:28.630771	1	47	\N	用户名 [曾永利] 已存在	\N	com.terra.ems.admin.controller.SysUserController.create()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	{"createdAt":null,"updatedAt":null,"id":null,"username":"曾永利","nickname":"lily","avatar":null,"email":"lily@qq.com","phone":null,"dept":null,"status":0,"accountExpireAt":null,"credentialsExpireAt":null,"failLoginCount":0,"lastLoginAt":null,"enabled":true,"credentialsNonExpired":true,"accountNonLocked":true,"accountNonExpired":true,"roles":[],"positions":[12],"deptId":100}	2026-02-16 23:18:28.587741	/api/system/user/create
+13	2026-02-16 23:21:46.072582	2026-02-16 23:21:46.072582	5	1236	\N	\N	\N	com.terra.ems.admin.controller.SysUserController.export()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	{}	2026-02-16 23:21:46.044627	/api/system/user/export
+14	2026-02-16 23:22:13.273471	2026-02-16 23:22:13.273471	3	74	\N	\N	{"timestamp":"2026-02-16 23:22:13","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-16 23:22:13.253052	/api/system/user/3
+15	2026-02-16 23:22:20.37199	2026-02-16 23:22:20.37199	3	12	\N	\N	{"timestamp":"2026-02-16 23:22:20","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-16 23:22:20.360906	/api/system/user
+16	2026-02-17 15:45:49.875011	2026-02-17 15:45:49.875011	5	1396	\N	\N	\N	com.terra.ems.admin.controller.SysUserController.export()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 15:45:49.855022	/api/system/user/export
+17	2026-02-17 15:46:20.054021	2026-02-17 15:46:20.054021	3	71	\N	\N	{"timestamp":"2026-02-17 15:46:20","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 15:46:20.039273	/api/system/user/5
+18	2026-02-17 15:46:25.72732	2026-02-17 15:46:25.72732	3	15	\N	\N	{"timestamp":"2026-02-17 15:46:25","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 15:46:25.714469	/api/system/user
+19	2026-02-17 16:25:52.670374	2026-02-17 16:25:52.670374	6	612	\N	Cannot invoke "com.terra.ems.system.entity.SysUser.getUsername()" because "user" is null	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 16:25:52.634852	/api/system/user/importData
+20	2026-02-17 16:29:54.18425	2026-02-17 16:29:54.18425	6	374	\N	\N	{"timestamp":"2026-02-17 16:29:54","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"恭喜您，数据已全部导入成功！共 0 条，数据如下：","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 16:29:54.156881	/api/system/user/importData
+21	2026-02-17 16:30:03.964706	2026-02-17 16:30:03.964706	6	31	\N	\N	{"timestamp":"2026-02-17 16:30:03","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"恭喜您，数据已全部导入成功！共 0 条，数据如下：","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 16:30:03.837055	/api/system/user/importData
+22	2026-02-17 16:34:31.177551	2026-02-17 16:34:31.177551	6	21632	\N	\N	{"timestamp":"2026-02-17 16:34:31","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"恭喜您，数据已全部导入成功！共 0 条，数据如下：","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 16:34:31.152298	/api/system/user/importData
+23	2026-02-17 16:36:19.536434	2026-02-17 16:36:19.536434	6	34719	\N	\N	{"timestamp":"2026-02-17 16:36:19","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"恭喜您，数据已全部导入成功！共 0 条，数据如下：","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 16:36:19.505508	/api/system/user/importData
+24	2026-02-17 16:45:08.017735	2026-02-17 16:45:08.017735	6	5121	\N	\N	{"timestamp":"2026-02-17 16:45:07","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"未检测到可导入的有效数据行，请检查文件内容及表头是否正确。","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 16:45:07.994913	/api/system/user/importData
+25	2026-02-17 16:45:30.936256	2026-02-17 16:45:30.936256	6	34	\N	\N	{"timestamp":"2026-02-17 16:45:30","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"未检测到可导入的有效数据行，请检查文件内容及表头是否正确。","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 16:45:30.919767	/api/system/user/importData
+26	2026-02-17 16:48:33.874173	2026-02-17 16:48:33.874173	6	29	\N	\N	{"timestamp":"2026-02-17 16:48:33","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"未检测到可导入的有效数据行，请检查文件内容及表头是否正确。","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 16:48:33.849598	/api/system/user/importData
+27	2026-02-17 16:50:38.1939	2026-02-17 16:50:38.1939	6	33	\N	Cannot invoke "Object.getClass()" because "obj" is null	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 16:50:38.173302	/api/system/user/importData
+28	2026-02-17 16:56:12.923348	2026-02-17 16:56:12.923348	6	273	\N	null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 16:56:12.889674	/api/system/user/importData
+29	2026-02-17 17:11:14.311334	2026-02-17 17:11:14.311334	6	60	\N	null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:11:14.276109	/api/system/user/importData
+30	2026-02-17 17:12:00.199394	2026-02-17 17:12:00.199394	6	17005	\N	null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:12:00.180083	/api/system/user/importData
+31	2026-02-17 17:13:15.743825	2026-02-17 17:13:15.743825	6	60928	\N	null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:13:15.726499	/api/system/user/importData
+32	2026-02-17 17:19:48.046145	2026-02-17 17:19:48.046145	6	387996	\N	null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:19:48.013029	/api/system/user/importData
+33	2026-02-17 17:23:06.403832	2026-02-17 17:23:06.403832	6	178288	\N	null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:23:06.368891	/api/system/user/importData
+34	2026-02-17 17:27:30.271467	2026-02-17 17:27:30.271467	6	257967	\N	null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:27:30.243002	/api/system/user/importData
+35	2026-02-17 17:31:51.094961	2026-02-17 17:31:51.094961	6	120042	\N	null object for private com.terra.ems.system.entity.SysDept com.terra.ems.system.entity.SysUser.dept	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:31:51.074843	/api/system/user/importData
+36	2026-02-17 17:38:27.94409	2026-02-17 17:38:27.94409	6	389616	\N	调用方法 [setGender] 失败	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:38:27.924133	/api/system/user/importData
+37	2026-02-17 17:56:32.332853	2026-02-17 17:56:32.332853	6	1037519	\N	调用方法 [setGender] 失败	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:56:32.27539	/api/system/user/importData
+38	2026-02-17 17:57:33.435623	2026-02-17 17:57:33.435623	6	298	\N	调用方法 [setGender] 失败	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:57:33.405729	/api/system/user/importData
+39	2026-02-17 17:58:49.316353	2026-02-17 17:58:49.316353	6	333	\N	调用方法 [setGender] 失败	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 17:58:49.255616	/api/system/user/importData
+40	2026-02-17 18:04:59.170133	2026-02-17 18:04:59.170133	6	391	\N	很抱歉，导入失败！共 10 条数据格式不正确，错误如下：<br/>1、账号 li.hang 导入失败：部门 [研发部] 在系统中不存在，请先创建该部门<br/>2、账号 chen.xiaoyu 导入失败：部门 [财务部] 在系统中不存在，请先创建该部门<br/>3、账号 wang.zihao 导入失败：部门 [运维中心] 在系统中不存在，请先创建该部门<br/>4、账号 zhang.lin 导入失败：部门 [人事部] 在系统中不存在，请先创建该部门<br/>5、账号 zhao.xu 导入失败：部门 [销售部] 在系统中不存在，请先创建该部门<br/>6、账号 liu.qian 导入失败：部门 [综合部] 在系统中不存在，请先创建该部门<br/>7、账号 zhou.kai 导入失败：部门 [研发部] 在系统中不存在，请先创建该部门<br/>8、账号 wu.meng 导入失败：部门 [质量部] 在系统中不存在，请先创建该部门<br/>9、账号 yang.fan 导入失败：部门 [研发部] 在系统中不存在，请先创建该部门<br/>10、账号 xu.ruo 导入失败：部门 [生产部] 在系统中不存在，请先创建该部门	\N	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	1	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 18:04:59.143944	/api/system/user/importData
+41	2026-02-17 19:20:30.64338	2026-02-17 19:20:30.64338	6	2329	\N	\N	{"timestamp":"2026-02-17 19:20:30","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"恭喜您，数据已全部导入成功！共 10 条。","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 19:20:30.629339	/api/system/user/importData
+42	2026-02-17 19:31:54.573899	2026-02-17 19:31:54.573899	3	83	\N	\N	{"timestamp":"2026-02-17 19:31:54","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 19:31:54.560434	/api/system/user
+43	2026-02-17 19:32:07.739112	2026-02-17 19:32:07.739112	3	27	\N	\N	{"timestamp":"2026-02-17 19:32:07","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 19:32:07.72611	/api/system/user
+44	2026-02-17 19:32:20.036244	2026-02-17 19:32:20.036244	3	58	\N	\N	{"timestamp":"2026-02-17 19:32:20","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 19:32:20.021902	/api/system/user
+45	2026-02-17 19:33:28.134145	2026-02-17 19:33:28.134145	6	1568	\N	\N	{"timestamp":"2026-02-17 19:33:28","error":{"detail":"部分数据导入失败，请下载结果文档查看详情","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"部分数据导入失败，请下载结果文档查看详情","path":null,"data":null,"status":500,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 19:33:28.119429	/api/system/user/importData
+46	2026-02-17 19:34:07.051945	2026-02-17 19:34:07.051945	3	22	\N	\N	{"timestamp":"2026-02-17 19:34:07","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 19:34:07.038957	/api/system/user
+47	2026-02-17 19:34:15.617914	2026-02-17 19:34:15.617914	3	29	\N	\N	{"timestamp":"2026-02-17 19:34:15","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 19:34:15.603341	/api/system/user
+48	2026-02-17 19:34:26.497789	2026-02-17 19:34:26.497789	3	34	\N	\N	{"timestamp":"2026-02-17 19:34:26","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 19:34:26.482568	/api/system/user
+49	2026-02-17 19:55:10.303969	2026-02-17 19:55:10.303969	6	1476	\N	\N	{"timestamp":"2026-02-17 19:55:10","error":{"detail":"部分数据导入失败，请查看结果文档","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"部分数据导入失败，请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":null,"failureCount":3},"status":500,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 19:55:10.289763	/api/system/user/importData
+50	2026-02-17 20:03:11.487208	2026-02-17 20:03:11.487208	3	39	\N	\N	{"timestamp":"2026-02-17 20:03:11","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 20:03:11.473291	/api/system/user
+51	2026-02-17 20:03:20.043345	2026-02-17 20:03:20.043345	3	24	\N	\N	{"timestamp":"2026-02-17 20:03:20","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 20:03:20.030185	/api/system/user
+52	2026-02-17 20:03:29.783955	2026-02-17 20:03:29.783955	3	42	\N	\N	{"timestamp":"2026-02-17 20:03:29","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 20:03:29.771359	/api/system/user
+53	2026-02-17 20:03:39.348108	2026-02-17 20:03:39.348108	6	1457	\N	\N	{"timestamp":"2026-02-17 20:03:39","error":{"detail":"部分数据导入失败，请查看结果文档","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"部分数据导入失败，请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":null,"failureCount":3},"status":500,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 20:03:39.337115	/api/system/user/importData
+54	2026-02-17 20:15:27.038026	2026-02-17 20:15:27.038026	3	21	\N	\N	{"timestamp":"2026-02-17 20:15:27","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 20:15:27.023893	/api/system/user
+55	2026-02-17 20:15:34.023219	2026-02-17 20:15:34.023219	3	22	\N	\N	{"timestamp":"2026-02-17 20:15:34","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 20:15:34.005549	/api/system/user
+56	2026-02-17 20:15:40.242146	2026-02-17 20:15:40.242146	3	50	\N	\N	{"timestamp":"2026-02-17 20:15:40","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 20:15:40.228931	/api/system/user
+57	2026-02-17 20:15:53.902487	2026-02-17 20:15:53.902487	6	1450	\N	\N	{"timestamp":"2026-02-17 20:15:53","error":{"detail":"部分数据导入失败，请查看结果文档","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"部分数据导入失败，请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":null,"failureCount":3},"status":500,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 20:15:53.889591	/api/system/user/importData
+58	2026-02-17 20:23:02.357156	2026-02-17 20:23:02.357156	3	103	\N	\N	{"timestamp":"2026-02-17 20:23:02","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 20:23:02.326289	/api/system/user
+59	2026-02-17 20:23:14.297541	2026-02-17 20:23:14.297541	6	2416	\N	\N	{"timestamp":"2026-02-17 20:23:14","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":null,"failureCount":3},"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 20:23:14.282931	/api/system/user/importData
+60	2026-02-17 20:24:51.660238	2026-02-17 20:24:51.660238	3	77	\N	\N	{"timestamp":"2026-02-17 20:24:51","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 20:24:51.645947	/api/system/user
+61	2026-02-17 20:31:37.100989	2026-02-17 20:31:37.100989	6	2034	\N	\N	{"timestamp":"2026-02-17 20:31:37","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"2205ec9d-abc2-45c0-9fd5-93548d85ee68_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 20:31:37.074171	/api/system/user/importData
+62	2026-02-17 20:37:23.686383	2026-02-17 20:37:23.686383	3	103	\N	\N	{"timestamp":"2026-02-17 20:37:23","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 20:37:23.67233	/api/system/user
+63	2026-02-17 20:37:58.814392	2026-02-17 20:37:58.814392	6	2286	\N	\N	{"timestamp":"2026-02-17 20:37:58","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"ad153a8a-52cf-4f97-8bea-6454127f7f8a_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 20:37:58.799124	/api/system/user/importData
+64	2026-02-17 21:11:59.108829	2026-02-17 21:11:59.108829	3	117	\N	\N	{"timestamp":"2026-02-17 21:11:59","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 21:11:59.083084	/api/system/user
+65	2026-02-17 21:12:09.85095	2026-02-17 21:12:09.85095	6	2326	\N	\N	{"timestamp":"2026-02-17 21:12:09","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"ef8fa8a8-5247-42dc-a870-0f63403af4d2_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 21:12:09.83779	/api/system/user/importData
+66	2026-02-17 21:20:35.528461	2026-02-17 21:20:35.528461	3	84	\N	\N	{"timestamp":"2026-02-17 21:20:35","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 21:20:35.514437	/api/system/user
+67	2026-02-17 21:20:44.006249	2026-02-17 21:20:44.006249	6	2019	\N	\N	{"timestamp":"2026-02-17 21:20:43","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"05503bf5-3101-4427-9248-964a64099371_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 21:20:43.993012	/api/system/user/importData
+68	2026-02-17 21:27:51.585442	2026-02-17 21:27:51.585442	3	82	\N	\N	{"timestamp":"2026-02-17 21:27:51","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 21:27:51.558015	/api/system/user
+69	2026-02-17 21:28:04.912408	2026-02-17 21:28:04.912408	6	2271	\N	\N	{"timestamp":"2026-02-17 21:28:04","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"84648044-759c-48ae-a8ba-1936164380c9_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 21:28:04.899425	/api/system/user/importData
+70	2026-02-17 21:33:23.568162	2026-02-17 21:33:23.568162	3	87	\N	\N	{"timestamp":"2026-02-17 21:33:23","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 21:33:23.55148	/api/system/user
+71	2026-02-17 21:33:31.331495	2026-02-17 21:33:31.331495	6	1402	\N	\N	{"timestamp":"2026-02-17 21:33:31","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"40ac0b38-8220-44e6-8a2d-d571e160a854_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 21:33:31.319339	/api/system/user/importData
+72	2026-02-17 21:42:32.226509	2026-02-17 21:42:32.226509	3	68	\N	\N	{"timestamp":"2026-02-17 21:42:32","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 21:42:32.20314	/api/system/user
+73	2026-02-17 21:42:48.815568	2026-02-17 21:42:48.815568	6	1734	\N	\N	{"timestamp":"2026-02-17 21:42:48","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"导入完成（存在失败记录），请查看结果文档","path":null,"data":{"total":10,"successCount":7,"fileUrl":"e00ceac5-e642-43aa-b0d9-d8bf1108d5f6_用户导入结果.xlsx","failureCount":3},"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.importData()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	false	2026-02-17 21:42:48.802666	/api/system/user/importData
+74	2026-02-17 21:51:24.611779	2026-02-17 21:51:24.611779	2	34	\N	\N	{"timestamp":"2026-02-17 21:51:24","error":{"detail":"参数错误","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"参数错误","path":null,"data":null,"status":500,"traceId":null}	com.terra.ems.admin.controller.SysUserController.resetPwd()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	{"password":"SnowMan12#$"}	2026-02-17 21:51:24.556771	/api/system/user/resetPwd
+75	2026-02-17 21:51:42.989994	2026-02-17 21:51:42.989994	2	3	\N	\N	{"timestamp":"2026-02-17 21:51:42","error":{"detail":"参数错误","message":null,"code":null,"field":null,"stackTrace":null},"code":"500","message":"参数错误","path":null,"data":null,"status":500,"traceId":null}	com.terra.ems.admin.controller.SysUserController.resetPwd()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	{"password":"SnowMan12#$"}	2026-02-17 21:51:42.977116	/api/system/user/resetPwd
+76	2026-02-17 21:58:43.004991	2026-02-17 21:58:43.004991	2	198	\N	\N	{"timestamp":"2026-02-17 21:58:42","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"重置成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.resetPwd()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	{"userId":93,"password":"SnowMan12#$"}	2026-02-17 21:58:42.970682	/api/system/user/resetPwd
+77	2026-02-17 21:59:37.453244	2026-02-17 21:59:37.453244	3	47	\N	\N	{"timestamp":"2026-02-17 21:59:37","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	0	系统用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 21:59:37.439343	/api/system/user/94
+78	2026-02-17 21:59:41.903456	2026-02-17 21:59:41.903456	5	432	\N	\N	\N	com.terra.ems.admin.controller.SysUserController.export()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	{}	2026-02-17 21:59:41.891966	/api/system/user/export
+79	2026-02-19 10:13:30.100671	2026-02-19 10:13:30.100671	3	74	\N	could not execute statement [ERROR: update or delete on table "sys_post" violates foreign key constraint "fkng2mc7xcmyerevvobtw95bmu9" on table "sys_user_post"\n  详细：Key (id)=(15) is still referenced from table "sys_user_post".] [delete from sys_post where id=?]; SQL [delete from sys_post where id=?]; constraint [fkng2mc7xcmyerevvobtw95bmu9]	\N	com.terra.ems.admin.controller.SysPostController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	1	岗位管理	127.0.0.1	内网IP	admin	{}	2026-02-19 10:13:30.08363	/api/system/post/15
+80	2026-02-19 10:13:51.486193	2026-02-19 10:13:51.486193	3	17	\N	\N	{"timestamp":"2026-02-19 10:13:51","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPostController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	0	岗位管理	127.0.0.1	内网IP	admin	{}	2026-02-19 10:13:51.473672	/api/system/post/19
+81	2026-02-19 10:15:34.933278	2026-02-19 10:15:34.933278	3	21	\N	\N	{"timestamp":"2026-02-19 10:15:34","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPostController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	岗位管理	127.0.0.1	内网IP	admin	{}	2026-02-19 10:15:34.919878	/api/system/post
+82	2026-02-19 11:06:48.639408	2026-02-19 11:06:48.639408	2	38	\N	could not execute statement [ERROR: null value in column "name" of relation "sys_dept" violates not-null constraint\n  详细：Failing row contains (103, 2026-02-16 09:22:38.179264, 2026-02-19 11:06:48.594959, null, null, null, null, null, null, 0, 0, 102).] [update sys_dept set ancestors=?,code=?,email=?,leader=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; SQL [update sys_dept set ancestors=?,code=?,email=?,leader=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; constraint [name" of relation "sys_dept]	\N	com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()	\N	\N	\N	\N	\N	\N	1	POST	1	部门管理	127.0.0.1	内网IP	admin	{"createdAt":null,"updatedAt":null,"id":103,"parent":{"createdAt":null,"updatedAt":null,"id":102,"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"parentId":null},"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"children":[],"parentId":102}	2026-02-19 11:06:48.622195	/api/system/dept
+83	2026-02-19 16:40:53.903132	2026-02-19 16:40:53.903132	3	75	\N	could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"\n  详细：Key (id)=(104) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]	\N	com.terra.ems.admin.controller.SysDeptController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	1	部门管理	127.0.0.1	内网IP	admin	{}	2026-02-19 16:40:53.881728	/api/system/dept/104
+84	2026-02-19 16:41:01.509153	2026-02-19 16:41:01.509153	3	12	\N	could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"\n  详细：Key (id)=(103) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]	\N	com.terra.ems.admin.controller.SysDeptController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	1	部门管理	127.0.0.1	内网IP	admin	{}	2026-02-19 16:41:01.495666	/api/system/dept/103
+85	2026-02-19 16:41:05.193897	2026-02-19 16:41:05.193897	3	16	\N	\N	{"timestamp":"2026-02-19 16:41:05","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysDeptController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	0	部门管理	127.0.0.1	内网IP	admin	{}	2026-02-19 16:41:05.180494	/api/system/dept/102
+86	2026-02-19 16:44:47.312629	2026-02-19 16:44:47.312629	3	16	\N	\N	{"timestamp":"2026-02-19 16:44:47","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysDeptController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	0	部门管理	127.0.0.1	内网IP	admin	{}	2026-02-19 16:44:47.299332	/api/system/dept/201
+87	2026-02-19 16:58:29.287951	2026-02-19 16:58:29.287951	2	48	\N	could not execute statement [ERROR: null value in column "name" of relation "sys_dept" violates not-null constraint\n  详细：Failing row contains (101, 2026-02-16 09:22:38.179264, 2026-02-19 16:58:29.26001, null, null, null, null, null, null, 0, 0, 202, null, null).] [update sys_dept set ancestors=?,code=?,description=?,email=?,leader=?,manager_id=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; SQL [update sys_dept set ancestors=?,code=?,description=?,email=?,leader=?,manager_id=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; constraint [name" of relation "sys_dept]	\N	com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()	\N	\N	\N	\N	\N	\N	1	POST	1	部门管理	127.0.0.1	内网IP	admin	{"createdAt":null,"updatedAt":null,"id":101,"parent":{"createdAt":null,"updatedAt":null,"id":202,"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"manager":null,"description":null,"memberCount":null,"managerId":null,"managerName":null,"parentId":null,"parentName":null},"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"children":[],"manager":null,"description":null,"memberCount":null,"managerId":null,"managerName":null,"parentId":202,"parentName":null}	2026-02-19 16:58:29.273489	/api/system/dept
+88	2026-02-19 16:58:42.566265	2026-02-19 16:58:42.566265	2	15	\N	could not execute statement [ERROR: null value in column "name" of relation "sys_dept" violates not-null constraint\n  详细：Failing row contains (101, 2026-02-16 09:22:38.179264, 2026-02-19 16:58:42.54882, null, null, null, null, null, null, 0, 0, 202, null, null).] [update sys_dept set ancestors=?,code=?,description=?,email=?,leader=?,manager_id=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; SQL [update sys_dept set ancestors=?,code=?,description=?,email=?,leader=?,manager_id=?,name=?,parent_id=?,phone=?,sort_order=?,status=?,updated_at=? where id=?]; constraint [name" of relation "sys_dept]	\N	com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()	\N	\N	\N	\N	\N	\N	1	POST	1	部门管理	127.0.0.1	内网IP	admin	{"createdAt":null,"updatedAt":null,"id":101,"parent":{"createdAt":null,"updatedAt":null,"id":202,"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"manager":null,"description":null,"memberCount":null,"managerId":null,"managerName":null,"parentId":null,"parentName":null},"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"children":[],"manager":null,"description":null,"memberCount":null,"managerId":null,"managerName":null,"parentId":202,"parentName":null}	2026-02-19 16:58:42.553743	/api/system/dept
+89	2026-02-19 17:03:14.173416	2026-02-19 17:03:14.173416	2	91	\N	could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"\n  详细：Key (id)=(103) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]	\N	com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()	\N	\N	\N	\N	\N	\N	1	POST	1	部门管理	127.0.0.1	内网IP	admin		2026-02-19 17:03:14.15608	/api/system/dept
+90	2026-02-19 17:03:22.569766	2026-02-19 17:03:22.569766	2	18	\N	could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"\n  详细：Key (id)=(103) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]	\N	com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()	\N	\N	\N	\N	\N	\N	1	POST	1	部门管理	127.0.0.1	内网IP	admin		2026-02-19 17:03:22.557089	/api/system/dept
+91	2026-02-19 17:03:30.708898	2026-02-19 17:03:30.708898	2	24	\N	could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"\n  详细：Key (id)=(103) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]	\N	com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()	\N	\N	\N	\N	\N	\N	1	POST	1	部门管理	127.0.0.1	内网IP	admin		2026-02-19 17:03:30.695892	/api/system/dept
+92	2026-02-19 17:11:56.811408	2026-02-19 17:11:56.811408	2	54	\N	could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"\n  详细：Key (id)=(103) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]	\N	com.terra.ems.admin.controller.SysDeptController.saveOrUpdate()	\N	\N	\N	\N	\N	\N	1	POST	1	部门管理	127.0.0.1	内网IP	admin		2026-02-19 17:11:56.796366	/api/system/dept
+93	2026-02-19 18:21:42.888556	2026-02-19 18:21:42.888556	3	67	\N	could not execute statement [ERROR: update or delete on table "sys_dept" violates foreign key constraint "fkb3pkx0wbo6o8i8lj0gxr37v1n" on table "sys_user"\n  详细：Key (id)=(202) is still referenced from table "sys_user".] [delete from sys_dept where id=?]; SQL [delete from sys_dept where id=?]; constraint [fkb3pkx0wbo6o8i8lj0gxr37v1n]	\N	com.terra.ems.admin.controller.SysDeptController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	1	部门管理	127.0.0.1	内网IP	admin	{}	2026-02-19 18:21:42.866122	/api/system/dept/202
+94	2026-02-19 18:26:00.085819	2026-02-19 18:26:00.085819	3	35	\N	\N	{"timestamp":"2026-02-19 18:26:00","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysDeptController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	0	部门管理	127.0.0.1	内网IP	admin	{}	2026-02-19 18:26:00.069873	/api/system/dept/104
+95	2026-02-19 19:58:30.673359	2026-02-19 19:58:30.673359	3	28	\N	\N	{"timestamp":"2026-02-19 19:58:30","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysDeptController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	0	部门管理	127.0.0.1	内网IP	admin	{}	2026-02-19 19:58:30.655932	/api/system/dept/203
+112	2026-02-21 22:14:33.618821	2026-02-21 22:14:33.618821	3	68	\N	\N	{"timestamp":"2026-02-21 22:14:33","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:14:33.605177	/api/system/permission
+113	2026-02-21 22:14:37.867003	2026-02-21 22:14:37.867003	3	77	\N	\N	{"timestamp":"2026-02-21 22:14:37","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:14:37.854563	/api/system/permission
+96	2026-02-19 19:58:46.391671	2026-02-19 19:58:46.391671	2	20	\N	部门不存在	\N	com.terra.ems.admin.controller.SysDeptController.update()	\N	\N	\N	\N	\N	\N	1	PUT	1	部门管理	127.0.0.1	内网IP	admin	203 {"createdAt":null,"updatedAt":null,"id":203,"parent":{"createdAt":null,"updatedAt":null,"id":100,"name":null,"code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"manager":null,"description":null,"memberCount":null,"managerId":null,"managerName":null,"parentId":null,"parentName":null},"name":"技术支撑中心","code":null,"sortOrder":0,"leader":null,"phone":null,"email":null,"ancestors":null,"status":0,"children":[],"manager":{"createdAt":null,"updatedAt":null,"id":1,"username":null,"realName":null,"avatar":null,"email":null,"phone":null,"gender":2,"employeeNo":null,"remark":null,"status":0,"accountExpireAt":null,"credentialsExpireAt":null,"failLoginCount":0,"lastLoginAt":null,"enabled":true,"accountNonLocked":true,"accountNonExpired":true,"credentialsNonExpired":true,"positions":null,"deptId":null},"description":null,"memberCount":null,"managerId":1,"managerName":null,"parentId":100,"parentName":null}	2026-02-19 19:58:46.374764	/api/system/dept/203
+97	2026-02-19 20:06:42.026929	2026-02-19 20:06:42.026929	3	16	\N	\N	{"timestamp":"2026-02-19 20:06:42","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysDeptController.delete()	\N	\N	\N	\N	\N	\N	1	DELETE	0	部门管理	127.0.0.1	内网IP	admin	{}	2026-02-19 20:06:42.008343	/api/system/dept/204
+98	2026-02-21 21:49:01.351876	2026-02-21 21:49:01.351876	3	74	\N	\N	{"timestamp":"2026-02-21 21:49:01","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 21:49:01.333612	/api/system/permission
+99	2026-02-21 21:49:05.970867	2026-02-21 21:49:05.970867	3	35	\N	\N	{"timestamp":"2026-02-21 21:49:05","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 21:49:05.958078	/api/system/permission
+100	2026-02-21 21:49:13.037919	2026-02-21 21:49:13.037919	3	73	\N	\N	{"timestamp":"2026-02-21 21:49:13","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 21:49:13.022662	/api/system/permission
+101	2026-02-21 21:49:18.947948	2026-02-21 21:49:18.947948	3	69	\N	\N	{"timestamp":"2026-02-21 21:49:18","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 21:49:18.93527	/api/system/permission
+102	2026-02-21 21:53:06.580722	2026-02-21 21:53:06.580722	3	71	\N	\N	{"timestamp":"2026-02-21 21:53:06","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 21:53:06.564049	/api/system/permission
+103	2026-02-21 21:53:10.696135	2026-02-21 21:53:10.696135	3	57	\N	\N	{"timestamp":"2026-02-21 21:53:10","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 21:53:10.684433	/api/system/permission
+104	2026-02-21 21:53:14.649545	2026-02-21 21:53:14.649545	3	63	\N	\N	{"timestamp":"2026-02-21 21:53:14","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 21:53:14.63742	/api/system/permission
+105	2026-02-21 21:53:18.988868	2026-02-21 21:53:18.988868	3	48	\N	\N	{"timestamp":"2026-02-21 21:53:18","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 21:53:18.97727	/api/system/permission
+106	2026-02-21 22:13:27.300534	2026-02-21 22:13:27.300534	3	79	\N	\N	{"timestamp":"2026-02-21 22:13:27","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:13:27.281892	/api/system/permission
+107	2026-02-21 22:13:31.619672	2026-02-21 22:13:31.619672	3	79	\N	\N	{"timestamp":"2026-02-21 22:13:31","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:13:31.565508	/api/system/permission
+108	2026-02-21 22:13:35.535009	2026-02-21 22:13:35.535009	3	55	\N	\N	{"timestamp":"2026-02-21 22:13:35","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:13:35.522356	/api/system/permission
+109	2026-02-21 22:13:40.164311	2026-02-21 22:13:40.164311	3	71	\N	\N	{"timestamp":"2026-02-21 22:13:40","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:13:40.149189	/api/system/permission
+110	2026-02-21 22:14:25.243746	2026-02-21 22:14:25.243746	3	48	\N	\N	{"timestamp":"2026-02-21 22:14:25","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:14:25.230982	/api/system/permission
+111	2026-02-21 22:14:29.068907	2026-02-21 22:14:29.068907	3	68	\N	\N	{"timestamp":"2026-02-21 22:14:29","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:14:29.055505	/api/system/permission
+114	2026-02-21 22:14:48.460926	2026-02-21 22:14:48.460926	3	37	\N	\N	{"timestamp":"2026-02-21 22:14:48","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:14:48.448678	/api/system/permission
+115	2026-02-21 22:14:52.087318	2026-02-21 22:14:52.087318	3	62	\N	\N	{"timestamp":"2026-02-21 22:14:52","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:14:52.074776	/api/system/permission
+116	2026-02-21 22:14:55.294709	2026-02-21 22:14:55.294709	3	69	\N	\N	{"timestamp":"2026-02-21 22:14:55","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:14:55.281676	/api/system/permission
+117	2026-02-21 22:14:58.872401	2026-02-21 22:14:58.872401	3	47	\N	\N	{"timestamp":"2026-02-21 22:14:58","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"删除成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysPermissionController.deleteBatch()	\N	\N	\N	\N	\N	\N	1	DELETE	0	权限管理	127.0.0.1	内网IP	admin	{}	2026-02-21 22:14:58.858092	/api/system/permission
+118	2026-02-22 07:54:54.464331	2026-02-22 07:54:54.464331	2	202	\N	\N	{"timestamp":"2026-02-22 07:54:54","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"更新权限成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysRoleController.updatePermissions()	\N	\N	\N	\N	\N	\N	1	POST	0	角色管理	127.0.0.1	内网IP	admin	1 {"permissionIds":[401,402,403,406,404,405,407,408,410,409,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,437,438,439,436,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,472,471,473,474,475,476,477,478,479,480,431,432,433,434,435]}	2026-02-22 07:54:54.442891	/api/system/role/1/permissions
+119	2026-02-22 07:55:21.386804	2026-02-22 07:55:21.386804	2	112	\N	\N	{"timestamp":"2026-02-22 07:55:21","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"更新权限成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysRoleController.updatePermissions()	\N	\N	\N	\N	\N	\N	1	POST	0	角色管理	127.0.0.1	内网IP	admin	1 {"permissionIds":[401,402,403,406,404,405,407,408,410,409,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,437,438,439,436,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,472,471,473,474,475,476,477,478,479,480,431,432,433,434,435]}	2026-02-22 07:55:21.37405	/api/system/role/1/permissions
+120	2026-02-22 08:00:53.308657	2026-02-22 08:00:53.308657	2	130	\N	\N	{"timestamp":"2026-02-22 08:00:53","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"更新权限成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysRoleController.updatePermissions()	\N	\N	\N	\N	\N	\N	1	POST	0	角色管理	127.0.0.1	内网IP	admin	1 {"permissionIds":[401,402,403,406,404,405,407,408,410,409,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,437,438,439,436,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,472,471,473,474,475,476,477,478,479,480,431,432,433,434,435]}	2026-02-22 08:00:53.293768	/api/system/role/1/permissions
+121	2026-02-22 08:54:51.815088	2026-02-22 08:54:51.815088	2	190	\N	\N	{"timestamp":"2026-02-22 08:54:51","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"移除成员成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysRoleController.removeMembers()	\N	\N	\N	\N	\N	\N	1	DELETE	0	角色管理	127.0.0.1	内网IP	admin	{}	2026-02-22 08:54:51.78782	/api/system/role/1/members
+122	2026-02-22 08:54:58.9539	2026-02-22 08:54:58.9539	2	61	\N	\N	{"timestamp":"2026-02-22 08:54:58","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"移除成员成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysRoleController.removeMembers()	\N	\N	\N	\N	\N	\N	1	DELETE	0	角色管理	127.0.0.1	内网IP	admin	{}	2026-02-22 08:54:58.939993	/api/system/role/1/members
+123	2026-02-22 09:13:18.344138	2026-02-22 09:13:18.344138	2	102	\N	\N	{"timestamp":"2026-02-22 09:13:18","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"添加成员成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysRoleController.addMembers()	\N	\N	\N	\N	\N	\N	1	POST	0	角色管理	127.0.0.1	内网IP	admin	1 [96,99]	2026-02-22 09:13:18.325891	/api/system/role/1/members
+124	2026-02-22 09:20:45.365714	2026-02-22 09:20:45.365714	2	105	\N	\N	{"timestamp":"2026-02-22 09:20:45","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"添加成员成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysRoleController.addMembers()	\N	\N	\N	\N	\N	\N	1	POST	0	角色管理	127.0.0.1	内网IP	admin	1 [96,99,95]	2026-02-22 09:20:45.348859	/api/system/role/1/members
+125	2026-02-22 09:20:52.668318	2026-02-22 09:20:52.668318	2	84	\N	\N	{"timestamp":"2026-02-22 09:20:52","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"移除成员成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysRoleController.removeMembers()	\N	\N	\N	\N	\N	\N	1	DELETE	0	角色管理	127.0.0.1	内网IP	admin	{}	2026-02-22 09:20:52.655242	/api/system/role/1/members
+126	2026-02-22 09:21:00.33483	2026-02-22 09:21:00.33483	2	162	\N	\N	{"timestamp":"2026-02-22 09:21:00","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"更新权限成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysRoleController.updatePermissions()	\N	\N	\N	\N	\N	\N	1	POST	0	角色管理	127.0.0.1	内网IP	admin	1 {"permissionIds":[401,402,403,404,405,406,407,408,410,409,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,437,438,439,436,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480]}	2026-02-22 09:21:00.32224	/api/system/role/1/permissions
+127	2026-02-23 19:34:02.952417	2026-02-23 19:34:02.952417	2	124	\N	\N	{"timestamp":"2026-02-23 19:34:02","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"设置成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.setSuper()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	97 {"isSuper":true}	2026-02-23 19:34:02.930911	/api/system/user/97/setSuper
+128	2026-02-25 21:47:46.727513	2026-02-25 21:47:46.727513	2	151	\N	\N	{"timestamp":"2026-02-25 21:47:46","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.updateRoles()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	98 [1]	2026-02-25 21:47:46.713825	/api/system/user/98/roles
+129	2026-02-25 21:48:08.644572	2026-02-25 21:48:08.644572	2	34	\N	\N	{"timestamp":"2026-02-25 21:48:08","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.updateRoles()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	98 [1]	2026-02-25 21:48:08.632353	/api/system/user/98/roles
+130	2026-02-25 21:48:14.040957	2026-02-25 21:48:14.040957	2	17	\N	\N	{"timestamp":"2026-02-25 21:48:14","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.updateRoles()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	98 []	2026-02-25 21:48:14.027432	/api/system/user/98/roles
+131	2026-02-25 21:48:15.47508	2026-02-25 21:48:15.47508	2	30	\N	\N	{"timestamp":"2026-02-25 21:48:15","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.updateRoles()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	98 []	2026-02-25 21:48:15.460301	/api/system/user/98/roles
+132	2026-02-25 21:48:25.665	2026-02-25 21:48:25.665	2	39	\N	\N	{"timestamp":"2026-02-25 21:48:25","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.updateRoles()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	98 [1]	2026-02-25 21:48:25.652032	/api/system/user/98/roles
+133	2026-02-25 21:52:08.567401	2026-02-25 21:52:08.567401	2	17	\N	\N	{"timestamp":"2026-02-25 21:52:08","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.updateRoles()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	98 []	2026-02-25 21:52:08.552665	/api/system/user/98/roles
+134	2026-02-25 21:52:19.708411	2026-02-25 21:52:19.708411	2	48	\N	\N	{"timestamp":"2026-02-25 21:52:19","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.updateRoles()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	95 [1]	2026-02-25 21:52:19.695853	/api/system/user/95/roles
+135	2026-02-25 21:52:54.944049	2026-02-25 21:52:54.944049	2	48	\N	\N	{"timestamp":"2026-02-25 21:52:54","error":{"detail":null,"message":null,"code":null,"field":null,"stackTrace":null},"code":"20000","message":"分配成功","path":null,"data":null,"status":200,"traceId":null}	com.terra.ems.admin.controller.SysUserController.updateRoles()	\N	\N	\N	\N	\N	\N	1	POST	0	用户管理	127.0.0.1	内网IP	admin	93 [1]	2026-02-25 21:52:54.926993	/api/system/user/93/roles
+\.
+
+
+--
+-- Data for Name: sys_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_permission (id, created_at, updated_at, code, description, name, super_permission, module_id) FROM stdin;
+436	2026-02-21 22:15:23.346915	2026-02-22 15:02:17.341362	system:role:edit	\N	移除角色成员	t	32
+441	2026-02-21 22:15:23.352864	2026-02-22 20:36:21.267689	system:user:remove	\N	批量删除用户	f	33
+445	2026-02-21 22:15:23.357741	2026-02-22 20:36:21.268889	system:user:resetPwd	\N	重置用户密码	f	33
+446	2026-02-21 22:15:23.359885	2026-02-22 20:36:21.268953	system:user:import	\N	导入用户数据	f	33
+498	2026-02-23 18:36:44.0985	2026-02-23 18:36:44.0985	ems:alarm-limit-type:query	\N	按ID查询	f	37
+507	2026-03-21 21:55:11.664167	2026-03-21 21:55:11.664167	ems:data-source:remove	\N	批量删除数据源	f	56
+508	2026-03-21 21:55:11.672804	2026-03-21 21:55:11.672804	ems:data-source:list	\N	查询所有数据源	f	56
+509	2026-03-21 21:55:11.673894	2026-03-21 21:55:11.673894	ems:data-source:query	\N	按ID查询	f	56
+510	2026-03-21 21:55:11.674893	2026-03-21 21:55:11.674893	ems:equipment:remove	\N	批量删除用能设备	f	57
+511	2026-03-21 21:55:11.675688	2026-03-21 21:55:11.675688	ems:equipment:list	\N	分页查询	f	57
+512	2026-03-21 21:55:11.677713	2026-03-21 21:55:11.677713	ems:equipment:query	\N	按ID查询	f	57
+513	2026-03-21 21:55:11.679483	2026-03-21 21:55:11.679483	ems:gateway:remove	\N	批量删除网关	f	58
+514	2026-03-21 21:55:11.680328	2026-03-21 21:55:11.680328	ems:gateway:list	\N	分页查询	f	58
+515	2026-03-21 21:55:11.68092	2026-03-21 21:55:11.68092	ems:gateway:query	\N	按ID查询	f	58
+472	2026-02-21 22:15:23.386921	2026-03-23 23:16:15.070303	ems:meter-point:edit	\N	修改采集点位状态	f	47
+403	2026-02-21 22:15:23.280408	2026-02-21 22:35:43.766692	system:config:edit	\N	修改参数	f	25
+431	2026-02-21 22:15:23.34192	2026-02-21 22:35:59.876603	system:post:edit	\N	修改岗位	f	54
+432	2026-02-21 22:15:23.342953	2026-02-21 22:35:59.877533	system:post:remove	\N	批量删除岗位	f	54
+433	2026-02-21 22:15:23.34392	2026-02-21 22:35:59.877591	system:post:export	\N	导出岗位数据	f	54
+434	2026-02-21 22:15:23.344858	2026-02-21 22:35:59.87764	system:post:list	\N	查询岗位列表	f	54
+435	2026-02-21 22:15:23.345955	2026-02-21 22:35:59.877693	system:post:query	\N	查询岗位详情	f	54
+406	2026-02-21 22:15:23.285417	2026-03-24 09:39:58.441546	system:config:query	\N	查询参数值	f	25
+401	2026-02-21 22:15:23.252631	2026-02-21 22:35:43.764882	monitor:cache:list	\N	获取缓存指定键值	f	24
+402	2026-02-21 22:15:23.277666	2026-02-21 22:35:43.766637	monitor:cache:remove	\N	清空所有缓存	f	24
+405	2026-02-21 22:15:23.283052	2026-02-21 22:35:43.766771	system:config:list	\N	查询参数列表	f	25
+408	2026-02-21 22:15:23.290346	2026-02-21 22:35:43.766877	system:dept:remove	\N	批量删除部门	f	26
+410	2026-02-21 22:15:23.298665	2026-02-21 22:35:43.76695	system:dept:query	\N	查询部门详情	f	26
+411	2026-02-21 22:15:23.302749	2026-02-21 22:35:43.766979	system:log:remove	\N	批量删除	f	27
+412	2026-02-21 22:15:23.306164	2026-02-21 22:35:43.767007	system:log:list	\N	分页查询	f	27
+413	2026-02-21 22:15:23.309448	2026-02-21 22:35:43.767037	system:log:query	\N	详情	f	27
+414	2026-02-21 22:15:23.312984	2026-02-21 22:35:43.767074	system:menu:edit	\N	修改菜单	f	28
+416	2026-02-21 22:15:23.317448	2026-02-21 22:35:43.767138	system:menu:list	\N	查询菜单树	f	28
+417	2026-02-21 22:15:23.320433	2026-02-21 22:35:43.767166	system:menu:query	\N	查询菜单详情	f	28
+418	2026-02-21 22:15:23.323942	2026-02-21 22:35:43.76731	system:module:edit	\N	修改模块	f	29
+419	2026-02-21 22:15:23.325182	2026-02-21 22:35:43.767356	system:module:remove	\N	批量删除模块	f	29
+420	2026-02-21 22:15:23.326434	2026-02-21 22:35:43.767387	system:module:list	\N	查询模块列表	f	29
+421	2026-02-21 22:15:23.327713	2026-02-21 22:35:43.767419	system:module:query	\N	查询模块详情	f	29
+422	2026-02-21 22:15:23.329264	2026-02-21 22:35:43.767446	system:notice:edit	\N	修改公告	f	30
+423	2026-02-21 22:15:23.331359	2026-02-21 22:35:43.767474	system:notice:remove	\N	批量删除公告	f	30
+425	2026-02-21 22:15:23.33491	2026-02-21 22:35:43.767529	system:notice:query	\N	查询公告详情	f	30
+426	2026-02-21 22:15:23.336353	2026-02-21 22:35:43.767555	system:permission:edit	\N	修改权限	f	31
+429	2026-02-21 22:15:23.339829	2026-02-21 22:35:43.767634	system:permission:list	\N	查询权限列表	f	31
+430	2026-02-21 22:15:23.340844	2026-02-21 22:35:43.767662	system:permission:query	\N	查询权限详情	f	31
+438	2026-02-21 22:15:23.349311	2026-02-21 22:35:43.76774	system:role:list	\N	查询角色列表	f	32
+439	2026-02-21 22:15:23.350606	2026-02-21 22:35:43.767767	system:role:query	\N	查询角色详情	f	32
+442	2026-02-21 22:15:23.353927	2026-02-21 22:35:43.767864	system:user:add	\N	新增用户(带关联)	f	33
+443	2026-02-21 22:15:23.355202	2026-02-21 22:35:43.767891	system:user:export	\N	导出导入模板	f	33
+444	2026-02-21 22:15:23.356707	2026-02-21 22:35:43.767923	system:user:list	\N	查询用户列表	f	33
+447	2026-02-21 22:15:23.360963	2026-02-21 22:35:43.768005	system:user:query	\N	查询用户详情	f	33
+448	2026-02-21 22:15:23.362163	2026-02-21 22:35:43.768041	monitor:logininfor:remove	\N	批量删除登录日志	f	34
+449	2026-02-21 22:15:23.363531	2026-02-21 22:35:43.768067	monitor:logininfor:list	\N	查询登录日志列表	f	34
+450	2026-02-21 22:15:23.364884	2026-02-21 22:35:43.768092	monitor:logininfor:query	\N	查询登录日志详情	f	34
+451	2026-02-21 22:15:23.366121	2026-02-21 22:35:43.768117	monitor:operlog:remove	\N	批量删除操作日志	f	35
+452	2026-02-21 22:15:23.367194	2026-02-21 22:35:43.768143	monitor:operlog:list	\N	查询操作日志列表	f	35
+453	2026-02-21 22:15:23.369268	2026-02-21 22:35:43.768177	monitor:operlog:query	\N	查询操作日志详情	f	35
+454	2026-02-21 22:15:23.370293	2026-02-21 22:35:43.768202	ems:alarm-config:remove	\N	批量删除数据	f	36
+455	2026-02-21 22:15:23.371307	2026-02-21 22:35:43.768231	ems:alarm-limit-type:remove	\N	批量删除数据	f	37
+456	2026-02-21 22:15:23.372246	2026-02-21 22:35:43.768259	ems:alarm-record:handle	\N	处理报警记录	f	38
+457	2026-02-21 22:15:23.374271	2026-02-21 22:35:43.768284	ems:benchmark:remove	\N	批量删除数据	f	39
+458	2026-02-21 22:15:23.375307	2026-02-21 22:35:43.768309	ems:cost-policy-binding:remove	\N	批量删除数据	f	40
+459	2026-02-21 22:15:23.376142	2026-02-21 22:35:43.768565	ems:energy-cost-record:edit	\N	更新成本记录	f	41
+460	2026-02-21 22:15:23.376895	2026-02-21 22:35:43.768612	ems:energy-cost-record:remove	\N	批量删除数据	f	41
+461	2026-02-21 22:15:23.377692	2026-02-21 22:35:43.768659	ems:energy-saving-project:remove	\N	批量删除数据	f	42
+462	2026-02-21 22:15:23.378488	2026-02-21 22:35:43.768693	ems:energy-saving-project:edit	\N	更新项目状态	f	42
+463	2026-02-21 22:15:23.379254	2026-02-21 22:35:43.768722	ems:energy-type:remove	\N	批量删除数据	f	43
+464	2026-02-21 22:15:23.380222	2026-02-21 22:35:43.768749	ems:energy-type:edit	\N	修改能源类型状态	f	43
+465	2026-02-21 22:15:23.381298	2026-02-21 22:35:43.768783	ems:energy-unit:remove	\N	批量删除数据	f	44
+466	2026-02-21 22:15:23.382566	2026-02-21 22:35:43.768809	ems:energy-unit:edit	\N	修改用能单元状态	f	44
+467	2026-02-21 22:15:23.38346	2026-02-21 22:35:43.768836	ems:knowledge:edit	\N	更新文章状态	f	45
+468	2026-02-21 22:15:23.384144	2026-02-21 22:35:43.768861	ems:knowledge:remove	\N	删除文章	f	45
+469	2026-02-21 22:15:23.384862	2026-02-21 22:35:43.768889	ems:meter:edit	\N	更新计量器具	f	46
+470	2026-02-21 22:15:23.385551	2026-02-21 22:35:43.768916	ems:meter:remove	\N	批量删除数据	f	46
+471	2026-02-21 22:15:23.386241	2026-02-21 22:35:43.76894	ems:meter-point:remove	\N	批量删除数据	f	47
+473	2026-02-21 22:15:23.387591	2026-02-21 22:35:43.768989	ems:policy:edit	\N	更新政策状态	f	48
+474	2026-02-21 22:15:23.388266	2026-02-21 22:35:43.769012	ems:price-policy:edit	\N	修改电价策略状态	f	49
+475	2026-02-21 22:15:23.389073	2026-02-21 22:35:43.769035	ems:product:edit	\N	修改状态	f	50
+476	2026-02-21 22:15:23.390094	2026-02-21 22:35:43.769059	ems:production-record:edit	\N	更新产量记录	f	51
+477	2026-02-21 22:15:23.391351	2026-02-21 22:35:43.769089	ems:production-record:remove	\N	删除产量记录	f	51
+478	2026-02-21 22:15:23.392227	2026-02-21 22:35:43.769114	ems:time-period-price:edit	\N	修改状态	f	52
+499	2026-02-23 18:50:12.639276	2026-02-23 18:50:12.639276	ems:benchmark:query	\N	按ID查询	f	39
+500	2026-02-23 18:50:12.653689	2026-02-23 18:50:12.653689	ems:policy:query	\N	按ID查询	f	48
+501	2026-02-23 18:50:12.655148	2026-02-23 18:50:12.655148	ems:energy-unit:query	\N	按ID查询	f	44
+427	2026-02-21 22:15:23.337523	2026-02-22 15:02:17.340891	system:permission:remove	\N	批量删除权限	t	31
+428	2026-02-21 22:15:23.338702	2026-02-22 15:02:17.340923	system:permission:sync	\N	全量同步权限	t	31
+437	2026-02-21 22:15:23.347859	2026-02-22 15:02:17.340966	system:role:remove	\N	批量删除角色	t	32
+481	2026-02-22 20:36:21.220555	2026-02-22 20:36:21.220555	system:user:assignRole	\N	分配用户角色	f	33
+404	2026-02-21 22:15:23.281716	2026-02-22 20:36:21.26925	system:config:remove	\N	批量删除参数	f	25
+440	2026-02-21 22:15:23.35184	2026-02-22 20:36:21.269288	system:user:edit	\N	修改用户	f	33
+415	2026-02-21 22:15:23.315351	2026-02-22 20:36:21.269315	system:menu:remove	\N	批量删除菜单	f	28
+409	2026-02-21 22:15:23.291841	2026-03-24 00:10:32.912832	system:dept:list	\N	查询部门树	f	26
+502	2026-02-23 18:50:12.656234	2026-02-23 18:50:12.656234	ems:price-policy:query	\N	按ID查询	f	49
+503	2026-02-23 18:50:12.657319	2026-02-23 18:50:12.657319	ems:energy-type:query	\N	按ID查询	f	43
+504	2026-02-23 18:50:12.658938	2026-02-23 18:50:12.658938	ems:meter:query	\N	按ID查询	f	46
+505	2026-02-23 18:50:12.661219	2026-02-23 18:50:12.661219	ems:meter-point:query	\N	按ID查询	f	47
+506	2026-02-23 18:50:12.662612	2026-02-23 18:50:12.662612	ems:alarm-config:query	\N	按ID查询	f	36
+424	2026-02-21 22:15:23.333072	2026-02-23 19:20:50.626429	system:notice:list	\N	查询所有数据	f	30
+479	2026-02-21 22:15:23.393109	2026-02-21 22:35:43.769164	ems:time-period-price:remove	\N	删除分时电价配置	f	52
+480	2026-02-21 22:15:23.394038	2026-02-21 22:35:43.769585	system:dict:remove	\N	批量删除	f	53
+482	2026-02-23 17:12:31.478116	2026-02-23 17:12:31.478116	ems:production-record:list	\N	分页查询	f	51
+483	2026-02-23 17:12:31.488312	2026-02-23 17:12:31.488312	ems:product:list	\N	分页查询产品	f	50
+484	2026-02-23 17:12:31.489892	2026-02-23 17:12:31.489892	ems:benchmark:list	\N	分页查询	f	39
+485	2026-02-23 17:12:31.49065	2026-02-23 17:12:31.49065	ems:cost-policy-binding:list	\N	分页查询	f	40
+486	2026-02-23 17:12:31.491335	2026-02-23 17:12:31.491335	ems:alarm-record:list	\N	分页查询报警记录	f	38
+487	2026-02-23 17:12:31.493039	2026-02-23 17:12:31.493039	ems:alarm-limit-type:list	\N	分页查询	f	37
+488	2026-02-23 17:12:31.493918	2026-02-23 17:12:31.493918	ems:policy:list	\N	分页查询政策	f	48
+489	2026-02-23 17:12:31.494878	2026-02-23 17:12:31.494878	ems:energy-unit:list	\N	获取完整树形结构	f	44
+490	2026-02-23 17:12:31.495772	2026-02-23 17:12:31.495772	ems:price-policy:list	\N	分页查询	f	49
+491	2026-02-23 17:12:31.496583	2026-02-23 17:12:31.496583	ems:knowledge:list	\N	分页查询	f	45
+492	2026-02-23 17:12:31.497851	2026-02-23 17:12:31.497851	ems:energy-cost-record:list	\N	分页查询	f	41
+493	2026-02-23 17:12:31.498999	2026-02-23 17:12:31.498999	ems:energy-type:list	\N	分页查询	f	43
+494	2026-02-23 17:12:31.500127	2026-02-23 17:12:31.500127	ems:energy-saving:list	\N	分页查询节能项目	f	55
+495	2026-02-23 17:12:31.501042	2026-02-23 17:12:31.501042	ems:meter:list	\N	分页查询	f	46
+496	2026-02-23 17:12:31.501907	2026-02-23 17:12:31.501907	ems:meter-point:list	\N	分页查询	f	47
+497	2026-02-23 17:12:31.502666	2026-02-23 17:12:31.502666	ems:alarm-config:list	\N	根据采集点位查询配置	f	36
+407	2026-02-21 22:15:23.287757	2026-02-26 08:30:01.871935	system:dept:edit	\N	批量移除部门成员	f	26
+\.
+
+
+--
+-- Data for Name: sys_post; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_post (id, created_at, updated_at, code, name, remark, sort_order, status) FROM stdin;
+1	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	CEO	董事长	公司最高负责人	1	0
+2	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	GM	总经理	公司日常运营负责人	2	0
+3	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	DGM	副总经理	协助总经理工作	3	0
+4	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	HR_M	人事经理	人力资源部负责人	4	0
+5	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	HR	人事专员	负责招聘、考勤等	5	0
+6	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	FIN_M	财务经理	财务部负责人	6	0
+7	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	ACC	会计	负责账务处理	7	0
+8	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	CASH	出纳	负责现金收支	8	0
+9	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	TECH_D	技术总监	负责公司技术战略	9	0
+10	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	DEV_M	研发经理	研发团队负责人	10	0
+11	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	DEV	研发工程师	负责系统开发	11	0
+12	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	TEST_M	测试经理	测试团队负责人	12	0
+13	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	TEST	测试工程师	负责系统测试	13	0
+14	2026-02-10 03:52:43.217879	2026-02-10 03:52:43.217879	OPS_M	运维经理	运维团队负责人	14	0
+15	2026-02-10 03:52:43.217879	2026-02-19 09:53:20.9041	OPS	运维工程师	负责系统运维	22	1
+\.
+
+
+--
+-- Data for Name: sys_role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_role (id, created_at, updated_at, code, member_count, name, permission_count, remark, data_scope, status) FROM stdin;
+1	2026-02-22 07:28:30.743421	2026-02-22 14:43:07.989641	role:sysem:manager	0	系统管理员	0	\N	SELF	0
+\.
+
+
+--
+-- Data for Name: sys_role_dept; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_role_dept (role_id, dept_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: sys_role_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_role_permission (role_id, permission_id) FROM stdin;
+1	431
+1	432
+1	435
+1	433
+1	434
+1	450
+1	452
+1	427
+1	403
+1	429
+1	426
+1	422
+1	421
+1	458
+1	423
+1	411
+1	453
+1	462
+1	415
+1	461
+1	480
+1	475
+1	404
+1	464
+1	471
+1	436
+1	449
+1	443
+1	467
+1	414
+1	418
+1	410
+1	437
+1	469
+1	445
+1	465
+1	428
+1	470
+1	456
+1	416
+1	463
+1	419
+1	402
+1	472
+1	444
+1	409
+1	448
+1	446
+1	430
+1	460
+1	457
+1	454
+1	474
+1	417
+1	424
+1	440
+1	425
+1	466
+1	405
+1	408
+1	459
+1	473
+1	420
+1	439
+1	401
+1	441
+1	468
+1	455
+1	438
+1	447
+1	442
+1	413
+1	412
+1	406
+1	407
+1	451
+\.
+
+
+--
+-- Data for Name: sys_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_user (id, created_at, updated_at, email, nickname, password, phone, status, username, account_expire_at, credentials_expire_at, fail_login_count, last_login_at, avatar, dept_id, employee_no, gender, remark, real_name, super_admin) FROM stdin;
+1	2025-12-20 09:19:46.014369	2026-04-11 10:10:04.666996	snowmandxp@qq.com	系统管理员	$2a$10$mYkIwrDLxj04AjOZzv2Nv.TWbT/roKNJ4pHOadd.sUiS3cwq6eNjC	18922482046	0	admin	\N	\N	0	2026-04-11 10:10:04.595902	https://api.dicebear.com/7.x/notionists/svg?seed=1&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf	\N	\N	0	\N	邓雪平	t
+99	2026-02-17 21:42:48.195474	2026-02-19 20:39:15.727913	wum@terra.com	\N	$2a$10$A4EvMQGs2OGbvFd4a/p2guCO4YWRxEgIXqs.vAC8y4P6CfjytwChK	13155667788	0	wu.meng	\N	\N	0	\N	\N	202	\N	1	软件测试员	吴梦	\N
+96	2026-02-17 21:42:47.903052	2026-02-19 20:39:23.741414	zhaox@terra.com	\N	$2a$10$LopqyBNVfFEyVqFLI2Vs9.y19Vkzkqz/H9BcGOar1y7YPWL07Rjmi	15022334455	0	zhao.xu	\N	\N	0	\N	\N	205	\N	0	大客户总监	赵旭	\N
+97	2026-02-17 21:42:48.002475	2026-02-23 19:34:02.903015	liuq@terra.com	\N	$2a$10$ZdHPoSpMYd57.XD42Jemo.02g4OzAK9th.2tzO6HZ1rbGnJdOnxju	15833445566	0	liu.qian	\N	\N	0	\N	\N	103	\N	1	办公室主任	刘倩	t
+98	2026-02-17 21:42:48.102911	2026-02-25 21:52:08.542935	zhouk@terra.com	\N	$2a$10$d6PYQD/nyzWLs2x1/BpGLeeEL44H4uc2/5stblFxlcRGYF6MwO8jG	18644556677	0	zhou.kai	\N	\N	0	\N	\N	\N	\N	0	前端小组长	周凯	\N
+95	2026-02-17 21:42:47.808667	2026-02-25 21:52:19.688435	zhangl@terra.com	\N	$2a$10$IiGDOaJPVsg2MBZO5g5RW.FWCTu4Wyg3ETSTmyywPYqIPfpy6stA.	13588990011	0	zhang.lin	\N	\N	0	\N	\N	\N	\N	1	招聘专员	张琳	\N
+93	2026-02-17 21:42:47.597778	2026-02-25 21:52:54.918014	lih@terra.com	\N	$2a$10$vLSLeo9lPuJRJMg3XkTF3eA3Gv40Xxd4Proaz7ta9/avuq7YBkpoS	13800138001	1	li.hang	\N	\N	0	2026-02-17 21:59:02.431245	\N	\N	\N	0	高级后端开发	李航	\N
+\.
+
+
+--
+-- Data for Name: sys_user_notice; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_user_notice (id, created_at, updated_at, notice_id, read_time, user_id) FROM stdin;
+1	2026-02-11 17:34:29.831007	2026-02-11 17:34:29.831007	7	2026-02-11 17:34:29.82863	1
+2	2026-02-19 20:22:23.246771	2026-02-19 20:22:23.246771	8	2026-02-19 20:22:23.243125	1
+\.
+
+
+--
+-- Data for Name: sys_user_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_user_permission (user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: sys_user_post; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_user_post (user_id, post_id) FROM stdin;
+1	1
+93	13
+93	15
+\.
+
+
+--
+-- Data for Name: sys_user_role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sys_user_role (user_id, role_id) FROM stdin;
+99	1
+95	1
+93	1
+\.
+
+
+--
+-- Name: ems_alarm_config_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_alarm_config_id_seq', 30, true);
 
 
 --
--- Name: ems_alarm_limit_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_alarm_limit_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_alarm_limit_type_id_seq', 25, true);
 
 
 --
--- Name: ems_alarm_record_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_alarm_record_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_alarm_record_id_seq', 7, true);
 
 
 --
--- Name: ems_benchmark_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_benchmark_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_benchmark_id_seq', 12, true);
 
 
 --
--- Name: ems_cost_policy_binding_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_cost_policy_binding_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_cost_policy_binding_id_seq', 5, true);
 
 
 --
--- Name: ems_energy_cost_record_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_data_source_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ems_data_source_id_seq', 33, true);
+
+
+--
+-- Name: ems_energy_cost_record_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_energy_cost_record_id_seq', 2, true);
 
 
 --
--- Name: ems_energy_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_energy_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.ems_energy_data_id_seq', 538, true);
+SELECT pg_catalog.setval('public.ems_energy_data_id_seq', 1280, true);
 
 
 --
--- Name: ems_energy_saving_project_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_energy_saving_project_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_energy_saving_project_id_seq', 8, true);
 
 
 --
--- Name: ems_energy_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_energy_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.ems_energy_type_id_seq', 28, true);
-
-
---
--- Name: ems_energy_unit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.ems_energy_unit_id_seq', 73, true);
+SELECT pg_catalog.setval('public.ems_energy_type_id_seq', 46, true);
 
 
 --
--- Name: ems_knowledge_article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_energy_unit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ems_energy_unit_id_seq', 139, true);
+
+
+--
+-- Name: ems_equipment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ems_equipment_id_seq', 45, true);
+
+
+--
+-- Name: ems_gateway_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ems_gateway_id_seq', 27, true);
+
+
+--
+-- Name: ems_knowledge_article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_knowledge_article_id_seq', 20, true);
 
 
 --
--- Name: ems_meter_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_meter_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.ems_meter_id_seq', 21, true);
-
-
---
--- Name: ems_meter_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.ems_meter_point_id_seq', 30, true);
+SELECT pg_catalog.setval('public.ems_meter_id_seq', 118, true);
 
 
 --
--- Name: ems_peak_valley_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_meter_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ems_meter_point_id_seq', 229, true);
+
+
+--
+-- Name: ems_peak_valley_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_peak_valley_data_id_seq', 64, true);
 
 
 --
--- Name: ems_policy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_policy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_policy_id_seq', 7, true);
 
 
 --
--- Name: ems_price_policy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_price_policy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_price_policy_id_seq', 6, true);
 
 
 --
--- Name: ems_price_policy_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_price_policy_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_price_policy_item_id_seq', 36, true);
 
 
 --
--- Name: ems_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_product_id_seq', 20, true);
 
 
 --
--- Name: ems_production_record_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_production_record_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_production_record_id_seq', 24, true);
 
 
 --
--- Name: ems_time_period_price_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ems_time_period_price_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.ems_time_period_price_id_seq', 1, false);
 
 
 --
--- Name: sys_config_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_config_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_config_id_seq', 1, false);
 
 
 --
--- Name: sys_dept_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_dept_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_dept_id_seq', 205, true);
 
 
 --
--- Name: sys_dict_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_dict_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_dict_data_id_seq', 27940, true);
 
 
 --
--- Name: sys_dict_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_dict_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_dict_type_id_seq', 18, true);
 
 
 --
--- Name: sys_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_log_id_seq', 1, false);
 
 
 --
--- Name: sys_login_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_login_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.sys_login_log_id_seq', 103, true);
+SELECT pg_catalog.setval('public.sys_login_log_id_seq', 158, true);
 
 
 --
--- Name: sys_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_menu_id_seq', 1, false);
 
 
 --
--- Name: sys_module_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_module_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.sys_module_id_seq', 55, true);
+SELECT pg_catalog.setval('public.sys_module_id_seq', 58, true);
 
 
 --
--- Name: sys_notice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_notice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_notice_id_seq', 8, true);
 
 
 --
--- Name: sys_operation_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_operation_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_operation_log_id_seq', 135, true);
 
 
 --
--- Name: sys_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.sys_permission_id_seq', 506, true);
+SELECT pg_catalog.setval('public.sys_permission_id_seq', 515, true);
 
 
 --
--- Name: sys_post_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_post_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_post_id_seq', 21, true);
 
 
 --
--- Name: sys_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_role_id_seq', 1, true);
 
 
 --
--- Name: sys_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_user_id_seq', 99, true);
 
 
 --
--- Name: sys_user_notice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: sys_user_notice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.sys_user_notice_id_seq', 2, true);
 
 
 --
--- Data for Name: 32793..32839; Type: BLOBS; Schema: -; Owner: -
+-- Data for Name: 32793..32839; Type: BLOBS; Schema: -; Owner: postgres
 --
 
 BEGIN;
@@ -3566,7 +3749,7 @@ SELECT pg_catalog.lo_close(0);
 COMMIT;
 
 --
--- Name: ems_alarm_config ems_alarm_config_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_alarm_config ems_alarm_config_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_alarm_config
@@ -3574,7 +3757,7 @@ ALTER TABLE ONLY public.ems_alarm_config
 
 
 --
--- Name: ems_alarm_limit_type ems_alarm_limit_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_alarm_limit_type ems_alarm_limit_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_alarm_limit_type
@@ -3582,7 +3765,7 @@ ALTER TABLE ONLY public.ems_alarm_limit_type
 
 
 --
--- Name: ems_alarm_record ems_alarm_record_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_alarm_record ems_alarm_record_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_alarm_record
@@ -3590,7 +3773,7 @@ ALTER TABLE ONLY public.ems_alarm_record
 
 
 --
--- Name: ems_benchmark ems_benchmark_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_benchmark ems_benchmark_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_benchmark
@@ -3598,7 +3781,7 @@ ALTER TABLE ONLY public.ems_benchmark
 
 
 --
--- Name: ems_cost_policy_binding ems_cost_policy_binding_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_cost_policy_binding ems_cost_policy_binding_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_cost_policy_binding
@@ -3606,7 +3789,15 @@ ALTER TABLE ONLY public.ems_cost_policy_binding
 
 
 --
--- Name: ems_energy_cost_record ems_energy_cost_record_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_data_source ems_data_source_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_data_source
+    ADD CONSTRAINT ems_data_source_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ems_energy_cost_record ems_energy_cost_record_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_cost_record
@@ -3614,7 +3805,7 @@ ALTER TABLE ONLY public.ems_energy_cost_record
 
 
 --
--- Name: ems_energy_data ems_energy_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_data ems_energy_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_data
@@ -3622,7 +3813,7 @@ ALTER TABLE ONLY public.ems_energy_data
 
 
 --
--- Name: ems_energy_saving_project ems_energy_saving_project_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_saving_project ems_energy_saving_project_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_saving_project
@@ -3630,7 +3821,7 @@ ALTER TABLE ONLY public.ems_energy_saving_project
 
 
 --
--- Name: ems_energy_type ems_energy_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_type ems_energy_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_type
@@ -3638,7 +3829,7 @@ ALTER TABLE ONLY public.ems_energy_type
 
 
 --
--- Name: ems_energy_unit ems_energy_unit_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_unit ems_energy_unit_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_unit
@@ -3646,7 +3837,7 @@ ALTER TABLE ONLY public.ems_energy_unit
 
 
 --
--- Name: ems_energy_unit_point ems_energy_unit_point_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_unit_point ems_energy_unit_point_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_unit_point
@@ -3654,7 +3845,23 @@ ALTER TABLE ONLY public.ems_energy_unit_point
 
 
 --
--- Name: ems_knowledge_article ems_knowledge_article_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_equipment ems_equipment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_equipment
+    ADD CONSTRAINT ems_equipment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ems_gateway ems_gateway_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_gateway
+    ADD CONSTRAINT ems_gateway_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ems_knowledge_article ems_knowledge_article_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_knowledge_article
@@ -3662,7 +3869,7 @@ ALTER TABLE ONLY public.ems_knowledge_article
 
 
 --
--- Name: ems_meter ems_meter_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter ems_meter_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_meter
@@ -3670,7 +3877,7 @@ ALTER TABLE ONLY public.ems_meter
 
 
 --
--- Name: ems_meter_point ems_meter_point_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter_point ems_meter_point_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_meter_point
@@ -3678,7 +3885,7 @@ ALTER TABLE ONLY public.ems_meter_point
 
 
 --
--- Name: ems_peak_valley_data ems_peak_valley_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_peak_valley_data ems_peak_valley_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_peak_valley_data
@@ -3686,7 +3893,7 @@ ALTER TABLE ONLY public.ems_peak_valley_data
 
 
 --
--- Name: ems_policy ems_policy_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_policy ems_policy_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_policy
@@ -3694,7 +3901,7 @@ ALTER TABLE ONLY public.ems_policy
 
 
 --
--- Name: ems_price_policy_item ems_price_policy_item_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_price_policy_item ems_price_policy_item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_price_policy_item
@@ -3702,7 +3909,7 @@ ALTER TABLE ONLY public.ems_price_policy_item
 
 
 --
--- Name: ems_price_policy ems_price_policy_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_price_policy ems_price_policy_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_price_policy
@@ -3710,7 +3917,7 @@ ALTER TABLE ONLY public.ems_price_policy
 
 
 --
--- Name: ems_product ems_product_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_product ems_product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_product
@@ -3718,7 +3925,7 @@ ALTER TABLE ONLY public.ems_product
 
 
 --
--- Name: ems_production_record ems_production_record_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_production_record ems_production_record_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_production_record
@@ -3726,7 +3933,7 @@ ALTER TABLE ONLY public.ems_production_record
 
 
 --
--- Name: ems_time_period_price ems_time_period_price_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_time_period_price ems_time_period_price_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_time_period_price
@@ -3734,7 +3941,7 @@ ALTER TABLE ONLY public.ems_time_period_price
 
 
 --
--- Name: sys_dict_type idx_dict_type; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_dict_type idx_dict_type; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_dict_type
@@ -3742,7 +3949,7 @@ ALTER TABLE ONLY public.sys_dict_type
 
 
 --
--- Name: sys_config sys_config_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_config sys_config_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_config
@@ -3750,7 +3957,7 @@ ALTER TABLE ONLY public.sys_config
 
 
 --
--- Name: sys_dept sys_dept_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_dept sys_dept_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_dept
@@ -3758,7 +3965,7 @@ ALTER TABLE ONLY public.sys_dept
 
 
 --
--- Name: sys_dict_data sys_dict_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_dict_data sys_dict_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_dict_data
@@ -3766,7 +3973,7 @@ ALTER TABLE ONLY public.sys_dict_data
 
 
 --
--- Name: sys_dict_type sys_dict_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_dict_type sys_dict_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_dict_type
@@ -3774,7 +3981,7 @@ ALTER TABLE ONLY public.sys_dict_type
 
 
 --
--- Name: sys_log sys_log_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_log sys_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_log
@@ -3782,7 +3989,7 @@ ALTER TABLE ONLY public.sys_log
 
 
 --
--- Name: sys_login_log sys_login_log_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_login_log sys_login_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_login_log
@@ -3790,7 +3997,7 @@ ALTER TABLE ONLY public.sys_login_log
 
 
 --
--- Name: sys_menu sys_menu_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_menu sys_menu_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_menu
@@ -3798,7 +4005,7 @@ ALTER TABLE ONLY public.sys_menu
 
 
 --
--- Name: sys_module sys_module_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_module sys_module_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_module
@@ -3806,7 +4013,7 @@ ALTER TABLE ONLY public.sys_module
 
 
 --
--- Name: sys_notice sys_notice_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_notice sys_notice_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_notice
@@ -3814,7 +4021,7 @@ ALTER TABLE ONLY public.sys_notice
 
 
 --
--- Name: sys_operation_log sys_operation_log_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_operation_log sys_operation_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_operation_log
@@ -3822,7 +4029,7 @@ ALTER TABLE ONLY public.sys_operation_log
 
 
 --
--- Name: sys_permission sys_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_permission sys_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_permission
@@ -3830,7 +4037,7 @@ ALTER TABLE ONLY public.sys_permission
 
 
 --
--- Name: sys_post sys_post_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_post sys_post_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_post
@@ -3838,7 +4045,7 @@ ALTER TABLE ONLY public.sys_post
 
 
 --
--- Name: sys_role_permission sys_role_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_role_permission sys_role_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_role_permission
@@ -3846,7 +4053,7 @@ ALTER TABLE ONLY public.sys_role_permission
 
 
 --
--- Name: sys_role sys_role_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_role sys_role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_role
@@ -3854,7 +4061,7 @@ ALTER TABLE ONLY public.sys_role
 
 
 --
--- Name: sys_user_notice sys_user_notice_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_notice sys_user_notice_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_notice
@@ -3862,7 +4069,7 @@ ALTER TABLE ONLY public.sys_user_notice
 
 
 --
--- Name: sys_user_permission sys_user_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_permission sys_user_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_permission
@@ -3870,7 +4077,7 @@ ALTER TABLE ONLY public.sys_user_permission
 
 
 --
--- Name: sys_user sys_user_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user sys_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user
@@ -3878,7 +4085,7 @@ ALTER TABLE ONLY public.sys_user
 
 
 --
--- Name: sys_user_post sys_user_post_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_post sys_user_post_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_post
@@ -3886,7 +4093,7 @@ ALTER TABLE ONLY public.sys_user_post
 
 
 --
--- Name: sys_user_role sys_user_role_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_role sys_user_role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_role
@@ -3894,7 +4101,7 @@ ALTER TABLE ONLY public.sys_user_role
 
 
 --
--- Name: ems_energy_unit uk1dd9o4p4mktlib0tq3gpnl2gu; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_unit uk1dd9o4p4mktlib0tq3gpnl2gu; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_unit
@@ -3902,7 +4109,7 @@ ALTER TABLE ONLY public.ems_energy_unit
 
 
 --
--- Name: sys_permission uk2vm98en2ouht0v15fvef2whp4; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_permission uk2vm98en2ouht0v15fvef2whp4; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_permission
@@ -3910,7 +4117,7 @@ ALTER TABLE ONLY public.sys_permission
 
 
 --
--- Name: sys_user uk51bvuyvihefoh4kp5syh2jpi4; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user uk51bvuyvihefoh4kp5syh2jpi4; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user
@@ -3918,7 +4125,15 @@ ALTER TABLE ONLY public.sys_user
 
 
 --
--- Name: ems_benchmark uk541184xedrs6lp0yd95kiplis; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_gateway uk540tj2jwrnu736khhw3kkou6f; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_gateway
+    ADD CONSTRAINT uk540tj2jwrnu736khhw3kkou6f UNIQUE (code);
+
+
+--
+-- Name: ems_benchmark uk541184xedrs6lp0yd95kiplis; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_benchmark
@@ -3926,7 +4141,7 @@ ALTER TABLE ONLY public.ems_benchmark
 
 
 --
--- Name: ems_meter uk5xsxp2n696rrf80766t933ly8; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter uk5xsxp2n696rrf80766t933ly8; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_meter
@@ -3934,7 +4149,7 @@ ALTER TABLE ONLY public.ems_meter
 
 
 --
--- Name: sys_dict_data uk_dict_data_value_type; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_dict_data uk_dict_data_value_type; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_dict_data
@@ -3942,7 +4157,7 @@ ALTER TABLE ONLY public.sys_dict_data
 
 
 --
--- Name: ems_alarm_limit_type ukco6bbk2823t0js0qnrd41naxu; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_alarm_limit_type ukco6bbk2823t0js0qnrd41naxu; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_alarm_limit_type
@@ -3950,7 +4165,7 @@ ALTER TABLE ONLY public.ems_alarm_limit_type
 
 
 --
--- Name: sys_user_notice uke8tesnqlq4mwewoyko7609fxb; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_notice uke8tesnqlq4mwewoyko7609fxb; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_notice
@@ -3958,7 +4173,7 @@ ALTER TABLE ONLY public.sys_user_notice
 
 
 --
--- Name: sys_config ukellx5pgxddrdrfyvtfbgxccvl; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_config ukellx5pgxddrdrfyvtfbgxccvl; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_config
@@ -3966,7 +4181,15 @@ ALTER TABLE ONLY public.sys_config
 
 
 --
--- Name: ems_product ukj7ymku309maor470onudrjq3n; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_equipment ukhm2u8wcbuaq9ayj62omxvuq67; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_equipment
+    ADD CONSTRAINT ukhm2u8wcbuaq9ayj62omxvuq67 UNIQUE (code);
+
+
+--
+-- Name: ems_product ukj7ymku309maor470onudrjq3n; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_product
@@ -3974,7 +4197,7 @@ ALTER TABLE ONLY public.ems_product
 
 
 --
--- Name: ems_meter_point ukjb553gu8ityk06dbghpfbmroy; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter_point ukjb553gu8ityk06dbghpfbmroy; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_meter_point
@@ -3982,7 +4205,7 @@ ALTER TABLE ONLY public.ems_meter_point
 
 
 --
--- Name: ems_price_policy ukks5jbvi22h30gn1g1fysder64; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_price_policy ukks5jbvi22h30gn1g1fysder64; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_price_policy
@@ -3990,7 +4213,7 @@ ALTER TABLE ONLY public.ems_price_policy
 
 
 --
--- Name: sys_module uknoavfxvjvs053hbvxfixe0gw2; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_module uknoavfxvjvs053hbvxfixe0gw2; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_module
@@ -3998,7 +4221,7 @@ ALTER TABLE ONLY public.sys_module
 
 
 --
--- Name: sys_role ukplpigyqwsqfn7mn66npgf9ftp; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_role ukplpigyqwsqfn7mn66npgf9ftp; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_role
@@ -4006,7 +4229,7 @@ ALTER TABLE ONLY public.sys_role
 
 
 --
--- Name: sys_user ukpulp17fvich5aby4m0kc820h6; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user ukpulp17fvich5aby4m0kc820h6; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user
@@ -4014,7 +4237,7 @@ ALTER TABLE ONLY public.sys_user
 
 
 --
--- Name: ems_energy_type ukqyk5p9pr4r421rh8un10ddyi6; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_type ukqyk5p9pr4r421rh8un10ddyi6; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_type
@@ -4022,7 +4245,7 @@ ALTER TABLE ONLY public.ems_energy_type
 
 
 --
--- Name: sys_post ukr5b7w4kya2gmxcc1asyns6odk; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_post ukr5b7w4kya2gmxcc1asyns6odk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_post
@@ -4030,518 +4253,568 @@ ALTER TABLE ONLY public.sys_post
 
 
 --
--- Name: idx_alarm_config_limit; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_alarm_config_limit; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_alarm_config_limit ON public.ems_alarm_config USING btree (limit_type_id);
 
 
 --
--- Name: idx_alarm_config_meter_point; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_alarm_config_meter_point; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_alarm_config_meter_point ON public.ems_alarm_config USING btree (meter_point_id);
 
 
 --
--- Name: idx_alarm_limit_type_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_alarm_limit_type_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_alarm_limit_type_code ON public.ems_alarm_limit_type USING btree (limit_code);
 
 
 --
--- Name: idx_alarm_record_config; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_alarm_record_config; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_alarm_record_config ON public.ems_alarm_record USING btree (config_id);
 
 
 --
--- Name: idx_alarm_record_time; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_alarm_record_time; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_alarm_record_time ON public.ems_alarm_record USING btree (trigger_time);
 
 
 --
--- Name: idx_benchmark_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_benchmark_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_benchmark_code ON public.ems_benchmark USING btree (code);
 
 
 --
--- Name: idx_benchmark_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_benchmark_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_benchmark_type ON public.ems_benchmark USING btree (type);
 
 
 --
--- Name: idx_cpb_energy_unit; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_cpb_energy_unit; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_cpb_energy_unit ON public.ems_cost_policy_binding USING btree (energy_unit_id);
 
 
 --
--- Name: idx_cpb_price_policy; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_cpb_price_policy; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_cpb_price_policy ON public.ems_cost_policy_binding USING btree (price_policy_id);
 
 
 --
--- Name: idx_dict_data_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_data_source_gateway; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_data_source_gateway ON public.ems_data_source USING btree (gateway_id);
+
+
+--
+-- Name: idx_data_source_protocol; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_data_source_protocol ON public.ems_data_source USING btree (protocol);
+
+
+--
+-- Name: idx_dict_data_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_dict_data_type ON public.sys_dict_data USING btree (type_code);
 
 
 --
--- Name: idx_ecr_energy_unit; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_ecr_energy_unit; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_ecr_energy_unit ON public.ems_energy_cost_record USING btree (energy_unit_id);
 
 
 --
--- Name: idx_ecr_period_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_ecr_period_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_ecr_period_type ON public.ems_energy_cost_record USING btree (period_type);
 
 
 --
--- Name: idx_ecr_record_date; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_ecr_record_date; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_ecr_record_date ON public.ems_energy_cost_record USING btree (record_date);
 
 
 --
--- Name: idx_energy_data_composite; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_energy_data_composite; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_energy_data_composite ON public.ems_energy_data USING btree (meter_point_id, data_time, time_type);
 
 
 --
--- Name: idx_energy_data_point; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_energy_data_point; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_energy_data_point ON public.ems_energy_data USING btree (meter_point_id);
 
 
 --
--- Name: idx_energy_data_time; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_energy_data_time; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_energy_data_time ON public.ems_energy_data USING btree (data_time, time_type);
 
 
 --
--- Name: idx_energy_data_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_energy_data_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_energy_data_type ON public.ems_energy_data USING btree (energy_type_id);
 
 
 --
--- Name: idx_energy_type_category; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_energy_type_category; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_energy_type_category ON public.ems_energy_type USING btree (category);
 
 
 --
--- Name: idx_energy_type_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_energy_type_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_energy_type_code ON public.ems_energy_type USING btree (code);
 
 
 --
--- Name: idx_energy_unit_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_energy_unit_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_energy_unit_code ON public.ems_energy_unit USING btree (code);
 
 
 --
--- Name: idx_energy_unit_parent; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_energy_unit_parent; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_energy_unit_parent ON public.ems_energy_unit USING btree (parent_id);
 
 
 --
--- Name: idx_energy_unit_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_energy_unit_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_energy_unit_type ON public.ems_energy_unit USING btree (unit_type);
 
 
 --
--- Name: idx_knowledge_energy_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_equipment_code; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_equipment_code ON public.ems_equipment USING btree (code);
+
+
+--
+-- Name: idx_equipment_energy_unit; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_equipment_energy_unit ON public.ems_equipment USING btree (energy_unit_id);
+
+
+--
+-- Name: idx_gateway_code; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_gateway_code ON public.ems_gateway USING btree (code);
+
+
+--
+-- Name: idx_gateway_energy_unit; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_gateway_energy_unit ON public.ems_gateway USING btree (energy_unit_id);
+
+
+--
+-- Name: idx_knowledge_energy_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_knowledge_energy_type ON public.ems_knowledge_article USING btree (energy_type_id);
 
 
 --
--- Name: idx_knowledge_status; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_knowledge_status; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_knowledge_status ON public.ems_knowledge_article USING btree (status);
 
 
 --
--- Name: idx_meter_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_meter_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_meter_code ON public.ems_meter USING btree (code);
 
 
 --
--- Name: idx_meter_energy_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_meter_energy_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_meter_energy_type ON public.ems_meter USING btree (energy_type_id);
 
 
 --
--- Name: idx_meter_point_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_meter_point_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_meter_point_code ON public.ems_meter_point USING btree (code);
 
 
 --
--- Name: idx_meter_point_energy_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_meter_point_energy_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_meter_point_energy_type ON public.ems_meter_point USING btree (energy_type_id);
 
 
 --
--- Name: idx_meter_point_meter; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_meter_point_meter; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_meter_point_meter ON public.ems_meter_point USING btree (meter_id);
 
 
 --
--- Name: idx_meter_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_meter_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_meter_type ON public.ems_meter USING btree (type);
 
 
 --
--- Name: idx_permission_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_permission_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_permission_code ON public.sys_permission USING btree (code);
 
 
 --
--- Name: idx_permission_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_permission_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_permission_id ON public.sys_permission USING btree (id);
 
 
 --
--- Name: idx_policy_issuing_date; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_policy_issuing_date; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_policy_issuing_date ON public.ems_policy USING btree (issuing_date);
 
 
 --
--- Name: idx_policy_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_policy_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_policy_type ON public.ems_policy USING btree (type);
 
 
 --
--- Name: idx_price_policy_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_price_policy_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_price_policy_code ON public.ems_price_policy USING btree (code);
 
 
 --
--- Name: idx_price_policy_energy_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_price_policy_energy_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_price_policy_energy_type ON public.ems_price_policy USING btree (energy_type_id);
 
 
 --
--- Name: idx_price_policy_item_policy; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_price_policy_item_policy; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_price_policy_item_policy ON public.ems_price_policy_item USING btree (policy_id);
 
 
 --
--- Name: idx_product_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_product_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_product_code ON public.ems_product USING btree (code);
 
 
 --
--- Name: idx_product_status; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_product_status; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_product_status ON public.ems_product USING btree (status);
 
 
 --
--- Name: idx_production_date; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_production_date; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_production_date ON public.ems_production_record USING btree (record_date);
 
 
 --
--- Name: idx_production_energy_unit; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_production_energy_unit; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_production_energy_unit ON public.ems_production_record USING btree (energy_unit_id);
 
 
 --
--- Name: idx_production_product; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_production_product; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_production_product ON public.ems_production_record USING btree (product_name);
 
 
 --
--- Name: idx_pvd_data_time; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_pvd_data_time; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_pvd_data_time ON public.ems_peak_valley_data USING btree (data_time, time_type);
 
 
 --
--- Name: idx_pvd_energy_unit; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_pvd_energy_unit; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_pvd_energy_unit ON public.ems_peak_valley_data USING btree (energy_unit_id);
 
 
 --
--- Name: idx_pvd_meter_point; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_pvd_meter_point; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_pvd_meter_point ON public.ems_peak_valley_data USING btree (meter_point_id);
 
 
 --
--- Name: idx_role_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_role_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_role_code ON public.sys_role USING btree (code);
 
 
 --
--- Name: idx_role_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_role_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_role_id ON public.sys_role USING btree (id);
 
 
 --
--- Name: idx_role_perm_permission_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_role_perm_permission_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_role_perm_permission_id ON public.sys_role_permission USING btree (permission_id);
 
 
 --
--- Name: idx_role_perm_role_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_role_perm_role_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_role_perm_role_id ON public.sys_role_permission USING btree (role_id);
 
 
 --
--- Name: idx_saving_project_liable; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_saving_project_liable; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_saving_project_liable ON public.ems_energy_saving_project USING btree (liable_person);
 
 
 --
--- Name: idx_saving_project_status; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_saving_project_status; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_saving_project_status ON public.ems_energy_saving_project USING btree (status);
 
 
 --
--- Name: idx_sys_dept_parent; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_dept_parent; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_dept_parent ON public.sys_dept USING btree (parent_id);
 
 
 --
--- Name: idx_sys_dept_status; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_dept_status; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_dept_status ON public.sys_dept USING btree (status);
 
 
 --
--- Name: idx_sys_log_time; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_log_time; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_log_time ON public.sys_log USING btree (created_at);
 
 
 --
--- Name: idx_sys_log_type; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_log_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_log_type ON public.sys_log USING btree (log_type);
 
 
 --
--- Name: idx_sys_log_user; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_log_user; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_log_user ON public.sys_log USING btree (username);
 
 
 --
--- Name: idx_sys_login_status; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_login_status; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_login_status ON public.sys_login_log USING btree (status);
 
 
 --
--- Name: idx_sys_login_time; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_login_time; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_login_time ON public.sys_login_log USING btree (login_time);
 
 
 --
--- Name: idx_sys_menu_parent; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_menu_parent; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_menu_parent ON public.sys_menu USING btree (parent_id);
 
 
 --
--- Name: idx_sys_oper_log_status; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_oper_log_status; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_oper_log_status ON public.sys_operation_log USING btree (status);
 
 
 --
--- Name: idx_sys_oper_log_time; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_oper_log_time; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_oper_log_time ON public.sys_operation_log USING btree (created_at);
 
 
 --
--- Name: idx_sys_oper_log_title; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_oper_log_title; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_oper_log_title ON public.sys_operation_log USING btree (title);
 
 
 --
--- Name: idx_sys_post_code; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_post_code; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_post_code ON public.sys_post USING btree (code);
 
 
 --
--- Name: idx_sys_user_phone; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_user_phone; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_user_phone ON public.sys_user USING btree (phone);
 
 
 --
--- Name: idx_sys_user_username; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_sys_user_username; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_sys_user_username ON public.sys_user USING btree (username);
 
 
 --
--- Name: idx_user_notice_notice_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_user_notice_notice_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_user_notice_notice_id ON public.sys_user_notice USING btree (notice_id);
 
 
 --
--- Name: idx_user_notice_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_user_notice_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_user_notice_user_id ON public.sys_user_notice USING btree (user_id);
 
 
 --
--- Name: idx_user_permission_permission_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_user_permission_permission_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_user_permission_permission_id ON public.sys_user_permission USING btree (permission_id);
 
 
 --
--- Name: idx_user_permission_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_user_permission_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_user_permission_user_id ON public.sys_user_permission USING btree (user_id);
 
 
 --
--- Name: idx_user_post_post_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_user_post_post_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_user_post_post_id ON public.sys_user_post USING btree (post_id);
 
 
 --
--- Name: idx_user_post_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_user_post_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_user_post_user_id ON public.sys_user_post USING btree (user_id);
 
 
 --
--- Name: idx_user_role_role_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_user_role_role_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_user_role_role_id ON public.sys_user_role USING btree (role_id);
 
 
 --
--- Name: idx_user_role_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_user_role_user_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX idx_user_role_user_id ON public.sys_user_role USING btree (user_id);
 
 
 --
--- Name: ems_time_period_price fk2a7o9rx5066t0bxuhqovre0jv; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_equipment fk10egc3sjv1hqpxosvkbfqgrr7; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_equipment
+    ADD CONSTRAINT fk10egc3sjv1hqpxosvkbfqgrr7 FOREIGN KEY (energy_unit_id) REFERENCES public.ems_energy_unit(id);
+
+
+--
+-- Name: ems_time_period_price fk2a7o9rx5066t0bxuhqovre0jv; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_time_period_price
@@ -4549,7 +4822,7 @@ ALTER TABLE ONLY public.ems_time_period_price
 
 
 --
--- Name: sys_menu fk2jrf4gb0gjqi8882gxytpxnhe; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_menu fk2jrf4gb0gjqi8882gxytpxnhe; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_menu
@@ -4557,7 +4830,15 @@ ALTER TABLE ONLY public.sys_menu
 
 
 --
--- Name: ems_peak_valley_data fk2xxsklymdmvnetmrqbh4v4qfv; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter fk2u7l39m9oc8l1x0gbrm030auy; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_meter
+    ADD CONSTRAINT fk2u7l39m9oc8l1x0gbrm030auy FOREIGN KEY (data_source_id) REFERENCES public.ems_data_source(id);
+
+
+--
+-- Name: ems_peak_valley_data fk2xxsklymdmvnetmrqbh4v4qfv; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_peak_valley_data
@@ -4565,7 +4846,15 @@ ALTER TABLE ONLY public.ems_peak_valley_data
 
 
 --
--- Name: ems_peak_valley_data fk5rnu6abd4lmuhx0qomoybvqs7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_data_source fk4ooqkat90bq8bdplv00h2ntjd; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_data_source
+    ADD CONSTRAINT fk4ooqkat90bq8bdplv00h2ntjd FOREIGN KEY (gateway_id) REFERENCES public.ems_gateway(id);
+
+
+--
+-- Name: ems_peak_valley_data fk5rnu6abd4lmuhx0qomoybvqs7; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_peak_valley_data
@@ -4573,7 +4862,15 @@ ALTER TABLE ONLY public.ems_peak_valley_data
 
 
 --
--- Name: ems_cost_policy_binding fk8o2swh51gx7j0nfgnq5t4ut1p; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_gateway fk7vhm0u72mjn0bhdx33x1gp54a; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_gateway
+    ADD CONSTRAINT fk7vhm0u72mjn0bhdx33x1gp54a FOREIGN KEY (energy_unit_id) REFERENCES public.ems_energy_unit(id);
+
+
+--
+-- Name: ems_cost_policy_binding fk8o2swh51gx7j0nfgnq5t4ut1p; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_cost_policy_binding
@@ -4581,7 +4878,7 @@ ALTER TABLE ONLY public.ems_cost_policy_binding
 
 
 --
--- Name: sys_dept fk8wb8qylwmt7squef8hedew4qe; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_dept fk8wb8qylwmt7squef8hedew4qe; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_dept
@@ -4589,7 +4886,7 @@ ALTER TABLE ONLY public.sys_dept
 
 
 --
--- Name: sys_role_permission fk9q28ewrhntqeipl1t04kh1be7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_role_permission fk9q28ewrhntqeipl1t04kh1be7; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_role_permission
@@ -4597,7 +4894,7 @@ ALTER TABLE ONLY public.sys_role_permission
 
 
 --
--- Name: ems_meter_point fk9raqe49pu25u5l2657351qs6u; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter_point fk9raqe49pu25u5l2657351qs6u; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_meter_point
@@ -4605,7 +4902,7 @@ ALTER TABLE ONLY public.ems_meter_point
 
 
 --
--- Name: ems_alarm_config fk_alarm_config_meter_point; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_alarm_config fk_alarm_config_meter_point; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_alarm_config
@@ -4613,7 +4910,7 @@ ALTER TABLE ONLY public.ems_alarm_config
 
 
 --
--- Name: ems_price_policy_item fkaujit7a1vuuxapn5k3ki5u3dk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_price_policy_item fkaujit7a1vuuxapn5k3ki5u3dk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_price_policy_item
@@ -4621,7 +4918,7 @@ ALTER TABLE ONLY public.ems_price_policy_item
 
 
 --
--- Name: sys_user fkb3pkx0wbo6o8i8lj0gxr37v1n; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user fkb3pkx0wbo6o8i8lj0gxr37v1n; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user
@@ -4629,7 +4926,7 @@ ALTER TABLE ONLY public.sys_user
 
 
 --
--- Name: sys_user_role fkb40xxfch70f5qnyfw8yme1n1s; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_role fkb40xxfch70f5qnyfw8yme1n1s; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_role
@@ -4637,7 +4934,7 @@ ALTER TABLE ONLY public.sys_user_role
 
 
 --
--- Name: sys_permission fkbvx60lch0yucxxb6pm8i4s3r5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_permission fkbvx60lch0yucxxb6pm8i4s3r5; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_permission
@@ -4645,7 +4942,7 @@ ALTER TABLE ONLY public.sys_permission
 
 
 --
--- Name: ems_energy_cost_record fkcr8m7fqdmugsugc5aec8ofv9a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_cost_record fkcr8m7fqdmugsugc5aec8ofv9a; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_cost_record
@@ -4653,7 +4950,7 @@ ALTER TABLE ONLY public.ems_energy_cost_record
 
 
 --
--- Name: sys_dept fkd5ou5hch26i1tk6m8jc4fpirw; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_dept fkd5ou5hch26i1tk6m8jc4fpirw; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_dept
@@ -4661,7 +4958,7 @@ ALTER TABLE ONLY public.sys_dept
 
 
 --
--- Name: ems_alarm_record fkde5gs6tyxlc7em2ikb2tjgxh5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_alarm_record fkde5gs6tyxlc7em2ikb2tjgxh5; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_alarm_record
@@ -4669,7 +4966,7 @@ ALTER TABLE ONLY public.ems_alarm_record
 
 
 --
--- Name: ems_price_policy fkdm20pwebfqrjy1x2p78lk7s19; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_price_policy fkdm20pwebfqrjy1x2p78lk7s19; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_price_policy
@@ -4677,7 +4974,7 @@ ALTER TABLE ONLY public.ems_price_policy
 
 
 --
--- Name: sys_user_permission fke1o35okbrlv0wbsq4o8tw6mbp; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_permission fke1o35okbrlv0wbsq4o8tw6mbp; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_permission
@@ -4685,7 +4982,7 @@ ALTER TABLE ONLY public.sys_user_permission
 
 
 --
--- Name: ems_energy_cost_record fke4enn5gcecv26cv6qqw5v67j4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_cost_record fke4enn5gcecv26cv6qqw5v67j4; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_cost_record
@@ -4693,7 +4990,7 @@ ALTER TABLE ONLY public.ems_energy_cost_record
 
 
 --
--- Name: ems_meter_point fkeoh88jlbidlicytes7sy48uim; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter_point fkeoh88jlbidlicytes7sy48uim; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_meter_point
@@ -4701,7 +4998,7 @@ ALTER TABLE ONLY public.ems_meter_point
 
 
 --
--- Name: sys_user_role fkhh52n8vd4ny9ff4x9fb8v65qx; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_role fkhh52n8vd4ny9ff4x9fb8v65qx; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_role
@@ -4709,7 +5006,7 @@ ALTER TABLE ONLY public.sys_user_role
 
 
 --
--- Name: ems_energy_data fkhxwy6yrxwkmng9culxcvybt25; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_data fkhxwy6yrxwkmng9culxcvybt25; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_data
@@ -4717,7 +5014,7 @@ ALTER TABLE ONLY public.ems_energy_data
 
 
 --
--- Name: ems_meter fkimy8spwpso0kru9e6k2kr5t74; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter fkimy8spwpso0kru9e6k2kr5t74; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_meter
@@ -4725,7 +5022,7 @@ ALTER TABLE ONLY public.ems_meter
 
 
 --
--- Name: ems_cost_policy_binding fkj65jboyv49b49jsk2v9ibcfn6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_cost_policy_binding fkj65jboyv49b49jsk2v9ibcfn6; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_cost_policy_binding
@@ -4733,7 +5030,15 @@ ALTER TABLE ONLY public.ems_cost_policy_binding
 
 
 --
--- Name: ems_energy_data fkl2rph682la6pe73bnxopxccwn; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter fkkoulbk3qfxd9qcljn9ivf80ae; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_meter
+    ADD CONSTRAINT fkkoulbk3qfxd9qcljn9ivf80ae FOREIGN KEY (energy_unit_id) REFERENCES public.ems_energy_unit(id);
+
+
+--
+-- Name: ems_energy_data fkl2rph682la6pe73bnxopxccwn; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_data
@@ -4741,7 +5046,7 @@ ALTER TABLE ONLY public.ems_energy_data
 
 
 --
--- Name: sys_role_dept fkmdoybh4v5t2ooi48m3307n7fx; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_role_dept fkmdoybh4v5t2ooi48m3307n7fx; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_role_dept
@@ -4749,7 +5054,7 @@ ALTER TABLE ONLY public.sys_role_dept
 
 
 --
--- Name: sys_user_post fkng2mc7xcmyerevvobtw95bmu9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_post fkng2mc7xcmyerevvobtw95bmu9; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_post
@@ -4757,7 +5062,7 @@ ALTER TABLE ONLY public.sys_user_post
 
 
 --
--- Name: ems_alarm_config fknguophx1udpdc43j06f6m3wdg; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_alarm_config fknguophx1udpdc43j06f6m3wdg; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_alarm_config
@@ -4765,7 +5070,7 @@ ALTER TABLE ONLY public.ems_alarm_config
 
 
 --
--- Name: ems_energy_unit fknlkr4e061x5t6wx2u6broi9sd; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_unit fknlkr4e061x5t6wx2u6broi9sd; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_unit
@@ -4773,7 +5078,15 @@ ALTER TABLE ONLY public.ems_energy_unit
 
 
 --
--- Name: sys_role_permission fkomxrs8a388bknvhjokh440waq; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter fko56nq0xbio15g04g3lh34q55j; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_meter
+    ADD CONSTRAINT fko56nq0xbio15g04g3lh34q55j FOREIGN KEY (gateway_id) REFERENCES public.ems_gateway(id);
+
+
+--
+-- Name: sys_role_permission fkomxrs8a388bknvhjokh440waq; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_role_permission
@@ -4781,7 +5094,7 @@ ALTER TABLE ONLY public.sys_role_permission
 
 
 --
--- Name: sys_user_permission fkoo9oirp69aql5xrde05q948ja; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_permission fkoo9oirp69aql5xrde05q948ja; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_permission
@@ -4789,7 +5102,7 @@ ALTER TABLE ONLY public.sys_user_permission
 
 
 --
--- Name: sys_user_post fkpjx0gi8xwm66cp1w1jvi4hc57; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sys_user_post fkpjx0gi8xwm66cp1w1jvi4hc57; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sys_user_post
@@ -4797,7 +5110,7 @@ ALTER TABLE ONLY public.sys_user_post
 
 
 --
--- Name: ems_energy_unit_point fkpuo4y0owrgxop99sru6qqbtdf; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_energy_unit_point fkpuo4y0owrgxop99sru6qqbtdf; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_unit_point
@@ -4805,7 +5118,15 @@ ALTER TABLE ONLY public.ems_energy_unit_point
 
 
 --
--- Name: ems_energy_unit_point fksuy4wdg82ye58frkig3ubp606; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_meter fkr9nq2wwgs21wma5bd7wos93gr; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ems_meter
+    ADD CONSTRAINT fkr9nq2wwgs21wma5bd7wos93gr FOREIGN KEY (equipment_id) REFERENCES public.ems_equipment(id);
+
+
+--
+-- Name: ems_energy_unit_point fksuy4wdg82ye58frkig3ubp606; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_energy_unit_point
@@ -4813,7 +5134,7 @@ ALTER TABLE ONLY public.ems_energy_unit_point
 
 
 --
--- Name: ems_benchmark fkuimhqqp60r0iotcwwu346jel; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ems_benchmark fkuimhqqp60r0iotcwwu346jel; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ems_benchmark
